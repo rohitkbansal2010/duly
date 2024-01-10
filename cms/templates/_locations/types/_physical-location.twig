@@ -1,0 +1,117 @@
+{% if office.hiddenLocation != true %}
+<div class="location single-location" data-location-lat="{{office.address.lat}}" data-location-lng="{{office.address.lng}}" data-location-address="{{office.address.address}}" data-location-city="{{office.address.city}}">
+    <div class="row">
+        {% set physicalAddress = office.address.parts %}
+
+        <div class="office">
+            {% if schedulingPostOnLocationClick is defined and schedulingPostOnLocationClick %}
+                <form class="tile" method="POST">
+                    <button>
+                        {{ csrfInput() }}
+                        <input type="hidden" name="location_id" value="{{office.id}}">
+                        <div>
+                            <p class="address">{{ physicalAddress.number }} {{ physicalAddress.address }}</p>
+                            <p class="city">{{ physicalAddress.city }}, {{ physicalAddress.state }} {{ physicalAddress.postcode }}</p>
+                        </div>
+                        {% set nextAvailable = getNextAvailableAppointment(office, chosenVisitTypeCode) %}
+                        {% if nextAvailable %}
+                            <div class="nextAvailable">
+                                <div>Next Available:</div>
+                                <p>{{ nextAvailable }}</p>
+                            </div>
+                        {% endif %}
+                    </button>
+                </form>
+            {% else %}
+                <a href="{{ office.getUrl() }}">
+                    <p class="address">{{ physicalAddress.number }} {{ physicalAddress.address }}</p>
+                    <p class="city">{{ physicalAddress.city }}, {{ physicalAddress.state }} {{ physicalAddress.postcode }}</p>
+                </a>
+            {% endif %}
+        </div>
+
+        {% if office.immediateCareLocation %}
+            <div class="tool-tip immediate-care-label">
+                <div class="label">
+                    <div class="icon"></div>
+                    <p class="toggle-tip" tabindex="0">{{ "Immediate Care" }}</p>
+                </div>
+                
+                <div class="tip">
+                    <div class="container">
+                        <p>{{ "Staffed by emergency medicine providers providing urgent care for illness or injury. Call "|t }}<a href="tel:+1-888-693-6437" class="link-effect">{{ "1-888-693-6437"|t }}</a>{{ " to schedule."|t }}</p>
+                        <span class="material-icons close"></span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if office.expressCareLocation %}
+            <div class="tool-tip express-care-label">
+                <div class="label">
+                    <div class="icon"></div>
+                    <p class="toggle-tip" tabindex="0">{{ "Express Care" }}</p>
+                </div>
+                
+                <div class="tip">
+                    <div class="container">
+                        <p>{{ "Same-day appointments for physicals, illness and minor injury. Call "|t }}<a href="tel:+1-888-693-6437" class="link-effect">{{ "1-888-693-6437"|t }}</a>{{ " to schedule."|t }}</p>
+                        <span class="material-icons close"></span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if hideLocationServices is not defined or not hideLocationServices %}
+        <div class="specialties">
+            {% set services = getServicesForLocation(office) %}
+
+            {% set count = 0 %}
+            {% for service, attr in services %}
+                {% if count % 9 == 0 %}
+                    <div class="col"><div class="speciality">
+                {% endif %}
+                    {% set count = count + 1 %}
+                    {% if attr["children"]|length == 0 %}
+                        <p class="single-speciality">{{ service }}</p>
+                    {% elseif attr["children"]|length <= 2 %}
+                        <div class="open-container expand">
+                            <div class="header">
+                                <p>{{ service }}</p>
+                            </div>
+                            <ul>
+                                {% for subservice, ids in attr["children"] %}
+                                    <li>{{ subservice }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        <div class="dropdown-container">
+                            <div class="header" tabindex="0">
+                                <p>{{ service }}</p>
+                                <i class="material-icons keyboard_arrow_down"></i>
+                            </div>
+                            <ul>
+                                {% for subservice, ids in attr["children"] %}
+                                    <li>{{ subservice }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% if count % 9 == 0 %}
+                    </div></div>
+                {% endif %}
+            {% endfor %}
+
+            {% if count % 9 != 0 %}
+                </div></div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    {% if userLat is defined and userLat is not null and userLng is defined and userLng is not null %}
+        <p class="distance">{{ getUserDistance(userLng, userLat, office.address.lng, office.address.lat)|number_format(1) }} {{ 'miles'|t }} </p>
+    {% endif %}
+</div>
+<hr>
+{% endif %}

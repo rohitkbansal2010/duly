@@ -1,0 +1,5 @@
+apiVersion: v2
+name: webapi
+description: A generic helm chart for BE components of the collaboration view project.
+type: application
+version: 0.1.0

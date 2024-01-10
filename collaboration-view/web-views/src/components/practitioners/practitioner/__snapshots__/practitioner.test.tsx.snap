@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Practitioner should render the "Practitioner" component with role MA 1`] = `
+<button
+  className="practitioner  "
+  style={
+    Object {
+      "cursor": "default",
+    }
+  }
+>
+  <Avatar
+    alt="Jane Morris"
+    hasBorder={false}
+    role="RegularEmployee"
+    src="data:image/x-png;base64,data"
+    width={3}
+  />
+  <div
+    className="practitionerInfo"
+  >
+    <div
+      className="practitionerInfoHumanName "
+    >
+      Jane
+    </div>
+    <div
+      className="practitionerInfoRole"
+    >
+      MA
+    </div>
+  </div>
+</button>
+`;

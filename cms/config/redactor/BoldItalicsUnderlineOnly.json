@@ -1,0 +1,6 @@
+{
+    "buttons": ["bold", "italic", "underline", "link", "html"],
+    "linkNewTab": true,
+    "toolbarFixed": true
+  }
+  

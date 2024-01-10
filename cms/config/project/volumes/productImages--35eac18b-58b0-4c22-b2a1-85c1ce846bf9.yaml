@@ -1,0 +1,17 @@
+fieldLayouts:
+    12926741-176c-4d9e-a5ba-161fc6135896: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\AssetTitleField, warning: null, width: 100 }, { fieldUid: 3764ef78-f7e2-4e83-a88f-db0c6111c2c5, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: productImages
+hasUrls: true
+name: 'Product Images'
+settings:
+    accountKey: $AZURE_STORAGE_ACCOUNT_KEY
+    accountName: $AZURE_STORAGE_ACCOUNT_NAME
+    azureStorageType: blob
+    blobEndpoint: ''
+    containerName: $AZURE_STORAGE_CONTAINER_NAME
+    subfolder: product-images
+sortOrder: 14
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+type: shennyg\azureblobremotevolume\AzureVolume
+url: '@assetBaseUrl'

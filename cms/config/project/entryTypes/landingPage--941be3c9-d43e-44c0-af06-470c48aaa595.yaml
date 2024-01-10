@@ -1,0 +1,10 @@
+fieldLayouts:
+    b05229ee-5b57-475b-8f7e-5c989563a06d: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: 'Main page title. 20-25 characters each line across, 2 lines max. Total characters: 40', label: '', max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: f54f3510-647b-492f-88ba-bacadd0f6925, instructions: '', label: '', required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: d882add9-2667-4f8e-a94b-8c010479feb4, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 71684f94-91d6-42bb-943c-58b6a469a8fa, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 37f430c2-9f18-46af-9db1-e46b75a134f8, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 1d80fdda-9dfa-4ce3-ad36-a2106a930c66, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 040d7af6-9552-4411-95ef-eee099989b85, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 71a7dca7-8a37-4f21-b74d-74ac7e089322, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: landingPage
+hasTitleField: true
+name: 'Landing Page'
+section: 78f9a57d-50e8-472c-9fe5-23664de6ee0a
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

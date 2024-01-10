@@ -1,0 +1,9 @@
+handle: primaryNavigation
+instructions: 'The primary navigation for the site defines what links should appear in the top bar, and what child elements they should have. Use the pipe "|" character to separate the primary title from any descriptive content you wish to appear under a sub-resource.'
+maxNodes: ''
+name: 'Primary Navigation'
+propagateNodes: true
+sortOrder: 2
+structure:
+    maxLevels: '2'
+    uid: f7ec4388-38bb-4302-b9d2-2e92c1c3cb06

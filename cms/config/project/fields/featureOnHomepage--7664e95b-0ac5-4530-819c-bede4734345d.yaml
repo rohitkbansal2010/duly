@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 59d569da-1526-45bb-bd4c-883ccf638fd3
+handle: featureOnHomepage
+instructions: 'Should this article be featured on the homepage?'
+name: 'Feature on Homepage'
+searchable: false
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

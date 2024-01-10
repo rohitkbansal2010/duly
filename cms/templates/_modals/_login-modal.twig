@@ -1,0 +1,30 @@
+{% set patientUser = craft.app.patient_user.identity %}
+{% if patientUser and not patientUser.anonymous %}
+    {% set patients = patientUser.getPatients() %}
+    <div class="modal choose-patient-prompt {{ showModal ?? 'hidden' }}">
+        <div class="content">
+            <form method="POST" action="/schedule/set-current-patient">
+                {{ csrfInput() }}
+
+                {% if includeServiceIds is defined and serviceId is not null and primaryLocationId is defined and primaryLocationId is not null %}
+                    {% set reset = patientUser.resetUserData() %}
+                    {{ html.hiddenInput('appointmentServiceIds[]', serviceId)|raw }}
+                    {{ html.hiddenInput('location_id', primaryLocationId)|raw }}
+                {% endif %}
+                
+                <h2>{{ "Who are you scheduling an appointment for?"|t}}</h2>
+                <div class="form-actions">
+                    {% for key,value in patients %}
+                        <button name="appointment_current_epi" value="{{ key }}" class="action-button dmgButton primary3">{{ value.details.Name }}</button>
+                    {% endfor %}
+                </div>
+                <div class="or-divider">
+                    <div class="or-text">{{ 'or'|t }}</div>
+                </div>
+                <div class="form-actions">
+                    <button name="appointment_current_epi" value="-1" class="action-button dmgButton secondary3">{{ "Someone Else"|t }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endif %}

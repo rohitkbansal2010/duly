@@ -1,0 +1,11 @@
+defaultPlacement: end
+enableVersioning: true
+handle: links
+name: Links
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: false, hasUrls: false, template: null, uriFormat: null }
+structure:
+    maxLevels: null
+    uid: b56f32fd-98de-4a26-9418-c0dc31cc9e36
+type: structure

@@ -1,0 +1,146 @@
+.hero {
+	@import "./suite-hours";
+	width: 100%;
+	position: relative;
+	text-align: center;
+
+	@include responsive(bs-large) {
+		height: initial;
+	}
+
+	hr {
+		width: 100%;
+		border: none;
+		border-bottom: 1px solid $sky;
+		margin: 15px 0;
+	}
+
+	.hero-image {
+		width: 100%;
+		height: 530px;
+		overflow: hidden;
+
+		@include responsive(bs-large) {
+			height: initial;
+			width: 100%;
+			height: 57vw;
+		}
+	}
+
+	picture {
+		display: flex;
+		overflow: hidden;
+		justify-content: center;
+		height: 100%;
+		@include responsive(bs-large) {
+			display: block;
+		}
+	}
+
+	img {
+		height: 100%;
+
+		@include responsive(bs-large) {
+			width: 100%;
+		}
+	}
+
+	.walk-in-care {
+		background: $white;
+		border-radius: 32px 0px;
+		display: flex;
+		flex-direction: column;
+		left: 7vw;
+		padding: 55px 25px 25px 25px;
+		position: absolute;
+		top: 50%;
+		transform: translate(0, -50%);
+		width: 564px;
+
+		@include responsive(bs-large) {
+			left: initial;
+			position: relative;
+			top: initial;
+			transform: initial;
+			width: calc(100% - 50px);
+		}
+
+		.title {
+			font-size: 18px;
+			font-family: nexa, sans-serif;
+			font-weight: 800;
+			margin: 0 0 15px;
+			line-height: 24px;
+			color: $dark-2;
+		}
+
+		.header {
+			font-size: 40px;
+			font-family: nexa, sans-serif;
+			margin: 0 0 5px;
+			line-height: 44px;
+			font-weight: normal;
+			color: $oxford;
+
+			@include responsive(bs-large) {
+				font-size: 32px;
+			}
+		}
+
+		.find-locations {
+			display: flex;
+			flex-direction: column;
+			padding-top: 20px;
+			padding-bottom: 10px;
+
+			.error {
+				color: brown;
+			}
+		}
+
+		.ctas {
+			display: flex;
+			width: 100%;
+			justify-content: center;
+
+			.cta.schedule {
+				flex: 0 0 216px;
+				width: 216px;
+				font-weight: bold;
+				margin: 0 10px 0 0;
+
+				@include responsive(bs-large) {
+					flex: 0 0 55%;
+					margin: 0 5px 0 0;
+				}
+			}
+		}
+
+		.cta {
+			height: 40px;
+			font-size: 14px;
+		}
+	}
+
+	.hero-bottom-effect {
+		height: 28px;
+		display: flex;
+
+		.hero-bottom-effect-left {
+			background-color: $oxford;
+			width: 65%;
+			border-radius: 0px 0px 65px 0px;
+		}
+
+		.hero-bottom-effect-right {
+			background-color: $sky;
+			width: 35%;
+			border-radius: 0px 0px 0px 65px;
+		}
+		@include responsive(bs-large) {
+			position: absolute;
+			width: 100%;
+			top: 57vw;
+		}
+	}
+}

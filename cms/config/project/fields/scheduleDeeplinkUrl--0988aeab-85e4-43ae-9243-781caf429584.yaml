@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: bb45064c-bdd5-4ee4-9e20-4f4265207b6c
+handle: scheduleDeeplinkUrl
+instructions: "This is the url that can be distributed to the users. It will take users directly to the /schedule/insurance page with the physician/location and service pre-selected.\r\nYou can modify this slug by changing the slug of this CMS entry in the right-side panel."
+name: 'Schedule Deeplink Url'
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    mode: readonly
+    modeOverride: ''
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: mmikkel\incognitofield\fields\IncognitoFieldType

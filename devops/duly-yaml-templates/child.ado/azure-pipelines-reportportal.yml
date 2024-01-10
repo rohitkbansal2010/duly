@@ -1,0 +1,248 @@
+trigger: none
+
+parameters:
+  - name: aksServiceConnection
+    default: 'duly-devops-aks'
+  - name: aksNamespace
+    default: 'reportportal'
+  - name: skipDatabaseMigration
+    type: boolean
+    default: true
+  - name: databaseMigrationScheme
+    default: 'up'
+    values:
+    - 'up'
+    - 'down'
+
+
+variables:
+  - name: BUILD_POOL
+    value: DevOpsVM
+  - name: KEYVAULT_SERVICE_CONNECTION
+    value: 'azure_cloud_np'
+  - name: KEYVAULT_NAME
+    value: 'duly-d-shsvc-kv'
+  - name: DB_HOST_NAME
+    value: 'duly-d-devops-psql.postgres.database.azure.com'
+  - name: DB_NAME
+    value: 'reportportal'
+  - name: DB_ADMIN_USERNAME
+    value: 'dba'
+  - name: REPORTPORTAL_RELEASE_NAME
+    value: 'reportportal'
+  - name: ES_RELEASE_NAME
+    value: 'elasticsearch-rp'
+  - name: RABBITMQ_RELEASE_NAME
+    value: 'rabbitmq-rp'
+  - name: MINIO_RELEASE_NAME
+    value: 'minio-rp'
+
+resources:
+  repositories:
+    - repository: charts
+      type: git
+      name: 'duly-aks-helmcharts'
+    
+    - repository: scripts
+      type: git
+      name: 'duly-scripts'
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: Preparation
+  displayName: Preparation tasks
+  jobs: 
+    - job: BackupDB
+      displayName: Backup database ${{ variables.DB_NAME }}
+      workspace:
+        clean: all
+      steps:
+      - checkout: scripts
+
+      - task: AzureKeyVault@2
+        displayName: 'Get PostgreSQL admin password from KeyVault'
+        inputs:
+          connectedServiceName: $(KEYVAULT_SERVICE_CONNECTION)
+          keyVaultName: $(KEYVAULT_NAME)
+          secretsFilter: 'duly-d-devops-psql--dba'
+        continueOnError: false
+
+      - task: Bash@3
+        displayName: 'Bash: create database backup'
+        inputs:
+          targetType: 'filePath'
+          filePath: '$(Build.SourcesDirectory)/Bash/backup-psql-database.sh'
+          arguments: -h $(DB_HOST_NAME) -u $(DB_ADMIN_USERNAME) -d $(DB_NAME) -p '$(duly-d-devops-psql--dba)'
+          failOnStderr: true
+        continueOnError: false
+
+- stage: DeployES
+  displayName: Deploy ElasticSearch
+  dependsOn: Preparation
+  jobs:
+    - job: DeployES
+      displayName: Deploy ElasticSearch
+      workspace:
+       clean: all
+      steps:
+      - checkout: self
+      - checkout: charts
+      
+      - task: HelmDeploy@0
+        displayName: Helm deploy
+        inputs:
+          connectionType: 'Kubernetes Service Connection'
+          kubernetesServiceConnection: ${{parameters.aksServiceConnection}}
+          namespace: ${{parameters.aksNamespace}}
+          command: 'upgrade'
+          chartType: 'FilePath'
+          chartPath: '$(Build.SourcesDirectory)/duly-aks-helmcharts/duly-devops-aks/reportportal/charts/elasticsearch'
+          releaseName: $(ES_RELEASE_NAME)
+          arguments: >
+            --install
+            --create-namespace
+            -f $(Build.SourcesDirectory)/duly-aks-helmcharts/duly-devops-aks/reportportal/elasticsearch/single-node-values.yaml
+
+- stage: DeployRabbitMQ
+  displayName: Deploy RabbitMQ
+  dependsOn: DeployES
+  jobs:
+    - job: DeployRabbitMQ
+      displayName: Deploy RabbitMQ
+      workspace:
+       clean: all
+      steps:
+      - checkout: self
+      - checkout: charts
+      
+      - task: AzureKeyVault@2
+        displayName: 'Get RabbitMQ password from KeyVault'
+        inputs:
+          connectedServiceName: $(KEYVAULT_SERVICE_CONNECTION)
+          keyVaultName: $(KEYVAULT_NAME)
+          secretsFilter: 'reportportal-rabbitmq--rabbitmq'
+        continueOnError: false
+
+      - task: HelmDeploy@0
+        displayName: Helm deploy
+        inputs:
+          connectionType: 'Kubernetes Service Connection'
+          kubernetesServiceConnection: ${{parameters.aksServiceConnection}}
+          namespace: ${{parameters.aksNamespace}}
+          command: 'upgrade'
+          chartType: 'FilePath'
+          chartPath: '$(Build.SourcesDirectory)/duly-aks-helmcharts/duly-devops-aks/reportportal/charts/rabbitmq'
+          releaseName: $(RABBITMQ_RELEASE_NAME)
+          arguments: >
+            --install
+            --create-namespace
+            --set auth.username=rabbitmq
+            --set auth.password=$(reportportal-rabbitmq--rabbitmq)
+
+- stage: DeployMinio
+  displayName: Deploy Minio
+  dependsOn: DeployRabbitMQ
+  jobs:
+    - job: DeployMinio
+      displayName: Deploy Minio
+      workspace:
+       clean: all
+      steps:
+      - checkout: self
+      - checkout: charts
+      
+      - task: AzureKeyVault@2
+        displayName: 'Get Minio passwords from KeyVault'
+        inputs:
+          connectedServiceName: $(KEYVAULT_SERVICE_CONNECTION)
+          keyVaultName: $(KEYVAULT_NAME)
+          secretsFilter: 'reportportal-minio--accesskey,reportportal-minio--secretkey'
+        continueOnError: false
+
+      - task: HelmDeploy@0
+        displayName: Helm deploy
+        inputs:
+          connectionType: 'Kubernetes Service Connection'
+          kubernetesServiceConnection: ${{parameters.aksServiceConnection}}
+          namespace: ${{parameters.aksNamespace}}
+          command: 'upgrade'
+          chartType: 'FilePath'
+          chartPath: '$(Build.SourcesDirectory)/duly-aks-helmcharts/duly-devops-aks/reportportal/charts/minio'
+          releaseName: $(MINIO_RELEASE_NAME)
+          arguments: >
+            --install
+            --create-namespace
+            --set accessKey.password=$(reportportal-minio--accesskey)
+            --set secretKey.password=$(reportportal-minio--secretkey)
+
+- stage: DBMigration
+  displayName: DB migration
+  dependsOn: DeployMinio
+  jobs: 
+    - job: DBMigration
+      displayName: DB migration
+      workspace:
+        clean: all
+      steps:
+      - checkout: scripts
+
+      - ${{ if eq(parameters.skipDatabaseMigration, 'true') }}:
+        - script: echo The database migration was skipped
+          displayName: Skip DB Migration
+      - ${{ if eq(parameters.skipDatabaseMigration, 'false') }}:
+        - task: AzureKeyVault@2
+          displayName: 'Get PostgreSQL admin password from KeyVault'
+          inputs:
+            connectedServiceName: $(KEYVAULT_SERVICE_CONNECTION)
+            keyVaultName: $(KEYVAULT_NAME)
+            secretsFilter: 'duly-d-devops-psql--dba'
+          continueOnError: false
+
+        - task: Bash@3
+          displayName: 'Bash: perform database migration'
+          inputs:
+            targetType: 'filePath'
+            filePath: '$(Build.SourcesDirectory)/Bash/reportportal-db-migration.sh'
+            arguments: -h $(DB_HOST_NAME) -u $(DB_ADMIN_USERNAME) -d $(DB_NAME) -p '$(duly-d-devops-psql--dba)' -s ${{ parameters.databaseMigrationScheme }}
+          continueOnError: false
+
+- stage: DeployRP
+  displayName: Deploy Reportportal
+  dependsOn: DBMigration
+  jobs:
+    - job: DeployRP
+      displayName: Deploy Reportportal
+      workspace:
+       clean: all
+      steps:
+      - checkout: self
+      - checkout: charts
+      
+      - task: AzureKeyVault@2
+        displayName: 'Get secrets from KeyVault'
+        inputs:
+          connectedServiceName: $(KEYVAULT_SERVICE_CONNECTION)
+          keyVaultName: $(KEYVAULT_NAME)
+          secretsFilter: 'duly-d-devops-psql--dba,reportportal-minio--accesskey,reportportal-minio--secretkey'
+          continueOnError: false
+      
+      - task: HelmDeploy@0
+        displayName: Helm deploy
+        inputs:
+          connectionType: 'Kubernetes Service Connection'
+          kubernetesServiceConnection: ${{parameters.aksServiceConnection}}
+          namespace: ${{parameters.aksNamespace}}
+          command: 'upgrade'
+          chartType: 'FilePath'
+          chartPath: '$(Build.SourcesDirectory)/duly-aks-helmcharts/duly-devops-aks/reportportal'
+          releaseName: $(REPORTPORTAL_RELEASE_NAME)
+          arguments: >
+            --install
+            --create-namespace
+            --set postgresql.endpoint.password="$(duly-d-devops-psql--dba)"
+            --set rabbitmq.SecretName=$(RABBITMQ_RELEASE_NAME)
+            --set minio.accesskey=$(reportportal-minio--accesskey)
+            --set minio.secretkey=$(reportportal-minio--secretkey)

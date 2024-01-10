@@ -1,0 +1,154 @@
+@mixin inter-h3-bold {
+  font-weight: 800;
+  font-size: 1.5rem;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 28px;
+}
+
+@mixin inter-h4-bold {
+  font-weight: 800;
+  font-size: 1.25rem;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 24px;
+}
+
+@mixin inter-button-1 {
+  font-weight: 700;
+  font-size: 1.25rem;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 27px;
+}
+
+@mixin inter-h5-bold {
+  font-weight: 800;
+  font-size: 1.13rem;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 20px;
+}
+
+@mixin inter-h6-bold {
+  font-weight: 800;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 18px;
+}
+
+@mixin inter-nano-bold {
+  font-weight: 700;
+  font-size: 0.75rem;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 1.06rem;
+}
+
+@mixin inter-text-default {
+  font-weight: 400;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 1.5rem;
+}
+
+@mixin inter-text-default-bold {
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 1.5rem;
+}
+
+@mixin inter-text-xs-bold {
+  font-weight: 700;
+  font-size: 0.75rem;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 1.5rem;
+}
+
+@mixin lora-h1-bold {
+  font-weight: bold;
+  font-size: 3rem;
+  font-family: "Lora", sans-serif;
+  font-style: normal;
+  line-height: 52px;
+}
+
+@mixin lora-h2-bold {
+  font-weight: bold;
+  font-size: 2.25rem;
+  font-family: "Lora", sans-serif;
+  font-style: normal;
+  line-height: 40px;
+}
+
+@mixin lora-h3-bold {
+  font-weight: bold;
+  font-size: 1.5rem;
+  font-family: "Lora", sans-serif;
+  font-style: normal;
+  line-height: 28px;
+}
+
+@mixin nexa-h1-bold {
+  font-weight: 600;
+  font-size: 3rem;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  line-height: 52px;
+}
+
+@mixin nexa-h2-bold {
+  @include nexa-bold-highlight;
+
+  font-size: 2.5rem;
+  line-height: 2.625rem;
+}
+
+@mixin nexa-h3-bold {
+  font-weight: 800;
+  font-size: 1.5rem;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  line-height: 28px;
+}
+
+@mixin nexa-h4-bold {
+  font-weight: 800;
+  font-size: 1.3rem;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  line-height: 24px;
+}
+
+@mixin roboto-text {
+  font-weight: 500;
+  font-size: 0.88rem;
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  line-height: 16px;
+}
+
+@mixin nexa-heavy-highlight {
+  font-family: "NexaHeavy", sans-serif;
+  font-style: normal;
+}
+
+@mixin nexa-extra-bold-highlight {
+  font-family: "NexaExtraBold", sans-serif;
+  font-style: normal;
+}
+
+@mixin nexa-bold-highlight {
+  font-family: "NexaBold", sans-serif;
+  font-style: normal;
+}
+
+@mixin nexa-regular-highlight {
+  font-family: "NexaRegular", sans-serif;
+  font-style: normal;
+}

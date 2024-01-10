@@ -1,0 +1,40 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+$timeWidth: 6.25rem;
+
+.barWrapper {
+  position: absolute;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 0.13rem;
+}
+
+.currentTimeBar {
+  display: flex;
+  align-items: center;
+  width: calc(100% - #{$timeWidth});
+  height: 100%;
+  background-color: $medium-red-violet;
+
+  &:before {
+    border-right: 0.4rem solid transparent;
+    border-bottom: 1rem solid $medium-red-violet;
+    border-left: 0.4rem solid transparent;
+    border-radius: 0.1rem;
+    transform: rotate(90deg);
+    content: "";
+  }
+}
+
+.currentTime {
+  width: 100%;
+  max-width: $timeWidth;
+  color: $medium-red-violet;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  @include nexa-extra-bold-highlight;
+}

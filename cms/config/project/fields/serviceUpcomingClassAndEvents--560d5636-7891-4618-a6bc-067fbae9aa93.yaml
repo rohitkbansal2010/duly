@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceUpcomingClassAndEvents
+instructions: 'Enable to show service related class and events.'
+name: 'Show Upcoming Class and Events'
+searchable: true
+settings:
+    default: true
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

@@ -1,0 +1,246 @@
+parameters:
+  - name: FORCE_RUN_SONAR_CHECK
+    type: boolean
+    default: false
+    displayName: 'Force a launch of SonarQube analysis.'
+  - name: NODE_VERSION
+    type: string
+    default: '14.16.1'
+    displayName: 'Node Version'
+  - name: PUBLISH_FROM_FEATURE_BRANCH
+    type: boolean
+    default: false
+    displayName: 'Deploy from feature branch'
+  - name: projectPath
+    type: string
+    default: '$(Build.SourcesDirectory)/$(Build.Repository.Name)/src/twilio'
+  - name: environment
+    type: string
+    default: 'prd'
+    values:
+    - 'dev'
+    - 'qat'
+    - 'uat'
+    - 'prd'
+    displayName: 'Deployment environment'
+
+trigger: none
+
+variables:
+  - name: VM_IMAGE
+    value: 'ubuntu-latest'
+  - name: NODE_VERSION
+    value: ${{ parameters.NODE_VERSION }}
+  - name: FORCE_RUN_SONAR_CHECK
+    value: ${{ parameters.FORCE_RUN_SONAR_CHECK }}
+  - name: PUBLISH_FROM_FEATURE_BRANCH
+    value: ${{ parameters.PUBLISH_FROM_FEATURE_BRANCH }}
+  - name: TWILIO_ARTIFACTS_DIRECTORY
+    value: '$(Build.Repository.Name)-twilio'
+
+resources:
+  repositories:
+    - repository: yamltemplates
+      type: git
+      name: 'duly.digital.devops/duly-yaml-templates'
+
+    - repository: scripts
+      type: git
+      name: duly.digital.devops/duly-scripts
+
+stages:
+
+- stage: CI
+  jobs:
+   - job: Analyse
+     displayName: Continuous Integration
+     pool:
+       # Explicitly run this job on Azure Pipelines pool due to npm issues on agents from OnAKS pool
+       vmImage: $(VM_IMAGE)
+     workspace:
+       clean: outputs
+     steps:
+       - checkout: self
+
+       # Template: Execute CI process for particular project
+       - template: child.build/ci-node-cli.yml@yamltemplates
+         parameters:
+           projectPath: ${{ parameters.projectPath }}
+           runUnitTests: false
+           createCoverageReport: false
+           # Use SonarQube service connection for MSHosted agents
+           sonarCloudServiceConnection: 'sonar-qube-duly.digital.omni-channel-mshosted-agents'
+           enableSonarCloudScan: false
+           sonarCloudScanningPath: 'twilio'
+           sonarCloudProjectSuffix: 'twilio'
+           nodeVersion: $(NODE_VERSION)
+           vstsFeed: 'duly.digital'       
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        eq(variables['Build.Reason'], 'PullRequest'),
+        eq(variables['FORCE_RUN_SONAR_CHECK'], 'true')
+      )
+    )
+
+- stage: Build
+  dependsOn: []
+  jobs:
+   - job: Build
+     displayName: Build and publish Twilio artifacts
+     pool:
+       # Explicitly run this job on Azure Pipelines pool due to npm issues on agents from OnAKS pool
+       vmImage: $(VM_IMAGE)
+     workspace:
+       clean: outputs
+     steps:
+     - checkout: self
+
+     # Template: Npm build
+     - template: child.build/build-node.yml@yamltemplates
+       parameters:
+         projectPath: ${{ parameters.projectPath }}
+         setBuildVersion: true
+         runUnitTests: false
+         createCoverageReport: false
+         publishBuildArtifacts: false
+         runNpmCI: true
+         executeBuild: true
+         # Use SonarQube service connection for MSHosted agents
+         sonarCloudServiceConnection: 'sonar-qube-duly.digital.omni-channel-mshosted-agents'
+         enableSonarCloudScan: false
+         sonarCloudScanningPath: 'twilio'
+         sonarCloudProjectSuffix: 'twilio'
+         nodeVersion: $(NODE_VERSION)
+         vstsFeed: 'duly.digital'
+
+     - task: CopyFiles@2    
+       displayName: 'Copy Twilio build artifacts'
+       inputs:
+         SourceFolder: ${{ parameters.projectPath }}
+         Contents: |
+           build/**/*
+         TargetFolder: $(Build.ArtifactStagingdirectory)
+
+     - task: PublishBuildArtifacts@1
+       displayName: 'Publish Twilio build artifacts: $(TWILIO_ARTIFACTS_DIRECTORY)'
+       inputs:
+         ArtifactName: '$(TWILIO_ARTIFACTS_DIRECTORY)'
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['PUBLISH_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: dev
+  displayName: Deploy on DEV
+  dependsOn: Build
+  jobs:
+    - template: child.jobs/appointment-management-twilio-deploy-job.yml@yamltemplates
+      parameters:
+        artifactsPath: $(Pipeline.Workspace)/$(TWILIO_ARTIFACTS_DIRECTORY)
+        environment: 'dev'
+        nodeVersion: $(NODE_VERSION)
+        vmImage: $(VM_IMAGE)
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['PUBLISH_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest'),
+      eq('${{ parameters.environment }}', 'dev')
+    )
+
+- stage: qat
+  displayName: Deploy on QAT
+  dependsOn: Build
+  jobs:
+    - template: child.jobs/appointment-management-twilio-deploy-job.yml@yamltemplates
+      parameters:
+        artifactsPath: $(Pipeline.Workspace)/$(TWILIO_ARTIFACTS_DIRECTORY)
+        environment: 'qat'
+        nodeVersion: $(NODE_VERSION)
+        vmImage: $(VM_IMAGE)
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest'),
+      ne(variables['FORCE_RUN_SONAR_CHECK'], 'true'),
+      eq('${{ parameters.environment }}', 'qat')
+    )
+
+- stage: uat
+  displayName: Deploy on UAT
+  dependsOn: Build
+  jobs:
+    - template: child.jobs/appointment-management-twilio-deploy-job.yml@yamltemplates
+      parameters:
+        artifactsPath: $(Pipeline.Workspace)/$(TWILIO_ARTIFACTS_DIRECTORY)
+        environment: 'uat'
+        nodeVersion: $(NODE_VERSION)
+        vmImage: $(VM_IMAGE)
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest'),
+      ne(variables['FORCE_RUN_SONAR_CHECK'], 'true'),
+      eq('${{ parameters.environment }}', 'uat')
+    )
+
+- stage: prd
+  displayName: Deploy on PRD
+  dependsOn: Build
+  jobs:
+    - template: child.jobs/appointment-management-twilio-deploy-job.yml@yamltemplates
+      parameters:
+        artifactsPath: $(Pipeline.Workspace)/$(TWILIO_ARTIFACTS_DIRECTORY)
+        environment: 'prd'
+        nodeVersion: $(NODE_VERSION)
+        vmImage: $(VM_IMAGE)
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest'),
+      ne(variables['FORCE_RUN_SONAR_CHECK'], 'true'),
+      eq('${{ parameters.environment }}', 'prd')
+    )
+

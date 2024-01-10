@@ -1,0 +1,17 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:epicsystems-com:PatientAccessMobile.2013.Services">
+   <soapenv:Header>
+      {% include "headers.twig" with {
+          date: epicDate,
+          username: epicUsername,
+          password: epicPassword,
+          nonce: epicNonce,
+          epicClientId: epicClientId
+      } only %}
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn:AuthenticateWebAccount>
+         <urn:WebAccountUsername>{{ username }}</urn:WebAccountUsername>
+         <urn:WebAccountPassword>{{ password }}</urn:WebAccountPassword>
+      </urn:AuthenticateWebAccount>
+   </soapenv:Body>
+</soapenv:Envelope>

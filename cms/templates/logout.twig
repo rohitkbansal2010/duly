@@ -1,0 +1,24 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Logout'|t %}
+{% block bodyClass "login-portal-page" %}
+
+{% block main %}
+    <div class="container sso">
+		<div class="portal portal-single-column">
+            <div class="portal-single-column-inner">
+                <div class="inline-alert">
+                    <strong>{{ "You have been logged out."|t }}</strong>
+                    {{ "Please login to continue."|t }}
+                </div>
+                {{ html.tag('a', 'Log into {myChartName}'|t(params = {
+                    myChartName: myChartName
+                }), {
+                    href: '/sml/acs',
+                    class: 'button blue'
+                })|raw }}
+            </div>
+        </div>
+     </div>
+{% endblock %}

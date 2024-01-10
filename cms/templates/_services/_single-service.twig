@@ -1,0 +1,170 @@
+{% extends "_layouts/_main.twig" %}
+
+{% set entry = craft.entries()
+    .section('services')
+    .slug(craft.app.request.getSegment(2))
+    .one()
+%}
+
+{% set contentSummary = null %}
+{% set isCosmetic = entry.type.handle == 'cosmetic' %}
+
+{% set contentTitle = null %}
+{% if entry.customSeoMetaTitle is not null %}
+    {% set contentTitle = entry.customSeoMetaTitle %}
+{% else %}
+    {% set contentTitle = entry.title %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% if entry.customSeoMetaDescription is not null %}
+    {% set contentSummary = entry.customSeoMetaDescription %}
+{% endif %}
+
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        entry: entry,
+		heroImage: entry.serviceHeroImage.one,
+        cacheKey: 'service-page-' ~ entry.id,
+        contentTitle: contentTitle,
+		contentSummary: contentSummary,
+        skipTagStrip: true
+    } only %}
+{% endblock %}
+
+{% block bodyClass "services-detail-page" %}
+
+{% block main %}
+    {% include "_modals/_login-modal.twig" with {
+        includeServiceIds: true,
+        serviceId: entry.id
+    } %}
+    <section class="services-detail-container">
+        <div class="content">
+            {% include '_services/_details/_content/_hero.twig' %}
+            {% include '_services/_details/_content/_description.twig' %}
+
+            {% set physicians = isCosmetic ? getPhysiciansByProcedureForService(entry) : getPhysiciansForService(entry) %}
+            {% set entryLevel = 2 %}
+
+            {# subspecialties should only show direct descendants, not ternary services #}
+            {% if entry.level == 2 %}
+                {% set entryLevel = 3 %}
+            {% endif %}
+
+            {% set subspecialties = craft.entries({
+                section: 'services',
+                orderBy: 'title asc',
+                level: entryLevel,
+                descendantOf: entry,
+                with: ['serviceHeroImage']
+            }).all() %}
+
+            {% include '_services/_details/_content/_specialties.twig' with {
+                subspecialties: subspecialties
+            } %}
+
+            {% include '_services/_details/_content/_interactive.twig' %}
+
+            {% if isCosmetic %}
+                {% cache %}
+                    {% set specials = entry.specials.find({ 
+                        startDate: "<= " ~ now|date('U'), 
+                        endDate: ">= " ~ now|date_modify("-1 day")|date('U')
+                    }) %}
+                    {% if entry.servicesProceduresCategories %}
+                        {% set procedures = [] %}
+                        {% for category in entry.servicesProceduresCategories %}
+                            {% set procedures = procedures|merge(category.procedures.all()) %}
+                        {% endfor %}
+                        {% set testimonials = craft.entries()
+                            .section('testimonials')
+                            .relatedTo(['or', procedures])
+                            .orderBy('postDate desc')
+                            .limit(6)
+                            .all() %}
+                    {% endif %}
+                    {% include '_services/_details/_content/_interactive.twig' with {
+                        entry: entry|merge({
+                            products: null,
+                            serviceVideoLinks: null,
+                            serviceFormFiles: null,
+                            servicesProceduresCategories: null,
+                        })
+                    } %}
+                {% endcache %}
+            {% endif %}
+            
+            {% include '_services/_details/_content/_physicians.twig' with {
+                showHeader: true,
+                isAffilation: false,
+                physicians: physicians
+            } %}
+
+            {% set locations = getLocationsForService(entry) %}
+
+            {% include '_services/_details/_content/_locations.twig' with {
+                locations: locations
+            }%}
+
+            {% set relevantPhysicians = craft.entries({
+                section: 'physicians',
+                orderBy: {
+                    title: SORT_ASC
+                },
+                relatedTo: [
+                    'or',
+                    { targetElement: entry, field: 'physicianSpeciality' },
+                    { targetElement: subspecialties, field: 'physicianSpeciality' }
+                ],
+                unique: true,
+                with: ['physicianHospitalAffiliations']
+            }).all() %}
+
+            {% if relevantPhysicians | length > 0 %}
+                {% set hospitals = craft.entries({
+                    section: 'hospitals',
+                    relatedTo: relevantPhysicians,
+                    orderBy: 'title ASC',
+                    unique: true
+                }).all() %}
+
+                {% if not isCosmetic %}
+                    {% include '_services/_details/_interactive/_hospitals.twig' with {
+                        subspecialties: subspecialties,
+                        hospitals: hospitals,
+                        relevantPhysicians: relevantPhysicians
+                    } %}
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="sidebar-navigation">
+
+            {% if showPhysicalAndOccupationalAppointmentForm('physicalAndOccupationalTherapyServices', entry.id) or (isCosmetic and entry.allowOnlineScheduling) %}
+                {% set showForm = true %}
+            {% else %}
+                {% set showForm = false %}
+            {% endif %}
+
+            {% if showForm %}
+                {% include '_services/_details/_navigation/_request-appointment.twig' %}
+            {% else %}
+                {% include '_services/_details/_navigation/_schedule.twig' %}
+            {% endif %}
+
+            {% if isCosmetic %}
+                {% if entry.cosmeticDermatologyNewsletterLink is not null %}
+                    <a href="{{ entry.cosmeticDermatologyNewsletterLink }}" target="_blank" rel="noopener noreferrer">
+                        <button class="button dmgButton secondary1" tabindex="-1">Sign up for our Newsletter</button>
+                    </a>
+                {% endif %}
+            {% endif %}
+
+            {% include '_services/_details/_navigation/_accreditations.twig' %}
+            {% include '_services/_details/_navigation/_categories.twig' %}
+        </div>
+    </section>
+{% endblock %}

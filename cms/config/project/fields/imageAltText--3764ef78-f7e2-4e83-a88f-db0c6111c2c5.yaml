@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 6f3bfad2-2d52-426a-9ef6-1143b91ef81e
+handle: imageAltText
+instructions: 'The alternative text should describe the content of the image, and if it is linkable, the destination of the link.'
+name: 'Alternative Text'
+searchable: true
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: text
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

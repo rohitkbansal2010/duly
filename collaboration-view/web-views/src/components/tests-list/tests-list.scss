@@ -1,0 +1,39 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.TestsList {
+  margin: 1rem 0;
+  &Scroll {
+    max-height: 12rem;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+  }
+  &Data {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+    // padding-bottom: 1rem;
+    row-gap: 1rem;
+    // overflow-y: scroll;
+    // -ms-overflow-style: none;
+    // scrollbar-width: none;
+    &Item {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      color: $dupage-dark-blue;
+      font-weight: 700;
+      font-size: var(--font-size-18px-4px);
+      font-family: "Inter", sans-serif;
+      // line-height: 150%;
+      background-color: rgba(0, 165, 223, 0.07);
+      border: 1px solid $dupage-light-blue;
+      border-radius: 0.5rem;
+    }
+  }
+  // &Data::-webkit-scrollbar{
+  //   display: none;
+  // }
+}

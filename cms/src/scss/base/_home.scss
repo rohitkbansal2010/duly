@@ -1,0 +1,769 @@
+.homepage-container {
+	max-width: 1600px;
+	width: 100%;
+	margin: 0 auto;
+	background: $white;
+
+	.gradient-buffer {
+		display: none;
+
+		@include responsive(medium) {
+			display: block;
+			position: relative;
+			height: 40px;
+		}
+	}
+
+	.hero-container {
+		position: relative;
+		width: 100%;
+
+		@include responsive(bs-large) {
+			height: initial;
+		}
+
+		.image-container {
+			width: 100%;
+			max-height: 500px;
+			overflow: hidden;
+
+			@include responsive(bs-large) {
+				height: initial;
+				width: 100%;
+				height: 57vw;
+			}
+
+			picture {
+				display: flex;
+				overflow: hidden;
+				justify-content: center;
+
+				@include responsive(bs-large) {
+					display: block;
+				}
+
+				img {
+					width: 100%;
+
+					@include responsive(bs-large) {
+						height: initial;
+					}
+				}
+			}
+		}
+		#ctas {
+			display: flex;
+			margin: 1rem -0.5rem -0.5rem -0.5rem;
+			box-sizing: border-box;
+			@include responsive(small) {
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			.cta {
+				box-sizing: border-box;
+				padding: 0.5rem;
+				width: 50%;
+				@include responsive(small) {
+					width: 100%;
+				}
+				button {
+					width: 100%;
+					a {
+						padding: 1rem;
+					}
+				}
+			}
+		}
+
+		.text-container {
+			background: $white;
+			border-radius: 32px 0px;
+			display: flex;
+			flex-direction: column;
+			left: 7vw;
+			padding: 35px 25px 25px 25px;
+			position: absolute;
+			top: 50%;
+			transform: translate(0, -50%);
+			width: 615px;
+
+			@include responsive(bs-large) {
+				left: initial;
+				position: relative;
+				top: initial;
+				transform: initial;
+				width: calc(100% - 50px);
+			}
+
+			.subheadline {
+				margin: 16px 0px;
+				font-size: 18px;
+				color: $oxford;
+			}
+
+			h1 {
+				margin: 0px;
+				font-size: 40px;
+				color: $oxford;
+				font-weight: 700;
+				max-width: 500px;
+
+				@include responsive(bs-large) {
+					max-width: 100%;
+				}
+
+				@include responsive(medium) {
+					font-size: 28px;
+					max-width: 100%;
+				}
+			}
+		}
+	}
+
+	.hero-bottom-effect {
+		height: 28px;
+		display: flex;
+
+		.hero-bottom-effect-left {
+			background-color: $oxford;
+			width: 65%;
+			border-radius: 0px 0px 65px 0px;
+		}
+
+		.hero-bottom-effect-right {
+			background-color: $sky;
+			width: 35%;
+			border-radius: 0px 0px 0px 65px;
+		}
+	}
+
+	.iam-container {
+		margin: 0 auto;
+		padding: 40px 50px 20px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		@include responsive(bs-large) {
+			display: inline-block;
+			margin: 0;
+			padding: 20px 10px;
+			width: calc(100% - 20px);
+		}
+
+		.iam-row {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+
+			@include responsive(bs-large) {
+				flex-direction: column;
+				align-items: flex-start;
+				width: 100%;
+			}
+
+			#iam-looking {
+				min-width: 300px;
+			}
+
+			span {
+				height: 30px;
+				color: $mid-blue;
+				font-size: 26px;
+				font-weight: bold;
+
+				display: inline-flex;
+				white-space: nowrap;
+
+				@include responsive(large) {
+					font-size: 20px;
+				}
+
+				@include responsive(bs-large) {
+					padding: 15px 0 10px 0;
+				}
+
+				&.iam-comma {
+					padding-right: 10px;
+
+					@include responsive(bs-large) {
+						display: none;
+						opacity: 0;
+					}
+				}
+			}
+
+			a.button {
+				display: block;
+				padding: 16px 5px;
+				border-radius: 4px;
+				text-decoration: none;
+				color: $white;
+				text-align: center;
+				font-size: 22px;
+				font-weight: 700;
+				width: 190px;
+
+				@include responsive(large) {
+					width: 160px;
+				}
+
+				@include responsive(bs-large) {
+					font-size: 18px;
+					width: calc(100% - 10px);
+					margin: 20px 0px;
+				}
+			}
+		}
+	}
+
+	.stats-container {
+		background: $white;
+		padding: 50px;
+		padding-top: 40px;
+		padding-bottom: 80px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		@include responsive(x-large) {
+			padding: 50px 20px;
+		}
+
+		@include responsive(bs-large) {
+			padding: 50px 20px 20px 20px;
+		}
+
+		@include responsive(medium) {
+			display: block;
+			padding: 20px;
+		}
+
+		.stat {
+			width: 100%;
+			max-width: 500px;
+			border-left: solid 1px $sky;
+			padding: 25px 55px;
+
+			@include responsive(fourteen-fourty) {
+				padding: 25px;
+			}
+
+			@include responsive(x-large) {
+				padding: 25px 15px;
+			}
+
+			@include responsive(medium) {
+				padding: 25px 0px;
+				border-left: none;
+				border-bottom: solid 1px $sky;
+				max-width: 100%;
+
+				&:last-child {
+					border-bottom: none;
+				}
+			}
+
+			&:first-child {
+				border-left: none;
+			}
+
+			p,
+			a {
+				color: $dark-2;
+				margin: 5px 0px;
+				line-height: 1;
+			}
+
+			.button {
+				color: $oxford !important;
+				background: white;
+				border: 1px solid $oxford;
+
+				&:hover {
+					background: $off-blue;
+					box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
+				}
+			}
+
+			.headline {
+				@include responsive(large) {
+					min-height: 60px;
+				}
+				@include responsive(medium) {
+					min-height: initial;
+				}
+				p {
+					color: $oxford;
+					font-size: 22px;
+
+					strong {
+						color: $oxford;
+					}
+				}
+			}
+
+			.sub-headline {
+				font-weight: 700;
+
+				@include responsive(large) {
+					min-height: 35px;
+				}
+				@include responsive(medium) {
+					min-height: initial;
+				}
+			}
+
+			strong {
+				font-size: 44px;
+				font-weight: 800;
+			}
+
+			a {
+				margin-top: 16px;
+				display: block;
+				padding: 16px 5px;
+				border-radius: 4px;
+				text-decoration: none;
+				color: $white;
+				text-align: center;
+				font-size: 22px;
+				font-weight: 700;
+
+				@include responsive(bs-large) {
+					font-size: 18px;
+				}
+
+				@include responsive(medium) {
+					max-width: 100%;
+				}
+			}
+		}
+	}
+
+	.featured-container {
+		background: $white;
+		padding: 50px;
+		padding-top: 0;
+		padding-bottom: 80px;
+
+		@include responsive(x-large) {
+			padding: 25px;
+		}
+
+		@include responsive(bs-large) {
+			padding: 15px;
+		}
+
+		h3 {
+			font-weight: 900;
+			font-size: 28px;
+			margin: 0px 0px 10px 0px;
+			color: $dark-2;
+		}
+
+		.content {
+			display: flex;
+
+			@include responsive(bs-large) {
+				display: block;
+			}
+
+			.image-container {
+				width: 680px;
+				height: 568px;
+
+				@include responsive(fourteen-fourty) {
+					width: 650px;
+					height: 525px;
+				}
+
+				@include responsive(x-large) {
+					width: 500px;
+					height: 525px;
+				}
+
+				@include responsive(bs-large) {
+					width: 100%;
+					height: 100%;
+				}
+			}
+
+			.resource {
+				background: $footer-gray;
+			}
+
+			.image-container,
+			.content-container {
+				position: relative;
+				display: flex;
+				justify-content: center;
+				padding: 15px;
+				box-sizing: border-box;
+
+				.img-holder {
+					border-radius: 32px 0px;
+					overflow: hidden;
+					height: 80%;
+					width: 100%;
+
+					@include responsive(bs-large) {
+						margin-bottom: 80px;
+					}
+
+					@include responsive(medium) {
+						height: 200px;
+					}
+
+					@include responsive(x-small) {
+						height: 175px;
+					}
+				}
+
+				img {
+					width: 100%;
+					height: auto;
+				}
+
+				.category-banner {
+					position: absolute;
+					background-color: #c9e7e3;
+					color: $dark-green;
+					text-transform: uppercase;
+					font-weight: bold;
+					font-size: 12px;
+					line-height: 14px;
+					letter-spacing: 1px;
+					border-radius: 0px 2px 2px 0px;
+					top: 5%;
+					margin: 0;
+					padding: 0;
+					padding: 4px;
+					display: flex;
+					text-align: center;
+					vertical-align: middle;
+					justify-content: center;
+				}
+			}
+
+			.text {
+				position: absolute;
+				bottom: 20px;
+				width: 100%;
+
+				@include responsive(bs-large) {
+					bottom: 30px;
+				}
+
+				@include responsive(small) {
+					bottom: 25px;
+				}
+
+				.title {
+					padding: 15px 15px 0px 15px;
+
+					p {
+						color: $white;
+						margin: 10px 0px;
+
+						@include responsive(bs-large) {
+							margin: 2px 0px;
+						}
+					}
+
+					.headline {
+						font-weight: 900;
+						font-size: 32px;
+						line-height: 36px;
+						padding-left: 10px;
+						color: $oxford;
+
+						@include responsive(bs-large) {
+							font-size: 24px;
+							line-height: 24px;
+						}
+
+						@include responsive(small) {
+							font-size: 18px;
+							line-height: 18px;
+						}
+					}
+				}
+			}
+
+			.sub-featured {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				padding: 0px 24px;
+
+				@include responsive(fourteen-fourty) {
+					justify-content: inherit;
+				}
+
+				@include responsive(bs-large) {
+					padding: 0px;
+				}
+
+				.resource {
+					background: $footer-gray;
+
+					&:first-child {
+						@include responsive(fourteen-fourty) {
+							margin-bottom: 25px;
+						}
+
+						@include responsive(bs-large) {
+							margin-bottom: 0px;
+						}
+					}
+
+					@include responsive(bs-large) {
+						margin: 5px 0px;
+					}
+				}
+
+				.text {
+					bottom: 20px;
+
+					@include responsive(fourteen-fourty) {
+						bottom: 10px;
+					}
+
+					@include responsive(bs-large) {
+						bottom: 30px;
+					}
+
+					@include responsive(small) {
+						bottom: 25px;
+					}
+				}
+
+				.image-container {
+					width: 312px;
+					height: 272px;
+					box-sizing: border-box;
+
+					@include responsive(fourteen-fourty) {
+						width: 280px;
+						height: 250px;
+					}
+
+					@include responsive(x-large) {
+						width: 220px;
+						height: 250px;
+					}
+
+					@include responsive(bs-large) {
+						width: 100%;
+						height: 100%;
+					}
+				}
+
+				.img-holder {
+					border-radius: 32px 0px;
+					overflow: hidden;
+					height: 70%;
+					width: 100%;
+
+					@include responsive(bs-large) {
+						margin-bottom: 80px;
+					}
+
+					@include responsive(medium) {
+						height: 200px;
+					}
+
+					@include responsive(x-small) {
+						height: 175px;
+					}
+				}
+
+				img {
+					width: 100%;
+					height: auto;
+				}
+
+				p {
+					margin: 0px !important;
+					line-height: inherit;
+					color: $oxford;
+				}
+
+				.title {
+					.headline {
+						font-size: 20px;
+						font-weight: 900;
+						line-height: 22px;
+						padding-left: 10px;
+						color: $oxford;
+
+						@include responsive(fourteen-fourty) {
+							font-size: 18px;
+							line-height: 18px;
+						}
+
+						@include responsive(bs-large) {
+							font-size: 24px;
+							line-height: 24px;
+						}
+
+						@include responsive(small) {
+							font-size: 18px;
+							line-height: 18px;
+						}
+					}
+				}
+			}
+
+			.related-featured {
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+
+				@include responsive(medium) {
+					margin-top: 10px;
+				}
+
+				.resource {
+					position: relative;
+					padding: 20px 0px;
+					background: $white;
+
+					@include responsive(fourteen-fourty) {
+						padding: 15px 0px;
+						justify-content: inherit;
+					}
+
+					@include responsive(x-large) {
+						padding: 10px 0px;
+						justify-content: inherit;
+					}
+
+					@include responsive(bs-large) {
+						padding: 20px 0px;
+					}
+
+					&:first-child {
+						padding: 0px 0px 20px 0px;
+
+						@include responsive(fourteen-fourty) {
+							padding: 0px 0px 15px 0px;
+						}
+
+						@include responsive(x-large) {
+							padding: 0px 0px 10px 0px;
+						}
+
+						@include responsive(bs-large) {
+							padding-top: 20px !important;
+							border-top: 1px solid $sky;
+							padding: 0px 0px 20px 0px;
+						}
+					}
+
+					a {
+						text-decoration: none;
+					}
+
+					.content-container {
+						position: inherit;
+
+						.category-banner {
+							position: inherit;
+							display: table;
+							border-radius: 2px;
+						}
+						.text {
+							position: inherit;
+
+							.title {
+								padding: 0px;
+								background: $white;
+
+								p {
+									font-size: 20px;
+									font-weight: 900;
+									color: $oxford;
+									line-height: 20px;
+
+									@include responsive(x-large) {
+										font-size: 18px;
+									}
+								}
+							}
+						}
+					}
+				}
+
+				.resource:after {
+					border-bottom: 2px solid $sky;
+					content: "";
+					position: absolute;
+					width: 100%;
+					bottom: 0px;
+
+					@include responsive(bs-large) {
+						border-bottom: 1px solid $sky;
+					}
+				}
+
+				#view-more {
+					margin-top: 25px;
+					a {
+						text-decoration: none;
+						padding: 15px;
+						text-align: center;
+						font-size: 18px;
+						font-weight: 700;
+						display: block;
+						color: $oxford !important;
+						background: $sky;
+						border-radius: 4px;
+
+						&:hover {
+							background: $hover-blue;
+							box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
+						}
+					}
+				}
+				#view-more.expanded {
+					min-width: 225px;
+					margin-top: 0px;
+				}
+			}
+		}
+	}
+
+	.immediate-care-locations {
+		.map-container {
+			height: 570px;
+			flex: 0 0 60%;
+
+			@include responsive(bs-large) {
+				flex: initial;
+			}
+		}
+
+		.information-container {
+			flex: 0 0 40%;
+			background: $oxford;
+
+			@include responsive(bs-large) {
+				flex: initial;
+			}
+		}
+
+		#closest-immediate-care-center,
+		#closest-express-care {
+			button {
+				height: inherit;
+
+				&:hover {
+					background: $off-blue !important;
+					box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5) !important;
+				}
+			}
+		}
+	}
+}

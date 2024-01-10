@@ -1,0 +1,8 @@
+field: a1e85583-8fbe-4ff8-a3f1-6ed03df017e0
+fieldLayouts:
+    11d8f9b9-86b6-4694-9a79-8c00fe945e2c: { tabs: [{ elements: [{ fieldUid: 32ff862f-beb4-4a23-bc64-232377a1421e, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    32ff862f-beb4-4a23-bc64-232377a1421e: { columnSuffix: null, contentColumnType: string, fieldGroup: null, handle: specialty, instructions: '', name: Specialty, searchable: false, settings: { allowSelfRelations: false, limit: '', localizeRelations: false, selectionLabel: 'Select a specialty to link to this event.', showSiteMenu: true, source: null, sources: ['section:e3299412-d9c2-4679-9fad-64e72b3c5a42'], targetSiteId: null, validateRelatedElements: true, viewMode: null }, translationKeyFormat: null, translationMethod: site, type: craft\fields\Entries }
+handle: specialty
+name: Specialty
+sortOrder: 1

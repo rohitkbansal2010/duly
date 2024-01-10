@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Practitioners should render practitioners 1`] = `
+<div
+  className="practitioners flexRow"
+>
+  <Practitioner
+    humanName={
+      Object {
+        "familyName": "Morris",
+        "givenNames": Array [
+          "Jane",
+        ],
+      }
+    }
+    id="qwerty1"
+    isTodaysAppointment={false}
+    key="qwerty1"
+    photo={
+      Object {
+        "contentType": "image/x-png",
+        "data": "data",
+        "size": 0,
+        "title": "Photo",
+      }
+    }
+    role="MA"
+  />
+  <Practitioner
+    humanName={
+      Object {
+        "familyName": "Ling",
+        "givenNames": Array [
+          "Jane",
+        ],
+        "prefixes": Array [
+          "Dr.",
+        ],
+      }
+    }
+    id="qwerty2"
+    isTodaysAppointment={false}
+    key="qwerty2"
+    photo={
+      Object {
+        "contentType": "image/x-png",
+        "data": "data",
+        "size": 0,
+        "title": "Photo",
+      }
+    }
+    role="PCP"
+  />
+</div>
+`;

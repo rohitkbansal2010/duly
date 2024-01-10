@@ -1,0 +1,89 @@
+{# settings #}
+{% set neighbours = 1 %}
+
+{# symbols #}
+{% set prev = 'Previous'|t %}
+{% set next = 'Next'|t %}
+{% set dots = "&hellip;" %}
+{% set currentPage = pagination.page + 1 %}
+
+{# single numeric link #}
+{% macro numericLink(url, number, current) %}
+	<li>
+		<a href="{{url}}" data-number="{{number}}" class="pagination-link {{current ? 'is-current' : null}}" aria-label="{{current ? 'current page'|t : 'go to page'|t ~ ' ' ~ number}}" {{current ? 'aria-current="page"'}}>{{number}}</a>
+	</li>
+{% endmacro %}
+
+{# next/prev link #}
+{% macro textLink(url, content, aria, number) %}
+	<li>
+		<a href="{{url}}" data-number="{{number}}" class="pagination-link pagination-text-link" aria-label="{{aria}}">{{content|raw}}</a>
+	</li>
+{% endmacro %}
+
+{# ellipsis #}
+{% macro ellipsis(content) %}
+	<li>
+		<span class="pagination-ellipsis">{{content|raw}}</span>
+	</li>
+{% endmacro %}
+
+{# pagination logic #}
+{% if pagination.totalCount > 1 %}
+	{% import _self as self %}
+
+	{# seomatic #}
+	{# https://github.com/nystudio107/craft-seomatic#pagination-and-seo #}
+		{% if seomatic is defined %}
+	{% do seomatic.helper.paginate(pageInfo) %}
+	{% endif %}
+
+		<nav class="pagination" role="navigation" aria-label="{{'pagination'|t}}"> <ul
+			class="pagination-list">
+
+			{# previous #}
+			{% if pagination.links['prev'] is defined %}
+				{{ self.textLink(pagination.links['prev'], prev, 'Previous'|t, currentPage - 1) }}
+			{% endif %}
+
+			{# first #}
+			{% if currentPage - neighbours > 1  %}
+				{{ self.numericLink(pagination.links['first'], '1') }}
+			{% endif %}
+
+			{# ellipsis before current #}
+			{% if currentPage - neighbours > 2 %}
+				{{ self.ellipsis(dots) }}
+			{% endif %}
+
+			{# link before current #}
+			{% if pagination.links['prev'] is defined %}
+			    {{ self.numericLink(pagination.links['prev'], currentPage - 1) }}
+			{% endif %}
+
+			{# current #}
+			{{ self.numericLink('', currentPage, true) }}
+
+			{# links after current #}
+			{% if pagination.links['next'] is defined %}
+			    {{ self.numericLink(pagination.links['next'], currentPage + 1) }}
+			{% endif %}
+
+			{# ellipsis after current #}
+			{% if pagination.pageCount - currentPage > neighbours + 1 %}
+				{{ self.ellipsis(dots) }}
+			{% endif %}
+
+			{# last #}
+			{% if currentPage + neighbours < pagination.pageCount %}
+				{{ self.numericLink(pagination.links['last'], pagination.pageCount) }}
+			{% endif %}
+
+			{# next #}
+			{% if pagination.links['next'] is defined %}
+				{{ self.textLink(pagination.links['next'], next, 'Next'|t, currentPage + 1) }}
+			{% endif %}
+
+		</ul>
+	</nav>
+{% endif %}

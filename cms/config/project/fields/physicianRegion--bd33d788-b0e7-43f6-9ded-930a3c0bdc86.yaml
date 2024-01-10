@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: physicianRegion
+instructions: 'Select geographic region for this physician. '
+name: 'Region '
+searchable: true
+settings:
+    multi: true
+    optgroups: true
+    options: [{ __assoc__: [[label, 'Not Specified'], [value, unspecified], [default, '']] }, { __assoc__: [[label, North], [value, north], [default, '']] }, { __assoc__: [[label, East], [value, east], [default, '']] }, { __assoc__: [[label, South], [value, south], [default, '']] }, { __assoc__: [[label, West], [value, west], [default, '']] }, { __assoc__: [[label, Central], [value, central], [default, '']] }]
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\MultiSelect

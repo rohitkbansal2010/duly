@@ -1,0 +1,1557 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PastImmunizationsPlate should render component 1`] = `
+<PastImmunizationsPlate
+  accordions={
+    Object {
+      "pastImmunization": Array [
+        "1",
+        "2",
+        "3",
+      ],
+    }
+  }
+  handleClickImmunizationGroupItem={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          "pastImmunization",
+          "0-0",
+        ],
+        Array [
+          "pastImmunization",
+          "0-1",
+        ],
+        Array [
+          "pastImmunization",
+          "1-0",
+        ],
+        Array [
+          "pastImmunization",
+          "1-1",
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  handleClickPastImmunizationGroup={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          "pastImmunization",
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  immunizations={
+    Array [
+      Object {
+        "title": "HepA",
+        "vaccinations": Array [
+          Object {
+            "date": "7/5/1985",
+            "dateTitle": "ADMINISTRATED",
+            "dose": Object {
+              "amount": 1,
+              "unit": "mL",
+            },
+            "title": "Hep A, adult",
+          },
+        ],
+      },
+      Object {
+        "title": "HepB",
+        "vaccinations": Array [
+          Object {
+            "date": "2/15/1998",
+            "dateTitle": "ADMINISTRATED",
+            "dose": Object {
+              "amount": 1,
+              "unit": "mL",
+            },
+            "title": "Hep B-dialysis",
+          },
+        ],
+      },
+      Object {
+        "title": "MENING",
+        "vaccinations": Array [
+          Object {
+            "dateTitle": "NOT ADMINISTRATED",
+            "title": "Meningococcal MCV4O",
+          },
+        ],
+      },
+      Object {
+        "title": "POLIO",
+        "vaccinations": Array [
+          Object {
+            "dateTitle": "ADMINISTRATED",
+            "title": "IPV (e-IPV)",
+          },
+        ],
+      },
+    ]
+  }
+  immunizationsCount={4}
+>
+  <Accordion
+    className="immunizationsPlateContainer"
+  >
+    <div
+      className="immunizationsPlateContainer accordion"
+    >
+      <ImmunizationsToggle
+        eventKey="0"
+        type="PLATE"
+      >
+        <CustomAccordionToggle
+          callback={[Function]}
+          eventKey="0"
+        >
+          <button
+            className="toggleButton"
+            onClick={[Function]}
+            type="button"
+          >
+            <ImmunizationsTitle
+              immunizationsCount={4}
+              type="PAST"
+            >
+              <div
+                className="immunizationsTitle"
+              >
+                <div
+                  className="immunizationsTitleIcon immunizationsTitleIconPAST"
+                >
+                  <img
+                    alt="PAST immunizations icon"
+                    src="immunization-magenta.svg"
+                  />
+                  <div
+                    className="immunizationsTitleCounter immunizationsTitleCounterPAST"
+                  >
+                    4
+                  </div>
+                </div>
+                <div
+                  className="immunizationsTitleText"
+                >
+                  <span>
+                    Past Immunizations
+                  </span>
+                  <span
+                    className="immunizationsTitleTextAdditional"
+                  >
+                    All past recorded immunizations
+                  </span>
+                </div>
+              </div>
+            </ImmunizationsTitle>
+            <img
+              alt="expand collapse button"
+              className="toggleButtonImage expandedToggle"
+              src="expand.svg"
+            />
+          </button>
+        </CustomAccordionToggle>
+      </ImmunizationsToggle>
+      <AccordionCollapse
+        eventKey="0"
+      >
+        <ForwardRef
+          appear={false}
+          className="accordion-collapse"
+          getDimensionValue={[Function]}
+          in={false}
+          mountOnEnter={false}
+          timeout={300}
+          unmountOnExit={false}
+        >
+          <ForwardRef
+            addEndListener={[Function]}
+            appear={false}
+            aria-expanded={null}
+            childRef={null}
+            in={false}
+            mountOnEnter={false}
+            onEnter={[Function]}
+            onEntered={[Function]}
+            onEntering={[Function]}
+            onExit={[Function]}
+            onExiting={[Function]}
+            timeout={300}
+            unmountOnExit={false}
+          >
+            <Transition
+              addEndListener={[Function]}
+              appear={false}
+              aria-expanded={null}
+              enter={true}
+              exit={true}
+              in={false}
+              mountOnEnter={false}
+              nodeRef={
+                Object {
+                  "current": <div
+                    class="accordion-collapse collapse"
+                  >
+                    <div
+                      class="immunizationsBody"
+                    >
+                      <div
+                        class="immunizationsBodyGroups"
+                      >
+                        <div
+                          class="immunizationsGroup accordion"
+                        >
+                          <button
+                            class="toggleButton"
+                            type="button"
+                          >
+                            <span
+                              class="immunizationsGroupTitle"
+                            >
+                              HepA
+                            </span>
+                            <img
+                              alt="expand collapse button"
+                              class="toggleButtonImage"
+                              src="plus.svg"
+                            />
+                          </button>
+                          <div
+                            class="accordion-collapse collapse"
+                          >
+                            <div
+                              class="immunizationsGroupBody"
+                            >
+                              <div
+                                class="immunizationsItem"
+                              >
+                                <div
+                                  class="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    Hep A, adult
+                                  </span>
+                                </div>
+                                <div
+                                  class="immunizationsItemDue"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    7/5/1985
+                                  </span>
+                                </div>
+                                <div
+                                  class="immunizationsItemStatus"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    dose
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    1 mL
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="immunizationsGroup accordion"
+                        >
+                          <button
+                            class="toggleButton"
+                            type="button"
+                          >
+                            <span
+                              class="immunizationsGroupTitle"
+                            >
+                              MENING
+                            </span>
+                            <img
+                              alt="expand collapse button"
+                              class="toggleButtonImage"
+                              src="plus.svg"
+                            />
+                          </button>
+                          <div
+                            class="accordion-collapse collapse"
+                          >
+                            <div
+                              class="immunizationsGroupBody"
+                            >
+                              <div
+                                class="immunizationsItem"
+                              >
+                                <div
+                                  class="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    Meningococcal MCV4O
+                                  </span>
+                                </div>
+                                <div
+                                  class="immunizationsItemDue"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    NOT ADMINISTRATED
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    N/A
+                                  </span>
+                                </div>
+                                <div
+                                  class="immunizationsItemStatus"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    dose
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    N/A
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="immunizationsBodyGroups"
+                      >
+                        <div
+                          class="immunizationsGroup accordion"
+                        >
+                          <button
+                            class="toggleButton"
+                            type="button"
+                          >
+                            <span
+                              class="immunizationsGroupTitle"
+                            >
+                              HepB
+                            </span>
+                            <img
+                              alt="expand collapse button"
+                              class="toggleButtonImage"
+                              src="plus.svg"
+                            />
+                          </button>
+                          <div
+                            class="accordion-collapse collapse"
+                          >
+                            <div
+                              class="immunizationsGroupBody"
+                            >
+                              <div
+                                class="immunizationsItem"
+                              >
+                                <div
+                                  class="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    Hep B-dialysis
+                                  </span>
+                                </div>
+                                <div
+                                  class="immunizationsItemDue"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    2/15/1998
+                                  </span>
+                                </div>
+                                <div
+                                  class="immunizationsItemStatus"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    dose
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    1 mL
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="immunizationsGroup accordion"
+                        >
+                          <button
+                            class="toggleButton"
+                            type="button"
+                          >
+                            <span
+                              class="immunizationsGroupTitle"
+                            >
+                              POLIO
+                            </span>
+                            <img
+                              alt="expand collapse button"
+                              class="toggleButtonImage"
+                              src="plus.svg"
+                            />
+                          </button>
+                          <div
+                            class="accordion-collapse collapse"
+                          >
+                            <div
+                              class="immunizationsGroupBody"
+                            >
+                              <div
+                                class="immunizationsItem"
+                              >
+                                <div
+                                  class="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    IPV (e-IPV)
+                                  </span>
+                                </div>
+                                <div
+                                  class="immunizationsItemDue"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    N/A
+                                  </span>
+                                </div>
+                                <div
+                                  class="immunizationsItemStatus"
+                                >
+                                  <span
+                                    class="immunizationsItemTitle"
+                                  >
+                                    dose
+                                  </span>
+                                  <span
+                                    class="immunizationsItemValue"
+                                  >
+                                    N/A
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>,
+                }
+              }
+              onEnter={[Function]}
+              onEntered={[Function]}
+              onEntering={[Function]}
+              onExit={[Function]}
+              onExited={[Function]}
+              onExiting={[Function]}
+              timeout={300}
+              unmountOnExit={false}
+            >
+              <div
+                aria-expanded={null}
+                className="accordion-collapse collapse"
+              >
+                <ImmunizationsBody
+                  accordionsGroup={
+                    Array [
+                      "1",
+                      "2",
+                      "3",
+                    ]
+                  }
+                  groupId="pastImmunization"
+                  handleClickImmunizationGroupItem={
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          "pastImmunization",
+                          "0-0",
+                        ],
+                        Array [
+                          "pastImmunization",
+                          "0-1",
+                        ],
+                        Array [
+                          "pastImmunization",
+                          "1-0",
+                        ],
+                        Array [
+                          "pastImmunization",
+                          "1-1",
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    }
+                  }
+                  immunizations={
+                    Array [
+                      Object {
+                        "title": "HepA",
+                        "vaccinations": Array [
+                          Object {
+                            "date": "7/5/1985",
+                            "dateTitle": "ADMINISTRATED",
+                            "dose": Object {
+                              "amount": 1,
+                              "unit": "mL",
+                            },
+                            "title": "Hep A, adult",
+                          },
+                        ],
+                      },
+                      Object {
+                        "title": "HepB",
+                        "vaccinations": Array [
+                          Object {
+                            "date": "2/15/1998",
+                            "dateTitle": "ADMINISTRATED",
+                            "dose": Object {
+                              "amount": 1,
+                              "unit": "mL",
+                            },
+                            "title": "Hep B-dialysis",
+                          },
+                        ],
+                      },
+                      Object {
+                        "title": "MENING",
+                        "vaccinations": Array [
+                          Object {
+                            "dateTitle": "NOT ADMINISTRATED",
+                            "title": "Meningococcal MCV4O",
+                          },
+                        ],
+                      },
+                      Object {
+                        "title": "POLIO",
+                        "vaccinations": Array [
+                          Object {
+                            "dateTitle": "ADMINISTRATED",
+                            "title": "IPV (e-IPV)",
+                          },
+                        ],
+                      },
+                    ]
+                  }
+                >
+                  <div
+                    className="immunizationsBody"
+                  >
+                    <div
+                      className="immunizationsBodyGroups"
+                      key="0"
+                    >
+                      <ImmunizationsGroup
+                        activeKey={null}
+                        eventKey="0-0"
+                        isSpeechBubbleIcon={false}
+                        key="0"
+                        title="HepA"
+                        vaccinations={
+                          Array [
+                            Object {
+                              "date": "7/5/1985",
+                              "dateTitle": "ADMINISTRATED",
+                              "dose": Object {
+                                "amount": 1,
+                                "unit": "mL",
+                              },
+                              "title": "Hep A, adult",
+                            },
+                          ]
+                        }
+                      >
+                        <Accordion
+                          activeKey={null}
+                          className="immunizationsGroup"
+                        >
+                          <div
+                            className="immunizationsGroup accordion"
+                          >
+                            <ImmunizationsToggle
+                              eventKey="0-0"
+                            >
+                              <CustomAccordionToggle
+                                callback={[Function]}
+                                eventKey="0-0"
+                              >
+                                <button
+                                  className="toggleButton"
+                                  onClick={[Function]}
+                                  type="button"
+                                >
+                                  <span
+                                    className="immunizationsGroupTitle"
+                                  >
+                                    HepA
+                                  </span>
+                                  <img
+                                    alt="expand collapse button"
+                                    className="toggleButtonImage"
+                                    src="plus.svg"
+                                  />
+                                </button>
+                              </CustomAccordionToggle>
+                            </ImmunizationsToggle>
+                            <AccordionCollapse
+                              eventKey="0-0"
+                            >
+                              <ForwardRef
+                                appear={false}
+                                className="accordion-collapse"
+                                getDimensionValue={[Function]}
+                                in={false}
+                                mountOnEnter={false}
+                                timeout={300}
+                                unmountOnExit={false}
+                              >
+                                <ForwardRef
+                                  addEndListener={[Function]}
+                                  appear={false}
+                                  aria-expanded={null}
+                                  childRef={null}
+                                  in={false}
+                                  mountOnEnter={false}
+                                  onEnter={[Function]}
+                                  onEntered={[Function]}
+                                  onEntering={[Function]}
+                                  onExit={[Function]}
+                                  onExiting={[Function]}
+                                  timeout={300}
+                                  unmountOnExit={false}
+                                >
+                                  <Transition
+                                    addEndListener={[Function]}
+                                    appear={false}
+                                    aria-expanded={null}
+                                    enter={true}
+                                    exit={true}
+                                    in={false}
+                                    mountOnEnter={false}
+                                    nodeRef={
+                                      Object {
+                                        "current": <div
+                                          class="accordion-collapse collapse"
+                                        >
+                                          <div
+                                            class="immunizationsGroupBody"
+                                          >
+                                            <div
+                                              class="immunizationsItem"
+                                            >
+                                              <div
+                                                class="immunizationsItemVaccine"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  vaccine
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  Hep A, adult
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="immunizationsItemDue"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  ADMINISTRATED
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  7/5/1985
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="immunizationsItemStatus"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  dose
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  1 mL
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>,
+                                      }
+                                    }
+                                    onEnter={[Function]}
+                                    onEntered={[Function]}
+                                    onEntering={[Function]}
+                                    onExit={[Function]}
+                                    onExited={[Function]}
+                                    onExiting={[Function]}
+                                    timeout={300}
+                                    unmountOnExit={false}
+                                  >
+                                    <div
+                                      aria-expanded={null}
+                                      className="accordion-collapse collapse"
+                                    >
+                                      <div
+                                        className="immunizationsGroupBody"
+                                      >
+                                        <ImmunizationsItem
+                                          date="7/5/1985"
+                                          dateTitle="ADMINISTRATED"
+                                          dose={
+                                            Object {
+                                              "amount": 1,
+                                              "unit": "mL",
+                                            }
+                                          }
+                                          key="0"
+                                          title="Hep A, adult"
+                                        >
+                                          <div
+                                            className="immunizationsItem"
+                                          >
+                                            <div
+                                              className="immunizationsItemVaccine"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                vaccine
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                Hep A, adult
+                                              </span>
+                                            </div>
+                                            <div
+                                              className="immunizationsItemDue"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                ADMINISTRATED
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                7/5/1985
+                                              </span>
+                                            </div>
+                                            <div
+                                              className="immunizationsItemStatus"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                dose
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                1 mL
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </ImmunizationsItem>
+                                      </div>
+                                    </div>
+                                  </Transition>
+                                </ForwardRef>
+                              </ForwardRef>
+                            </AccordionCollapse>
+                          </div>
+                        </Accordion>
+                      </ImmunizationsGroup>
+                      <ImmunizationsGroup
+                        activeKey={null}
+                        eventKey="0-1"
+                        isSpeechBubbleIcon={false}
+                        key="1"
+                        title="MENING"
+                        vaccinations={
+                          Array [
+                            Object {
+                              "dateTitle": "NOT ADMINISTRATED",
+                              "title": "Meningococcal MCV4O",
+                            },
+                          ]
+                        }
+                      >
+                        <Accordion
+                          activeKey={null}
+                          className="immunizationsGroup"
+                        >
+                          <div
+                            className="immunizationsGroup accordion"
+                          >
+                            <ImmunizationsToggle
+                              eventKey="0-1"
+                            >
+                              <CustomAccordionToggle
+                                callback={[Function]}
+                                eventKey="0-1"
+                              >
+                                <button
+                                  className="toggleButton"
+                                  onClick={[Function]}
+                                  type="button"
+                                >
+                                  <span
+                                    className="immunizationsGroupTitle"
+                                  >
+                                    MENING
+                                  </span>
+                                  <img
+                                    alt="expand collapse button"
+                                    className="toggleButtonImage"
+                                    src="plus.svg"
+                                  />
+                                </button>
+                              </CustomAccordionToggle>
+                            </ImmunizationsToggle>
+                            <AccordionCollapse
+                              eventKey="0-1"
+                            >
+                              <ForwardRef
+                                appear={false}
+                                className="accordion-collapse"
+                                getDimensionValue={[Function]}
+                                in={false}
+                                mountOnEnter={false}
+                                timeout={300}
+                                unmountOnExit={false}
+                              >
+                                <ForwardRef
+                                  addEndListener={[Function]}
+                                  appear={false}
+                                  aria-expanded={null}
+                                  childRef={null}
+                                  in={false}
+                                  mountOnEnter={false}
+                                  onEnter={[Function]}
+                                  onEntered={[Function]}
+                                  onEntering={[Function]}
+                                  onExit={[Function]}
+                                  onExiting={[Function]}
+                                  timeout={300}
+                                  unmountOnExit={false}
+                                >
+                                  <Transition
+                                    addEndListener={[Function]}
+                                    appear={false}
+                                    aria-expanded={null}
+                                    enter={true}
+                                    exit={true}
+                                    in={false}
+                                    mountOnEnter={false}
+                                    nodeRef={
+                                      Object {
+                                        "current": <div
+                                          class="accordion-collapse collapse"
+                                        >
+                                          <div
+                                            class="immunizationsGroupBody"
+                                          >
+                                            <div
+                                              class="immunizationsItem"
+                                            >
+                                              <div
+                                                class="immunizationsItemVaccine"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  vaccine
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  Meningococcal MCV4O
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="immunizationsItemDue"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  NOT ADMINISTRATED
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  N/A
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="immunizationsItemStatus"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  dose
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  N/A
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>,
+                                      }
+                                    }
+                                    onEnter={[Function]}
+                                    onEntered={[Function]}
+                                    onEntering={[Function]}
+                                    onExit={[Function]}
+                                    onExited={[Function]}
+                                    onExiting={[Function]}
+                                    timeout={300}
+                                    unmountOnExit={false}
+                                  >
+                                    <div
+                                      aria-expanded={null}
+                                      className="accordion-collapse collapse"
+                                    >
+                                      <div
+                                        className="immunizationsGroupBody"
+                                      >
+                                        <ImmunizationsItem
+                                          dateTitle="NOT ADMINISTRATED"
+                                          key="0"
+                                          title="Meningococcal MCV4O"
+                                        >
+                                          <div
+                                            className="immunizationsItem"
+                                          >
+                                            <div
+                                              className="immunizationsItemVaccine"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                vaccine
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                Meningococcal MCV4O
+                                              </span>
+                                            </div>
+                                            <div
+                                              className="immunizationsItemDue"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                NOT ADMINISTRATED
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                N/A
+                                              </span>
+                                            </div>
+                                            <div
+                                              className="immunizationsItemStatus"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                dose
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                N/A
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </ImmunizationsItem>
+                                      </div>
+                                    </div>
+                                  </Transition>
+                                </ForwardRef>
+                              </ForwardRef>
+                            </AccordionCollapse>
+                          </div>
+                        </Accordion>
+                      </ImmunizationsGroup>
+                    </div>
+                    <div
+                      className="immunizationsBodyGroups"
+                      key="1"
+                    >
+                      <ImmunizationsGroup
+                        activeKey={null}
+                        eventKey="1-0"
+                        isSpeechBubbleIcon={false}
+                        key="0"
+                        title="HepB"
+                        vaccinations={
+                          Array [
+                            Object {
+                              "date": "2/15/1998",
+                              "dateTitle": "ADMINISTRATED",
+                              "dose": Object {
+                                "amount": 1,
+                                "unit": "mL",
+                              },
+                              "title": "Hep B-dialysis",
+                            },
+                          ]
+                        }
+                      >
+                        <Accordion
+                          activeKey={null}
+                          className="immunizationsGroup"
+                        >
+                          <div
+                            className="immunizationsGroup accordion"
+                          >
+                            <ImmunizationsToggle
+                              eventKey="1-0"
+                            >
+                              <CustomAccordionToggle
+                                callback={[Function]}
+                                eventKey="1-0"
+                              >
+                                <button
+                                  className="toggleButton"
+                                  onClick={[Function]}
+                                  type="button"
+                                >
+                                  <span
+                                    className="immunizationsGroupTitle"
+                                  >
+                                    HepB
+                                  </span>
+                                  <img
+                                    alt="expand collapse button"
+                                    className="toggleButtonImage"
+                                    src="plus.svg"
+                                  />
+                                </button>
+                              </CustomAccordionToggle>
+                            </ImmunizationsToggle>
+                            <AccordionCollapse
+                              eventKey="1-0"
+                            >
+                              <ForwardRef
+                                appear={false}
+                                className="accordion-collapse"
+                                getDimensionValue={[Function]}
+                                in={false}
+                                mountOnEnter={false}
+                                timeout={300}
+                                unmountOnExit={false}
+                              >
+                                <ForwardRef
+                                  addEndListener={[Function]}
+                                  appear={false}
+                                  aria-expanded={null}
+                                  childRef={null}
+                                  in={false}
+                                  mountOnEnter={false}
+                                  onEnter={[Function]}
+                                  onEntered={[Function]}
+                                  onEntering={[Function]}
+                                  onExit={[Function]}
+                                  onExiting={[Function]}
+                                  timeout={300}
+                                  unmountOnExit={false}
+                                >
+                                  <Transition
+                                    addEndListener={[Function]}
+                                    appear={false}
+                                    aria-expanded={null}
+                                    enter={true}
+                                    exit={true}
+                                    in={false}
+                                    mountOnEnter={false}
+                                    nodeRef={
+                                      Object {
+                                        "current": <div
+                                          class="accordion-collapse collapse"
+                                        >
+                                          <div
+                                            class="immunizationsGroupBody"
+                                          >
+                                            <div
+                                              class="immunizationsItem"
+                                            >
+                                              <div
+                                                class="immunizationsItemVaccine"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  vaccine
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  Hep B-dialysis
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="immunizationsItemDue"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  ADMINISTRATED
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  2/15/1998
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="immunizationsItemStatus"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  dose
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  1 mL
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>,
+                                      }
+                                    }
+                                    onEnter={[Function]}
+                                    onEntered={[Function]}
+                                    onEntering={[Function]}
+                                    onExit={[Function]}
+                                    onExited={[Function]}
+                                    onExiting={[Function]}
+                                    timeout={300}
+                                    unmountOnExit={false}
+                                  >
+                                    <div
+                                      aria-expanded={null}
+                                      className="accordion-collapse collapse"
+                                    >
+                                      <div
+                                        className="immunizationsGroupBody"
+                                      >
+                                        <ImmunizationsItem
+                                          date="2/15/1998"
+                                          dateTitle="ADMINISTRATED"
+                                          dose={
+                                            Object {
+                                              "amount": 1,
+                                              "unit": "mL",
+                                            }
+                                          }
+                                          key="0"
+                                          title="Hep B-dialysis"
+                                        >
+                                          <div
+                                            className="immunizationsItem"
+                                          >
+                                            <div
+                                              className="immunizationsItemVaccine"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                vaccine
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                Hep B-dialysis
+                                              </span>
+                                            </div>
+                                            <div
+                                              className="immunizationsItemDue"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                ADMINISTRATED
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                2/15/1998
+                                              </span>
+                                            </div>
+                                            <div
+                                              className="immunizationsItemStatus"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                dose
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                1 mL
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </ImmunizationsItem>
+                                      </div>
+                                    </div>
+                                  </Transition>
+                                </ForwardRef>
+                              </ForwardRef>
+                            </AccordionCollapse>
+                          </div>
+                        </Accordion>
+                      </ImmunizationsGroup>
+                      <ImmunizationsGroup
+                        activeKey={null}
+                        eventKey="1-1"
+                        isSpeechBubbleIcon={false}
+                        key="1"
+                        title="POLIO"
+                        vaccinations={
+                          Array [
+                            Object {
+                              "dateTitle": "ADMINISTRATED",
+                              "title": "IPV (e-IPV)",
+                            },
+                          ]
+                        }
+                      >
+                        <Accordion
+                          activeKey={null}
+                          className="immunizationsGroup"
+                        >
+                          <div
+                            className="immunizationsGroup accordion"
+                          >
+                            <ImmunizationsToggle
+                              eventKey="1-1"
+                            >
+                              <CustomAccordionToggle
+                                callback={[Function]}
+                                eventKey="1-1"
+                              >
+                                <button
+                                  className="toggleButton"
+                                  onClick={[Function]}
+                                  type="button"
+                                >
+                                  <span
+                                    className="immunizationsGroupTitle"
+                                  >
+                                    POLIO
+                                  </span>
+                                  <img
+                                    alt="expand collapse button"
+                                    className="toggleButtonImage"
+                                    src="plus.svg"
+                                  />
+                                </button>
+                              </CustomAccordionToggle>
+                            </ImmunizationsToggle>
+                            <AccordionCollapse
+                              eventKey="1-1"
+                            >
+                              <ForwardRef
+                                appear={false}
+                                className="accordion-collapse"
+                                getDimensionValue={[Function]}
+                                in={false}
+                                mountOnEnter={false}
+                                timeout={300}
+                                unmountOnExit={false}
+                              >
+                                <ForwardRef
+                                  addEndListener={[Function]}
+                                  appear={false}
+                                  aria-expanded={null}
+                                  childRef={null}
+                                  in={false}
+                                  mountOnEnter={false}
+                                  onEnter={[Function]}
+                                  onEntered={[Function]}
+                                  onEntering={[Function]}
+                                  onExit={[Function]}
+                                  onExiting={[Function]}
+                                  timeout={300}
+                                  unmountOnExit={false}
+                                >
+                                  <Transition
+                                    addEndListener={[Function]}
+                                    appear={false}
+                                    aria-expanded={null}
+                                    enter={true}
+                                    exit={true}
+                                    in={false}
+                                    mountOnEnter={false}
+                                    nodeRef={
+                                      Object {
+                                        "current": <div
+                                          class="accordion-collapse collapse"
+                                        >
+                                          <div
+                                            class="immunizationsGroupBody"
+                                          >
+                                            <div
+                                              class="immunizationsItem"
+                                            >
+                                              <div
+                                                class="immunizationsItemVaccine"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  vaccine
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  IPV (e-IPV)
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="immunizationsItemDue"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  ADMINISTRATED
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  N/A
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="immunizationsItemStatus"
+                                              >
+                                                <span
+                                                  class="immunizationsItemTitle"
+                                                >
+                                                  dose
+                                                </span>
+                                                <span
+                                                  class="immunizationsItemValue"
+                                                >
+                                                  N/A
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>,
+                                      }
+                                    }
+                                    onEnter={[Function]}
+                                    onEntered={[Function]}
+                                    onEntering={[Function]}
+                                    onExit={[Function]}
+                                    onExited={[Function]}
+                                    onExiting={[Function]}
+                                    timeout={300}
+                                    unmountOnExit={false}
+                                  >
+                                    <div
+                                      aria-expanded={null}
+                                      className="accordion-collapse collapse"
+                                    >
+                                      <div
+                                        className="immunizationsGroupBody"
+                                      >
+                                        <ImmunizationsItem
+                                          dateTitle="ADMINISTRATED"
+                                          key="0"
+                                          title="IPV (e-IPV)"
+                                        >
+                                          <div
+                                            className="immunizationsItem"
+                                          >
+                                            <div
+                                              className="immunizationsItemVaccine"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                vaccine
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                IPV (e-IPV)
+                                              </span>
+                                            </div>
+                                            <div
+                                              className="immunizationsItemDue"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                ADMINISTRATED
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                N/A
+                                              </span>
+                                            </div>
+                                            <div
+                                              className="immunizationsItemStatus"
+                                            >
+                                              <span
+                                                className="immunizationsItemTitle"
+                                              >
+                                                dose
+                                              </span>
+                                              <span
+                                                className="immunizationsItemValue"
+                                              >
+                                                N/A
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </ImmunizationsItem>
+                                      </div>
+                                    </div>
+                                  </Transition>
+                                </ForwardRef>
+                              </ForwardRef>
+                            </AccordionCollapse>
+                          </div>
+                        </Accordion>
+                      </ImmunizationsGroup>
+                    </div>
+                  </div>
+                </ImmunizationsBody>
+              </div>
+            </Transition>
+          </ForwardRef>
+        </ForwardRef>
+      </AccordionCollapse>
+    </div>
+  </Accordion>
+</PastImmunizationsPlate>
+`;

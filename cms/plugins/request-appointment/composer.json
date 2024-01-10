@@ -1,0 +1,44 @@
+{
+    "name": "punchkick/request-appointment",
+    "description": "This plugin provides way to easily manage requesting an appointment via forms",
+    "type": "craft-plugin",
+    "version": "0.0.1",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "request-appointment"
+    ],
+    "support": {
+        "docs": "https://wiki.punchkick.com",
+        "issues": "https://jira.punchkickinteractive.com"
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Punchkick Interactive",
+            "homepage": "https://www.punchkick.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.5",
+        "hguenot/yii2-gsftp": "~3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "punchkick\\requestappointment\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Request Appointment",
+        "handle": "request-appointment",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "???",
+        "components": {
+            "requestAppointmentService": "punchkick\\requestappointment\\services\\RequestAppointmentService"
+        },
+        "class": "punchkick\\requestappointment\\RequestAppointment"
+    }
+}

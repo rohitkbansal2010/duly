@@ -1,0 +1,74 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * event-registration plugin for Craft CMS 3.3
+ *
+ * event-registration default.twig
+ *
+ * @author    Punchkick Interactive
+ * @copyright Copyright (c) 2019 Punchkick Interactive
+ * @link      https://www.punchkick.com
+ * @package   EventRegistration
+ * @since     0.0.1
+ */
+#}
+{% extends "_layouts/cp" %}
+
+{% set title = "{title} Locations"|t(params = { title: event.title }) %}
+{% set crumbs = [
+    {url: "/admin/calendar", label: 'Calendar'|t},
+    {url: "/admin/calendar/events", label: 'Events'|t},
+    {url: "/admin/calendar/events/" ~ event.id ~ "/default", label: event.title},
+    {url: "#", label: "Locations"|t}
+] %}
+
+{% block details %}
+    <div class="meta">
+        <p>{{ "Each event many have multiple locations associated with it, that each may have registrants associated to that location for a specific time."|t }}</p>
+        <p>{{ "Select the location you wish to see times, and registrants for."|t }}</p>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="elements">
+        <div class="tableview">
+            <table class="data fullwidth">
+                <thead>
+                <tr>
+                    <th scope="col" data-attribute="location" class="orderable">{{ "Locations for {title}"|t(params = { title: event.title }) }}</th>
+                </tr>
+                </thead>
+                    <tbody>
+                    {% for location in event.eventLocation.all() %}
+                        <tr data-id="{{ location.id }}" tabindex="0">
+                            <td data-title="Title" data-titlecell="">
+                                <div class="element small" data-type="Solspace\Calendar\Elements\Event" data-id="{{ event.id }}" data-site-id="{{ location.siteId }}" data-status="enabled" data-label="Location ID">
+                                    {% set text = location.addressLocation.address %}
+                                    
+                                    {% if location.isVirtual %}
+                                        {% set text = "Virtual Event: {title} - Event ID: {id}"|t(params = { 
+                                            title: event.title,
+                                            id: event.id
+                                        }) %}
+                                    {% endif %}
+
+                                    {{ tag('div', { 
+                                        class: 'label',
+                                        html: tag('span', {
+                                            class: 'title',
+                                            html: tag('a', {
+                                                href: '/admin/event-registration/registrations-by-location/' ~ event.id ~ '/' ~ location.id,
+                                                text: text
+                                            })
+                                        })|raw
+                                      })|raw
+                                    }}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

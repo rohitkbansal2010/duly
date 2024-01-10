@@ -1,0 +1,32 @@
+<div class="immediate-care-locations">
+	<div class="map-container">
+		<div id="map"></div>
+		<div id="mobile-scroll-overlay">
+			<h2>{{ "Use two fingers to scroll the map"|t }}</h2>
+		</div>
+	</div>
+	<div class="information-container">
+		<div class="information">
+			<div class="all-locations">
+				{% set matrixField = entry.immediateCareLocationDetails[0] %}
+
+				<span>{{ matrixField.headline }}</span>
+				<span>{{ matrixField.subheadline }}</span>
+				<a href="{{ matrixField.buttonUrl }}">
+					<button class="button">{{ matrixField.buttonText }}</button>
+				</a>
+
+				<hr>
+
+				<div class="closest-immediate-care">
+					<a tabindex="0" href="/locations?care[]=Immediate Care&care[]=Express Care" class="browse-all-immediate-care">{{ "Browse All Immediate Care Locations"|t }}</a>
+				</div>
+			</div>
+
+			<div class="dynamic-content dynamic-content-container">
+			</div>
+
+		</div>
+		<p class="fetch-error hidden"></p>
+	</div>
+</div>

@@ -1,0 +1,32 @@
+{% if event.allDay == false %}
+    <div class="time" itemprop="startDate" content="{{ event.startDate.format('c') }}">
+        {% if event.freq is not null and event.freq == "SELECT_DATES" %}
+            {{ event.startDate.format("M. j") ~ " - " ~ event.occurrences[event.occurrenceCount - 1].endDate.format("M. j") }}<br />
+        {% endif %}
+        {{ event.startDate.format('g:ia') ~ ' - ' ~ event.endDate.format('g:ia') }}
+    </div>
+{% endif %}
+
+<div class="address-description" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    {% if location.isVirtual %}
+        {% if location.addressDetails %}
+            {{ "Virtual Event: "|t }}  {{ location.addressDetails }}
+        {% else %}
+            {{ "Virtual Event"|t }}
+        {% endif %}
+    {% else %}
+         {{ location.addressDetails }}
+    {% endif %}
+</div>
+
+{% if location.addressLocation.address != "" %}
+    <div class="address">
+        <div class="address-line">{{ location.addressLocation.number }} {{ location.addressLocation.streetAddress }}</div>
+        <div class="address-line">{{ location.addressLocation.city }}, {{ location.addressLocation.state }} {{ location.addressLocation.postcode }}</div>
+    </div>
+    <div class="directions">
+        <span class="get-directions-icon"></span>
+        <a rel="noopener noreferrer" class="get-directions" target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ location.addressLocation.number }} {{ location.addressLocation.address }} {{ location.addressLocation.city }} {{ location.addressLocation.postcode }}">{{ "Get Directions"|t }}</a>
+    </div>
+    <hr>
+{% endif %}

@@ -1,0 +1,46 @@
+parameters:
+  - name: namespace
+    default: dev
+    values:
+      - dev
+      - qat
+      # - aut
+      - uat
+      - prd
+
+  - name: deployment
+    default: oc-appointment-management-workflow
+    values:
+      - oc-appointment-management-workflow
+
+pool: OnAKS
+
+
+trigger: none
+
+jobs:
+  - job: dd
+    displayName: Stopping deployment ${{ parameters.deployment }}-${{ parameters.namespace }}
+    steps:
+      - task: Kubernetes@0
+        displayName: ${{ parameters.deployment }}-${{ parameters.namespace }}
+        inputs:
+          kubernetesServiceEndpoint: 'duly-d-app-aks'
+          namespace: '${{ parameters.namespace }}'
+          command: delete
+          # ${{ if endsWith(parameters.deployment, 'api') }}:
+          arguments: 'deployments ${{ parameters.deployment }}-${{ parameters.namespace }}-webapi'
+          # ${{ else }}:
+          #   arguments: 'deployments ${{ parameters.deployment }}-${{ parameters.namespace }}'
+
+  - job: kgp
+    dependsOn: dd
+    displayName: Check ${{ parameters.deployment }}-${{ parameters.namespace }}
+    steps:
+      - task: Kubernetes@0
+        displayName: Kubectl get pods
+        inputs:
+          kubernetesServiceEndpoint: 'duly-d-app-aks'
+          namespace: '${{ parameters.namespace }}'
+          command: get
+          arguments: 'pods'

@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0aca97b8-c6f8-413e-964e-84d096f5dc4f
+handle: locationSpecificAlert
+instructions: "Select a specific location for this alert.\r\nOnly physical locations should be selected (and not suites). "
+name: 'Location Specific Alert'
+searchable: true
+settings:
+    allowSelfRelations: false
+    limit: '1'
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:17cba234-5703-403b-a9e3-d029df2d1745']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

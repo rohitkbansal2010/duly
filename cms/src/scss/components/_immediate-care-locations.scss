@@ -1,0 +1,201 @@
+.immediate-care-locations {
+  @import "../base/_immediate-care/suite-hours";
+
+  padding: 50px;
+  display: flex;
+  flex-direction: row;
+
+  @include responsive(bs-large) {
+    flex-direction: column-reverse;
+    padding: 10px 0px;
+  }
+
+  .map-container {
+    height: 570px;
+    flex: 0 0 570px;
+    position: relative;
+
+    @include responsive(bs-large) {
+      height: 50vh;
+      flex: 0 0 50vh;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    #mobile-scroll-overlay {
+      background: #00000099;
+      height: 100%;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      transition: opacity 0.5s;
+      width: 100%;
+    }
+
+    #mobile-scroll-overlay h2 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ddd;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    &.enable-mobile #mobile-scroll-overlay {
+      opacity: 1;
+    }
+
+    .mapboxgl-popup {
+      max-width: 200px;
+    }
+  }
+
+  .information-container {
+    width: 100%;
+    background: #0e5e6e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+
+    @include responsive(bs-large) {
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+
+    a, span, p, strong {
+      color: $white !important;
+    }
+
+    .text-sky {
+      color: $sky !important;
+    }
+
+    strong {
+      font-size: 44px;
+    }
+
+    .all-locations {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 75%;
+      margin: 0 auto;
+
+      @include responsive(bs-large) {
+        width: 95%;
+      }
+
+      hr {
+        width: 100%;
+        color: $white;
+      }
+
+      a {
+        display: block;
+        margin: 25px 0px;
+        text-decoration: none;
+      }
+
+      p, span {
+        font-size: 28px;
+      }
+
+      &.content-updated {
+        align-items: center;
+        width: 90%;
+
+        @include responsive(bs-large) {
+          width: 95%;
+        }
+
+        .closest-immediate-care {
+          display: none;
+        }
+      }
+    }
+
+    .dynamic-content-container {
+      width: 95%;
+      margin: 15px auto;
+
+      .header {
+        text-align: center;
+      }
+
+      button {
+        color: $oxford;
+        display: flex;
+        justify-content: center;
+
+        &:hover {
+          color: inherit !important;
+          background: $off-blue !important;
+        }
+      }
+
+      .hours {
+        padding: 0px 10px;
+
+        .closed {
+          color: $white !important;
+          font-weight: 500 !important;
+        }
+
+        .open {
+          font-weight: 500 !important;
+          color: $sky !important;
+          span {
+            color: $sky !important;
+          }
+        }
+      }
+
+      hr, .browse-all {
+        display: none;
+      }
+    }
+
+    button {
+      border: none;
+      background: $white !important;
+      width: 288px;
+      margin: 0 auto;
+      height: 48px;
+      color: $oxford !important;
+      border-radius: 4px;
+      font-size: 18px !important;
+      font-weight: 700;
+      text-decoration: none;
+
+      &:hover {
+        background: $off-blue !important;
+        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5) !important;
+      }
+    }
+
+    .show-locations {
+      .title {
+        font-size: 20px !important;
+      }
+
+      .closed,
+      .open {
+        font-size: 16px;
+      }
+
+      .bolded {
+        font-size: 28px;
+      }
+    }
+  }
+}

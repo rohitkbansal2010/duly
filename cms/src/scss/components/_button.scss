@@ -1,0 +1,140 @@
+$buttonHoverShadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+$noShadow: 0 0 0 0 rgba(0, 0, 0, 0);
+
+button.dmgButton,
+a.dmgButton {
+	border: 1.5px solid;
+	border-radius: 0.25rem;
+	color: $white !important;
+	font-weight: bold;
+	padding: 0;
+	cursor: pointer;
+	font-size: 1.25rem;
+	&:focus {
+		outline: none;
+	}
+	&:focus-visible {
+		outline: 2px solid $sky;
+	}
+	&:hover {
+		box-shadow: $buttonHoverShadow;
+		text-decoration: none;
+	}
+	&:active {
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+	&.primary1 {
+		border-color: $oxford !important;
+		background-color: $oxford !important;
+		&:hover {
+			background-color: $oxford-70 !important;
+			border-color: $oxford-70 !important;
+		}
+	}
+	&.secondary1 {
+		border-color: $oxford;
+		color: $oxford !important;
+		background-color: $white;
+		&:hover {
+			color: $sky !important;
+			border-color: $sky;
+			background-color: #f2fafd;
+		}
+	}
+	&.tertiary1 {
+		border-color: $white;
+		background-color: $white;
+		color: $oxford !important;
+		&:hover {
+			color: $sky !important;
+		}
+	}
+	&.primary2 {
+		border-color: $sky;
+		color: $oxford !important;
+		background-color: $sky;
+		&:hover {
+			background-color: $hover-blue;
+			border-color: $hover-blue;
+		}
+	}
+	&.secondary2 {
+		border-color: $forest;
+		color: $forest !important;
+		background-color: $white;
+		&:hover {
+			color: #78be21 !important;
+			border-color: #78be21;
+			background-color: #f8fcf4;
+		}
+	}
+	&.tertiary2 {
+		border-color: $off-blue;
+		background-color: $off-blue;
+		color: $oxford !important;
+		&:hover {
+			color: $oxford-70 !important;
+		}
+	}
+	&.primary3 {
+		border-color: $violet;
+		background-color: $violet;
+		&:hover {
+			border-color: $magenta;
+			background-color: $magenta;
+		}
+	}
+	&.secondary3 {
+		border-color: $violet;
+		color: $violet !important;
+		background-color: $white;
+		&:hover {
+			border-color: $magenta;
+			color: $magenta !important;
+			background-color: $hover-pink;
+		}
+	}
+	&.tertiary3 {
+		border-color: $white;
+		background-color: $white;
+		color: $violet !important;
+		&:hover {
+			color: $magenta !important;
+		}
+	}
+	&.primary1,
+	&.primary2,
+	&.primary3 {
+		&:disabled {
+			cursor: not-allowed;
+			background-color: #d9dde2 !important;
+			border-color: #d9dde2 !important;
+			&:hover {
+				box-shadow: $noShadow;
+			}
+		}
+	}
+	&.secondary1,
+	&.secondary2,
+	&.secondary3 {
+		&:disabled {
+			cursor: not-allowed;
+			background-color: $white;
+			border-color: $gray;
+			color: $gray !important;
+			&:hover {
+				box-shadow: $noShadow;
+			}
+		}
+	}
+	& > a {
+		display: block;
+		padding: 1rem 2rem;
+		color: inherit !important;
+		text-decoration: none;
+	}
+	& > .cta {
+		color: inherit !important;
+		padding: 1rem 2rem;
+	}
+}

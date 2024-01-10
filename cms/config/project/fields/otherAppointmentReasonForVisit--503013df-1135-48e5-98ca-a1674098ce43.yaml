@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: otherAppointmentReasonForVisit
+instructions: "This will only be displayed if this service has an appointment scheduling reason for visit assigned. \r\nWhen a reason is assigned, the option of \"Other\" will be included with those reasons. \r\nIf \"Other\" is selected, this warning text will be displayed to the user and will not allow them to proceed through the scheduling workflow. "
+name: '"Other" Appointment Reason for Visit'
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_otherappointmentreasonforvisit}}'
+    maxBlocks: '1'
+    minBlocks: '0'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

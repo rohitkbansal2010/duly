@@ -1,0 +1,50 @@
+parameters:
+  - name: environment
+    type: string
+    default: ''
+  - name: subscriptionName
+    type: string
+    default: ''
+  - name: apimName
+    type: string
+    default: ''
+  - name: apimRgName
+    type: string
+    default: ''
+  - name: saName
+    type: string
+    default: ''
+  - name: saRgName
+    type: string
+    default: ''
+  - name: backupContainerName
+    type: string
+    value: 'backup-container'
+  - name: vmImage
+    type: string
+    default: 'ubuntu-latest'
+  - name: backupFileName
+    type: string
+    default: ''
+
+jobs:
+  - deployment: Restore_APIM_Configuration
+    pool:
+      vmImage: '${{ parameters.vmImage }}'
+    displayName: 'Restoring of APIM configuration: ${{ parameters.apimName }}'
+    environment: '${{ parameters.environment }}'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+            - task: AzurePowerShell@5
+              displayName: 'Configuration Restore for ${{ parameters.apimName }}'
+              inputs:
+                azureSubscription: ${{ parameters.subscriptionName }}
+                ScriptType: 'FilePath'
+                ScriptPath: '/scripts/configuration-restore.ps1'
+                ScriptArguments: '-apimRgName ${{ parameters.apimRgName }} -apimName ${{ parameters.apimName }} -saRgName ${{ parameters.saRgName }} -saName ${{ parameters.saName }} -containerName ${{ parameters.backupContainerName }} -$backupName ${{ parameters.backupFileName }}'
+                azurePowerShellVersion: 'LatestVersion'
+                workingDirectory: '$(Build.SourcesDirectory)'
+              condition: ne(variables.backupFileName, '')

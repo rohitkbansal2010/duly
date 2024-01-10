@@ -1,0 +1,43 @@
+{% if showEducation %}
+	<div class="details education active">
+		{% if education | length > 0 %}
+			<div class="block">
+				<div class="label">{{ "School"|t }}</div>
+				{% for educationEntry in education %}
+					<div class="value">
+						<span>{{educationEntry.schoolName}}</span>
+						<span>{{educationEntry.school}}</span>
+						<span>{{ "Graduation Date:"|t }}
+							{{educationEntry.graduationDate}}</span>
+						<span>{{ "Degree:"|t }}
+							{{educationEntry.degree}}</span>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		{% if residency | length > 0 %}
+			<div class="block">
+				<div class="label">{{ "Residency"|t }}</div>
+				{% for residencyEntry in residency %}
+					<div class="value">
+						<span>{{residencyEntry.residencyLocation}}</span>
+						<span>{{residencyEntry.residencyDetails}}</span>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		{% if fellowships | length > 0 %}
+			<div class="block">
+				<div class="label">{{ "Fellowships"|t }}</div>
+				{% for fellowshipEntry in fellowships %}
+					<div class="value">
+						<span>{{fellowshipEntry.fellowshipLocation}}</span>
+						<span>{{fellowshipEntry.fellowshipDetails}}</span>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+{% endif %}

@@ -1,0 +1,82 @@
+nav {
+    &.pagination {
+        margin: 0 auto;
+        margin-top: 25px;
+
+        ul {
+            list-style: none;
+
+            @include responsive(medium) {
+                display: flex;
+                justify-content: center;
+                padding: 0;
+            }
+
+            li {
+                display: inline-flex;
+                a {
+                    &.pagination-link {
+                        text-decoration: none;
+                        font-size: 16px;
+                        line-height: 24px;
+                        text-align: center;
+                        color: $violet;
+                        font-weight: 600;
+                        width: 40px;
+                        height: 32px;
+                        display: inline-block;
+
+                        &.text {
+                            color: $violet;
+                            text-decoration: none;
+                            font-weight: normal;
+                            width: auto;
+                            height: auto;
+                        }
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+
+                        &.is-current {
+                            color: $white !important;
+                            background-color: $magenta;
+                            border-radius: 8px;
+                            width: 40px;
+                            max-width: 40px;
+                            padding: 0;
+                            display: inline-flex;
+                            vertical-align: middle;
+                            font-size: 16px;
+                            line-height: 24px;
+                            font-weight: 600;
+                            text-decoration: none;
+                            justify-content: space-evenly;
+                            height: 32px;
+                            line-height: 32px;
+
+                            @include responsive(medium) {
+                                position: relative;
+                                top: -4px;
+                            }
+
+                            &:hover {
+                                text-decoration: none;
+                            }
+                        }
+                    }
+
+                    &.pagination-text-link {
+                        width: auto;
+                        height: auto;
+                        font-size: 16px;
+                        font-weight: normal;
+                        height: 24px;
+                        line-height: 24px;
+                        color: $violet;
+                    }
+                }
+            }
+        }
+    }
+}

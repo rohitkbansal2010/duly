@@ -1,0 +1,109 @@
+<div class="conditions-and-testing">
+	<span class="title">{{ "Where should I go for care?"|t }}</span>
+	<span id="conditions-and-tests"></span>
+	<div class="conditions-treated">
+		<div class="headers">
+			<div class="col-1 header">{{ "Conditions Treated"|t }}</div>
+			{% for location in entry.conditionsTreated[0].shownLocations %}
+				<div class="col-2 header">{{location.locationName}}</div>
+			{% endfor %}
+		</div>
+
+		<hr>
+
+		{% for conditionTreated in entry.conditionsTreated.all() %}
+			{% set noClickableContent = conditionTreated.conditionDescription is empty %}
+			
+			<div class="condition">
+				{% if noClickableContent %}
+					<div class='wrap-collabsible no-icons'>
+				{% else %}
+					<div class="wrap-collabsible" tabindex="0">
+				{% endif %}
+
+					<i class="material-icons icon plus add"></i>
+					<i class="material-icons icon minus remove"></i>
+					
+					{% if noClickableContent == false %}
+						<input id="condition{{conditionTreated.id}}" class="toggle" type="checkbox">
+					{% endif %}
+					
+					<label for="condition{{conditionTreated.id}}" class="label-toggle">{{ conditionTreated.conditionName }}</label>
+					<div class="collapsible-content">
+						<div class="content-inner">
+							<p>{{ conditionTreated.conditionDescription }}</p>
+						</div>
+					</div>
+				</div>
+				<div
+					class="checkmarks">
+					{# first div is a placeholder to align these columns with the table headers #}
+					<div class="location-checkmark">
+						<div class="zero-opacity">{{ "Conditions Treated"|t }}</div>
+					</div>
+					{% for location in conditionTreated.shownLocations %}
+						<div class="location-checkmark">
+							<div class="zero-opacity">{{location.locationName}}</div>
+							{% if location.treatsThisCondition %}
+								<span class="check-circle"></span>
+								<span class="mobileIndicator">{{ location.locationName }}</span>
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	<div class="on-site-testing">
+		<div class="headers">
+			<div class="col-1 header">{{ "On-Site Testing"| t}}</div>
+			{% for location in entry.onSiteTesting[0].shownLocations %}
+				<div class="col-2 header">{{location.locationName}}</div>
+			{% endfor %}
+		</div>
+
+		<hr>
+
+		{% for onSiteTest in entry.onSiteTesting.all() %}
+			{% set noClickableContentOnSiteTest = onSiteTest.testDescription is empty %}
+
+			<div class="test">
+				{% if noClickableContentOnSiteTest %}
+					<div class='wrap-collabsible no-icons'>
+				{% else %}
+					<div class="wrap-collabsible" tabindex="0">
+				{% endif %}
+
+					{% if noClickableContentOnSiteTest == false %}
+						<i class="material-icons icon plus add"></i>
+						<i class="material-icons icon minus remove"></i>
+						<input id="condition{{onSiteTest.id}}" class="toggle" type="checkbox">
+					{% endif %}
+
+					<label for="condition{{onSiteTest.id}}" class="label-toggle">{{ onSiteTest.testName }}</label>
+					<div class="collapsible-content">
+						<div class="content-inner">
+							<p>{{ onSiteTest.testDescription }}</p>
+						</div>
+					</div>
+				</div>
+				<div class="checkmarks">
+					{# first div is a placeholder to align these columns with the table headers #}
+					<div class="location-checkmark">
+						<div class="zero-opacity">{{ "On-Site Testing"|t }}</div>
+					</div>
+					{% for location in onSiteTest.shownLocations %}
+						<div class="location-checkmark">
+							<div class="zero-opacity">{{location.locationName}}</div>
+							{% if location.offersThisTest %}
+								<span class="check-circle"></span>
+								<span class="mobileIndicator">{{ location.locationName }}</span>
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>

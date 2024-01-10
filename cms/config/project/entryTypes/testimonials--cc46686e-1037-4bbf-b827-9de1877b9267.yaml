@@ -1,0 +1,10 @@
+fieldLayouts:
+    1c2e9e1e-abf5-49a0-ba1e-935e96d98fca: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 25dcc77d-894a-48a0-a1c5-4fda38e5a49b, instructions: '', label: '', required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 42c3c597-a277-4328-a930-f7f168f425be, instructions: '', label: '', required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: a1a03d17-ed9d-4d89-9ebd-73f3e31de590, instructions: '', label: '', required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: testimonials
+hasTitleField: true
+name: Testimonials
+section: b1f30851-d1b5-4ff5-8b89-198a5aea7f10
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

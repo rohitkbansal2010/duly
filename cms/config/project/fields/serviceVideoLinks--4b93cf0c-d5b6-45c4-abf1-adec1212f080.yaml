@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceVideoLinks
+instructions: 'Upload YouTube Video links here. First video uploaded will be listed as the primary video of the section.'
+name: 'Service Video Links'
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_servicevideolinks}}'
+    maxBlocks: ''
+    minBlocks: ''
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

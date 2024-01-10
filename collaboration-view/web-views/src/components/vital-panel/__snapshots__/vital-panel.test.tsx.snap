@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VitalPanel should not render the VitalPanelGeneralAdvice component, if generalAdviceComponent does not exist 1`] = `
+<div
+  className="vitalPanelContainer"
+>
+  <VitalPanelMeasurement
+    additionalValue=""
+    cardType="BloodOxygen"
+    convertedHeightUnit={null}
+    convertedHeightValue={null}
+    convertedWeightUnit={null}
+    convertedWeightValue={null}
+    date="2021-12-01T11:52:37.5832382+00:00"
+    isVisible={true}
+    key="0"
+    style={
+      Object {
+        "padding": "1.25rem 0 1.25rem 3.125rem",
+        "width": "36%",
+      }
+    }
+    text="MOST RECENT"
+    toggle="off"
+    unit="%"
+    value={92.31}
+  />
+  <VitalPanelMeasurement
+    cardType="BloodOxygen"
+    convertedHeightUnit={null}
+    convertedHeightValue={null}
+    convertedWeightUnit={null}
+    convertedWeightValue={null}
+    isVisible={true}
+    key="1"
+    style={
+      Object {
+        "padding": "1.25rem 4rem",
+        "width": "33%",
+      }
+    }
+    text="LOWEST"
+    toggle="off"
+    unit="%"
+    value={94}
+  />
+  <VitalPanelMeasurement
+    cardType="BloodOxygen"
+    convertedHeightUnit={null}
+    convertedHeightValue={null}
+    convertedWeightUnit={null}
+    convertedWeightValue={null}
+    isVisible={true}
+    key="2"
+    style={
+      Object {
+        "padding": "1.25rem 3.125rem 1.25rem 4rem",
+        "width": "31%",
+      }
+    }
+    text="HIGHEST"
+    toggle="off"
+    unit="%"
+    value={98}
+  />
+</div>
+`;
+
+exports[`VitalPanel should render correctly 1`] = `
+<div
+  className="vitalPanelContainer"
+>
+  <VitalPanelMeasurement
+    additionalValue={93.07}
+    cardType="BloodPressure"
+    convertedHeightUnit={null}
+    convertedHeightValue={null}
+    convertedWeightUnit={null}
+    convertedWeightValue={null}
+    date="2021-12-01T11:52:37.583195+00:00"
+    icon="condition-magenta.svg"
+    isVisible={true}
+    key="0"
+    style={
+      Object {
+        "width": "44%",
+      }
+    }
+    text="MOST RECENT"
+    toggle="off"
+    unit="mmHg"
+    value={135.14}
+  />
+  <VitalPanelGeneralAdvice
+    style={
+      Object {
+        "width": "56%",
+      }
+    }
+    text="Blood pressure numbers of less than 120/80 mm Hg are considered within the normal range. If your results fall into this category, stick with heart-healthy habits."
+    title="General Advice"
+  />
+</div>
+`;

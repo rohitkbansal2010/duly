@@ -1,0 +1,94 @@
+parameters:
+  - name: TARGET_ENVIRONMENT_NAME
+    type: string
+    values:
+    - qat
+    - uat
+    - prd
+    displayName: 'The target environment name.'
+
+trigger: none
+
+variables:
+  - name: NON_PRODUCTION_SUBSCRIPTION_NAME
+    value: 'IT - Digital-NPD'
+  - name: PRODUCTION_SUBSCRIPTION_NAME
+    value: 'IT - Digital-PRD'
+  - name: SOURCE_APIM_MANAGEMENT_URI
+    value: 'api-mgmt-dev.duly-np.digital'
+  - name: SOURCE_APIM_NAME
+    value: 'duly-d-apim'
+  - name: SOURCE_APIM_RG_NAME
+    value: 'duly-d-apim-rg'
+  - name: TARGET_ENVIRONMENT_NAME
+    value: ${{ parameters.TARGET_ENVIRONMENT_NAME }}
+  - name: BUILD_POOL
+    value: OnAKS
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: backup
+  jobs:
+  - template: ../templates/portal-backup.yml
+    parameters:
+      subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+      apimManagementUri: $(SOURCE_APIM_MANAGEMENT_URI)
+      apimName: $(SOURCE_APIM_NAME)
+      apimRgName: $(SOURCE_APIM_RG_NAME)
+
+- stage: qat-update
+  dependsOn: backup
+  jobs:
+  - template: ../templates/portal-update.yml
+    parameters:
+      environment: $(TARGET_ENVIRONMENT_NAME)
+      subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+      apimManagementUri: 'api-mgmt-qat.duly-np.digital'
+      targetPortalUri: 'https://api-portal-qat.duly-np.digital/publish'
+      apimName: 'duly-q-apim'
+      apimRgName: 'duly-q-apim-rg'
+  condition: |
+      and
+      (
+        succeeded(),
+        eq(variables['TARGET_ENVIRONMENT_NAME'], 'qat')
+      )
+
+- stage: uat-update
+  dependsOn: backup
+  jobs:
+  - template: ../templates/portal-update.yml
+    parameters:
+      environment: $(TARGET_ENVIRONMENT_NAME)
+      subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+      apimManagementUri: 'api-mgmt-uat.duly-np.digital'
+      targetPortalUri: 'https://api-portal-uat.duly-np.digital/publish'
+      apimName: 'duly-u-apim'
+      apimRgName: 'duly-u-apim-rg'
+  condition: |
+      and
+      (
+        succeeded(),
+        eq(variables['TARGET_ENVIRONMENT_NAME'], 'uat')
+      )
+
+- stage: prod-update
+  dependsOn: backup
+  jobs:
+  - template: ../templates/portal-update.yml
+    parameters:
+      environment: $(TARGET_ENVIRONMENT_NAME)
+      subscriptionName: $(PRODUCTION_SUBSCRIPTION_NAME)
+      apimManagementUri: 'api-mgmt.duly.digital'
+      targetPortalUri: 'https://api-portal.duly.digital/publish'
+      apimName: 'duly-p-apim'
+      apimRgName: 'duly-p-apim-rg'
+  condition: |
+      and
+      (
+        succeeded(),
+        eq(variables['TARGET_ENVIRONMENT_NAME'], 'prd')
+      )

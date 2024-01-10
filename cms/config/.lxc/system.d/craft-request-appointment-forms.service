@@ -1,0 +1,15 @@
+[Unit]
+Description=Submits request appointment forms via SFTP
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/var/www
+IOSchedulingClass=idle
+
+ExecStart=/usr/bin/php /var/www/craft request-appointment/default/submit-request-appointment-data
+
+[Install]
+WantedBy=multi-user.target

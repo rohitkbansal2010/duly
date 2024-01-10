@@ -1,0 +1,97 @@
+{% set availabilities = [
+	"Today"|t,
+	"Next 3 Days"|t
+] %}
+
+{% set distances = [
+	"Within 5 miles"|t,
+	"Within 10 miles"|t,
+	"Within 20 miles"|t
+] %}
+
+{% set languages = craft.categories().group('languagesSpoken').orderBy('title') %}
+
+{% set genderField = [
+	'Female'|t,
+	'Male'|t,
+	'Non-Binary'|t
+] %}
+
+{% set physicianHospitalAffiliations = craft.entries({
+	section: 'hospitals',
+	orderBy: {
+		title: SORT_ASC
+	}
+}) %}
+
+{% set sorts = [
+	"Distance"|t,
+	"Last Name (A - Z)"|t,
+	"Last Name (Z - A)"|t,
+	"Rating"|t
+] %}
+
+{% set ages = [
+	"Infants (0-4)"|t,
+	"Children (5-12)"|t,
+	"Adolescents (13-17)"|t,
+	"Adults (18-64)"|t,
+	"Seniors (65+)"|t,
+] %}
+
+<div class="physician-search-container">
+	<div class="search-content">
+		<form class="physician-attribute">
+			{{ csrfInput() }}
+			{% include "_input/_input.twig" with {
+                type: 'text',
+                name: 'searchPhysicians',
+                id: 'search-physicians-by-attributes',
+                label: "Search Name, Services, Specialty, etc."|t,
+				class: 'mdc-text-field--with-trailing-icon',
+				trailingIcon: 'search'
+            } only %}
+		</form>
+		<form class="physician-location">
+			{{ csrfInput() }}
+			{% include "_input/_input.twig" with {
+                type: 'text',
+                name: 'searchPhysicians',
+                id: 'search-physicians-by-location',
+                label: "Search City, Address, Zip Code, etc."|t,
+            } only %}
+			<span tabindex="0" class="material-icons near_me"></span>
+			<span class="near-me-clicked hidden">{{ "My Current Location"|t }}</span>
+			<div class="loading-spinner hidden">
+				<div class="lottie"></div>
+			</div>
+		</form>
+		<button class="dmgButton secondary1 physician-search-btn">{{ "Search"|t }}</button>
+		<button class="dmgButton secondary1 filter-btn-mobile">
+			{{ "Filters"|t }}
+		</button>
+	</div>
+	{% cache globally using key "global-physicians-page-desktop-filters" ~ "rebrand" %}
+		{% include "_physicians/filters/_desktop.twig" %}
+	{% endcache %}
+</div>
+
+<div class="event-filter-modal hidden">
+	<div class="header">
+		<h2>{{ "Filter Physicians"|t }}</h2>
+		<i class="material-icons close close-modal" tabindex="0"></i>
+	</div>
+	<div class="filter-container">
+	{% cache globally using key "global-physicians-page-mobile-filters" ~ "rebrand" %}
+		{% include "_physicians/filters/_mobile.twig" %}
+	{% endcache %}
+	</div>
+	<div class="footer">
+		<button class="dmgButton tertiary1 clear-all">
+			<div class="cta">{{ "Clear All"|t }}</div>
+		</button>
+		<button class="dmgButton secondary1 view-results">
+			<div class="cta">{{ "View Results"|t }}</div>
+		</button>
+	</div>
+</div>

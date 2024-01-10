@@ -1,0 +1,159 @@
+.specialties-container, .interactive-container {
+    margin: 50px 0px;
+    white-space: nowrap;
+
+    @include responsive(bs-large) {
+        margin: 40px 0px;
+    }
+
+    .header {
+        display: inline-flex;
+        width: 100%;
+        align-items: center;
+        overflow: auto;
+
+        .category {
+            text-align: center;
+            opacity: 0.7;
+            border-bottom: 2px solid $light-gray;
+            width: 100%;
+            min-width: 170px;
+            margin-top: 2px;
+            :focus:not(:focus-visible) {
+                outline: 0;
+            }
+            @include responsive(bs-large) {
+                padding: 0px 20px;
+                margin-bottom: 0px;
+            }
+
+            @include responsive(medium) {
+                min-width: 140px;
+            }
+
+            &.active {
+                border-bottom: 2px solid $lime;
+                opacity: 1;
+
+                h3 {
+                    color: $forest;
+                }
+            }
+
+            &:not(.active) {
+                &:hover {
+                    cursor: pointer;
+                    opacity: 1;
+                    background: $hover-green;
+                    border-bottom: 2px solid $hover-green;
+                    h3 {
+                        color: $forest;
+                    }
+                }
+            }
+
+            h3 {
+                margin: 0px;
+                font-size: 18px;
+                font-weight: 800;
+                padding: 6px 0px;
+                color: $light-gray;
+
+                @include responsive(medium) {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .categories-container {
+        .container {
+            display: none;
+            flex-wrap: wrap;
+
+            @include responsive(bs-large) {
+                justify-content: center;
+            }
+
+            &.active {
+                display: flex;
+
+                @include responsive(bs-large) {
+                    align-items: baseline;
+                }
+            }
+
+            .type {
+                margin: 30px 15px;
+                max-width: 240px;
+                width: 100%;
+                text-align: center;
+
+                img {
+                    width: 100%;
+                }
+
+                @include responsive(medium) {
+                    width: 100%;
+                    max-width: 150px;
+                    text-align: center;
+                    margin: 10px 0px;
+                    padding: 0px 10px;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                a {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-decoration: none;
+                }
+
+                span {
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: $dark-2;
+                    margin-top: 16px;
+                    white-space: normal;
+
+                    @include responsive(medium) {
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            &.related-specialties {
+                .type {
+                    margin: 30px 15px;
+                }
+
+                @include responsive(medium) {
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}
+.interactive-container {
+    .header {
+        white-space: normal;
+        align-items: flex-end;
+        h3 {
+            line-height: 1.5;
+            padding: 6px 0;
+        }
+    }
+}
+.specialties-container {
+    .container {
+        @include responsive(medium) {
+            justify-content: space-between !important;
+        }
+    }
+    .category {
+        cursor: initial !important;
+    }
+}

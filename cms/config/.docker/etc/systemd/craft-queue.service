@@ -1,0 +1,21 @@
+[Unit]
+AssertPathExists=/var/www/dupage-cms/branch/master/deployments/current
+
+[Service]
+User=deploy
+Group=www-data
+WorkingDirectory=/var/www/dupage-cms/branch/master/deployments/current
+PIDFile=/var/www/dupage-cms/branch/master/deployments/current/runtime/queue.pid
+
+ExecStart=/var/www/dupage-cms/branch/master/deployments/current/craft queue/listen
+ExecReload=/bin/kill -s TERM $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+ExecStop=/bin/bash -lc "while [ -d /proc/$MAINPID ]; do sleep 2; done"
+
+Restart=always
+PrivateTmp=true
+NoNewPrivileges=true
+TimeoutStopSec=30s
+
+[Install]
+WantedBy=default.target

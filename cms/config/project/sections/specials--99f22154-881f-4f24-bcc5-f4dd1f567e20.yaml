@@ -1,0 +1,8 @@
+defaultPlacement: end
+enableVersioning: true
+handle: specials
+name: Specials
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: true, hasUrls: true, template: specials/_entry, uriFormat: 'specials/{slug}' }
+type: channel

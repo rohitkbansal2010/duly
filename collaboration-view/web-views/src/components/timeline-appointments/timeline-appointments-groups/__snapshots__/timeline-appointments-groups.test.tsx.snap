@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineApppointmentsGroups should render the TimelineApppointmentsGroups component 1`] = `
+<FadedScroll
+  height="100%"
+>
+  <TimelineApppointmentsGroup
+    appointments={
+      Array [
+        Object {
+          "minutesDuration": 30,
+          "practitioner": Object {
+            "humanName": Object {
+              "familyName": "Ling",
+              "givenNames": Array [],
+              "prefixes": Array [
+                "Dr.",
+              ],
+            },
+            "id": "1",
+            "role": "MA",
+          },
+          "reason": "Patient fell - Hip problems",
+          "startTime": "Fri, Nov 2, 2021",
+          "status": "Completed",
+        },
+      ]
+    }
+    backgroundCount="DarkBlue"
+    backgroundIcon="Blue"
+    eventKey="0"
+    farthestAppointmentDate="2022-01-29"
+    groupId="recentAppointments-0"
+    icon="calendar-two-blue.svg"
+    key="0"
+    nearestAppointmentDate="2022-01-10"
+    nearestAppointmentPractitioner={
+      Object {
+        "humanName": Object {
+          "familyName": "Ling",
+          "givenNames": Array [],
+          "prefixes": Array [
+            "Dr.",
+          ],
+        },
+        "id": "1",
+        "role": "MA",
+      }
+    }
+    title="Physical Therapy"
+  />
+</FadedScroll>
+`;

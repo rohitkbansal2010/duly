@@ -1,0 +1,11 @@
+<div class="details-navigation">
+	{% if showEducation %}
+		<div tabindex="0" class="nav-item education active">{{ "Education"|t }}</div>
+	{% endif %}
+	{% if physicianBlogContributions | length > 0 %}
+		<div tabindex="0" class="{{ showEducation ? 'nav-item editorial' : 'nav-item editorial active' }}">{{ "Editorial"|t }}</div>
+	{% endif %}
+	{% if publications | length > 0 %}
+		<div tabindex="0" class="{{ showEducation|length != 0 and physicianBlogContributions|length != 0 ? 'nav-item publications' : 'nav-item publications active' }}">{{ "Publications"|t }}</div>
+	{% endif %}
+</div>

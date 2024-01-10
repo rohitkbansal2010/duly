@@ -1,0 +1,95 @@
+<div class="care">
+	<div class="types-of-care">
+		<div class="express-care type-of-care">
+			<div class="flex-upper">
+				<p class="title">{{ "Express Care"|t }}</p>
+				<p class="price">{{ entry.expressCarePrice | currency('USD', stripZeros=true) }}<span class="asterisk">*</span>
+				</p>
+				<p class="decription">{{ entry.expressCareDescription }}</p>
+			</div>
+			<div class="flex-lower">
+				<a href="#conditions-and-tests" class="choices link-effect">{{ "Where should I go for care?"|t }}</a>
+				<a href={{ entry.expressCareUrl }} class="no-text-decoration">
+					<button tabindex="0" class="cta dmgButton primary1">{{ "Find an Express Care Location"|t }}</button>
+				</a>
+			</div>
+		</div>
+		<div class="divider"></div>
+		<div class="immediate-care type-of-care">
+			<div class="flex-upper">
+				<p class="title">{{ "Immediate Care"|t }}</p>
+				<p class="price">{{ entry.immediateCarePrice | currency('USD', stripZeros=true) }}<span class="asterisk">*</span>
+				</p>
+				<p class="decription">{{ entry.immediateCareDescription }}</p>
+			</div>
+			<div class="flex-lower">
+				<a href="#conditions-and-tests" class="choices link-effect">{{ "Where should I go for care?"|t }}</a>
+				<a href={{ entry.immediateCareUrl }} class="no-text-decoration">
+					<button tabindex="0" class="cta dmgButton primary1">{{ "Find an Immediate Care Center"|t }}</button>
+				</a>
+			</div>
+		</div>
+		<div class="divider"></div>
+		<div class="cardiac-eval type-of-care">
+			<div class="flex-upper">
+				<p class="title">{{ "Cardiac Evaluation Center"|t }}</p>
+				<p class="price">{{ entry.cardiacEvaluationPrice | currency('USD', stripZeros=true) }}<span class="asterisk">*</span>
+				</p>
+				<p class="decription">{{ entry.cardiacEvaluationDescription }}</p>
+			</div>
+			<div class="flex-lower">
+				<a href="#conditions-and-tests" class="choices link-effect">{{ "Where should I go for care?"|t }}</a>
+				<a href={{ entry.cardiacEvaluationUrl }} class="no-text-decoration">
+					<button tabindex="0" class="cta dmgButton primary1">{{ "Find a Cardiac Center"|t }}</button>
+				</a>
+			</div>
+		</div>
+		<div class="emergency-room type-of-care">
+			<span class="material-icons" id="emergencyIconDesktop">local_hospital</span>
+			<div>
+				<div>
+					<p class="title"><span class="material-icons" id="emergencyIconMobile">local_hospital</span>{{ "Emergency Room" }}</p>
+					<p class="price">{{ entry.emergencyRoomPrice | currency('USD', stripZeros=true) }}<span class="asterisk">*</span></p>
+				</div>
+				<div>
+					<p class="description">{{ entry.emergencyRoomDescription }}</p> 
+					<p class="call-911">{{ "Call 911"|t }}</p>
+				</div>
+			</div>
+		</div> 
+	</div>
+	<span class="price-disclaimer">{{ entry.servicesPriceDisclaimer }}</span>
+	{% if entry.virtualCareSection.one is not null %}
+		{% set section = entry.virtualCareSection.one %}
+		<div class="virtual-care type-of-care">
+			<div class="description-container">
+				<p class="title">{{ section.header }}</p>
+				<p class="sub-title">{{ section.subHeader }}</p>
+				<p class="description">{{ section.description }}</p>
+			</div>
+
+			{% if entry.virtualCareSectionCta.one is defined and entry.virtualCareSectionCta.one is not null %}
+				<div class="ctas">
+					{% for button in entry.virtualCareSectionCta.all() %}
+						{% if button.ctaUrl is not empty %}
+							<a href="{{ button.ctaUrl }}" class="visit">
+								<span class="label">{{ button.label }}</span>
+							{% if button.dollarAmount %}
+								<span class="price">${{ button.dollarAmount }}</span>
+							{% endif %}
+								<span class="material-icons arrow_forward_ios"></span>
+							</a>
+						{% else %}
+							<div class="visit">
+								<span class="label">{{ button.label }}</span>
+								<span class="price">${{ button.dollarAmount }}</span>
+								<span class="material-icons arrow_forward_ios"></span>
+							</div>
+						{% endif %}
+						<div class="cta-divider"></div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	{% endif %}
+</div>

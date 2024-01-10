@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 188a7201-acbb-4843-a517-affbd2d8231f
+handle: serviceReasonForVisitLocations
+instructions: 'Select applicable location suites that offer services for this visit reason.'
+name: 'Locations Accepting Appointments for This Visit Reason'
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:17cba234-5703-403b-a9e3-d029df2d1745']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

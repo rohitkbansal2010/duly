@@ -1,0 +1,87 @@
+@import "~@styles/main.scss";
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.medicationType {
+  margin-left: 0.5rem;
+  padding: 0 0.489em !important;
+  font-size: 0.68em;
+  border: 0.0625rem solid $accent-blue;
+  border-radius: 1.25rem;
+
+  &Text {
+    height: 0.875rem;
+    padding: 0.0625 0rem;
+    color: $accent-blue;
+    font-weight: 600;
+    font-size: 0.6875rem;
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    line-height: 0.875rem;
+  }
+}
+.container {
+  width: 100%;
+  border: 0.0625rem solid $gray;
+  border-radius: 0.625rem;
+
+  &Header {
+    background-color: $white;
+
+    &Text {
+      margin: 1.0625rem 0 1rem 1.25rem;
+      color: $default-text;
+      font-weight: 700;
+      font-size: var(--font-size-16px-4px);
+      font-family: "Inter", sans-serif;
+    }
+  }
+  &Body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem 1.375rem 1.25rem;
+    column-gap: 1.375rem;
+    background-color: $light-gray;
+    border-bottom-right-radius: 0.625rem;
+    border-bottom-left-radius: 0.625rem;
+
+    &Text {
+      color: $default-text;
+      font-weight: 700;
+      font-size: var(--font-size-14px-4px);
+      font-family: "Inter", sans-serif;
+      font-style: normal;
+      line-height: var(--line-height-18px-4px);
+    }
+
+    &Heading {
+      margin-bottom: 0.3125rem;
+      color: $dark-gray;
+      font-weight: 700;
+      font-size: var(--font-size-14px-4px);
+      font-family: "Inter", sans-serif;
+      font-style: normal;
+      line-height: var(--line-height-14px-4px);
+      text-transform: uppercase;
+    }
+
+    &Prescriber {
+      display: flex;
+      flex-direction: column;
+
+      &Details {
+        display: flex;
+        flex-direction: row;
+        gap: 0.625rem;
+        align-items: center;
+      }
+    }
+
+    &Instructions {
+      display: flex;
+      flex-direction: column;
+      column-gap: 0.3125rem;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<div class="mdc-form-field" tabindex="0">
+	<div class="mdc-checkbox mdc-checkbox--touch duly-checkbox {{ containerClass ?? '' }}">
+		{{ input('checkbox', name, value is defined and value is not empty ? value : '1', {
+			id: id,
+			class: class is defined and class is not null ? 'mdc-checkbox__native-control ' ~ class : 'mdc-checkbox__native-control',
+			required: required is defined and required == true,
+			checked: checked is defined and checked == true
+		}) }}
+		<div class="mdc-checkbox__background">
+			<svg class="mdc-checkbox__checkmark" viewbox="0 0 24 24">
+				<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+			</svg>
+			<div class="mdc-checkbox__mixedmark"></div>
+		</div>
+	</div>
+	<label for="{{ id }}">{{ label|raw }}</label>
+</div>

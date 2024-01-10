@@ -1,0 +1,25 @@
+{% set clearstepUrl = craft.app.globals().getSetByHandle('generalSiteConfig').clearstepUrl %}
+
+<div class="search-results-container landing-page-container">
+	<div class="search-content">
+		<form class="search-appointment-services" action="/schedule/services?">
+			{{ csrfInput() }}
+			{% include "_input/_input.twig" with {
+                type: 'text',
+                name: 'query',
+                id: 'search-services-landing',
+                label: "Search specialty, condition, or procedure"|t,
+				trailingIcon: 'search'
+            } only %}
+		</form>
+
+		<button class="search-results-btn button dmgButton secondary1">
+			{{ "Search"|t }}
+		</button>
+		<div class="vertical-divider"></div>
+		<a href="{{ clearstepUrl }}" target="_blank">
+			<button class="button dmgButton primary3" id="schedule-page-check-symptoms-cta">{{ "Check Symptoms"|t }}</button>
+		</a>
+	</div>
+
+</div>

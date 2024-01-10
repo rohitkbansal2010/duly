@@ -1,0 +1,10 @@
+fieldLayouts:
+    459af251-f4d5-4116-9723-c4e96b371187: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: Title, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 8a4b5004-6467-4865-b21a-6585c906ff29, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 36ea0283-16d5-4070-8d02-912e841599da, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 620e75dd-3a1f-409b-93ab-b3c324f01f2f, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: 'Location-Specific Alert', sortOrder: 1 }] }
+handle: locationSpecific
+hasTitleField: true
+name: Location-Specific
+section: ce811dae-0a11-427e-ae26-2a4e1df4822e
+sortOrder: 2
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

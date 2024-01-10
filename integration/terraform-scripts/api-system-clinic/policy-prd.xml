@@ -1,0 +1,33 @@
+<policies>
+    <inbound>
+        <base />
+        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" failed-validation-error-message="Unauthorized. Access token is missing or invalid.">
+            <openid-config url="https://login.microsoftonline.com/{{aad-tenant-id}}/v2.0/.well-known/openid-configuration" />
+            <issuers>
+                <issuer>https://sts.windows.net/{{aad-tenant-id}}/</issuer>
+                <issuer>https://login.microsoftonline.com/{{aad-tenant-id}}/v2.0</issuer>
+            </issuers>
+            <required-claims>
+                <claim name="aud" match="any">
+                    <value>5642f171-cee8-43d8-80a2-14de8ae84ee3</value>
+                    <value>api://5642f171-cee8-43d8-80a2-14de8ae84ee3</value>
+                </claim>
+                <claim name="appid" match="any">
+                    <value>f8859c0e-6c3a-4594-9d66-dcbae7bcb425</value>
+                    <value>d26ab2c3-0df5-4ad9-86dc-4e927f2d3105</value>
+                    <!-- duly-p-microsite-services-api -->
+                    <value>d92be488-ebde-4e36-98e2-48cc95ae3753</value>
+                </claim>
+            </required-claims>
+        </validate-jwt>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

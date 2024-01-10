@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: f1257321-1f7a-4dc1-8228-331ef587eba6
+handle: hiddenLocation
+instructions: 'Mark this location as hidden to prevent it from appearing in the location list.'
+name: 'Hidden Location'
+searchable: false
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

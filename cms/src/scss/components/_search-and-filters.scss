@@ -1,0 +1,198 @@
+.event-search-container,
+.physician-search-container,
+.location-search-container,
+.search-results-container,
+.schedule-search-physicians-container {
+    background: $white;
+    width: 100%;
+    padding-bottom: 24px;
+    box-shadow: 0 1px 0 0 #dcdcdc;
+    border-bottom: 1px solid $violet;
+
+    .services-container {
+        .dropdown {
+          min-width: 240px;
+        }
+    }
+
+    .search-content {
+        div .header {
+            color: $oxford;
+            font-family: nexa,sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 48px;
+        }
+
+        max-width: 1250px;
+        width: 95%;
+        margin: 0 auto;
+        padding: 25px 25px 16px 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @include responsive(x-large) {
+            max-width: 95%;
+        }
+
+        @include responsive(bs-large) {
+            padding: 5px 10px;
+            display: block;
+        }
+
+        form, .form {
+            width: 100%;
+            margin-right: 16px;
+            position: relative;
+
+        }
+
+        .event-search-btn {
+            padding: 1rem 2rem;
+            @include responsive(bs-large) {
+                width: 100%;
+                margin: 10px 0px;
+            }
+        }
+
+        .location-search-btn {
+            padding: 1rem 2rem;
+            @include responsive(bs-large) {
+                width: 100%;
+                margin: 10px 0px;
+            }
+        }
+
+        .filter-btn-mobile{
+            display: none;
+            padding: 1rem 2rem;
+            @include responsive(bs-large) {
+                display: inline-block;
+                width: 100%;
+                margin: 10px 0px;
+            }
+
+            &:hover {
+                background-color: $off-blue;
+            }
+
+        }
+
+        .physician-search-btn {
+            padding: 1rem 2rem;
+            @include responsive(bs-large) {
+                width: calc(100%);
+                margin: 10px 0px;
+            }
+
+            &:hover {
+                background-color: $off-blue;
+            }
+        }
+
+		.vertical-divider {
+			background: $warm-gray;
+			width: 1px;
+			height: 55px;
+
+			@include responsive(bs-large) {
+				display: none;
+			}
+		}
+
+		.symptom-btn {
+			white-space: nowrap;
+			text-decoration: none;
+			padding: 16px 15px 15px 15px;
+            font-size: 22px;
+            font-weight: 600;
+            width: 200px;
+            border-radius: 4px;
+            color: $white;
+            border-color: transparent;
+			margin-left: 20px;
+
+            @include responsive(bs-large) {
+                width: auto;
+                margin: 20px 0px 0px;
+				display: block;
+				text-align: center;
+            }
+		}
+
+        .filter-count-mobile {
+            color: $sky;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .mobile {
+            display: none;
+
+            @include responsive(bs-large) {
+                display: block;
+            }
+        }
+    }
+
+    .pika-button {
+        &:hover {
+            background: red !important;
+        }
+    }
+}
+
+.search-results-container {
+    padding-bottom: 0;
+
+    .site-wide-search {
+        padding-left: 16px;
+
+        .search-icon {
+            background-image: url('/dist/img/search-new.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 5px;
+            border-radius: 4px;
+            background-size: 17px;
+            top: 50%;
+            right: 15px;
+            width: 18px;
+            height: 18px;
+            position: absolute;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    }
+}
+
+.pika-single {
+    background: $white;
+
+    @include responsive(small) {
+        left: 50% !important;
+        transform: translateX(-50%);
+    }
+}
+
+.pika-button {
+    background: $white;
+
+    .is-today &{
+        color: $oxford;
+    }
+
+    .is-selected & {
+        color: $white;
+        background: $oxford;
+        border-radius: 10px;
+    }
+
+    &:hover {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: $footer-gray !important;
+        color: $dark-2 !important;
+    }
+}

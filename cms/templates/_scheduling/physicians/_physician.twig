@@ -1,0 +1,73 @@
+<form class="tile" id="physician-{{physician.id}}" method="POST">
+	<button>
+		{{ csrfInput() }}
+		<input type="hidden" name="appointment_physician_id" value="{{physician.id}}">
+		
+		{% if selectedOutsideOfScheduling is defined and selectedOutsideOfScheduling %}
+			<input type="hidden" name="physician_selected_outside_of_scheduling" value="1">
+		{% endif %}
+
+		<div class="single-tile">
+			{% cache globally using key 'physicians-short-during-scheduling-' ~ physician.id %}
+			<div class="biography-content">
+				{% set hasHeadShot = physician.physicianHeadshot.one() is not null %}
+				<div class="{{ hasHeadShot == false ? 'image default-headshot thumbnail no-margin' : 'image' }}">
+					{% if hasHeadShot %}
+						{{ getOptimizedImage(physician.physicianHeadshot.one(), 'webp', false, [
+							{ 'settings': ['gravity:sm', 'resize:fill:120:120:1:1'], 'css': '(min-width: 200px)' }
+						])|raw }}
+					{% endif %}
+				</div>
+				
+				<div class="details">
+					<div>
+						<h2>{{ physician.title }}</h2>
+						<span class="specialties">
+							{% for speciality in physician.physicianSpeciality.all() | filter (v => v.type != "ancillaryServices") | sort((a, b) => a.title > b.title) %}
+								<span class="speciality-name">{{ speciality.title }}</span>
+							{% endfor %}
+						</span>
+						{% include "_physician-stars.twig" with {
+							physician: physician
+						} %}
+					</div>
+					<div class="locations">
+						<p>{{ "Practices In:"|t }}</p>
+							{% set shownLocations = [] %}
+							{% for location in getPhysicianLocations(physician).getModels() %}
+								<{% if location.city in shownLocations %}div{% else %}span{% endif %} class="location-name map-marker-point {% if location.city in shownLocations %}hidden{% endif %}" data-latitude="{{ location.lat }}"
+									data-longitude="{{ location.lng }}"
+									data-address="{{ location.number }} {{ location.address }}"
+									data-city="{{ location.city }}" data-state="{{ location.state }}"
+									data-postcode="{{ location.postcode }}">{{ location.city }}</{% if location.city in shownLocations %}div{% else %}span{% endif %}>
+								{% set shownLocations = shownLocations|merge([location.city]) %}
+							{% endfor %}
+					</div>
+				</div>
+			</div>
+			{% endcache %}
+
+			{# for OBGYN, next available is determined by if patient is pregnant and the last menstrual cycle date #}
+			{% if session is defined and session is not null and session.get('last_menstrual_cycle_day') is not null and session.get('last_menstrual_cycle_month') is not null and session.get('last_menstrual_cycle_year') is not null %}
+				{% set time = determineStartDate() %}
+				{% set physicianTime = getAvailablePhysicianAppointmentFromDate(physician, time) %}
+			{% else %}
+				{% set physicianTime = getAvailablePhysicianAppointmentFromDate(physician, now) %}
+			{% endif %}
+
+			{% if physicianTime %}
+				{% set date = physicianTime | date("D M j", "US/Central") %}
+				{% set time = physicianTime | date("g:ia", "US/Central") %}
+				<div class="appointment-time">
+					<p>{{ "Next Available"|t }}
+						<span>{{ date }}
+							{{ 'at'|t }}
+							{{ time }}
+						</span>
+					</p>
+				</div>
+			{% endif %}			
+		</div>
+	</button>
+</form>
+{% include "_scheduling/physicians/_recommended-providers.twig" %}

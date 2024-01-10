@@ -1,0 +1,115 @@
+@import "~@styles/typography";
+@import "~@styles/colors";
+
+@mixin ordered {
+  width: 25%;
+}
+
+@mixin collected {
+  width: 30%;
+}
+
+@mixin resulted {
+  width: 30%;
+}
+
+@mixin status {
+  width: 15%;
+}
+
+.results {
+  &Details {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.25rem;
+    padding: 1.25rem;
+    background: $light-gray;
+    border-radius: 0.5rem;
+
+    &Header {
+      @include inter-text-xs-bold;
+      display: flex;
+
+      color: $dark-gray;
+      font-size: var(--font-size-16px-4px);
+      text-transform: uppercase;
+
+      &Ordered {
+        @include ordered;
+      }
+
+      &Collected {
+        @include collected;
+      }
+
+      &Resulted {
+        @include resulted;
+      }
+
+      &Status {
+        @include status;
+
+        img {
+          width: 0.7rem;
+          height: 0.7rem;
+          margin-left: 0.3rem;
+        }
+      }
+    }
+
+    &Body {
+      @include inter-text-default-bold;
+      display: flex;
+      font-size: var(--font-size-14px-4px);
+
+      &Ordered {
+        @include ordered;
+
+        display: flex;
+        align-items: center;
+
+        &Doctor {
+          margin-left: 0.5rem;
+        }
+      }
+
+      &Collected {
+        @include collected;
+
+        display: flex;
+        align-items: center;
+      }
+
+      &Resulted {
+        @include resulted;
+
+        display: flex;
+        align-items: center;
+      }
+
+      &Status {
+        @include status;
+
+        display: flex;
+        align-items: center;
+
+        &Indicator {
+          width: 0.75rem;
+          height: 0.75rem;
+          margin-left: 0.5rem;
+          background-color: $dupage-saffron;
+          border-radius: 50%;
+
+          &Final {
+            background-color: $dupage-green;
+          }
+
+          &Cancelled,
+          &Unknown {
+            background-color: $dupage-orange;
+          }
+        }
+      }
+    }
+  }
+}

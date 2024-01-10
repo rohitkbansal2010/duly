@@ -1,0 +1,42 @@
+{% if hospitals|length %}
+	 <div class="container hospital-affiliation">
+	 	<h3>{{ "Hospital Affliations"|t }}</h3>
+        <hr>
+
+		{% for affilation in hospitals %}
+			{% set location = affilation.address.parts %}
+			{% set phone = affilation.phoneList.one() %}
+			{% set physicians = [] %}
+			{% for relevantPhysician in relevantPhysicians %}
+				{% if affilation.id in relevantPhysician.physicianHospitalAffiliations | map(v => v.id) %}
+					{% set physicians = physicians | merge([relevantPhysician]) %}
+				{% endif %}
+			{% endfor %}
+			<div class="hospital">
+				<div class="name">
+					<p tabindex="0">{{ affilation }}</p>
+					<i class="material-icons keyboard_arrow_down"></i>
+				</div>
+
+				<div class="address">
+					<p class="street">{{ location.number }}
+						{{ location.address }}</p>
+					<p class="city">{{ location.city }},
+						{{ location.postcode }}
+						{{ location.state }}</p>
+					<a href="{{phone.phoneListNumber.format('rfc3966')}}" class="phone link-effect">{{ phone.phoneListNumber }}</a>
+				</div>
+
+				<div class="physicians">
+					{% if physicians | length > 0 %}
+						{% include '_services/_details/_content/_physicians.twig' with {
+							showHeader: false,
+							isAffilation: true,
+							physicians: physicians
+						} %}
+					{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}

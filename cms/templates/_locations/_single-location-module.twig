@@ -1,0 +1,55 @@
+<div class="location">
+	<div class="location-icon"></div>
+	<div class="address">
+
+		{% if office.type == 'suite' %}
+			{% set location = office.getParent() %}
+			{% set physicalAddress = location.address.parts %}
+		{% else %}
+			{% set physicalAddress = office.address.parts %}
+		{% endif %}
+
+		<a href="{{ office.getUrl() }}" class="single-location-link">
+			<p class="area">{{ physicalAddress.city }}</p>
+			<p class="address-one">{{ physicalAddress.number }}
+				{{ physicalAddress.address }}</p>
+
+			{# invalid entries will have an "N/A" sa the suite title #}
+			{% if office.hiddenSuite is not null and office.hiddenSuite == false %}
+				<p class="suite">{{ office.title }}</p>
+			{% endif %}
+
+			<p class="city">{{ physicalAddress.city }},
+				{{ physicalAddress.state }}
+				{{ physicalAddress.postcode }}</p>
+		</a>
+
+		{% if entry.physicianSpeciality|length > 1 %}
+			{% set totalServices = entry.physicianSpeciality.all() | filter (v => v.type != "ancillaryServices") %}
+
+			{% for service in totalServices %}
+				{% set serviceSuiteDetails = getServiceSuiteDetails(office.id, service.id) %}
+
+				{% if serviceSuiteDetails is not null and serviceSuiteDetails.phoneNumber is not null %}
+					<div class="multiple-phone-number">
+						{% include '_widgets/phoneNumberLink.twig' with { number: serviceSuiteDetails.phoneNumber } only %}
+						<span>({{ service.title }})</span>
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% elseif entry.physicianSpeciality %}
+			{% set serviceSuiteDetails = getServiceSuiteDetails(office.id, entry.physicianSpeciality.one.id) %}
+
+			{% if serviceSuiteDetails is not null and serviceSuiteDetails.phoneNumber is not null %}
+				{% include '_widgets/phoneNumberLink.twig' with { number: serviceSuiteDetails.phoneNumber } only %}
+			{% endif %}
+		{% elseif entry.isACosmeticDermatologyProcedure %}
+			{% set serviceSuiteDetails = getServiceSuiteDetails(office.id, cosmeticDermEntry.id) %}
+			{% if serviceSuiteDetails is not empty and serviceSuiteDetails.phoneNumber is not empty %}
+				{% include '_widgets/phoneNumberLink.twig' with { number: serviceSuiteDetails.phoneNumber } only %}
+			{% endif %}
+		{% endif %}
+
+		<a rel="noopener noreferrer" class="directions-link" target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ physicalAddress.number }} {{ physicalAddress.address }}, {{ physicalAddress.city }}, {{ physicalAddress.state }} {{ physicalAddress.postcode }}">{{ "Get Directions"|t }}</a>
+	</div>
+</div>

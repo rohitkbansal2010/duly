@@ -1,0 +1,8 @@
+field: ef78beb5-ead2-4e08-8d09-785f6d3a9469
+fieldLayouts:
+    6aa69602-eee9-41e5-8340-38df49ca371a: { tabs: [{ elements: [{ fieldUid: 0de1bae8-50e4-4d15-898d-220ce87c9321, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    0de1bae8-50e4-4d15-898d-220ce87c9321: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: researchName, instructions: 'List any research projects this physician was involved in.', name: 'Research Name', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: 'Effects of sleep deprivation in young adults', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: research
+name: Research
+sortOrder: 1

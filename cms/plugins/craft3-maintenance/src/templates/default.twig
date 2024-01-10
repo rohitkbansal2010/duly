@@ -1,0 +1,48 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * craft3-maintenance plugin for Craft CMS 3.x
+ *
+ * craft3-maintenance model.twig
+ *
+ * @author    Punchkick Interactive
+ * @copyright Copyright (c) 2019 Punchkick Interactive
+ * @link      https://www.punchkick.com
+ * @package   MaintenancePlugin
+ * @since     0.0.1
+ */
+#}
+{% extends "_layouts/cp" %}
+{% set title = "Site Maintenance Mode"|t('craft3-maintenance') %}
+
+{% block details %}
+    <div class="meta">
+        <p>The offline mode settings listed on this page determine whether or not offline mode is enabled or not for this particular site, and what page should be presented to the user while the site is in offline mode.</p>
+        <p>Maintenance mode <em>does not</em> affect full administrative users, or users who have been granted the maintenance mode permission within the Users section.</p>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {{ html.beginForm('', 'post', {
+        'class': 'form-horizontal',
+        'enctype': 'multipart/form-data'
+    }) | raw }}
+
+        {% import "_includes/forms" as forms %}
+
+        {{ forms.lightswitchField({
+            label: 'Enable',
+            instructions: 'Whether to enable offline mode or not',
+            id: 'enabled',
+            name: 'enabled',
+            required: true,
+            on: model['enabled'] == 1,
+            value: 1})
+        }}
+
+        <button type="submit" class="btn submit float-right">{{ "Update"|t('craft3-maintenance') }}</button>
+    {{ html.endForm() | raw }}
+
+{% endblock %}
+
+

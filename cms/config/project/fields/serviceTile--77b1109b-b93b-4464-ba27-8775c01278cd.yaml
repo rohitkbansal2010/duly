@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: a3f678ff-f37b-45e3-9eb0-08e2d122029b
+handle: serviceTile
+instructions: ''
+name: 'Service Tile'
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_servicetile}}'
+    maxBlocks: '10'
+    minBlocks: '10'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

@@ -1,0 +1,202 @@
+parameters:
+  - name: packProjects
+    type: object
+    default: []
+  - name: solution
+    type: string
+    default: '**/*.sln'
+  - name: setBuildVersion
+    type: boolean
+    default: true
+  - name: setCsprojBuildVersion
+    type: boolean
+    default: true
+  - name: vstsFeed
+    type: string
+    default: 'duly.digital'
+  - name: publishNuget
+    type: boolean
+    default: false
+  - name: createNugetReleaseVersion
+    type: boolean
+    default: false
+  - name: dotnetBuild
+    type: boolean
+    default: false
+  - name: dotnetPublish
+    type: boolean
+    default: false
+  - name: runUnitTests
+    type: boolean
+    default: false
+  - name: unitTestsProject
+    type: string
+    default: '**/*.sln'
+  - name: createCoverageReport
+    type: boolean
+    default: false
+
+  # .NET SDK version to use
+  - name: dotNetSdkVersion
+    type: string
+    default: 5.x
+  # .NET Core 3.1.x is required for Azure Functions
+  - name: includeDotNetSdkVersionForAzureFunctions
+    type: boolean
+    default: false
+
+  # Build configuration
+  - name: dotNetBuildConfiguration
+    type: string
+    default: 'Release'
+    values:
+    - 'Release'
+    - 'Debug'
+  - name: verbosityRestore
+    type: string
+    default: 'Detailed'
+    values:
+    - 'Quiet'
+    - 'Minimal'
+    - 'Normal'
+    - 'Detailed'
+    - 'Diagnostic'
+  # Unit Tests Filter
+  - name: unitTestsFilter
+    type: string
+    default: 'TestCategory!=IntegrationTests'
+
+  - name: enableSonarCloudScan
+    type: boolean
+    default: false
+  # Sonar project name
+  - name: sonarCloudProjectName
+    type: string
+    default: '$(System.TeamProject)-$(Build.Repository.Name)'
+  # Optional location of code artefacts for analysis
+  - name: sonarCloudScanningPath
+    type: string
+    default: ''
+  # Provide solution name value if project and repository names are not enough
+  - name: sonarCloudProjectSuffix
+    type: string
+    default: ''
+
+steps:
+  - checkout: scripts
+
+  # Set ADO build version
+  - task: PowerShell@2
+    displayName: 'PowerShell: Set ADO build version'
+    inputs:
+      targetType: filePath
+      filePath: 'duly-scripts/PowerShell/Set-AdoPsBuildVersion.ps1'
+      ${{ if and(eq(parameters.publishNuget, true), eq(parameters.createNugetReleaseVersion, true)) }}:
+        arguments: -skipBranchSuffix
+    continueOnError: false
+    enabled: ${{ parameters.setBuildVersion }}
+    condition: |
+      and
+      (
+        succeeded(), or
+        (
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+          startsWith(variables['Build.SourceBranchName'], 'main'),
+          in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+        ),
+        ne(variables['Build.Reason'], 'PullRequest')
+      )
+
+  # Set CSPROJ build version
+  - task: PowerShell@2
+    displayName: 'PowerShell: Set build version in csproj files'
+    inputs:
+      targetType: filePath
+      filePath: 'duly-scripts/PowerShell/Set-CsProjBuildVersion.ps1'
+      ${{ if and(eq(parameters.publishNuget, true), eq(parameters.createNugetReleaseVersion, true)) }}:
+        arguments: -Path $(System.DefaultWorkingDirectory) -skipBranchSuffix
+      ${{ else }}:
+        arguments: -Path $(System.DefaultWorkingDirectory)
+    continueOnError: false
+    enabled: ${{ parameters.setCsprojBuildVersion }}
+    condition: |
+      and
+      (
+        succeeded(), or
+        (
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+          startsWith(variables['Build.SourceBranchName'], 'main'),
+          in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+        ),
+        ne(variables['Build.Reason'], 'PullRequest')
+      )
+
+  # Template: Install SonarQube for solution
+  - ${{ if eq(parameters.enableSonarCloudScan, true) }}:
+    - template: ../child.steps/sonarqube-prepare.yml
+      parameters:
+        sonarCloudProjectName: ${{ parameters.sonarCloudProjectName }}
+        sonarCloudScanningPath: ${{ parameters.sonarCloudScanningPath }}
+        sonarCloudProjectSuffix: ${{ parameters.sonarCloudProjectSuffix }}
+
+  - task: NuGetToolInstaller@1
+    displayName: 'NuGet: Install NuGet tool'
+
+  - task: NuGetAuthenticate@0
+    displayName: 'NuGet: Install NuGet credprovider'
+
+  # .NET Core 3.1.x is required for Azure Functions
+  - task: UseDotNet@2
+    displayName: 'DotNetCore: Use .NET Core SDK 3.1.x'
+    inputs:
+      packageType: 'sdk'
+      version: '3.1.x'
+    enabled: ${{ parameters.includeDotNetSdkVersionForAzureFunctions }}
+
+  - task: UseDotNet@2
+    displayName: 'DotNetCore: Use .NET Core SDK ${{ parameters.dotNetSdkVersion }}'
+    inputs:
+      packageType: 'sdk'
+      version: ${{ parameters.dotNetSdkVersion }}
+
+  # Template: Restore/Build DotNetCore
+  # Can be disables by dotnetBuild: false
+  - ${{ if eq(parameters.dotnetBuild, true) }}:
+    - template: ../child.steps/template-netcore-build.yml
+      parameters:
+        solution: ${{ parameters.solution }}
+        vstsFeed: ${{ parameters.vstsFeed }}
+        buildConfiguration: ${{ parameters.dotNetBuildConfiguration }}
+        verbosityRestore: ${{ parameters.verbosityRestore }}
+
+  # Run unit tests
+  - ${{ if eq(parameters.runUnitTests, true) }}:
+    - template: ../child.steps/template-netcore-unit-tests.yml
+      parameters:
+        unitTestsProject: ${{ parameters.unitTestsProject }}
+        createCoverageReport: ${{ parameters.createCoverageReport }}
+        unitTestsFilter: ${{ parameters.unitTestsFilter }}
+        vstsFeed: ${{ parameters.vstsFeed }}
+        verbosityRestore: ${{ parameters.verbosityRestore }}
+        buildConfiguration: ${{ parameters.dotNetBuildConfiguration }}
+
+  # Template: Restore/Publish DotNetCore
+  # Can be disables by dotnetPublish: false
+  - ${{ if eq(parameters.dotnetPublish, true) }}:
+    - template: ../child.steps/template-netcore-publish.yml
+      parameters:
+        solution: ${{ parameters.solution }}
+        vstsFeed: ${{ parameters.vstsFeed }}
+        buildConfiguration: ${{ parameters.dotNetBuildConfiguration }}
+
+  # Template: Pack/Push DotNetCore
+  # Can be disables by publishNuget: false
+  - template: ../child.steps/template-netcore-nuget-push.yml
+    parameters:
+      publishNuget: ${{ parameters.publishNuget }}
+      packProjects: ${{ parameters.packProjects }}
+      vstsFeed: ${{ parameters.vstsFeed }}
+
+  # Template: Run Sonar analyze and publish results
+  - ${{ if eq(parameters.enableSonarCloudScan, true) }}:
+    - template: ../child.steps/sonarqube-analyze-and-publish.yml

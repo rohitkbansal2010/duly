@@ -1,0 +1,103 @@
+.hospital-affiliation {
+	@include responsive(bs-large) {
+		padding-bottom: 25px;
+	}
+
+	@include responsive(medium) {
+		hr {
+			display: none;
+		}
+	}
+
+	h3 {
+		color: $forest;
+		padding: 0px 24px;
+		font-size: 18px;
+		font-weight: 900;
+		margin: 8px 0px;
+	}
+
+	.hospital {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		border-bottom: 2px solid $teal;
+
+		p {
+			font-size: 16px;
+			line-height: 22px;
+			font-weight: normal;
+
+			@include responsive(medium) {
+				font-size: 16px;
+			}
+		}
+
+		.name {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0px 30px;
+
+			p {
+				width: 100%;
+				cursor: pointer;
+				font-size: 18px;
+				font-weight: 900;
+				line-height: 20px;
+				color: $oxford;
+			}
+
+			i {
+				cursor: pointer;
+			}
+		}
+
+		.physicians {
+			display: none;
+		}
+
+		.address {
+			display: none;
+			padding: 0px 30px;
+			font-size: 16px;
+
+			p {
+				color: $dark-2;
+				font-weight: normal;
+				margin: 0px;
+			}
+
+			.phone {
+				color: $violet !important;
+				font-weight: 800;
+				margin: 5px 0px;
+				display: block;
+
+				&:hover {
+					color: $magenta !important;
+				}
+			}
+		}
+
+		&.active {
+			.name {
+				margin: 12px 0px;
+
+				p {
+					font-weight: 700;
+				}
+
+				i {
+					transform: rotate(180deg);
+				}
+			}
+
+			.address,
+			.physicians {
+				display: block;
+			}
+		}
+	}
+}

@@ -1,0 +1,104 @@
+{% set daysInASlice = daysInASlice ?? 7 %}
+{% set showCurrentSlice = showCurrentSlice is defined and showCurrentSlice == true %}
+{% set splitView = splitView ?? false %}
+<div class="date-and-time-picker">
+	<form class="select-appointment" id="select-appointment-form" method="POST">
+		{{ csrfInput() }}
+		<input type="hidden" name="appointment_time">
+		<input type="hidden" name="appointment_department_id">
+		<input type="hidden" name="appointment_visit_type_id">
+		<input type="hidden" name="appointment_selected_recommended_physician_id">
+		{% if patientUser.is_video_visit_flow %}
+			<input type="hidden" name="appointment_physician_id">
+		{% endif %}
+		{% if physician is defined and physician is null %}
+			<input type="hidden" name="appointment_physician_id" id="appointment_physician_id"/>
+		{% endif %}
+
+		{% if physician is defined and physician is not null %}
+			{% include "_scheduling/select-appointment/_physician-details.twig" with {
+				physician: physician
+			} %}
+		{% endif %}
+
+		<div class="date-picker">
+			<div class="month-picker">
+				<span class="material-icons keyboard_arrow_left invisible" tabindex="0"></span>
+				<span class="month">{{ showCurrentSlice ? 'now'|date('F Y') : '' }}</span>
+				<span class="material-icons keyboard_arrow_right" tabindex="0"></span>
+			</div>
+			<div class="day-picker">
+				<span class="material-icons keyboard_arrow_left invisible" tabindex="0"></span>
+				<div class="days">
+					{% for i in range(1, daysInASlice) %}
+						<div class="day-container invalid" tabindex="0">
+							<div class="day">
+								<span class="day-name">{{ showCurrentSlice ? 'now'|date('D') }}</span>
+								<span class="day-number">{{ showCurrentSlice ? 'now'|date_modify("+#{loop.index - 1} day")|date('j') }}</span>
+							</div>
+							<div class="scalene-triangle-bottom"></div>
+						</div>
+					{% endfor %}
+				</div>
+				<span class="material-icons keyboard_arrow_right" tabindex="0"></span>
+			</div>
+		</div>
+		{% if splitView %}
+			<div class="split-view">
+				<div class="option by-provider active">{{ "By Provider"|t }}</div>
+				<div class="option by-time">{{ "By Time"|t }}</div>
+			</div>
+		{% endif %}
+		<div class="times-container">
+			<div class="loading-spinner">
+				<div class="lottie"></div>
+			</div>
+			<div class="times"></div>
+		</div>
+
+		<div class="error hidden">
+			<p class="header">{{ "Sorry! There's no online availability for this date."|t }}</p>
+			<p>{{ "Use the calendar above to find future dates with available appointments."|t }}</p>
+		</div>
+
+		<div class="{{ fixedCta ? 'form-actions cta-form' : 'form-actions' }}">
+			<button disabled name="continue" value="continue" class="dmgButton primary1" type="submit" id="continue">
+				<i class="cta fa fa-spinner fa-spin hidden"></i>
+				<div class="cta">
+					{{ nextStepCTATitle ?? "Continue To Patient Info"|t }}
+				</div>
+			</button>
+		</div>
+	</form>
+</div>
+
+<template id="available-times-location-container">
+	<div class="available-times-location-container">
+		<span class="title"></span>
+		<span class="modal-location-details">{{ "View Map"|t }}</span>
+		<span class="address-line"></span>
+		<span class="city-state-zip"></span>
+	</div>
+</template>
+
+<template id="available-times-location-time-selector">
+	<div class="available-times-location-time-selector" tabindex="0">
+		<span class="label"></span>
+		<span class="material-icons keyboard_arrow_down"></span>
+		<span class="material-icons keyboard_arrow_up"></span>
+	</div>
+</template>
+
+<template id="available-times-location-block-singular">
+	<div class="available-times-location-block-singular" tabindex="0"></div>
+</template>
+
+<template id="next-available-label-template">
+	<div class="next-available-date-container" tabindex="0">
+		<div class="time">
+			<p class="next-available-date-row">{{ "Next Available"|t }}:</p>
+			<span class="next-available-label-date"></span>
+		</div>
+		<span class="material-icons chevron_right"></span>
+	</div>
+</template>

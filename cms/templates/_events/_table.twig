@@ -1,0 +1,115 @@
+<div class="container">
+    <div class="display-error hidden">
+        <h3>{{ "There was an error with your search request. Please try again."|t }}</h3>
+    </div>
+
+    {% if events|length == 0 %}
+        <div class="no-search-results">
+            <img src="/dist/img/magnifying-glass-new.png" alt="{{ "Search"|t }}">
+            <h2>{{ "Sorry, we found no results."|t }}</h2>
+            <p>{{ "Please try adjusting your search"|t }}</p>
+        </div>
+    {% endif %}
+
+    {% if events|length %}
+        <div class="header">
+            <span>{{ "Name"|t }}</span>
+            <span>{{ "Date/Time"|t }}</span>
+            <span>{{ "Location"|t }}</span>
+        </div>
+
+        {% for event in events %}
+            {% set location = craft.matrixBlocks()
+                .owner(event)
+                .id(event.internalLocationId)
+                .one()
+            %}
+
+            {% if location is not null %}
+                {% if event.freq == "SELECT_DATES" %}
+                {% set classEvents = craft.calendar.events({
+                            id: event.id
+                        })
+                    %}
+
+                    {% set total = classEvents.count() %}
+                    {% set last = classEvents.nth(total - 1) %}
+
+                    {% set classStart = classEvents.one.startDate %}
+                    {% set classEnd = last.endDate %}
+                {% endif %}
+
+                {# All-day events have a technical start time of 0. The date() method returns a date that is a day early. #}
+                {% if event.allDay %}
+                    {% set eventDate =  date(event.startDate)|date_modify("+1 day")|date('Y-m-d') %}
+                {% else %}
+                    {% set eventDate =  date(event.startDate)|date('Y-m-d') %}
+                {% endif %}
+
+                <a href="/event/{{ event.slug }}/{{ location.id }}/{{ eventDate }}">
+                    <div class="event">
+                        <div class="name">
+                            <div class="image-container">
+                                {{ getOptimizedImage(event.eventImage.one(), 'webp', false, [{'settings': ['resize:fill:400:240:1:1'],'css': '(max-width:768px)'},{'settings': ['resize:fill:200:120:1:1'],'css': '(max-width:1400px)'}])|raw }}
+                            </div>
+                            <div class="text-container">
+                                <p class="semi-bold">{{ event.title }}</p>
+                                {% for speciality in event.eventSpecialty.all() %}
+                                    {% if event.eventSpecialty.one is not null and event.eventSpecialty.one.specialty.one is not null %}
+                                        {% for singleSpecialty in event.eventSpecialty.one.specialty.all() %}
+                                            <span>{{ singleSpecialty.title }}</span>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="text-container-mobile">
+                            <p class="semi-bold">{{ event.title }}</p>
+                            {% for speciality in event.eventSpecialty.all() %}
+                                {% if event.eventSpecialty.one is not null and event.eventSpecialty.one.specialty.one is not null %}
+                                    {% for singleSpecialty in event.eventSpecialty.one.specialty.all() %}
+                                        <span>{{ singleSpecialty.title }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="date">
+                            {% if event.freq == "SELECT_DATES" %}
+                                <p class="semi-bold">{{ classStart.format('M d') }} - {{ classEnd.format('M d') }}</p>
+                                {% if event.allDay %}
+                                    <p>{{ "All Day Event"|t }}</p>
+                                {% else %}
+                                    <p>{{ event.startDate.format('g:ia') }} - {{ event.endDate.format('g:ia')  }}</p>
+                                {% endif %}
+                            {% elseif event.allDay %}
+                                {% if event.startDate.format('M d') == event.endDate.format('M d') %}
+                                    <p class="semi-bold">{{ event.startDate.format('M d') }}</p>
+                                {% else %}
+                                    {# for multiple all day events #}
+                                    <p class="semi-bold">{{ event.startDate.format('M d') }} - {{ event.endDate.format('M d') }}</p>
+                                {% endif %}
+                                <p>{{ "All Day Event"|t }}</p>
+                            {% else %}
+                                <p class="semi-bold">{{ event.startDate.format('M d') }}</p>
+                                <p>{{ event.startDate.format('g:ia') }} - {{ event.endDate.format('g:ia')  }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="location">
+                            {% if location.addressDetails is defined %}
+                                <p>{{ location.addressDetails }}</p>
+                            {% endif %}
+
+                            {% if location.addressLocation.parts is defined and location.addressLocation.parts.address != "" %}
+                                <p>{{ location.addressLocation.parts.number }}
+                                    {{ location.addressLocation.parts.address }}</p>
+                                <p>{{ location.addressLocation.parts.city }}, {{ location.addressLocation.parts.state }}
+                                    {{ location.addressLocation.parts.postcode }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="event-divider"></div>
+                </a>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>

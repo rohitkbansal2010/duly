@@ -1,0 +1,13 @@
+@import "../../scss/variables";
+@import "../../scss/mixins";
+@import "../../scss/base/login-portal";
+@import "../../scss/base/_scheduling/steps";
+
+.scheduling-navigation-container {
+    #breadcrumb,
+    #breadcrumb-mobile {
+        li {
+            width: calc(100% / 3);
+        }
+    }
+}

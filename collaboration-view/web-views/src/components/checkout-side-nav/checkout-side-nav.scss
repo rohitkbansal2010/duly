@@ -1,0 +1,109 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  padding-top: 0.75rem;
+  column-gap: 0.75rem;
+
+  &Icon {
+    width: 5.625rem;
+    height: 5.625rem;
+    padding: 0.3125rem;
+    background-color: $white;
+    border-radius: 10rem;
+    &Img {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+
+  &Div {
+    &PreTitle {
+      color: $dark-gray;
+      font-weight: 700;
+      font-size: var(--font-size-14px-4px);
+      font-family: "Inter", sans-serif;
+      line-height: 1.5rem;
+      text-transform: uppercase;
+    }
+    &Title {
+      @include nexa-heavy-highlight;
+      margin-top: 0.375rem;
+      color: $dupage-dark-blue;
+      font-weight: 900;
+      font-size: var(--font-size-20px-4px);
+      line-height: 120%;
+    }
+    &PostTitle {
+      margin-top: 0.125rem;
+      color: $default-text;
+      font-weight: 400;
+      font-size: var(--font-size-14px-4px);
+      font-family: "Inter", sans-serif;
+      line-height: 1.25rem;
+    }
+  }
+}
+
+.navbar {
+  &Item {
+    text-transform: uppercase;
+    &Link {
+      padding: 0 !important;
+    }
+    &Active {
+      position: relative;
+      padding: 0 !important;
+    }
+  }
+}
+
+.stepsContainer {
+  position: relative;
+  margin-top: 2rem;
+  &Steps {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2.5rem;
+    &Step {
+      display: flex;
+      align-items: center;
+      color: $default-text;
+      font-weight: 600;
+      font-size: 0.875rem;
+      font-family: "Inter", sans-serif;
+      line-height: 120%;
+      letter-spacing: 0.046875rem;
+      column-gap: 1.75rem;
+      &Div {
+        z-index: 1;
+      }
+      &Icon {
+        width: 1.75rem;
+        height: 1.75rem;
+      }
+    }
+  }
+}
+
+.stepsContainer::before {
+  position: absolute;
+  // top: 10px;
+  // left: -1px;
+  // height: calc(100% - 20px);
+  top: 0;
+  left: 0.8125rem;
+  height: 100%;
+  border-left: 0.125rem solid $dupage-blue;
+  content: "";
+}
+
+.activeTab {
+  color: $dupage-magenta;
+  font-weight: 800;
+}

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Scheduler should render the components SchedulerScaleMarks, CurrentTimeBar 1`] = `
+<div
+  className="scheduler "
+>
+  <BTGModal />
+  <SchedulerScaleMarks
+    workDayEnd={19}
+    workDayStart={7}
+  />
+  <CurrentTimeBar />
+</div>
+`;

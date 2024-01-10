@@ -1,0 +1,50 @@
+<div class="modal share-appointment-form-modal hidden">
+    <div class="content">
+        <div class="header">
+            <span tabindex="0" class="material-icons close"></span>
+            <h2>{{ "Share Appointment"|t }}</h2>
+            <p>{{ "Who do you want to share your appointment with?"|t }}</p>
+        </div>
+
+        <form id="share-appointment-form">
+            <div class="field">
+                {% include "_input/_input.twig" with {
+                    type: 'email',
+                    name: 'send-to-address',
+                    id: 'send-to-email-address',
+                    extraOptions: {
+                        required: "required"
+                    },
+                    label: "Send to Email Address"|t,
+                } only %}
+            </div>
+
+            <div class="field">
+                {% include "_input/_input.twig" with {
+                    type: 'text',
+                    name: 'sender-name',
+                    id: 'sender-name',
+                    extraOptions: {
+                        required: "required"
+                    },
+                    label: "Your Name"|t,
+                } only %}
+            </div>
+
+            <div class="field">
+                {% include "_input/_input.twig" with {
+                    type: 'email',
+                    name: 'sender-email',
+                    id: 'sender-email',
+                    extraOptions: {
+                        required: "required"
+                    },
+                    label: "Your Email"|t,
+                } only %}
+            </div>
+
+            <button disabled class="action-button dmgButton primary3" id="share-appointment-form-send">{{ "Share Appointment"|t }}</button>
+        </form>
+        <p class="fetch-error email-error hidden"></p>
+    </div>
+</div>

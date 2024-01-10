@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>FlourishPlan_GeneratePDF</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.Hangfire" Version="6.0.2" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.31" />
+	  
+    <PackageReference Include="Hangfire.Console" Version="1.4.2" />
+    <PackageReference Include="Hangfire.Console.Extensions" Version="1.0.5" />
+    <PackageReference Include="Hangfire.Console.Extensions.Serilog" Version="1.0.2" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.31" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
+    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="22.1.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
+	  <PackageReference Include="Duly.Common.DataAccess" Version="22.3.105.1-dev" />
+	  <PackageReference Include="Duly.Common.Infrastructure" Version="22.3.101.2-dev" />
+   <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+</Project>

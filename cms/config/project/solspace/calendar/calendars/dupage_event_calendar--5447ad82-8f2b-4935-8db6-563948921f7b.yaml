@@ -1,0 +1,17 @@
+allowRepeatingEvents: true
+color: '#1BF92A'
+description: 'The event calendar for the DuPage Medical Group.'
+descriptionFieldHandle: null
+fieldLayout:
+    tabs: [{ elements: [{ fieldUid: 696db984-4103-4b99-90cb-5f78d8658aef, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 9b6fe455-d1f9-4a47-a15c-29bfd090cddd, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: bfd9d59d-fd7a-41e5-a0b6-a585fa6e5cea, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: a1e85583-8fbe-4ff8-a3f1-6ed03df017e0, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: d831c234-e6dd-4ba0-a355-914da530cfc1, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Events, sortOrder: 1 }]
+    uid: 23179657-1448-449c-95cb-4c02ab0c7990
+handle: dupage_event_calendar
+hasTitleField: true
+icsHash: null
+icsTimezone: floating
+locationFieldHandle: null
+name: 'DuPage Medical Group''s Event Calendar'
+siteSettings:
+    7dfabb99-84f0-41d1-82cf-3fe3dd969ef2: { enabledByDefault: true, hasUrls: true, siteId: c36fa7d2-e59a-4c88-9f95-780439e98505, template: _events/events.twig, uriFormat: '/events/{slug}' }
+titleFormat: null
+titleLabel: 'Event Title'

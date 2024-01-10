@@ -1,0 +1,14 @@
+{% if url.volume is defined %}
+    {% if articleUrl is not null %}
+    <a href="{{ articleUrl }}">
+    {% endif %}
+        <div class="image-container" itemprop="sharedContent" itemscope itemtype="http://schema.org/WebPage">
+            {{ getOptimizedImage(url, 'webp')|raw }}
+            {% if category != null and showCategoryBanner == true %}
+                <div class="category-banner">{{ category.title }}</div>
+            {% endif %}
+        </div>
+    {% if articleUrl is not null %}
+    </a>
+    {% endif %}
+{% endif %}

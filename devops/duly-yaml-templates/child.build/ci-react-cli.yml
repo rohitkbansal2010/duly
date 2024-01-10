@@ -1,0 +1,61 @@
+parameters:
+  # Project location directory
+  - name: projectPath
+    type: string
+    default: '$(Build.SourcesDirectory)/$(Build.Repository.Name)'
+  # Unit tests switcher
+  - name: runUnitTests
+    type: boolean
+    default: true
+  # Coverage report switcher
+  - name: createCoverageReport
+    type: boolean
+    default: true
+  # NuGet feed name
+  - name: vstsFeed
+    type: string
+    default: 'duly.digital'
+  # Sonar scan switcher
+  - name: enableSonarCloudScan
+    type: boolean
+    default: true
+  # Sonar ADO service connection
+  - name: sonarCloudServiceConnection
+    type: string
+    default: 'sonar-qube-$(System.TeamProject)'
+  # Sonar project name
+  - name: sonarCloudProjectName
+    type: string
+    default: '$(System.TeamProject)-$(Build.Repository.Name)'
+  # Optional location of code artefacts for analysis
+  - name: sonarCloudScanningPath
+    type: string
+    default: '$(Build.Repository.Name)'
+  # Provide solution name value if project and repository names are not enough
+  - name: sonarCloudProjectSuffix
+    type: string
+    default: ''
+  # Node.js version
+  - name: nodeVersion
+    type: string
+    default: '14.16.1'
+
+steps:
+
+  # Template: Build the source code of particular project
+  - template: build-react.yml
+    parameters:
+      nodeVersion: ${{ parameters.nodeVersion }}
+      projectPath: ${{ parameters.projectPath }}
+      runUnitTests: ${{ parameters.runUnitTests }}
+      createCoverageReport: ${{ parameters.createCoverageReport }}
+      publishBuildArtifacts: false
+      runLint: true
+      setBuildVersion: false
+      setHtmlBuildVersion: false
+      vstsFeed: ${{ parameters.vstsFeed }}
+      enableSonarCloudScan: ${{ parameters.enableSonarCloudScan }}
+      sonarCloudServiceConnection: ${{ parameters.sonarCloudServiceConnection }}
+      sonarCloudProjectName: ${{ parameters.sonarCloudProjectName }}
+      sonarCloudScanningPath: ${{ parameters.projectPath }}
+      sonarCloudProjectSuffix: ${{ parameters.sonarCloudProjectSuffix }}

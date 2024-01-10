@@ -1,0 +1,10 @@
+fieldLayouts:
+    54412cd4-687b-4e97-ab81-09c2c53fadec: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: 'External Service Name', max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 0123880f-71f9-4712-b3df-a95a4f166e68, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: fd042bda-0299-4b5e-bf1c-abae4d656ea6, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: e1d242f8-5331-48a1-b389-1c64899a173f, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 8875250c-4e3f-476e-a11e-6b2399f8d7c7, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: 'External Service', sortOrder: 1 }] }
+handle: externalService
+hasTitleField: true
+name: 'External Service'
+section: e3299412-d9c2-4679-9fad-64e72b3c5a42
+sortOrder: 2
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

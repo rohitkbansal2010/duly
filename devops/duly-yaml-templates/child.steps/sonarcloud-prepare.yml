@@ -1,0 +1,91 @@
+parameters:
+  # ADO service connection name
+  - name: sonarCloudServiceConnection
+    type: string
+    default: 'sonar-cloud-$(System.TeamProject)'
+  # Scaner mode
+  - name: sonarCloudScannerMode
+    type: string
+    default: 'MSBuild'
+  # Organization name
+  - name: sonarCloudOrganization
+    type: string
+    default: 'duly'
+  # Project key
+  - name: sonarCloudProjectKey
+    type: string
+    default: 'duly_$(System.TeamProject)_$(Build.Repository.Name)'
+  # Project name
+  - name: sonarCloudProjectName
+    type: string
+    default: '$(System.TeamProject)-$(Build.Repository.Name)'
+  # Project version
+  - name: sonarCloudProjectVersion
+    type: string
+    default: '$(Build.BuildNumber)'
+  # Optional location of code artefacts for analysis
+  - name: sonarCloudScanningPath
+    type: string
+    default: ''
+  # Provide solution name value if project and repository names are not enough
+  - name: sonarCloudProjectSuffix
+    type: string
+    default: ''
+
+steps:
+
+  # Install .NET Core v2.x SDK to workaround the issue https://github.com/SonarSource/sonar-scanner-msbuild/issues/797
+  - task: UseDotNet@2
+    displayName: 'SonarCloud: Use .NET Core SDK 2.x for SonarCloud'
+    inputs:
+      packageType: 'sdk'
+      version: '2.x'
+
+  # Dynamically build SonarCloud project name and key based on template input parameters
+  - powershell: |
+      [string]$sonarProjectName = '${{ parameters.SonarCloudProjectName }}-${{ parameters.sonarCloudProjectSuffix }}'.TrimEnd("-").Replace(" ", "")
+      [string]$sonarProjectKey = '${{ parameters.SonarCloudProjectKey }}_${{ parameters.sonarCloudProjectSuffix }}'.TrimEnd("_").Replace(" ", "")
+      echo "##vso[task.setvariable variable=sonarProjectName;isOutput=true]$sonarProjectName"
+      echo "##vso[task.setvariable variable=sonarProjectKey;isOutput=true]$sonarProjectKey"
+    displayName: 'SonarCloud: Parameters Initialization'
+    name: sonarParameters
+
+  - ${{ if eq( parameters.sonarCloudScannerMode, 'MSBuild' ) }}:
+    - task: SonarCloudPrepare@1
+      displayName: 'SonarCloud: Prepare Analysis for .NET Core project'
+      inputs:
+        SonarCloud: '${{ parameters.SonarCloudServiceConnection }}'
+        organization: '${{ parameters.SonarCloudOrganization }}'
+        scannerMode: '${{ parameters.sonarCloudScannerMode }}'
+        projectKey: '$(sonarParameters.sonarProjectKey)'
+        projectName: '$(sonarParameters.sonarProjectName)'
+        projectVersion: '${{ parameters.sonarCloudProjectVersion }}'
+        ${{ if ne( parameters.SonarCloudScanningPath, '' ) }}:
+          sources: '${{ parameters.SonarCloudScanningPath }}'
+        extraProperties: |
+          sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml
+          sonar.exclusions=**/Connected Services/*.cs,**/test/*,**/wwwroot/lib/**/*
+          sonar.verbose=true
+          -X
+      continueOnError: false
+
+  - ${{ if eq( parameters.sonarCloudScannerMode, 'CLI' ) }}:
+    - task: SonarCloudPrepare@1
+      displayName: 'SonarCloud: Prepare Analysis for TypeScript project'
+      inputs:
+        SonarCloud: '${{ parameters.SonarCloudServiceConnection }}'
+        organization: '${{ parameters.SonarCloudOrganization }}'
+        scannerMode: '${{ parameters.sonarCloudScannerMode }}'
+        configMode: 'manual'
+        cliProjectKey: '$(sonarParameters.sonarProjectKey)'
+        cliProjectName: '$(sonarParameters.sonarProjectName)'
+        cliProjectVersion: '${{ parameters.sonarCloudProjectVersion }}'
+        ${{ if ne( parameters.SonarCloudScanningPath, '' ) }}:
+          cliSources: '${{ parameters.SonarCloudScanningPath }}'
+        extraProperties: |
+          sonar.typescript.lcov.reportPaths=**/coverage/lcov.info
+          sonar.testExecutionReportPaths=**/testResults/sonar-report.xml
+          sonar.exclusions=**/__test__/**,**/node_modules/**,**/browser_components/**,**/dist/**,**/client-app/**,**/coverage/**,**/testResults/**
+          sonar.verbose=true
+          -X
+      continueOnError: false

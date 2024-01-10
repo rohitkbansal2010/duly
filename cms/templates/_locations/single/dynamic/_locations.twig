@@ -1,0 +1,42 @@
+{% if locations|length %} 
+    <div class="locations-list-grid">
+       <div class="locations-container">
+            <h4>{{ "Other"|t }} {{ service.title }} {{ "Locations"|t }}</h4>
+            <div class="locations">
+                {% for office in locations %}
+                    {% set location = office.getParent() %}
+
+                    {% if location is not null and location.address.parts is not null %}
+                        {% set physicalAddress = location.address.parts %}
+
+                        <div class="location">
+                            <div class="location-icon"></div>
+                            <div class="address">
+                                <a href="{{ office.getUrl() }}" class="single-location-link">
+                                    <p class="area">{{ physicalAddress.city }}</p>
+                                    <p class="address-one">{{ physicalAddress.number }} {{ physicalAddress.address }}</p>
+
+                                    {# some suites in the CMS are labeled as "N/A" and we do not want to show those #}
+                                    {% if office.title is not null and office.hiddenSuite != true %}
+                                        <p class="suite">{{ office.title }}</p>
+                                    {% endif %}
+                                    <p class="city">{{ physicalAddress.city }}, {{ physicalAddress.state }} {{ physicalAddress.postcode }}</p>
+                                </a>
+
+                                {% set serviceSuiteDetails = getServiceSuiteDetails(office.id, service.id) %}
+                                
+                                {% if serviceSuiteDetails %}
+                                    {% if serviceSuiteDetails.phoneNumber is not null %}
+                                        {% include '_widgets/phoneNumberLink.twig' with { number: serviceSuiteDetails.phoneNumber } only %}
+                                    {% endif %}
+
+                                    {% include '_locations/single/dynamic/_suite-details.twig' %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}

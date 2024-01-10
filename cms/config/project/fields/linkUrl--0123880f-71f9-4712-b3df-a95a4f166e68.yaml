@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: string(255)
+fieldGroup: c8b425d5-d542-4e8f-aa6c-31ec26a4cb3d
+handle: linkUrl
+instructions: 'A URL'
+name: URL
+searchable: false
+settings:
+    maxLength: '255'
+    placeholder: 'https://www.dulyhealthandcare.com/'
+    types: [url]
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Url

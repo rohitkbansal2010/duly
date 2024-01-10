@@ -1,0 +1,16 @@
+@import "~@styles/typography.scss";
+@import "~@styles/themes.scss";
+
+.immunizations {
+  &Body {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.25rem;
+
+    &Groups {
+      display: flex;
+      flex-direction: column;
+      width: 48%;
+    }
+  }
+}

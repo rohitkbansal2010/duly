@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 59d569da-1526-45bb-bd4c-883ccf638fd3
+handle: subHeadline
+instructions: 'Optionally add a sub headline to display on the blog post.'
+name: 'Sub Headline'
+searchable: true
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: text
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

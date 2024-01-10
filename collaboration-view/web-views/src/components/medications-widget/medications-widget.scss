@@ -1,0 +1,55 @@
+@import "~@styles/typography.scss";
+@import "~@styles/themes.scss";
+@import "~@styles/main.scss";
+@import "~@styles/spacing-constants.scss";
+
+.medications {
+  &Container {
+    height: $widget-height;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+  }
+
+  &Skeleton {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+.noMedications {
+  &Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    max-height: $widget-height;
+    background: $white;
+    border-radius: 0.5rem;
+  }
+
+  &IconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14.5rem;
+    height: 14.5rem;
+    background: rgba($dupage-light-blue, 0.3);
+    border-radius: 50%;
+
+    img {
+      width: 7.3rem;
+      height: 7.3rem;
+    }
+  }
+
+  &Title {
+    @include nexa-heavy-highlight;
+
+    margin-top: 2rem;
+    color: $dupage-light-blue;
+    font-size: var(--font-size-40px-4px) !important;
+    text-transform: capitalize;
+  }
+}

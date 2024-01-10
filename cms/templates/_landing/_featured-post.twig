@@ -1,0 +1,28 @@
+{% set image = featuredPost.image.all()|first %}
+{% set title = featuredPost.postTitle %}
+{% set description = featuredPost.postDescription %}
+{% set ctaText = featuredPost.ctaText %}
+{% set ctaTarget = featuredPost.ctaTarget|first %}
+
+<div class="featured-post">
+	<div id="bgHolder">
+		<div></div>
+		<div></div>
+	</div>
+	<div class="innerContent">
+		<div>
+			<div>
+				<h2 class="title">{{title}}</h2>
+				<span class="description">{{description}}</span>
+				<button class="dmgButton tertiary1">
+					<a href="{{ctaTarget.url ?? ctaTarget.linkUrl}}">{{ctaText}}</a>
+				</button>
+			</div>
+		</div>
+		<div class="image">
+			{% if image %}
+				{{ getOptimizedImage(image, 'webp')|raw }}
+			{% endif %}
+		</div>
+	</div>
+</div>

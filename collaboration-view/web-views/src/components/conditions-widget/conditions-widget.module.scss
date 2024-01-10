@@ -1,0 +1,55 @@
+@import "~@styles/colors.scss";
+@import "~@styles/main.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/spacing-constants.scss";
+
+@mixin common-title {
+  margin: 1.75rem 0;
+  font-weight: 800;
+  font-size: var(--font-size-24px-4px);
+  line-height: var(--line-height-26px-4px);
+  @include nexa-heavy-highlight;
+}
+
+.conditionsWidget {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  max-height: $widget-height;
+
+  &Col {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+
+    &Title {
+      @include common-title;
+      color: $dupage-light-blue;
+    }
+
+    &CurrentTitle {
+      @include common-title;
+      color: $dupage-magenta;
+    }
+
+    &Content {
+      flex-grow: 1;
+      min-height: 0;
+    }
+
+    &Data {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+  }
+
+  &Skeleton {
+    position: relative;
+    height: 100%;
+    background: $white;
+    border-radius: 0.5rem;
+  }
+}

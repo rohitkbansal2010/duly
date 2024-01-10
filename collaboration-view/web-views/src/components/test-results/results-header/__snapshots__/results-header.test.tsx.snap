@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsHeader component should match snapshot 1`] = `
+<div
+  className="resultsHeader"
+>
+  <div
+    className="resultsHeaderIconWrapper"
+  >
+    <img
+      alt="test result icon"
+      className="resultsHeaderIcon"
+      src="test-results-light-blue.svg"
+    />
+  </div>
+  <div
+    className="resultsHeaderTitles"
+  >
+    <span
+      className="resultsHeaderTitlesMain"
+    >
+      Comprehensive Metabolic Panel
+    </span>
+    <span
+      className="resultsHeaderTitlesAdditional"
+    >
+      Sat, Aug 14, 2021
+    </span>
+  </div>
+</div>
+`;
+
+exports[`ResultsHeader should work with empty data 1`] = `
+<div
+  className="resultsHeader"
+>
+  <div
+    className="resultsHeaderIconWrapper"
+  >
+    <img
+      alt="test result icon"
+      className="resultsHeaderIcon"
+      src="test-results-light-blue.svg"
+    />
+  </div>
+  <div
+    className="resultsHeaderTitles"
+  >
+    <span
+      className="resultsHeaderTitlesMain"
+    />
+    <span
+      className="resultsHeaderTitlesAdditional"
+    />
+  </div>
+</div>
+`;

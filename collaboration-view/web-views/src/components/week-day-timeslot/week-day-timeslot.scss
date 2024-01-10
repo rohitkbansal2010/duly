@@ -1,0 +1,39 @@
+@import "~@styles/colors.scss";
+
+.weekDayTimeslot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 9.75rem;
+  // height: 3.125rem;
+  padding: 0.813rem 0 !important;
+  color: $dupage-dark-blue;
+  font-weight: bold;
+  font-size: var(--font-size-16px-4px);
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 1.5rem;
+  text-transform: uppercase;
+  background: $ghost-gray none;
+  // padding: 13px 0 !important;
+  border: 1px solid $gray;
+  border-radius: 0.313rem;
+  outline: inherit;
+  cursor: pointer;
+
+  &Selected {
+    position: relative;
+    background: $white;
+
+    &::after {
+      position: absolute;
+      top: -0.5625rem;
+      right: -0.6875rem;
+      width: 1.2rem;
+      height: 1.1875rem;
+      background: url("/src/common/icons/indicators/check-circle/check-circle-green.svg") no-repeat;
+      background-size: 1.1875rem 1.1875rem;
+      content: "";
+    }
+  }
+}

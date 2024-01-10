@@ -1,0 +1,34 @@
+@import "~@styles/colors.scss";
+
+.navCalendar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  max-width: 11rem;
+  min-height: 100vh;
+  padding: 2.5rem 0;
+
+  &Active {
+    min-height: 0vh;
+
+    &IconWrapper {
+      & img {
+        width: 100%;
+      }
+    }
+  }
+
+  &IconWrapper {
+    display: flex;
+    width: 4.15rem;
+    height: 4.15rem;
+    padding: 0.95rem;
+    border: 2px solid $dupage-dark-blue;
+    border-radius: 100%;
+
+    & img {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+@import "~@styles/spacing-constants.scss";
+
+.timelineWidgetContainer {
+  display: flex;
+  height: 100%;
+  max-height: $widget-height;
+}

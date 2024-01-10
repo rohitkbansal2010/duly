@@ -1,0 +1,81 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Rule-Out Questions'|t %}
+{% block bodyClass "schedule-an-appointment-rule-out-questions-page" %}
+
+{% set patientUser = craft.app.patient_user.identity %}
+{% set arrivedFromOutsideOfScheduling = patientUser and patientUser.physician_selected_outside_of_scheduling == '1' %}
+{% set apointmentTimeSelectedOutsideOfScheduling = patientUser and patientUser.apointment_time_selected_outside_of_scheduling %}
+{% set showSidePanel = patientUser.appointment_physician_id is not empty and patientUser.appointment_department_id is not empty %}
+{% set isSchedulingFlowWithoutPhysicians = patientUser and patientUser.isSchedulingFlowWithoutPhysicians() %}
+{% set service = craft.entries.id(patientUser.getAppointmentServiceIds()).one() %}
+{% set serviceTitle = service.title ?? '' %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}	
+	{% switch currentQuestionIndex %}
+		{% case 0 %}
+			{% set backUrl = "/schedule/insurance" %}
+		{% case 1 %}
+			{% set backUrl = "/schedule/preliminary" %}
+		{% default %}
+			{% set index = currentQuestionIndex - 1 %}
+			{% set backUrl = "/schedule/preliminary?currentQuestionIndex=" ~ index %}
+	{% endswitch %}
+	
+	{% include "_scheduling/alerts/_exit-alert.twig" %}
+	{% include "_scheduling/navigation/_steps.twig" with {
+		backUrl: backUrl
+	} %}
+	{% include "_scheduling/alerts/_exit-alert.twig" %}
+	
+	{% if arrivedFromOutsideOfScheduling %}
+		<h2>{{ "Just a couple of questions before scheduling your appointment."|t }}</h2>
+	{% elseif isSchedulingFlowWithoutPhysicians %}
+		<h2>{{ "Just a couple of questions to find you the best {service} location."|t(params = { service: serviceTitle|capitalize }) }}</h2>
+	{% else %}
+		<h2>{{ "Just a couple of questions to find you the best {serviceDoctorType}."|t(params = { serviceDoctorType: serviceDoctorType|capitalize }) }}</h2>
+	{% endif %}
+
+	<section class="schedule-an-appointment-rule-out-questions-container {{ apointmentTimeSelectedOutsideOfScheduling or showSidePanel ? 'appointment-time-selected-outside-of-scheduling' : '' }}">
+		{% if apointmentTimeSelectedOutsideOfScheduling or showSidePanel %}
+			{% include "_scheduling/select-appointment/_physician-info.twig" with {
+				modalMap: false,
+				physician: craft.entries.id(patientUser.appointment_physician_id).one(),
+				suite: findSuiteEntryForGivenExternalDepartmentID(patientUser.appointment_department_id)
+			} %}
+		{% endif %}
+
+		<form class="rule-out-question" id="rule-out-question-form" method="POST">
+			{{ csrfInput() }}
+			<input type="hidden" name="currentQuestionIndex" value="{{currentQuestionIndex}}">
+			<div class="question">
+				<h3>{{currentQuestion.title}}</h3>
+			</div>
+			{% set image = currentQuestion.serviceRuleOutQuestionImage.one() %}
+			{% if image %}
+				<div class="image">
+					{{ getOptimizedImage(image, 'webp')|raw }}
+				</div>
+			{% endif %}
+			<div class="form-actions">
+				<button name="appointment_rule_out_question_answer" value="yes" class="action-button dmgButton secondary3" type="submit" id="yes">{{ "Yes"|t }}</button>
+				<button name="appointment_rule_out_question_answer" value="no" class="action-button dmgButton secondary3" type="submit" id="no">{{ "No"|t }}</button>
+			</div>
+		</form>
+
+		<div class="modal warning-modal {{error ? " " : " hidden"}}">
+			<div class="content">
+			    <span tabindex="0" class="material-icons close"></span>
+				<h2>{{ currentQuestion.serviceRuleOutQuestionWarningText }}</h2>
+				<p>{{ currentQuestion.serviceRuleOutQuestionWarningSubText }}</p>
+				<div class="form-actions">
+					<a href="/schedule" class="back-link">
+						<button class="action-button dmgButton primary3">{{ "Exit Scheduling Process"|t }}</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

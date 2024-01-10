@@ -1,0 +1,9 @@
+field: 503013df-1135-48e5-98ca-a1674098ce43
+fieldLayouts:
+    285346d2-ff60-4f43-b308-365144aa8079: { tabs: [{ elements: [{ fieldUid: fb5913d8-7b0e-4833-8e56-2e973e06ddec, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 7cbeab53-e677-4722-96dd-fe42c4adeea3, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    7cbeab53-e677-4722-96dd-fe42c4adeea3: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: modalSubHeaderText, instructions: 'Provide sub header text that will be displayed to the user if they select "Other" as the reason for visit.', name: 'Modal Sub Header Text', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: 'Please call 630-790-1872 to schedule your appointment.', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    fb5913d8-7b0e-4833-8e56-2e973e06ddec: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: modalHeaderText, instructions: 'Provide header text that will be displayed to the user if they select "Other" as the reason for visit.', name: 'Modal Header Text', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: 'We may need more information to schedule your visit.', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: modalAlert
+name: 'Add a custom alert'
+sortOrder: 1

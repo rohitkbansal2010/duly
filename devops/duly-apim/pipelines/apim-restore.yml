@@ -1,0 +1,115 @@
+parameters:
+  - name: ENVIRONMENT_NAME
+    type: string
+    values:
+    - dev
+    - qat
+    - uat
+    - prd
+    displayName: 'The working environment name.'
+  - name: BACKUP_FILE_NAME
+    type: string
+    displayName: 'Backup file name to restore.'
+
+trigger: none
+
+variables:
+  - name: NON_PRODUCTION_SUBSCRIPTION_NAME
+    value: 'azure_cloud_np'
+  - name: PRODUCTION_SUBSCRIPTION_NAME
+    value: 'azure_cloud_prod'
+  - name: BUILD_POOL
+    value: OnAKS
+  - name: ENVIRONMENT_NAME
+    value: ${{ parameters.ENVIRONMENT_NAME }}
+  - name: BACKUP_FILE_NAME
+    value: ${{ parameters.BACKUP_FILE_NAME }}
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: dev
+  dependsOn: []
+  jobs:
+  - template: ../templates/configuration-restore.yml
+    parameters:
+      environment: $(ENVIRONMENT_NAME)
+      subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+      apimName: 'duly-d-apim'
+      apimRgName: 'duly-d-apim-rg'
+      saName: 'dulydapimsa'
+      saRgName: 'duly-d-sharedsvc-rg'
+      backupContainerName: 'backup-container-dev'
+      backupFileName: $(BACKUP_FILE_NAME)
+  condition: |
+      and
+      (
+        succeeded(),
+        eq(variables['ENVIRONMENT_NAME'], 'dev'),
+        ne(variables['BACKUP_FILE_NAME'], '')
+      )
+
+- stage: qat
+  dependsOn: []
+  jobs:
+  - template: ../templates/configuration-restore.yml
+    parameters:
+      environment: $(ENVIRONMENT_NAME)
+      subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+      apimName: 'duly-q-apim'
+      apimRgName: 'duly-q-apim-rg'
+      saName: 'dulydapimsa'
+      saRgName: 'duly-d-sharedsvc-rg'
+      backupContainerName: 'backup-container-qat'
+      backupFileName: $(BACKUP_FILE_NAME)
+  condition: |
+      and
+      (
+        succeeded(),
+        eq(variables['ENVIRONMENT_NAME'], 'qat'),
+        ne(variables['BACKUP_FILE_NAME'], '')
+      )
+
+- stage: uat
+  dependsOn: []
+  jobs:
+  - template: ../templates/configuration-restore.yml
+    parameters:
+      environment: $(ENVIRONMENT_NAME)
+      subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+      apimName: 'duly-u-apim'
+      apimRgName: 'duly-u-apim-rg'
+      saName: 'dulydapimsa'
+      saRgName: 'duly-d-sharedsvc-rg'
+      backupContainerName: 'backup-container-uat'
+      backupFileName: $(BACKUP_FILE_NAME)
+  condition: |
+      and
+      (
+        succeeded(),
+        eq(variables['ENVIRONMENT_NAME'], 'uat'),
+        ne(variables['BACKUP_FILE_NAME'], '')
+      )
+
+- stage: prd
+  dependsOn: []
+  jobs:
+  - template: ../templates/configuration-restore.yml
+    parameters:
+      environment: $(ENVIRONMENT_NAME)
+      subscriptionName: $(PRODUCTION_SUBSCRIPTION_NAME)
+      apimName: 'duly-p-apim'
+      apimRgName: 'duly-p-apim-rg'
+      saName: 'dulypapimsa'
+      saRgName: 'duly-p-sharedsvc-rg'
+      backupContainerName: 'backup-container-prd'
+      backupFileName: $(BACKUP_FILE_NAME)
+  condition: |
+      and
+      (
+        succeeded(),
+        eq(variables['ENVIRONMENT_NAME'], 'prd'),
+        ne(variables['BACKUP_FILE_NAME'], '')
+      )

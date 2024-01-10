@@ -1,0 +1,118 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/media-mixins.scss";
+
+.wrapperPageNotFound {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 16rem;
+  padding-bottom: 11.5rem;
+  background-color: $mercury;
+
+  &Logo {
+    position: absolute;
+    bottom: 3rem;
+    left: 5.6rem;
+
+    img {
+      height: 3.7rem;
+    }
+  }
+}
+
+.containerPageNotFound {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  max-width: 65vw;
+  padding: 2rem;
+  background-color: $white;
+  border-radius: 0.5rem;
+
+  @include landscape {
+    max-width: 75vw;
+  }
+
+  @include portrait {
+    max-width: unset;
+  }
+
+  & > * {
+    width: 100%;
+  }
+
+  &IconContainer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1.75rem;
+
+    &IconWrapper {
+      display: flex;
+      width: 14.5rem;
+      height: 14.5rem;
+      padding: 3.6rem;
+      background-color: rgba($dupage-magenta, 0.3);
+      border: none;
+      border-radius: 100%;
+
+      & img {
+        width: 100%;
+      }
+    }
+  }
+
+  &Title {
+    margin: 0;
+    margin-bottom: 1.5rem !important;
+    padding: 0 !important;
+    color: $dupage-magenta;
+    font-weight: 900;
+    font-size: 3rem;
+    line-height: 3.125rem;
+    text-align: center;
+    @include nexa-regular-highlight;
+  }
+
+  &Text {
+    margin: 0;
+    margin-bottom: 2rem !important;
+    padding: 0 !important;
+    color: $dark-gray;
+    font-weight: normal;
+    font-size: 1.5rem;
+    text-align: center;
+    @include nexa-regular-highlight;
+  }
+
+  &LinkContainer {
+    display: flex;
+    justify-content: center;
+
+    &Link {
+      @include inter-button-1;
+      display: inline-block;
+      padding: 0.625rem 1.5rem;
+      color: $white;
+      text-decoration: none;
+      background-color: $dupage-dark-blue;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: ease-in-out;
+      user-select: none;
+
+      &:hover {
+        color: $white;
+      }
+
+      &:checked,
+      &:focus,
+      &:active {
+        box-shadow: 0 0 0 0.25rem rgba($dupage-dark-blue, 35%);
+      }
+    }
+  }
+}

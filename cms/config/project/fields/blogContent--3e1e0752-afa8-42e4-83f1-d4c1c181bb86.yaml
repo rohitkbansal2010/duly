@@ -1,0 +1,27 @@
+columnSuffix: null
+contentColumnType: mediumtext
+fieldGroup: 59d569da-1526-45bb-bd4c-883ccf638fd3
+handle: blogContent
+instructions: 'The contents of the article.'
+name: Content
+searchable: true
+settings:
+    availableTransforms: '*'
+    availableVolumes: [2b01430a-33e9-44a6-87d1-5381ad9be60d]
+    columnType: mediumtext
+    configSelectionMode: choose
+    defaultTransform: ''
+    manualConfig: ''
+    purifierConfig: ''
+    purifyHtml: ''
+    redactorConfig: Standard.json
+    removeEmptyTags: '1'
+    removeInlineStyles: '1'
+    removeNbsp: '1'
+    showHtmlButtonForNonAdmins: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    uiMode: enlarged
+translationKeyFormat: null
+translationMethod: none
+type: craft\redactor\Field

@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 188a7201-acbb-4843-a517-affbd2d8231f
+handle: serviceReasonForVisitPhysicians
+instructions: ''
+name: 'Physicians Accepting Appointments for This Visit Reason'
+searchable: true
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:a578774f-f4e1-4f95-a2f8-f9b8bae72c8c']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

@@ -1,0 +1,405 @@
+parameters:
+  - name: FORCE_RUN_SONAR_CHECK
+    type: boolean
+    default: false
+    displayName: 'Force a launch of SonarCloud analysis.'
+  - name: PUBLISH_FROM_FEATURE_BRANCH
+    type: boolean
+    default: false
+    displayName: 'Deploy from feature branch'
+  - name: imageRepository
+    default: $(Build.Repository.Name)
+  - name: imageTag
+    default: $(Build.BuildNumber)  
+  - name: aksServiceConnection
+    default: 'duly-d-app-aks'
+  - name: swaggerBinary
+    default: 'Duly.Ngdp.Api.dll'
+
+trigger:
+  branches:
+    include:
+      - dev
+      - feature/*
+  paths:
+    include:
+      - src/*
+    exclude:
+      - src/Client/*
+
+variables:
+  - name: ACR_SUBSCRIPTION
+    value: 'prd'
+  - name: ACR_NAME
+    value: 'dulydigitalcr.azurecr.io'  
+  - name: BUILD_POOL
+    value: OnAKS
+  - name: FORCE_RUN_SONAR_CHECK
+    value: ${{ parameters.FORCE_RUN_SONAR_CHECK }}
+  - name: PUBLISH_FROM_FEATURE_BRANCH
+    value: ${{ parameters.PUBLISH_FROM_FEATURE_BRANCH }}
+  - name: PROJECT_NAME
+    value: '**/WebApi.csproj'
+  - name: infraSolutionFolder
+    value: api-system-ngdp
+  - name: aksServiceConnection
+    value: ${{ parameters.aksServiceConnection }}
+  - name: imageRepository
+    value: ${{ parameters.imageRepository }}
+  - name: imageTag
+    value: ${{ parameters.imageTag }}
+
+resources:
+  repositories:
+    - repository: yamltemplates
+      type: git
+      name: 'duly.digital.devops/duly-yaml-templates'
+
+    - repository: scripts
+      type: git
+      name: 'duly.digital.devops/duly-scripts'
+
+    - repository: terraform-scripts
+      type: git
+      name: 'terraform-scripts'
+
+    - repository: charts
+      type: git
+      name: 'duly.digital.devops/duly-aks-helmcharts'      
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: CI
+  jobs:
+  - job: Analyse
+    displayName: Continuous Integration
+    pool:
+      name: $(BUILD_POOL)
+    workspace:
+      clean: outputs
+    steps:
+      - checkout: self
+
+      # Template: Execute CI process for particular project
+      - template: child.build/ci-netcore-cli.yml@yamltemplates
+        parameters:
+          solution: $(PROJECT_NAME)
+          # Explicitly use two test projects for unit test run
+          unitTestsProject: |
+            **/Tests.csproj
+            **/Ngdp.Adapter.Tests.csproj
+          sonarCloudScanningPath: 'Ngdp,WebApi'
+          sonarCloudProjectSuffix: 'webapi'
+          enableSonarCloudScan: false
+          runUnitTests: true
+          createCoverageReport: true
+          includeDotNetSdkVersionForAzureFunctions: true
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        eq(variables['Build.Reason'], 'PullRequest'),
+        eq(variables['FORCE_RUN_SONAR_CHECK'], 'true'),
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/feature')
+      )
+    ) 
+
+- stage: Build
+  dependsOn: []
+  jobs:
+   - job: Build
+     displayName: Build Artifacts
+     pool:
+       name: $(BUILD_POOL)
+     workspace:
+       clean: outputs
+     steps:
+     - checkout: self
+
+     - template: child.build/build-netcore.yml@yamltemplates
+       parameters:
+         solution: $(PROJECT_NAME)
+         # Explicitly use two test projects for unit test run
+         unitTestsProject: |
+            **/Tests.csproj
+            **/Ngdp.Adapter.Tests.csproj
+         dotnetBuild: true
+         vstsFeed: 'duly.digital'
+         enableSonarCloudScan: false
+         sonarCloudScanningPath: 'Ngdp,WebApi'
+         sonarCloudProjectSuffix: 'webapi'
+         runUnitTests: true
+         createCoverageReport: true
+         includeDotNetSdkVersionForAzureFunctions: true
+    
+     - task: Bash@3
+       inputs:
+         targetType: 'inline'
+         script: |
+          echo "##vso[task.setvariable variable=SWASHBUCKLE_VERSION;]$(cat WebApi.csproj | grep -E "(<PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\")" | sed -e 's/<PackageReference Include="Swashbuckle.AspNetCore" Version="\(.*\)" \/>/\1/' | xargs)"
+         workingDirectory: '$(Build.SourcesDirectory)/$(Build.Repository.Name)/src/WebApi'
+       displayName: Get swashbuckle version
+
+     - bash: |
+          apt-get update && apt-get install -y apt-utils && apt-get install -y libgdiplus
+       displayName: Install last version of libgdiplus
+     - task: PowerShell@2
+       inputs:
+         targetType: 'inline'
+         script: |
+           dotnet tool update --tool-path . --version $(SWASHBUCKLE_VERSION) swashbuckle.aspnetcore.cli
+           ./swagger tofile --output swagger.json ${{ parameters.swaggerBinary }} v1
+           Get-Content swagger.json
+           dotnet tool uninstall swashbuckle.aspnetcore.cli --tool-path .
+         showWarnings: true
+         workingDirectory: '$(Build.ArtifactStagingDirectory)'
+       displayName: 'Generate OpenAPI Spec'
+
+     - task: PublishPipelineArtifact@1
+       inputs:
+         targetPath: '$(Build.ArtifactStagingDirectory)/swagger.json'
+         artifact: 'swagger.json'
+         publishLocation: 'pipeline'
+       displayName: Publish swagger.json
+
+     - task: AzureCLI@2
+       displayName: Build a docker image
+       inputs:
+         azureSubscription: $(ACR_SUBSCRIPTION)
+         scriptType: pscore
+         scriptLocation: inlineScript
+         inlineScript: |
+            Remove-Item swagger.json
+            az acr build -t "$(ACR_NAME)/$(imageRepository):$(imageTag)" -r "$(ACR_NAME)" -f "$(Build.SourcesDirectory)/$(Build.Repository.Name)/src/WebApi/Dockerfile" . 
+         workingDirectory: '$(Build.ArtifactStagingDirectory)'
+
+     - task: PowerShell@2
+       displayName: 'PowerShell: Set commit tag'
+       inputs:
+         targetType: filePath
+         filePath: '$(Build.SourcesDirectory)/duly-scripts/PowerShell/Add-TagToAdoCommit.ps1'
+         arguments: > 
+           -PAT $(System.AccessToken)
+           -organizationUri $(System.CollectionUri)
+           -projectName $(System.TeamProject)
+           -repositoryID $(Build.Repository.ID)
+           -commitID $(Build.SourceVersion)
+           -tagName $(Build.BuildNumber)
+           -tagMessage $(Build.BuildNumber)
+       continueOnError: true         
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['PUBLISH_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: dev
+  displayName: Deploy on DEV
+  dependsOn: Build
+  variables:
+  - group: env.dev.terraform
+  - group: terraform.modules_rsa_key
+  jobs:
+    - template: child.jobs/terraform-update-apim-operations.yml@yamltemplates
+      parameters:
+        env: dev
+        infraSolutionFolder: ${{ variables.infraSolutionFolder }}
+
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters: 
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'integration-ngdp-system-api'
+        aadPodIdCustomName: 'duly-d-component-pod-id'
+        env: dev
+        chartArgs: >
+          --set env.ApplicationSettings__KeyVaultHostUrl="https://duly-d-int-api-ngdp-kv.vault.azure.net/"
+  
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['PUBLISH_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: qat
+  displayName: Deploy on QAT
+  dependsOn: dev
+  variables:
+  - group: env.qat.terraform
+  - group: terraform.modules_rsa_key
+  jobs:
+    - template: child.jobs/terraform-update-apim-operations.yml@yamltemplates
+      parameters:
+        env: qat
+        infraSolutionFolder: ${{ variables.infraSolutionFolder }}
+
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters: 
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'integration-ngdp-system-api'
+        aadPodIdCustomName: 'duly-q-component-pod-id'
+        env: qat
+        chartArgs: >
+          --set env.ApplicationSettings__KeyVaultHostUrl="https://duly-q-int-api-ngdp-kv.vault.azure.net/"
+  
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: aut
+  displayName: Deploy on AUT
+  dependsOn: dev
+  variables:
+  - group: env.aut.terraform
+  - group: terraform.modules_rsa_key
+  jobs:
+    - template: child.jobs/terraform-update-apim-operations.yml@yamltemplates
+      parameters:
+        env: aut
+        infraSolutionFolder: ${{ variables.infraSolutionFolder }}
+
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters: 
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'integration-ngdp-system-api'
+        aadPodIdCustomName: 'duly-a-component-pod-id'
+        env: aut
+        chartArgs: >
+          --set env.ApplicationSettings__KeyVaultHostUrl="https://duly-a-int-api-ngdp-kv.vault.azure.net/"
+  
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: uat
+  displayName: Deploy on UAT
+  dependsOn: qat
+  variables:
+  - group: env.uat.terraform
+  - group: terraform.modules_rsa_key
+  jobs:
+    - template: child.jobs/terraform-update-apim-operations.yml@yamltemplates
+      parameters:
+        env: uat
+        infraSolutionFolder: ${{ variables.infraSolutionFolder }}
+
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters: 
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'integration-ngdp-system-api'
+        aadPodIdCustomName: 'duly-u-component-pod-id'
+        env: uat
+        chartArgs: >
+          --set env.ApplicationSettings__KeyVaultHostUrl="https://duly-u-int-api-ngdp-kv.vault.azure.net/"
+  
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: prd
+  displayName: Deploy on PRD
+  dependsOn: uat
+  variables:
+  - group: env.prd.terraform
+  - group: terraform.modules_rsa_key
+  jobs:
+    - template: child.jobs/terraform-update-apim-operations.yml@yamltemplates
+      parameters:
+        env: prd
+        infraSolutionFolder: ${{ variables.infraSolutionFolder }}
+
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters: 
+        aksServiceConnection: 'duly-p-app-aks'
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'integration-ngdp-system-api'
+        aadPodIdCustomName: 'duly-p-component-pod-id'
+        dnsZone: 'prd.privatelink.northcentralus.azmk8s.io'
+        env: prd
+        chartArgs: >
+          --set env.ApplicationSettings__KeyVaultHostUrl="https://duly-p-int-api-ngdp-kv.vault.azure.net/"
+  
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )

@@ -1,0 +1,346 @@
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Physical And Occupational Therapy Appointment Request'|t %}
+{% block bodyClass "physical-occupational-appointment-request-page" %}
+
+{% set possibleTimes = [
+     'Early Morning (6-8a)'|t,
+     'Mid-Morning (8a-12p)'|t,
+     'Afternoon (12-3p)'|t,
+     'Late Afternoon (3-5p)'|t,
+     'Evening (5-7p)'|t
+] %}
+{% set possibleTimeOptions = [] %}
+{% for possibleTime in possibleTimes %}
+    {% set possibleTimeOptions = possibleTimeOptions|merge([{
+        content: possibleTime,
+        data: {
+            value: possibleTime
+        }
+    }]) %}
+{% endfor %}
+
+{% block main %}
+    <div class="{{ showSuccessMessage ? 'modal form-request-success' : 'modal form-request-success hidden' }}">
+        <div class="content">
+            <h1>{{ "Thank you for submitting your appointment request."|t }}</h1>
+            <h2>{{ "We will be in touch shortly to confirm your booking."|t }}</h2>
+            <div class="form-actions">
+                {% set url = "/" %}
+
+                {% if returnUrl is defined and returnUrl is not null %}
+                    {% set url = returnUrl %}
+                {% endif %}
+
+                    <button class="dmgButton primary3">
+                        <a href="{{ url }}">
+                            {{ "I understand"|t }}
+                        </a>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h1>{{ "Physical And Occupational Therapy Appointment Request"|t }}</h1>
+        <p>{{ "Our physical and occupational therapists offer a wide range of services and programs to meet your needs. Please submit a scheduling request for an in-clinic visit by completing the form below. If you’d prefer a physical therapy video visit, please fill out the form below."|t }}</p>
+
+        <form>
+        	<input id="csrf-token" type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">
+            <input id="recaptcha-token" type="hidden" name="recaptchaToken">
+
+            <h2>{{ "Who are you requesting an appointment for?"|t }}</h2>
+            <div class="field-container two-columns">
+                <div class="field-group">
+                    {% include "_input/_input.twig" with {
+                        type: 'text',
+                        name: 'first-name',
+                        value: model.first_name,
+                        id: 'request-form-first-name',
+                        extraOptions: {
+                            required: "required"
+                        },
+                        label: "First Name"|t,
+                    } only %}
+                </div>
+                <div class="field-group">
+                    {% include "_input/_input.twig" with {
+                        type: 'text',
+                        name: 'last-name',
+                        value: model.last_name,
+                        id: 'request-form-last-name',
+                        extraOptions: {
+                            required: "required"
+                        },
+                        label: "Last Name"|t,
+                    } only %}
+                </div>
+            </div>
+
+            <div class="field-container two-columns">
+                <div class="field-group">
+                    {% include "_input/_input.twig" with {
+                        type: 'tel',
+                        name: 'phoneNumber',
+                        value: model.phone_number,
+                        id: 'patient-phone',
+                        label: "Phone Number"|t,
+                        extraOptions: {
+                            required: "required",
+                            pattern: '(1)?[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}'
+                        }
+                    } only %}
+                </div>
+
+                <div class="field-group">
+                    {% include "_input/_select.twig" with {
+                        id: "request-availability",
+                        name: "best_time",
+                        label:  "Best time to be reached?"|t,
+                        required: true,
+                        options: possibleTimeOptions,
+                    }%}
+                </div>
+            </div>
+
+            <h2>{{ "What's the patient's date of birth?"|t }}</h2>
+            <div class="field-container date-of-birth">
+                <div class="field-group">
+                    {% include "_input/_input.twig" with {
+                        type: 'date-of-birth-month',
+                        name: 'date-of-birth-month',
+                        label: "Month"|t,
+                        extraOptions: {
+                            pattern: "\\d*",
+                            required: "required",
+                            inputmode: "numeric",
+                            maxlength: "2",
+                            placeholder: "MM",
+
+                        }
+                    } only %}
+
+                    {% include "_input/_input.twig" with {
+                        type: 'date-of-birth-day',
+                        name: 'date-of-birth-day',
+                        label: "Day"|t,
+                        extraOptions: {
+                            pattern: "\\d*",
+                            required: "required",
+                            inputmode: "numeric",
+                            maxlength: "2",
+                            placeholder: "DD"
+                        }
+                    } only %}
+
+                    {% include "_input/_input.twig" with {
+                        type: 'date-of-birth-year',
+                        name: 'date-of-birth-year',
+                        label: "Year"|t,
+                        extraOptions: {
+                            pattern: "\\d*",
+                            required: "required",
+                            inputmode: "numeric",
+                            maxlength: "4",
+                            placeholder: "YYYY"
+                        }
+                    } only %}
+                </div>
+            </div>
+
+            <div class="field-container insurance-container">
+                <h2>{{ "What insurance does this patient have?"|t }}</h2>
+                <div class="field-group">
+                    {% include "_scheduling/insurance/_insurance_pickers.twig" %}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="field-container location-container">
+                <h2>{{ "Where do you want to schedule your physical and occupational therapy appointment?"|t }}</h2>
+                <div class="field-group locations-container">
+                    {% set locationOptions = [] %}
+                    {% for location in locations %}
+                        {% set physicalLocation = "" %}
+                        {% set suite = "" %}
+                        {% set parent = location.getParent() %}
+                        {% if parent %}
+                            {% set physicalLocation = parent.title %}
+                        {% endif %}
+                        {% if location.title is not null and location.title != "N/A" and location.title != "Suite N/A" %}
+                            {% set suite = location.title %}
+                        {% endif %}
+                        {% set locationOptions = locationOptions|merge([{
+                            content: suite ? physicalLocation ~ " - " ~ suite : physicalLocation,
+                            data: {
+                                value: physicalLocation
+                            }
+                        }]) %}
+                    {% endfor %}
+                    {% include '_input/_select' with {
+                        label: "Location"|t,
+                        id: 'locations-provided',
+                        required: true,
+                        options: locationOptions,
+                        name: 'location'
+                    } %}
+                </div>
+            </div>
+
+            <h2>{{ "What's your preferred date and time for your appointment?"|t }}</h2>
+            <div class="field-container two-columns">
+                <div class="field-group date-picker date-picker-1" id="date-picker-one" tabindex="0">
+                    {% include "_input/_input.twig" with {
+                        type: 'text',
+                        name: 'date1',
+                        value: model.date1,
+                        id: 'first_preferred_date',
+                        label: "Date"|t,
+                        extraOptions: {
+                            required: true 
+                        }
+                    } only %}
+                </div>
+
+                <div class="field-group">
+                    {% include "_input/_select.twig" with {
+                        id: "window-one",
+                        value: model.window1,
+                        name: "window1",
+                        label: "Time of day"|t,
+                        required: true,
+                        options: possibleTimeOptions
+                    }%}
+                </div>
+            </div>
+
+            <h2>{{ "If unavailable, what's your second preferred date and time for your appointment?"|t }}</h2>
+            <div class="field-container two-columns">
+                <div class="field-group date-picker date-picker-2" tabindex="0">
+                    {% include "_input/_input.twig" with {
+                        type: 'text',
+                        name: 'date2',
+                        value: model.date2,
+                        id: 'second_preferred_date',
+                        label: "Date"|t,
+                        extraOptions: {
+                            required: true 
+                        }
+                    } only %}
+                </div>
+
+                <div class="field-group">
+                    {% include "_input/_select.twig" with {
+                        id: "window-two",
+                        value: model.window2,
+                        name: "window2",
+                        label: "Time of day"|t,
+                        required: true,
+                        options: possibleTimeOptions
+                    }%}
+                </div>
+            </div>
+
+            <h2>{{ "If unavailable, what's your third preferred date and time for your appointment?"|t }}</h2>
+            <div class="field-container two-columns">
+                <div class="field-group date-picker date-picker-3" tabindex="0">
+                    {% include "_input/_input.twig" with {
+                        type: 'text',
+                        name: 'date3',
+                        value: model.date3,
+                        id: 'third_preferred_date',
+                        label: "Date"|t,
+                        extraOptions: {
+                            required: true 
+                        }
+                    } only %}
+                </div>
+
+                <div class="field-group">
+                    {% include "_input/_select.twig" with {
+                        id: "window-three",
+                        value: model.window3,
+                        name: "window3",
+                        label: "Time of day"|t,
+                        required: true,
+                        options: possibleTimeOptions
+                    }%}
+                </div>
+            </div>
+
+            <h2 class="required">{{ "Do you have an order for therapy from a provider?"|t }}</h2>
+            <div class="field-container radio-container work-order-question">
+                <div class="radio" tabindex="0">
+				    {% include "_input/_radio.twig" with {
+						type: 'radio',
+						name: 'order',
+                        value: model.order,
+						id: 'order-yes',
+						label: 'Yes'|t,
+					} only %}
+			    </div>
+
+                <div class="radio" tabindex="0">
+				    {% include "_input/_radio.twig" with {
+						type: 'radio',
+						name: 'order',
+                        value: model.order,
+						id: 'order-no',
+						label: 'No'|t,
+					} only %}
+			    </div>
+            </div>
+
+            <h2 class="required">{{ "Are you seeking a Physical or Occupational Therapy appointment for a work comp injury?"|t }}</h2>
+            <div class="field-container radio-container work-comp-question">
+                <div class="radio" tabindex="0">
+				    {% include "_input/_radio.twig" with {
+						type: 'radio',
+						name: 'comp',
+                        value: model.work_comp,
+						id: 'comp-yes',
+						label: 'Yes'|t,
+					} only %}
+			    </div>
+
+                <div class="radio" tabindex="0">
+				    {% include "_input/_radio.twig" with {
+						type: 'radio',
+						name: 'comp',
+                        value: model.work_comp,
+						id: 'comp-no',
+						label: 'No'|t,
+					} only %}
+			    </div>
+            </div>
+
+            <div class="field-group">
+                {% include "_input/_textarea.twig" with {
+                    name: 'comments',
+                    id: 'symptoms-field',
+                    label: "Presenting Problems or Symptoms",
+                    required: true
+                } %}
+            </div>
+
+            <button class="button dmgButton primary1" id="request-appointment-submit" disabled>{{ "Submit"|t }}</button>
+            <p class="fetch-error hidden">{{ "There was an error with your request. Please try again later."|t }}</p>
+
+            {% set errors = model.getErrors() %}
+
+            {% if errors %}
+                <p class="form-error">{{ errors }}</p>
+            {% endif %}
+
+        </form>
+    </div>
+    <div class="pattern-top-right"></div>
+    <div class="pattern-bottom-left"></div>
+{% endblock %}
+
+{% block extra_js %}
+    {# reCAPTCHA #}
+    <script nonce="__CSP_NONCE__" src="https://www.google.com/recaptcha/api.js?onload=onReCAPTCHALoadCallback&render=explicit"></script>
+{% endblock %}

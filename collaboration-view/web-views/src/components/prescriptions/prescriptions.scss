@@ -1,0 +1,163 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.6875rem 0 2rem 0.625rem;
+  column-gap: 3rem;
+
+  &leftSide {
+    // width: 34.5rem;
+    width: 56%;
+
+    &details {
+      &Title {
+        @include nexa-heavy-highlight;
+        color: $dupage-dark-blue;
+        font-weight: 900;
+        font-size: var(--font-size-24px-4px);
+        // line-height: 1.625rem;
+
+        &Inner {
+          color: $dupage-light-blue;
+        }
+      }
+
+      &subTitle {
+        @include inter-text-default;
+        color: $dupage-dark-blue;
+        font-size: var(--font-size-16px-4px);
+        line-height: var(--line-height-24px-4px);
+
+        &Inner {
+          @include inter-text-default-bold;
+          font-size: var(--font-size-16px-4px);
+          line-height: 1.5rem;
+        }
+      }
+    }
+
+    &Cards {
+      max-height: 30rem;
+      margin-top: 0.93rem;
+      -ms-touch-action: pan-y;
+      touch-action: pan-y;
+    }
+
+    &Cards div:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &RightSide {
+    // width: 25.43rem;
+    width: 55%;
+
+    &Map {
+      width: 100%;
+      height: 30rem;
+    }
+
+    &Pharmacy {
+      color: $dupage-dark-blue;
+
+      &Heading {
+        @include nexa-extra-bold-highlight;
+        margin: 0;
+        margin-top: 0.6rem;
+        color: $dupage-magenta;
+        font-size: var(--font-size-14px-4px);
+        // line-height: 1.625rem;
+        text-transform: uppercase;
+      }
+
+      &Details {
+        display: flex;
+        &Col {
+          width: 50%;
+
+          &Text {
+            @include inter-text-default;
+            margin: 0;
+            font-size: var(--font-size-16px-4px);
+            line-height: var(--line-height-22px-8px-6px) !important;
+
+            &Inner {
+              @include inter-text-default-bold;
+              margin: 0;
+              font-size: var(--font-size-16px-4px);
+              line-height: var(--line-height-16px-4px) !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.prescriptionError {
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 43.25rem;
+  }
+  &IconWrapper {
+    width: 9rem;
+    height: 9rem;
+    img {
+      width: 9rem;
+      height: 9rem;
+    }
+  }
+  &Title {
+    @include nexa-heavy-highlight;
+
+    margin-top: 1.5rem;
+    color: $dupage-light-blue;
+    font-size: var(--font-size-32px-4px);
+    text-transform: capitalize;
+  }
+  &SubTitle {
+    @include nexa-regular-highlight;
+    padding: 0 3.25rem;
+    color: $dark-gray;
+    font-weight: 400;
+    font-size: var(--font-size-24px-4px);
+    line-height: 2.25rem;
+    text-align: center;
+  }
+  &TryButton {
+    @include nexa-extra-bold-highlight;
+    display: flex;
+    align-items: center;
+    margin-top: 1.875rem;
+    padding: 0.56rem 3.25rem;
+    color: $white;
+    font-weight: 800;
+    font-size: var(--font-size-20px-4px);
+    line-height: 1.5rem;
+    text-align: center;
+    background: $dupage-dark-blue;
+    border-radius: 0.5rem;
+  }
+}
+
+.preferredPharmacyContainerLoading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25rem;
+  color: $dupage-dark-blue;
+  font-size: 3rem;
+}

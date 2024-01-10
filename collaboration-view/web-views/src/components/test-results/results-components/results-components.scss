@@ -1,0 +1,85 @@
+@import "~@styles/typography";
+@import "~@styles/colors";
+@import "~@styles/main.scss";
+
+@mixin name {
+  width: 28%;
+}
+
+@mixin value {
+  width: 20%;
+}
+
+@mixin range {
+  width: 20%;
+}
+
+@mixin additional {
+  width: 32%;
+}
+
+@mixin header-item {
+  padding: 0.75rem 1.25rem;
+}
+
+@mixin component-item {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+  word-break: break-word;
+}
+
+@mixin border-right {
+  border-right: 0.0625rem solid $gray;
+}
+
+.results {
+  &Components {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+    margin-top: 1.25rem;
+
+    &Header {
+      @include inter-text-xs-bold;
+
+      display: flex;
+      font-weight: 700;
+      font-size: var(--font-size-14px-4px);
+      text-transform: uppercase;
+      background: rgba($dupage-light-blue, 0.1);
+      border: 0.0625rem solid $gray;
+      border-radius: 0.5rem 0.5rem 0 0;
+
+      &Name {
+        @include name;
+        @include header-item;
+        @include border-right;
+      }
+
+      &Value {
+        @include value;
+        @include header-item;
+        @include border-right;
+      }
+
+      &Range {
+        @include range;
+        @include header-item;
+        @include border-right;
+      }
+
+      &Additional {
+        @include additional;
+        @include header-item;
+      }
+    }
+
+    &List {
+      position: relative;
+      flex-grow: 1;
+      min-height: 0;
+    }
+  }
+}

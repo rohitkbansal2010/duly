@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 59d569da-1526-45bb-bd4c-883ccf638fd3
+handle: healthTopics
+instructions: 'A list of health topics you would like this content to be categorized under. The first health topic will serve as the primary health topic.'
+name: 'Health Topics'
+searchable: false
+settings:
+    contentTable: '{{%matrixcontent_healthtopics}}'
+    maxBlocks: ''
+    minBlocks: '1'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

@@ -1,0 +1,57 @@
+/**
+ * punchkick/dupage-core-module module for Craft CMS
+ *
+ * punchkick/dupage-core-module CSS
+ *
+ * @author    Punchkick Interactive
+ * @copyright Copyright (c) 2019 Punchkick Interactive
+ * @link      https://www.punchkick.com
+ * @package   DupageCoreModule
+ * @since     0.0.1
+ */
+#event-registrants-by-location ul.pagination {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+#event-registrants-by-location ul.pagination li {
+    display: inline-flex;
+    flex-grow: 1;
+}
+
+.filters.horizontal {
+    float: left;
+    margin-bottom: 10px;
+}
+
+.filters.horizontal li {
+    float: left;
+    margin-right: 10px;
+}
+
+.field.first .field {
+    margin: 0;
+}
+
+.action .spinner {
+    margin-top: 24px;
+}
+
+.action .download {
+    margin-top: 30px;
+}
+
+form.csv-download button {
+    color: #0d78f2;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.pagination {
+    .active {
+        font-weight: bold;
+    }
+}

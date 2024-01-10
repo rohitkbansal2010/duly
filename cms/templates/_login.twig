@@ -1,0 +1,61 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+{% block title 'Login Portal'|t %}
+{% block bodyClass "login-portal-page" %}
+{% if craft.app.patient_user.identity != null and craft.app.patient_user.identity.anonymous == false %}
+	{% redirect "/" %}
+{% endif %}
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	<div class="loginPortalContainer">
+		<div class="login-portal-pattern"></div>
+		<div class="portal portal-single-column">
+			<h2>{{ "Do you have a patient account?"|t }}</h2>
+			<p>{{ "Log in with {myChartName} to personalize your experience and make appointments quicker."|t(params = {
+				myChartName: myChartName
+			}) }}</p>
+			{{ html.beginForm('', 'POST', {
+				id: 'login-form',
+				enctype: 'multipart/form-data'
+			}) | raw }}
+			{{ csrfInput() }}
+			{% include "_input/_input.twig" with {
+				type: 'text',
+				name: 'username',
+				label: "Username"|t,
+				error: form.getFirstError('username'),
+				extraOptions: {
+					required: "required"
+				}
+			} only %}
+			<a href="https://mychart.dupagemd.net/MyChart/recoverlogin.asp" class="forgot" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ "Forgot your username?" }}</a>
+			{% include "_input/_input.twig" with {
+				type: 'password',
+				name: 'password',
+				label: "Password"|t,
+				error: form.getFirstError('password'),
+				extraOptions: {
+					required: "required"
+				}
+			} only %}
+			<a href="https://mychart.dupagemd.net/MyChart/passwordreset.asp" class="forgot" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ "Forgot your password?" }}</a>
+			<button id="submitLogin" type="submit" class="dmgButton primary3" disabled>
+				<div class="cta">{{ "Log into {myChartName}"|t( { myChartName: myChartName } )}}</div>
+			</button>
+			{{ html.endForm() | raw }}
+			<div id="createAccount">
+				<p>{{ "Don't have an account?"|t }}</p>
+				<a href="https://mychart.dupagemd.net/MyChart/accesscheck.asp" target="_blank" rel="noopener noreferrer">{{ "Create your {myChartName} account."|t(params = {
+					myChartName: myChartName
+				}) }}</a>
+			</div>
+		</div>
+	</div>
+	{% if craft.app.session.getFlash('login-failure') %}
+		<input type="hidden" name="login-failure">
+	{% endif %}
+	{% set appointmentServiceChosenFlash = craft.app.session.getFlash('appointment-service-chosen') %}
+	{% if appointmentServiceChosenFlash %}
+		<input type="hidden" name="appointment-service-chosen" value="{{appointmentServiceChosenFlash}}">
+	{% endif %}
+{% endblock %}

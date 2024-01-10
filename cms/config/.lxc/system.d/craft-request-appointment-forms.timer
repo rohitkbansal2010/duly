@@ -1,0 +1,9 @@
+[Unit]
+Description=Timer for submitting request appointment forms service
+
+[Timer]
+OnCalendar=00/1:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

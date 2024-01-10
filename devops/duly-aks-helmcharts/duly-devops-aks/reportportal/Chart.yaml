@@ -1,0 +1,12 @@
+apiVersion: v1
+appVersion: 5.6.3
+description: ReportPortal.io AI-powered Test Automation Dashboard
+keywords:
+- reportportal
+maintainers:
+- email: support@reportportal.io
+  name: reportportal
+name: reportportal
+sources:
+- https://github.com/reportportal/kubernetes
+version: 5.6.3

@@ -1,0 +1,24 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: servicesProceduresCategories
+instructions: 'Choose the categories of procedures to appear under "Services & Procedures"'
+name: 'Services & Procedures Categories'
+searchable: false
+settings:
+    allowLimit: false
+    allowMultipleSources: false
+    allowSelfRelations: false
+    branchLimit: ''
+    limit: null
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: 'group:fb9329d0-1095-4000-b52e-05d1192a5222'
+    sources: '*'
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Categories

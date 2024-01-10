@@ -1,0 +1,10 @@
+fieldLayouts:
+    2a3c1877-6be0-45c0-b6af-37ccd7533588: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: 'Yes-or-No Question', max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 5d3f1250-d5f2-4fcd-ae9f-be6b2d894a78, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: edbe66a9-e65f-4955-aa22-b77658fbbec9, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 1affacc2-b4ce-474b-8839-3ce9a6763a47, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: 'Tab 1', sortOrder: 1 }] }
+handle: serviceRuleOutQuestion
+hasTitleField: true
+name: 'Service Rule-Out Question'
+section: d0b645df-dd6f-40e9-ab28-159fc8d4190d
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

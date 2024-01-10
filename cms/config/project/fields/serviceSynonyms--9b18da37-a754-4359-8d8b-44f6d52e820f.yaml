@@ -1,0 +1,17 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceSynonyms
+instructions: ''
+name: 'Service Synonyms'
+searchable: true
+settings:
+    addRowLabel: 'Add a row'
+    columnType: text
+    columns: { __assoc__: [[col1, { __assoc__: [[heading, Synonym], [handle, synonym], [width, ''], [type, singleline]] }]] }
+    defaults: [{ __assoc__: [[col1, '']] }]
+    maxRows: ''
+    minRows: '0'
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Table

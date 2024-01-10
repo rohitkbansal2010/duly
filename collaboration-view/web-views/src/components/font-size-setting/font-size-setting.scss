@@ -1,0 +1,48 @@
+.fontSetting {
+  width: 6.7rem;
+}
+
+.fontSizes {
+  position: relative;
+}
+
+.fontSize {
+  &Small {
+    height: 3rem;
+
+    img {
+      position: absolute;
+      bottom: 0;
+      width: 1rem;
+      height: 1.5rem;
+    }
+  }
+
+  &Medium {
+    height: 3rem;
+
+    img {
+      position: absolute;
+      bottom: 0;
+      width: 1.563rem;
+      height: 2.125rem;
+    }
+  }
+
+  &Large {
+    height: 3rem;
+
+    img {
+      position: absolute;
+      bottom: 0;
+      width: 2.125rem;
+      height: 2.938rem;
+      margin-left: 3px;
+    }
+  }
+}
+
+.formRange {
+  width: 5.7rem !important;
+  margin-left: 1rem;
+}

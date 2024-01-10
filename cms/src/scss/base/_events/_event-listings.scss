@@ -1,0 +1,516 @@
+.event-listings {
+	width: 100%;
+
+	.display-error {
+		text-align: center;
+		padding: 20px;
+
+		h3 {
+			font-weight: 600;
+		}
+	}
+
+	.pagination {
+		text-align: center;
+		flex: 0 0 100%;
+
+		ul {
+			li {
+				a {
+					&.pagination-link {
+						color: $oxford;
+
+						&.is-current {
+							color: $white !important;
+							background-color: $sky;
+						}
+					}
+
+					&.pagination-text-link {
+						color: $oxford;
+					}
+				}
+			}
+		}
+	}
+
+	.events-listing-container {
+		min-height: 300px;
+	}
+
+	.event-search-container {
+		border-bottom: none !important;
+		box-shadow: none !important;
+
+		@include responsive(large) {
+			padding-bottom: 0;
+		}
+
+		.search-content {
+			.filter-btn-mobile {
+				padding: 14px 15px 13px 15px;
+				margin-top: 0;
+			}
+		}
+	}
+
+	.content-header {
+		display: none !important;
+		box-sizing: border-box;
+		@include responsive(large) {
+			display: block !important;
+			padding-left: 10px;
+			margin-top: 0;
+		}
+	}
+
+	.listings,
+	.content-header {
+		margin: 0 auto;
+		max-width: 1250px;
+		min-width: 1250px;
+		width: 100%;
+
+		@include responsive(x-large) {
+			max-width: 100%;
+			min-width: 100%;
+			width: 100%;
+		}
+
+		h2 {
+			padding-left: 20px;
+			font-size: 28px;
+			font-weight: 800;
+
+			@include responsive(medium) {
+				margin: 5px 0px;
+				padding-left: 0px;
+			}
+		}
+
+		.container {
+			background: $white;
+			border-radius: 4px;
+			margin: 15px;
+
+			a {
+				text-decoration: none;
+			}
+
+			@include responsive(medium) {
+				margin: 5px 0px;
+			}
+
+			.header {
+				display: flex;
+				align-items: center;
+				border-bottom: 1px solid $sky;
+				padding: 1rem 0px;
+				margin: 0px 1rem;
+
+				@include responsive(medium) {
+					display: none;
+				}
+
+				span {
+					font-weight: 900;
+					font-size: 20px;
+					width: 30%;
+
+					&:first-child {
+						padding-left: 25px;
+						width: 40%;
+
+						@include responsive(x-large) {
+							width: 50%;
+						}
+					}
+
+					@include responsive(x-large) {
+						width: 20%;
+					}
+
+					@include responsive(medium) {
+						width: 95%;
+					}
+				}
+			}
+
+			.event-divider {
+				width: calc(100% - 3rem);
+				height: 1px;
+				background-color: $sky-20;
+				margin: 0 auto;
+			}
+
+			.event {
+				padding: 20px 24px;
+				display: flex;
+				border-radius: 1rem;
+
+				&:hover {
+					background: $off-blue;
+					cursor: pointer;
+				}
+
+				@include responsive(medium) {
+					flex-direction: column;
+					padding: 0;
+					margin: 10px;
+				}
+
+				.semi-bold {
+					font-weight: 900;
+				}
+
+				.name {
+					display: flex;
+					width: 40%;
+
+					@include responsive(x-large) {
+						width: 50%;
+					}
+
+					@include responsive(medium) {
+						width: 100%;
+					}
+
+					.image-container {
+						img {
+							border-radius: 22px 0px;
+						}
+
+						@include responsive(medium) {
+							width: 100%;
+							img {
+								width: 100%;
+							}
+						}
+					}
+
+					.text-container {
+						padding-left: 10px;
+
+						p {
+							color: $oxford;
+							margin: 5px 0px;
+							font-size: 18px;
+							line-height: 20px;
+						}
+
+						span {
+							&:after {
+								content: ", ";
+							}
+
+							&:last-child {
+								&:after {
+									content: "";
+								}
+							}
+						}
+
+						@include responsive(medium) {
+							display: none;
+						}
+					}
+				}
+
+				.text-container-mobile {
+					display: none;
+
+					p {
+						margin: 5px 0px;
+						font-size: 18px;
+						color: $oxford;
+					}
+
+					span {
+						&:after {
+							content: ", ";
+						}
+
+						&:last-child {
+							&:after {
+								content: "";
+							}
+						}
+					}
+
+					@include responsive(medium) {
+						display: block;
+					}
+				}
+
+				.date,
+				.location {
+					width: 30%;
+					padding-left: 30px;
+
+					@include responsive(x-large) {
+						width: 20%;
+					}
+
+					@include responsive(medium) {
+						width: 95%;
+						padding-left: 0px;
+						margin: 5px 0px;
+					}
+
+					p {
+						margin: 0px;
+						font-size: 16px;
+						color: $oxford;
+
+						&:first-child {
+							margin: 0px 0px 5px 0px;
+
+							@include responsive(medium) {
+								margin: 0px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.no-search-results {
+		margin: 10px 0px;
+		text-align: center;
+		padding: 25px;
+
+		img {
+			width: 80px;
+		}
+
+		h2 {
+			margin: 5px 0px 0px 0px;
+
+			@include responsive(medium) {
+				font-size: 22px;
+			}
+		}
+
+		p {
+			margin: 0px;
+		}
+
+		@include responsive(medium) {
+			margin-bottom: 50px;
+		}
+	}
+
+	.event-filter-modal {
+		display: none;
+		height: 100vh;
+		position: fixed;
+		top: 0px;
+		background: $white;
+		width: 100%;
+		z-index: 100000;
+		overflow: auto;
+
+		label {
+			cursor: pointer;
+		}
+
+		.dropdown {
+			margin-left: -10px;
+		}
+
+		.mdc-form-field {
+			width: 100%;
+		}
+
+		.mdc-checkbox--touch {
+			margin: 0px;
+		}
+
+		.mdc-checkbox {
+			flex: 0 0 4px;
+			width: 12px;
+			height: 7px;
+			padding: 16px;
+		}
+
+		.count {
+			font-size: 16px;
+			font-weight: 600;
+		}
+
+		.mdc-text-field {
+			width: 100% !important;
+		}
+
+		.date-picker {
+			margin: 15px 0px;
+
+			.pika-single {
+				display: none;
+				margin-top: 10px;
+				border-radius: 4px;
+
+				.pika-lendar {
+					width: 95% !important;
+				}
+
+				.pika-button {
+					padding: 10px !important;
+				}
+			}
+
+			&.display-calendar {
+				.pika-single {
+					display: block;
+				}
+			}
+
+			.inline-text-field-container {
+				margin-bottom: 10px;
+			}
+		}
+
+		@include responsive(bs-large) {
+			display: block;
+		}
+
+		.header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin: 16px;
+
+			h2 {
+				color: $oxford;
+				font-size: 24px;
+				font-weight: 700;
+			}
+
+			i {
+				cursor: pointer;
+			}
+		}
+
+		.filter-container {
+			background: $white;
+			border-radius: 4px;
+			padding: 8px 0px;
+			margin: 8px 15px 100px 15px;
+
+			.filter-entry {
+				cursor: pointer;
+				padding: 16px;
+
+				.filter-label {
+					.label-text {
+						color: $oxford;
+						outline: none;
+					}
+
+					.mdc-radio {
+						padding: 5px 0px !important;
+					}
+				}
+
+				p,
+				label {
+					width: 100%;
+					margin: 0px;
+					font-size: 16px;
+					font-weight: 700;
+				}
+
+				@include responsive(bs-large) {
+					border: unset;
+				}
+
+				&:hover {
+					background: $dark-green;
+
+					.filter-label p {
+						color: $white;
+					}
+
+					@include responsive(bs-large) {
+						background: $white;
+
+						.filter-label p {
+							color: $oxford;
+						}
+					}
+				}
+
+				.type {
+					font-weight: 600;
+				}
+
+				.dropdown {
+					display: none;
+				}
+
+				&.selected {
+					.dropdown {
+						display: block;
+					}
+
+					.keyboard_arrow_down {
+						transform: rotate(180deg);
+					}
+				}
+
+				.filter-label {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+
+					.close {
+						display: none;
+					}
+				}
+
+				.radio,
+				.mdc-form-field {
+					outline: none;
+				}
+			}
+
+			hr {
+				border: none;
+				border-bottom: 1px solid $sky;
+				opacity: 0.3;
+			}
+		}
+
+		.footer {
+			width: 100%;
+			background: $white;
+			height: 80px;
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+			position: fixed;
+			bottom: 0;
+			z-index: 10000;
+			box-shadow: 0px -1px 8px 0px rgba(0, 0, 0, 0.24);
+			button {
+				margin: 0 0.5rem;
+				@include responsive(medium) {
+					font-size: 1rem;
+				}
+			}
+		}
+
+		.date-picker-container {
+			@include responsive(medium) {
+				padding-bottom: 100px;
+			}
+		}
+
+		.city-checkbox {
+			&:last-child {
+				padding-bottom: 25px;
+			}
+		}
+	}
+}

@@ -1,0 +1,37 @@
+# Resource repository where pipeline templates located.
+# This is mandatory for linking to templates in other repository.
+resources:
+  repositories:
+  - repository: duly-terraform-manifest
+    type: git
+    name: duly-terraform-manifest
+    ref: 'refs/heads/main'
+
+variables:
+- name: allow_destroy
+  value: true
+
+pool: aks-pool
+
+trigger: none
+  # branches:
+  #   include:
+  #   - main
+  # paths:
+  #   include:
+  #   - 012_vnetPeering/*
+  #   - "!012_vnetPeering/backend.tf"
+  #   - "!012_vnetPeering/provider.tf"
+  #   - _configuration/012_vnetPeering/*
+  #   - _configuration/global.tfvars
+
+
+stages:
+- template: ./_pipelines/templates/stages/terraform-apply-stage.yml@duly-terraform-manifest
+  parameters:
+    infraSolutionRepo: duly-terraform-manifest
+    infraSolutionFolder: 006_ACR
+    configurationRepo: duly-terraform-manifest
+    configurationPath: _configuration/006_ACR
+    envList:
+      - dev_test

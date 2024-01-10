@@ -1,0 +1,124 @@
+@import "~@styles/main.scss";
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.topDiv {
+  margin-bottom: 1.25rem;
+}
+
+.accordianOuterDiv {
+  padding: 0 1rem 1rem 1rem;
+  background-color: white;
+  border-radius: 0.5rem;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1.125rem;
+}
+
+.map {
+  width: 29.25rem;
+  height: 18.4375rem;
+  background-color: $gray;
+}
+
+.pharmacyLocation {
+  display: flex;
+  flex-direction: column;
+  gap: 1.0625rem;
+}
+
+.medicationWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  width: 40%;
+  margin-bottom: 1.125rem;
+  margin-left: 0.5rem;
+}
+
+.accordianHeader {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.accordianHeader img {
+  width: 3.75rem;
+  padding: 0.5rem;
+  background-color: rgba(0, 178, 240, 0.3);
+  border-radius: 50%;
+}
+
+.headerData {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 30rem;
+}
+
+.pageHeading {
+  @include nexa-heavy-highlight;
+  font-size: var(--font-size-24px-4px);
+  line-height: var(--line-height-26px-4px);
+}
+
+.message {
+  min-width: 30rem;
+  font-size: var(--font-size-14px-4px);
+  line-height: var(--line-height-20px-4px);
+}
+
+.wrapper {
+  &RightSide {
+    width: 60%;
+
+    &Map {
+      width: 100%;
+      height: 20rem;
+    }
+
+    &Pharmacy {
+      color: $dupage-dark-blue;
+
+      &Heading {
+        @include nexa-extra-bold-highlight;
+        margin: 0;
+        margin-top: 0.6rem;
+        color: $dupage-magenta;
+        font-size: var(--font-size-14px-4px);
+        line-height: var(--line-height-26px-4px);
+        text-transform: uppercase;
+      }
+
+      &Details {
+        display: flex;
+        justify-content: space-between;
+        column-gap: 4.375rem;
+
+        &Col {
+          width: 50%;
+
+          &Text {
+            @include inter-text-default;
+            margin: 0;
+            font-size: var(--font-size-20px-4px);
+            line-height: var(--line-height-26px-4px);
+
+            &Inner {
+              @include inter-text-default-bold;
+              font-size: var(--font-size-20px-4px);
+              line-height: var(--line-height-26px-4px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.rightAlign {
+  text-align: end;
+}

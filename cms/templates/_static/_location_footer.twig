@@ -1,0 +1,35 @@
+{% if locations|length %}
+    <div class="locations-list-grid">
+        <h4>{{ headerText|default("Locations")|t }}</h4>
+        <div class="locations">
+            {% for location in locations.all() %}
+                <div class="location">
+                    <div class="location-icon"></div>
+                    {% spaceless %}
+                        {% set parent = location.getParent() %}
+                        {% set address = location.address %}
+                        {% if parent is not null %}
+                            {% set address = parent.address %}
+                        {% endif %}
+                        <div class="address">
+                            <a href="{{ location.getUrl() }}" class="single-location-link">
+                                <h5>{{ address.city }}</h5>
+                                <span class="address-line">{{ address.number }} {{ address.streetAddress }}</span>
+                                {% if parent is not null %}
+                                    <span class="suite">{{ location.title }}</span>
+                                {% endif %}
+                                <span class="city-state">{{ address.city }}, {{ address.state }} {{ address.postcode }}</span>
+                            </a>
+                            <span class="phone-number-link">
+                                <a class="phone-number" href="tel:{{ location.phoneNumber }}">{{ location.phoneNumber }}</a>
+                            </span>
+                            <span class="map-link">
+                                <a rel="noopener noreferrer" target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ address.address }}">{{ "Get Directions"|t }}</a>
+                            </span>
+                        </div>
+                    </div>
+                {% endspaceless %}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,21 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.pieChart {
+  position: relative;
+  height: auto;
+
+  &Content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $default-text;
+    text-align: center;
+    @include nexa-h4-bold;
+  }
+}

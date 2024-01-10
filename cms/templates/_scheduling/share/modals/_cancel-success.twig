@@ -1,0 +1,26 @@
+<div class="modal cancel-appointment-success-modal">
+	<div class="content">
+		<div class="header">
+			<h2>{{ "Your appointment has been cancelled."|t }}</h1>
+            {% set parsedDate = appointmentDate | date("D M j") %}
+            {% set parsedTime = appointmentTime | date('g:ia') %}
+            {% if physican is defined and physician is not null %}
+			<p>
+                {{
+                    "Your appointment with {physician} that was scheduled for {date} at {time} has been cancelled."|t (params = { 
+                            physician: physician.title,
+                            date: parsedDate,
+                            time: parsedTime,
+                    })|raw 
+                }}
+            </p>
+            {% endif %}
+		</div>
+
+        <div class="form-actions">
+            <a href="/schedule">
+                <button name="exit-process" class="action-button dmgButton primary3">{{ "Exit Scheduling Process"|t }}</button>
+            </a>
+        </div>
+	</div>
+</div>

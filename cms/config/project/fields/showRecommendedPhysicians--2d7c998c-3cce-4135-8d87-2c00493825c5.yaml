@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 2100fbc6-d68d-4185-8504-3ff4680dee28
+handle: showRecommendedPhysicians
+instructions: 'Enable recommended providers globally in the scheduling flow. '
+name: 'Show Recommended Providers During Scheduling'
+searchable: false
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

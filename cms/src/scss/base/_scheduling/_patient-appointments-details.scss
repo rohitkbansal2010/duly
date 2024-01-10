@@ -1,0 +1,362 @@
+.patient-appointments-details {
+  display: flex;
+  margin: 30px 0;
+
+  .next-upcoming-appointment-container {
+    display: flex;
+    flex-direction: column;
+
+    @include responsive(bs-large) {
+      display: none;
+    }
+
+    span.title {
+      color: $dark-2;
+      font-size: 28px;
+      font-weight: normal;
+      line-height: 30px;
+      margin-bottom: 25px;
+    }
+
+    .next-upcoming-appointment {
+      background: $white;
+      width: 336px;
+      border-radius: 4px;
+      display: flex;
+      height: 190px;
+
+      .date {
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 35%;
+        background: $violet;
+        text-align: center;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+
+        .day-name {
+          background: $magenta;
+          font-size: 16px;
+          color: $white;
+          font-weight: bold;
+          text-align: center;
+          padding: 10px 0;
+          border-top-left-radius: 4px;
+        }
+
+        .month-name {
+          font-size: 16px;
+          font-weight: bold;
+          color: $white;
+          padding: 10px 0;
+        }
+
+        .day {
+          font-size: 48px;
+          font-weight: bold;
+          color: $white;
+        }
+
+        .divider {
+          height: 1px;
+          background: $white;
+          margin: 10px 10px 0;
+        }
+
+        .time {
+          font-size: 16px;
+          font-weight: bold;
+          color: $white;
+          padding: 10px;
+        }
+      }
+
+      .location {
+        flex: 1 1;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+
+        .name {
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 22px;
+          padding: 0 0 15px;
+          color: $violet;
+        }
+
+        .address-line-one {
+          font-size: 14px;
+          font-weight: 600;
+          text-transform: capitalize;
+          color: $dark-2;
+        }
+
+        .city-state-zip {
+          font-size: 14px;
+          font-weight: 600;
+          flex: 1 1 auto;
+          text-transform: capitalize;
+          color: $dark-2;
+        }
+
+        .divider {
+          height: 1px;
+          background: $violet;
+          width: 100%;
+          margin: 0;
+        }
+
+        a.get-directions {
+          text-align: center;
+          padding-top: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          span {
+            color: $violet;
+            margin: 0 2px;
+            font-weight: 700;
+            font-size: 16px;
+          }
+
+          .material-icons {
+            margin-top: -6px;
+            font-size: 24px;
+          }
+
+          &:hover {
+            text-decoration: none;
+
+            span {
+              text-decoration: underline;
+              color: $magenta;
+            }
+
+            .material-icons {
+              text-decoration: none;
+              color: $magenta;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .divider {
+    flex: 0 0 1px;
+    background: #d8d8d8;
+    margin: 0 50px;
+
+    @include responsive(bs-large) {
+      display: none;
+    }
+  }
+
+  .previously-seen-physicians-container {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    position: relative;
+    // hide scrollbar in MS browsers
+    -ms-overflow-style: none;
+    flex: 1 1 auto;
+
+    span.title {
+      font-size: 28px;
+      padding: 0 0 20px 25px;
+      color: $dark-2;
+      font-weight: normal;
+    }
+
+    .overflow-overlay {
+      width: 120px;
+      position: absolute;
+      bottom: 0;
+      height: calc(100% - 64px);
+      z-index: 1;
+      pointer-events: none;
+
+      @include responsive(bs-large) {
+        display: none;
+      }
+
+      &.left {
+        left: -1px;
+        background: linear-gradient(
+          -90deg,
+          rgba(242, 242, 242, 0) 0%,
+          $background-gray 100%
+        );
+      }
+
+      &.right {
+        background: linear-gradient(
+          90deg,
+          rgba(242, 242, 242, 0) 0%,
+          $background-gray 100%
+        );
+        right: -1px;
+      }
+
+      .arrow {
+        background: $white;
+        border-radius: 4px;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+        height: 40px;
+        width: 40px;
+        position: absolute;
+        z-index: 99999;
+        top: 50%;
+        pointer-events: auto;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid $violet;
+
+        &:hover {
+          background: $off-blue;
+        }
+
+        &.left {
+          left: 0;
+          transform: translate(0, -50%);
+          margin-left: 38px;
+        }
+
+        &.right {
+          right: 0;
+          transform: translate(0, -50%);
+          margin-right: 38px;
+        }
+
+        span {
+          color: $violet;
+        }
+      }
+    }
+
+    .previous-physicians {
+      display: flex;
+      align-items: flex-start;
+      overflow-x: scroll;
+      scroll-behavior: smooth;
+
+      .tile {
+        background: $white;
+        border-radius: 4px;
+        box-sizing: border-box;
+        flex: 0 0 340px;
+        min-height: 190px;
+        border-radius: 4px;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+        margin: 10px;
+
+        button {
+          display: flex;
+          align-items: baseline;
+          padding: 8px;
+          flex: 0 0 350px;
+          background: $white;
+          border: none;
+          text-align: left;
+          border-radius: 4px;
+          width: 100%;
+          min-height: 190px;
+
+          &:hover {
+            background: $off-blue;
+          }
+        }
+
+        .biography-content {
+          display: flex;
+
+          img {
+            border-radius: 2px;
+          }
+        }
+
+        .location-name {
+          padding-right: 3px;
+          &:not(:last-child):after {
+            content: ", ";
+            color: $dark-blue-text;
+          }
+        }
+
+        .details {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          margin-left: 10px;
+          flex: 0 0 200px;
+
+          h2 {
+            margin: 0px;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 1;
+            color: $violet;
+          }
+
+          span.specialties {
+            line-height: 1;
+            margin: 5px 0 0px;
+            display: block;
+
+            .speciality-name {
+              font-size: 14px;
+              font-weight: 600;
+              line-height: 1.3;
+              color: $dark-2;
+
+              &:after {
+                content: ", ";
+              }
+
+              &:last-child {
+                &:after {
+                  content: "";
+                }
+              }
+            }
+          }
+
+          .locations {
+            padding-top: 20px;
+
+            p,
+            span {
+              margin: 0px;
+              font-size: 14px;
+              line-height: 1;
+              color: $dark-2;
+            }
+
+            .location-name {
+              font-weight: normal;
+              color: $oxford;
+            }
+          }
+        }
+
+        .appointment-time {
+          p {
+            font-size: 16px;
+            margin: 0px;
+            padding-top: 12px;
+            color: $dark-2;
+
+            span {
+              font-weight: 600 !important;
+              color: $violet !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

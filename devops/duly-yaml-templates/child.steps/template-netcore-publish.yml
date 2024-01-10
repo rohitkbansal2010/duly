@@ -1,0 +1,55 @@
+parameters:
+  - name: solution
+    type: string
+    default: '**/*.sln'
+  - name: pathToPublish
+    type: string
+    default: '$(Build.ArtifactStagingDirectory)'
+  - name: vstsFeed
+    type: string
+    default: ''
+  - name: copyPattern
+    type: string
+    default: ''
+  - name: buildConfiguration
+    type: string
+    default: 'Release'
+    values:
+    - 'Release'
+    - 'Debug'
+
+steps:
+  # DotNet NuGet Restore
+  - task: DotNetCoreCLI@2
+    displayName: 'DotNetCore: Restore from ${{ parameters.vstsFeed }}'
+    enabled: true
+    inputs:
+      command: restore
+      projects: ${{ parameters.solution }}
+      feedsToUse: 'select'
+      vstsFeed: '${{ parameters.vstsFeed }}'
+      includeNuGetOrg: true
+
+  # DotNet Publish
+  - task: DotNetCoreCLI@2
+    displayName: 'DotNetCore: Publish solution files'
+    enabled: true
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      zipAfterPublish: false
+      projects: ${{ parameters.solution }}
+      arguments: '-o ${{ parameters.pathToPublish }} --no-restore -c ${{ parameters.buildConfiguration }}'
+
+  - ${{ if ne( parameters.CopyPattern, '' ) }}:
+    - task: CopyFiles@2
+      displayName: 'Copy files to $(Build.ArtifactStagingDirectory) based on ${{ parameters.copyPattern }} pattern'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: '${{ parameters.copyPattern }}'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish build artifacts'
+    inputs:
+      ArtifactName: $(Build.Repository.Name)

@@ -1,0 +1,8 @@
+{% if showTreatmentStyles %}
+    <div class="details clinical-expertise-details show">
+        <h2>{{ "Treatment Styles" }}</h2>
+        <div>
+            <div class="value">{{ treatmentStyles|sort((a, b) => a.title > b.title)|join(', ') }}</div>
+        </div>
+    </div>
+{% endif %}

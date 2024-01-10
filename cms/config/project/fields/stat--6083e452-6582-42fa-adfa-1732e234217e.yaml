@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: efdd5869-bc64-4cb5-9d8b-01cafc814ff5
+handle: stat
+instructions: 'Create a statistic to be displayed on the home page (i.e. 11,400+ appointments, 790+ physicians, etc)'
+name: 'Category Statistic for Home Page'
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_stat}}'
+    maxBlocks: '3'
+    minBlocks: '3'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

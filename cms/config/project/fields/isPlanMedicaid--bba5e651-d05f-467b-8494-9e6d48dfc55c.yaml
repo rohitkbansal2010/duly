@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 5aee8925-b56d-4fb5-b087-351dd8200f10
+handle: isPlanMedicaid
+instructions: 'Whether or not this is a Medicaid plan.'
+name: 'Is Medicaid?'
+searchable: true
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

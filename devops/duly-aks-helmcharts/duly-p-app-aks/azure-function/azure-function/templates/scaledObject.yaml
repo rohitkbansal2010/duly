@@ -1,0 +1,33 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  labels:
+    {{- include "azure-function.labels" . | nindent 4 }}
+  name: {{ include "azure-function.fullname" . }}-scaler
+spec:
+  scaleTargetRef:
+    name: {{ include "azure-function.fullname" . }}
+  {{- if eq .Values.keda.triggerType "http-trigger" }}
+  minReplicaCount: 1
+  {{- else }}
+  minReplicaCount: {{ .Values.keda.minReplicaCount }}
+  {{- end }}
+  maxReplicaCount: {{ .Values.keda.maxReplicaCount }} 
+  triggers:
+{{- if eq .Values.keda.triggerType "azure-servicebus" }}
+  - type: {{ .Values.keda.triggerType }} 
+    metadata:
+      namespace: {{ .Values.keda.metadata.namespace }}
+      queueName: {{ .Values.keda.metadata.queueName }}
+      messageCount: "{{ .Values.keda.metadata.messageCount }}"
+    authenticationRef:
+      name: {{ include "azure-function.fullname" . }}-auth
+{{- end }}
+{{- if eq .Values.keda.triggerType "http-trigger" }}
+  - type: prometheus
+    metadata:
+      serverAddress: http://prometheus-server.default.svc.cluster.local:9090
+      metricName: access_frequency
+      threshold: '1'
+      query: sum(rate(nginx_ingress_controller_requests{ingress="{{ include "azure-function.fullname" . }}"}[1m]))
+{{- end }}

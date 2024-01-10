@@ -1,0 +1,14 @@
+columnSuffix: srghfebw
+contentColumnType: boolean
+fieldGroup: 2100fbc6-d68d-4185-8504-3ff4680dee28
+handle: enablePtOtForm
+instructions: 'Use to enable/disable the entry points for the Physical And Occupational Therapy Appointment Request form found on the PT/OT service page and the scheduling landing page.'
+name: 'Enable PT/OT Form'
+searchable: false
+settings:
+    default: true
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

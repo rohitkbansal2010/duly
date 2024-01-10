@@ -1,0 +1,34 @@
+resources:
+  repositories:
+  - repository: duly-yaml-templates
+    type: git
+    name: 'duly.digital.devops/duly-yaml-templates'
+
+  - repository: duly-apim
+    type: git
+    name: 'duly.digital.devops/duly-apim'
+
+
+variables:
+- name: allow_destroy
+  value: false
+
+pool: OnAKS
+
+
+trigger: none
+
+
+stages:
+- template: ./child.terraform/stages/terraform-apply-stage.yml@duly-yaml-templates
+  parameters:
+    infraSolutionRepo: duly-apim
+    infraSolutionFolder: apim_enterprise_security
+    configurationRepo: duly-apim
+    configurationPath: _configuration/apim_enterprise_security
+    globalConfigPathPrefix: 'iac/'
+    envList:
+      - qat
+      - aut
+      - uat
+      - prd

@@ -1,0 +1,53 @@
+{% extends "_layouts/_main.twig" %}
+
+{% set thisEntry = craft.entries()
+    .section('staticPages')
+    .slug(craft.app.request.getSegment(2))
+    .one()
+%}
+
+{% set contentSummary = null %}
+
+{% set contentTitle = null %}
+{% if entry.customSeoMetaTitle is not null %}
+    {% set contentTitle = entry.customSeoMetaTitle %}
+{% else %}
+    {% set contentTitle = entry.title %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% if entry.customSeoMetaDescription is not null %}
+    {% set contentSummary = entry.customSeoMetaDescription %}
+{% endif %}
+
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        entry: entry,
+		heroImage: entry.heroImage.one,
+        contentTitle: contentTitle,
+		contentSummary: contentSummary,
+        cacheKey: 'static-meta-og-' ~ entry.id
+    } only %}
+{% endblock %}
+
+{% if entry.type == 'right' %}
+    {% set bodyClassRail = "right-rail" %}
+{% elseif entry.type == 'left' %}
+    {% set bodyClassRail = "left-rail" %}
+{% elseif entry.type == 'genericPage' %}
+    {% set bodyClassRail = "no-rail" %}
+{% else %}
+    {% set bodyClassRail = "bottom-rail" %}
+{% endif %}
+
+{% block bodyClass "static-page " ~ bodyClassRail %}
+
+{% block main %}
+    {# Include the appropriate entry-type template #}
+    {% include "_static/_types/_" ~ entry.type with {
+        entry: entry
+    } %}
+    <div class="pattern-container-bottom"></div>
+{% endblock %}

@@ -1,0 +1,52 @@
+parameters:
+- name: environment
+  type: string
+- name: TerraformVarsFile
+  type: string
+- name: infraSolutionFolder
+  type: string
+
+
+jobs:
+- deployment: Destroy
+  displayName: 'Terraform destroy'
+  environment: ${{ parameters.environment }}
+  workspace:
+    clean: all
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+
+        - task: InstallSSHKey@0
+          displayName: 'Install an SSH key'
+          inputs:
+            knownHostsEntry: '$(known_hosts_entry)'
+            sshKeySecureFile: 'terraform.modules_rsa_key'
+
+        - pwsh: |
+            Write-Host "##vso[task.setvariable variable=PIPE_INFRA_SOLUTION_FOLDER]${{ parameters.infraSolutionFolder }}"
+            Write-Host "PIPE_INFRA_SOLUTION_FOLDER = ${{ parameters.infraSolutionFolder }}"
+          name: Set_variables
+          displayName: 'Set auxiliary variable values'
+
+        - task: replacetokens@3
+          displayName: Replace tokens in .tfvars file
+          inputs:
+            targetFiles: |
+              $(Pipeline.Workspace)/$(Build.BuildNumber)/terraform/${{ parameters.infraSolutionFolder }}/*.*
+            actionOnMissing: log warning
+            keepToken: true
+
+        - powershell: |
+            terraform --version
+            terraform init
+          name: Terraform_init
+          displayName: 'Terraform init'
+          workingDirectory: '$(Pipeline.Workspace)/$(Build.BuildNumber)/terraform/${{ parameters.infraSolutionFolder }}'
+
+        - powershell: |
+            terraform destroy -var-file ${{ parameters.TerraformVarsFile }} -var-file global.tfvars -auto-approve
+          name: Terraform_destroy
+          displayName: 'Terraform destroy'
+          workingDirectory: '$(Pipeline.Workspace)/$(Build.BuildNumber)/terraform/${{ parameters.infraSolutionFolder }}'

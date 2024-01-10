@@ -1,0 +1,24 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceAccreditations
+instructions: 'Select one or more categories to assign this service to.'
+name: 'Service Accreditations '
+searchable: true
+settings:
+    allowLimit: false
+    allowMultipleSources: false
+    allowSelfRelations: false
+    branchLimit: '2'
+    limit: null
+    localizeRelations: false
+    selectionLabel: 'Select one or more categories to assign this service to.'
+    showSiteMenu: true
+    source: 'group:d4e88865-640b-4af8-8121-9e2775151f0a'
+    sources: '*'
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Categories

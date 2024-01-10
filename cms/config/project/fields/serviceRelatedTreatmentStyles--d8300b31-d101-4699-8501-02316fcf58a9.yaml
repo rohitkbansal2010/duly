@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceRelatedTreatmentStyles
+instructions: 'Select any treatment styles related to this service.'
+name: 'Related Treatment Styles'
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: 'Add a treatment style'
+    showSiteMenu: true
+    source: null
+    sources: ['section:a1ba9312-e5fe-4aa8-b68c-8f98b8b89226']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

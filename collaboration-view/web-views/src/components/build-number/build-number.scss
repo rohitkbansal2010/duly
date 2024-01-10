@@ -1,0 +1,9 @@
+@import "~@styles/colors.scss";
+
+.buildNumber {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: $dove-gray;
+  font-size: 0.75rem;
+}

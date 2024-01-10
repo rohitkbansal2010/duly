@@ -1,0 +1,303 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsItem component should match snapshot 1`] = `
+<Accordion
+  activeKey="06cd80cf-7230-4e53-bdd1-6956402b2ef8"
+  className="resultsComponentsItemAccordion"
+>
+  <div
+    className="resultsComponentsItem resultsComponentsItemAbnormal"
+  >
+    <div
+      className="resultsComponentsItemName"
+    >
+      Cholesterol, Total
+    </div>
+    <div
+      className="resultsComponentsItemValue"
+    >
+      150 mg/dL
+      <img
+        alt="abnormal result"
+        src="speech-bubble-orange.svg"
+      />
+    </div>
+    <div
+      className="resultsComponentsItemRange"
+    >
+      &lt;200
+    </div>
+    <div
+      className="resultsComponentsItemAdditional"
+    >
+      <CustomAccordionToggle
+        eventKey="06cd80cf-7230-4e53-bdd1-6956402b2ef8-PAST_RESULTS"
+      >
+        <Component />
+      </CustomAccordionToggle>
+      <CustomAccordionToggle
+        callback={[MockFunction]}
+        eventKey="06cd80cf-7230-4e53-bdd1-6956402b2ef8-NOTES"
+      >
+        <Component />
+      </CustomAccordionToggle>
+    </div>
+  </div>
+  <AccordionCollapse
+    eventKey="06cd80cf-7230-4e53-bdd1-6956402b2ef8-NOTES"
+  >
+    <div
+      className="resultsComponentsItemExpand"
+    >
+      <span
+        className="resultsComponentsItemExpandTitle"
+      >
+        notes
+      </span>
+      <div
+        className="resultsComponentsItemExpandText"
+      >
+        Desirable  &lt;200 mg/dL
+Borderline  200-239 mg/dL
+High      &gt;=240 mg/dL
+      </div>
+    </div>
+  </AccordionCollapse>
+  <AccordionCollapse
+    eventKey="06cd80cf-7230-4e53-bdd1-6956402b2ef8-PAST_RESULTS"
+  >
+    <div
+      className="resultsComponentsItemExpand"
+    >
+      <div
+        className="resultsComponentsItemExpandChart"
+      >
+        <LevelsChart
+          chartData={
+            Object {
+              "chartOptions": Object {
+                "chartScales": Object {
+                  "yAxis": Object {
+                    "max": 110,
+                    "min": 70,
+                    "stepSize": 10,
+                  },
+                },
+              },
+              "datasets": Array [
+                Object {
+                  "data": Object {
+                    "dimension": "mg/dl",
+                    "values": Array [
+                      Object {
+                        "x": "2021-12-15T22:44:00",
+                        "y": 90.7,
+                      },
+                      Object {
+                        "x": "2021-11-15T22:44:00",
+                        "y": 95.7,
+                      },
+                      Object {
+                        "x": "2021-10-15T22:44:00",
+                        "y": 97.7,
+                      },
+                      Object {
+                        "x": "2021-09-15T22:44:00",
+                        "y": 100.7,
+                      },
+                      Object {
+                        "x": "2021-08-15T22:44:00",
+                        "y": 105.7,
+                      },
+                      Object {
+                        "x": "2021-07-15T22:44:00",
+                        "y": 95.7,
+                      },
+                      Object {
+                        "x": "2021-06-15T22:44:00",
+                        "y": 108.7,
+                      },
+                      Object {
+                        "x": "2021-05-15T22:44:00",
+                        "y": 107.7,
+                      },
+                      Object {
+                        "x": "2021-04-15T22:44:00",
+                        "y": 80.7,
+                      },
+                      Object {
+                        "x": "2021-03-15T22:44:00",
+                        "y": 85.7,
+                      },
+                      Object {
+                        "x": "2021-02-15T22:44:00",
+                        "y": 90.7,
+                      },
+                      Object {
+                        "x": "2021-01-15T22:44:00",
+                        "y": 100.7,
+                      },
+                      Object {
+                        "x": "2022-01-15T22:44:00",
+                        "y": 100.7,
+                      },
+                      Object {
+                        "x": "2022-02-15T22:44:00",
+                        "y": 100.7,
+                      },
+                    ],
+                  },
+                  "label": "Past Results",
+                },
+              ],
+            }
+          }
+          chartId="past result chart"
+          height={310}
+        />
+      </div>
+    </div>
+  </AccordionCollapse>
+</Accordion>
+`;
+
+exports[`ResultsItem should work with empty data 1`] = `
+<Accordion
+  activeKey="06cd80cf-7230-4e53-bdd1-6956402b2ef8"
+  className="resultsComponentsItemAccordion"
+>
+  <div
+    className="resultsComponentsItem "
+  >
+    <div
+      className="resultsComponentsItemName"
+    />
+    <div
+      className="resultsComponentsItemValue"
+    />
+    <div
+      className="resultsComponentsItemRange"
+    />
+    <div
+      className="resultsComponentsItemAdditional"
+    >
+      <CustomAccordionToggle
+        eventKey="06cd80cf-7230-4e53-bdd1-6956402b2ef8-PAST_RESULTS"
+      >
+        <Component />
+      </CustomAccordionToggle>
+    </div>
+  </div>
+  <AccordionCollapse
+    eventKey="06cd80cf-7230-4e53-bdd1-6956402b2ef8-NOTES"
+  >
+    <div
+      className="resultsComponentsItemExpand"
+    >
+      <span
+        className="resultsComponentsItemExpandTitle"
+      >
+        notes
+      </span>
+      <div
+        className="resultsComponentsItemExpandText"
+      />
+    </div>
+  </AccordionCollapse>
+  <AccordionCollapse
+    eventKey="06cd80cf-7230-4e53-bdd1-6956402b2ef8-PAST_RESULTS"
+  >
+    <div
+      className="resultsComponentsItemExpand"
+    >
+      <div
+        className="resultsComponentsItemExpandChart"
+      >
+        <LevelsChart
+          chartData={
+            Object {
+              "chartOptions": Object {
+                "chartScales": Object {
+                  "yAxis": Object {
+                    "max": 110,
+                    "min": 70,
+                    "stepSize": 10,
+                  },
+                },
+              },
+              "datasets": Array [
+                Object {
+                  "data": Object {
+                    "dimension": "mg/dl",
+                    "values": Array [
+                      Object {
+                        "x": "2021-12-15T22:44:00",
+                        "y": 90.7,
+                      },
+                      Object {
+                        "x": "2021-11-15T22:44:00",
+                        "y": 95.7,
+                      },
+                      Object {
+                        "x": "2021-10-15T22:44:00",
+                        "y": 97.7,
+                      },
+                      Object {
+                        "x": "2021-09-15T22:44:00",
+                        "y": 100.7,
+                      },
+                      Object {
+                        "x": "2021-08-15T22:44:00",
+                        "y": 105.7,
+                      },
+                      Object {
+                        "x": "2021-07-15T22:44:00",
+                        "y": 95.7,
+                      },
+                      Object {
+                        "x": "2021-06-15T22:44:00",
+                        "y": 108.7,
+                      },
+                      Object {
+                        "x": "2021-05-15T22:44:00",
+                        "y": 107.7,
+                      },
+                      Object {
+                        "x": "2021-04-15T22:44:00",
+                        "y": 80.7,
+                      },
+                      Object {
+                        "x": "2021-03-15T22:44:00",
+                        "y": 85.7,
+                      },
+                      Object {
+                        "x": "2021-02-15T22:44:00",
+                        "y": 90.7,
+                      },
+                      Object {
+                        "x": "2021-01-15T22:44:00",
+                        "y": 100.7,
+                      },
+                      Object {
+                        "x": "2022-01-15T22:44:00",
+                        "y": 100.7,
+                      },
+                      Object {
+                        "x": "2022-02-15T22:44:00",
+                        "y": 100.7,
+                      },
+                    ],
+                  },
+                  "label": "Past Results",
+                },
+              ],
+            }
+          }
+          chartId="past result chart"
+          height={310}
+        />
+      </div>
+    </div>
+  </AccordionCollapse>
+</Accordion>
+`;

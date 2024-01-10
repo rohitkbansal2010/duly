@@ -1,0 +1,44 @@
+parameters:
+  - name: solution
+    type: string
+    default: '**/*.sln'
+  - name: vstsFeed
+    type: string
+    default: 'duly.digital'
+  - name: verbosityRestore
+    type: string
+    default: 'Detailed'
+    values:
+    - 'Quiet'
+    - 'Minimal'
+    - 'Normal'
+    - 'Detailed'
+    - 'Diagnostic'
+  - name: buildConfiguration
+    type: string
+    default: 'Release'
+    values:
+    - 'Release'
+    - 'Debug'
+
+steps:
+  # DotNet NuGet restore
+  - task: DotNetCoreCLI@2
+    displayName: 'DotNetCore: Restore packages from ${{ parameters.vstsFeed }} for ${{ parameters.solution }}'
+    enabled: true
+    inputs:
+      command: restore
+      projects: ${{ parameters.solution }}
+      feedsToUse: 'select'
+      vstsFeed: '${{ parameters.vstsFeed }}'
+      includeNuGetOrg: true
+      verbosityRestore: '${{ parameters.verbosityRestore }}'
+
+  # DotNet build
+  - task: DotNetCoreCLI@2
+    displayName: 'DotNetCore: Build ${{ parameters.solution }}'
+    enabled: true
+    inputs:
+      command: 'build'
+      projects: ${{ parameters.solution }}
+      arguments: '-o $(Build.ArtifactStagingDirectory) --no-restore -c ${{ parameters.buildConfiguration }}'

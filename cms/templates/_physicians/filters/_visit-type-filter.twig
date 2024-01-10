@@ -1,0 +1,55 @@
+<div class="filter-entry visit-type-container">
+	<div class="filter-label">
+		<p class="label-text" tabindex="0">{{ "Visit Type"|t }}
+			<span class="count"></span>
+		</p>
+		<i class="material-icons close hidden"></i>
+		<i class="material-icons keyboard_arrow_down"></i>
+	</div>
+
+	<div class="dropdown">
+		<div class="header">{{ "New Patient"|t }}</div>
+
+		<div class="radio" tabindex="0">
+			{% include "_input/_radio.twig" with {
+					type: 'radio',
+					name: 'visit-type-' ~ overlay ~ '-' ~ mobile,
+					id: 'new-patient',
+					checked: false,
+					label: "New Patient Visit"|t,
+				} only %}
+		</div>
+
+		<div class="header">{{ "Existing Patient"|t }}</div>
+
+		<div class="radio" tabindex="0">
+			{% include "_input/_radio.twig" with {
+					type: 'radio',
+					name: 'visit-type-' ~ overlay ~ '-' ~ mobile,
+					id: 'annual-physical',
+					checked: false,
+					label: "Annual Physical"|t,
+				} only %}
+		</div>
+
+		<div class="radio" tabindex="0">
+			{% include "_input/_radio.twig" with {
+					type: 'radio',
+					name: 'visit-type-' ~ overlay ~ '-' ~ mobile,
+					id: 'follow-up',
+					checked: false,
+					label: "Follow Up Visit"|t,
+				} only %}
+		</div>
+
+		<div class="radio" tabindex="0">
+			{% include "_input/_radio.twig" with {
+					type: 'radio',
+					name: 'visit-type-' ~ overlay ~ '-' ~ mobile,
+					id: 'new-problem',
+					checked: false,
+					label: "New Problem Visit"|t,
+				} only %}
+		</div>
+	</div>
+</div>

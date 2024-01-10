@@ -1,0 +1,71 @@
+.description-container {
+    padding: 0px 24px;
+    
+    .schedule {
+        text-align: center;
+        
+        button {
+            color: $white;
+            padding: 16px 24px;
+            font-size: 22px;
+            font-weight: 700;
+            width: 400px;
+            margin: 50px auto;
+            border-radius: 4px;
+            border: transparent;
+
+            @include responsive(bs-large) {
+                width: 100%;
+            }
+
+            @include responsive(medium) {
+                margin: 10px auto;
+                padding: 15px 0px;
+                font-size: 16px;
+            }
+        }
+    }
+
+    .accreditations-mobile {
+        display: none;
+        
+        @include responsive(bs-large) {
+            display: block;
+
+            .company-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .company {
+                    width: 45%;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        @include responsive(medium) {
+            margin: 40px 0px;
+
+            h2 {
+                font-size: 24px;
+            }
+        }
+    }
+
+    @include responsive(medium) {
+        figure, picture {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    figure, picture {
+        img {
+            max-width: 100%;
+        }
+    }
+}

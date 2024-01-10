@@ -1,0 +1,56 @@
+.immediate-care {
+  @import "./hero";
+  @import "./find-right-care";
+  @import "./types-of-care";
+  @import "./conditions-and-testing";
+
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+
+  .asterisk {
+    font-size: 40px;
+    font-weight: 800;
+
+    @include responsive(large) {
+      font-size: 24px;
+    }
+  }
+
+  .browse-all {
+    font-size: 16px;
+    font-family: nexa, sans-serif;
+    font-weight: 800;
+  }
+
+  .cta {
+    width: 368px;
+    height: 56px;
+    border: none;
+    border-radius: 4px;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 0;
+    margin: auto;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include responsive(bs-large) {
+      width: 100%;
+    }
+  }
+
+  .pattern-container-bottom {
+		background: url('/dist/img/pattern-slice.png');
+    background-repeat: repeat-x;
+    background-size: 125px;
+    height: 150px;
+    width: 100vw;
+    margin-left: -50vw;
+    left: 50%;
+    position: relative;
+  }
+}

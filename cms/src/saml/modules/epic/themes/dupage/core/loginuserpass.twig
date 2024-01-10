@@ -1,0 +1,65 @@
+{% extends "base.twig" %}
+
+{% block title 'Login' %}
+{% block bodyClass "login-portal-page" %}
+{% block postload %}
+	<script src="{{ asset('js/loginuserpass.js', 'core') }}"></script>
+{% endblock %}
+
+{% block content %}
+	<div class="loginPortalContainer">
+        <div class="login-portal-pattern"></div>
+		<div class="portal portal-single-column">
+				<h2>{{ "Do you have a patient account?"|t }}</h2>
+				<p class="login-text">{{ "Log in with MyChart to personalize your experience and make appointments quicker."|t }}</p>
+				{{ html.beginForm('?', 'post', {
+                    id: 'login-form',
+                    name: 'f'
+                })|raw }}
+
+				{{ view.renderTemplate('_input/_input.twig', {
+                    type: 'text',
+                    name: 'username',
+                    label: 'Username',
+                    extraOptions: {
+                        required: 'required',
+                        tabeindex: 1
+                    }
+                })|raw }}
+
+				{{ html.tag('a', 'Forgot your username?'|t, {
+                    href: 'https://mychart.dupagemd.net/MyChart/recoverlogin.asp',
+                    target: '_blank'
+                })|raw }}
+
+				{{ view.renderTemplate('_input/_input.twig', {
+                    type: 'password',
+                    name: 'password',
+                    label: 'Password',
+                    error: errorcode,
+                    extraOptions: {
+                        required: 'required',
+                        tabeindex: 2
+                    }
+                })|raw }}
+
+				{{ html.tag('a', 'Forgot your password?'|t, {
+                    href: 'https://mychart.dupagemd.net/MyChart/passwordreset.asp',
+                    target: '_blank'
+                })|raw }}
+
+				{% for name, value in stateparams %}
+					<input type="hidden" name="{{ name }}" value="{{ value }}">
+				{% endfor %}
+
+				<button type="submit" for="login-form" class="dmgButton primary3" id="submitLogin" disabled>
+                    <div class="cta">{{ "Log into Patient Portal"|t }}</div>
+                </button>
+				{{ html.endForm()|raw }}
+            <div id="createAccount">
+                <p>{{ "Don't have an account?"|t }}</p>
+                {{ html.tag('a', 'Create your MyChart account.'|t, { href: 'https://mychart.dupagemd.net/MyChart/accesscheck.asp', target: '_blank' })|raw }}
+            </div>
+		</div>
+	</div>
+{% endblock %}

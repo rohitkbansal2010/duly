@@ -1,0 +1,70 @@
+{% if customProviders is defined %}
+	{% set similarPhysicians = customProviders %}
+{% else %}
+	{# get physician IDs within 7 miles from this physician's locations #}
+	{% set similarPhysicianIds = getSimilarPhysicianIds(entry, 7) %}
+	{% set similarPhysicians = craft.entries({
+		section: 'physicians',
+		type: entry.type,
+		limit: 10,
+		id: similarPhysicianIds,
+		fixedOrder: true
+	}).all() %}
+{% endif %}
+
+{% if similarPhysicians | length > 0 %}
+	<section class="physician-single similar-physicians">
+		<article>
+			<div class="similar-physicians">
+				<div class="physicians-list-grid">
+					<h4>{{ customTitle ?? "View Similar Providers"|t }}</h4>
+					<div class="physicians-list">
+						{% for physician in similarPhysicians %}
+							{% cache globally using key 'similar-physicians' ~ physician.id ~ 'rebrand' %}
+								<div class="physician-short">
+									<a href="{{physician.url}}">
+										{% set hasHeadShot = physician.physicianHeadshot.one() is not null %}
+										<div class="{{ hasHeadShot == false ? 'image default-headshot thumbnail' : 'image' }}">
+											{% if hasHeadShot %}
+												{{ getOptimizedImage(physician.physicianHeadshot.one(), 'webp', false, [
+													{ 'settings': ['gravity:sm', 'resize:fill:120:120:1:1'], 'css': '(min-width: 200px)' }
+												])|raw }}
+											{% endif %}
+										</div>
+										
+										<h5>{{ physician.title }}</h5>
+										{% include "_physician-stars.twig" with {
+											physician: physician
+										} %}
+										<span class="specialities">
+											{% for speciality in physician.physicianSpeciality | filter (v => v.type != "ancillaryServices") | sort((a, b) => a.title > b.title) %}
+												<span class="speciality-name">{{ speciality.title }}</span>
+											{% endfor %}
+										</span>
+										<div class="locations">
+											{% set locations = [] %}
+											{% for addr in physician.physicianLocations.all() %}
+												{% if addr.address.city is defined and addr.address.city is not null %}
+													{% set locations = locations|merge([addr.address.city]) %}
+												{% else %}
+													{% set parent = addr.getParent() %}
+													{% if parent is not null %}
+														{% set locations = locations|merge([parent.address.city]) %}
+													{% endif %}
+												{% endif %}
+											{% endfor %}
+
+												{% for addr in locations %}
+													<span class="location-name">{{ addr }}</span>
+												{% endfor %}
+											</div>
+										</a>
+									</div>
+							{% endcache %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</article>
+	</section>
+{% endif %}

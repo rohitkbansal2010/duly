@@ -1,0 +1,24 @@
+{% if hospitalAffiliations | length > 0 %}
+	<div class="details hospital-affiliations">
+		{% for hospitalAffiliation in hospitalAffiliations %}
+			<div class="block">
+				<div class="label">{{hospitalAffiliation.title}}</div>
+				<div class="value">
+					<span>{{hospitalAffiliation.address.parts.number}}
+						{{hospitalAffiliation.address.parts.address}}</span>
+					<span>{{hospitalAffiliation.address.parts.city}},
+						{{hospitalAffiliation.address.parts.state}}
+						{{hospitalAffiliation.address.parts.postcode}}</span>
+					{% for phone in hospitalAffiliation.phoneList.all() %}
+						<span>
+							<a href="{{phone.phoneListNumber.format('rfc3966')}}" class="link-effect">{{ phone.phoneListNumber }}</a>
+						</span>
+					{% endfor %}
+					<span>
+						<a target="_blank" href="http://maps.google.com/?q={{hospitalAffiliation.title}}+{{hospitalAffiliation.address.parts.number}}+{{hospitalAffiliation.address.parts.address}}+{{hospitalAffiliation.address.parts.city}}+{{hospitalAffiliation.address.parts.postcode}}">{{ "Get Directions"|t }}</a>
+					</span>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}

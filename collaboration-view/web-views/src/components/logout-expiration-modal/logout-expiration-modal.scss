@@ -1,0 +1,95 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.logoutExpirationModal {
+  &BackDrop {
+    background-color: $default-text !important;
+    opacity: 0.15 !important;
+  }
+
+  &Dialog {
+    width: 40rem !important;
+    max-width: 40rem !important;
+  }
+
+  &Content {
+    padding: 2.5rem !important;
+    border: 0.063rem solid $light-gray !important;
+    border-radius: 0.5rem !important;
+    box-shadow: 0 0 0.06rem convertToRGBA($dark-gray, 0.05),
+      0 0.63rem 0.94rem -0.19rem convertToRGBA($dark-gray, 0.1),
+      0 0.25rem 0.38rem -0.13rem convertToRGBA($dark-gray, 0.06);
+  }
+
+  &Header {
+    &Title {
+      color: $default-text;
+      font-size: 2.5rem !important;
+      line-height: 2.625rem !important;
+      @include nexa-heavy-highlight;
+    }
+  }
+
+  &Body {
+    &Text {
+      margin: 0;
+      padding: 0;
+      color: $default-text;
+      font-size: 1.125rem !important;
+      line-height: 1.7rem !important;
+      @include nexa-regular-highlight;
+
+      &Time {
+        & span:first-child::after {
+          content: " ";
+        }
+      }
+    }
+  }
+
+  &Header,
+  &Body {
+    margin-bottom: 2.5rem;
+  }
+
+  &Header,
+  &Body,
+  &Footer {
+    padding: 0 !important;
+  }
+
+  &Header,
+  &Footer {
+    border: none !important;
+  }
+
+  &Footer {
+    & button {
+      padding: 0.625rem 0 !important;
+      font-weight: 800 !important;
+      font-size: 1.25rem;
+      line-height: 1.5rem;
+      text-align: center;
+      border: 0.063rem solid $dupage-dark-blue !important;
+      border-radius: 0.5rem !important;
+      @include nexa-extra-bold-highlight;
+    }
+
+    &BtnLogout {
+      width: 10.75rem;
+      margin: 0 !important;
+      margin-right: 1.25rem !important;
+      color: $dupage-dark-blue !important;
+      background: transparent !important;
+      border: 0.063rem solid $dupage-dark-blue !important;
+    }
+
+    &BtnStayLoggedIn {
+      width: 12.625rem;
+      margin: 0 !important;
+      color: $white !important;
+      background-color: $dupage-dark-blue !important;
+    }
+  }
+}

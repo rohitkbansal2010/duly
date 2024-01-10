@@ -1,0 +1,32 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceFormFiles
+instructions: 'Upload a PDF of Word Document form available for download.'
+name: 'Service Form Files'
+searchable: true
+settings:
+    allowSelfRelations: false
+    allowUploads: true
+    allowedKinds: [pdf, word]
+    defaultUploadLocationSource: 'volume:cfcf31bc-54db-4ecf-8b2e-80468329feae'
+    defaultUploadLocationSubpath: '@assetBasePath/files'
+    limit: ''
+    localizeRelations: false
+    previewMode: full
+    restrictFiles: '1'
+    selectionLabel: ''
+    showSiteMenu: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    singleUploadLocationSource: 'volume:cfcf31bc-54db-4ecf-8b2e-80468329feae'
+    singleUploadLocationSubpath: '@assetBasePath/files'
+    source: null
+    sources: '*'
+    targetSiteId: null
+    useSingleFolder: false
+    validateRelatedElements: false
+    viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Assets

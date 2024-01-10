@@ -1,0 +1,10 @@
+defaultPlacement: end
+fieldLayouts:
+    d94f3cf6-1928-4e17-af4b-12189099889b: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }, { fieldUid: 0c8e35a2-599f-4697-aec5-785fcbb2928d, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: dermatologyServices
+name: 'Dermatology Services'
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { hasUrls: true, template: null, uriFormat: 'dermatology-services/{slug}' }
+structure:
+    maxLevels: null
+    uid: 8d4fd986-0873-4125-ad48-613080657365

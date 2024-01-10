@@ -1,0 +1,139 @@
+version: "3.7"
+services:
+  nginx:
+    image: dulyweb.azurecr.io/website/nginx:mainline
+    ports:
+      - "443:443"
+    links:
+      - php:php
+      - mailhog:mailhog
+      - webpack:webpack
+    volumes:
+      - ${PWD-.}:/var/www:consistent
+      - ${PWD-.}/config/.docker/nginx/include:/etc/nginx/conf/include:ro
+      - ${PWD-.}/config/.docker/nginx/conf.d:/etc/nginx/conf/conf.d:ro
+      - ${PWD-.}/config/.docker/certs/server.crt:/etc/nginx/conf/ssl/server.crt:ro
+      - ${PWD-.}/config/.docker/certs/server.key:/etc/nginx/conf/ssl/server.key:ro
+      - ${PWD-.}/config/.docker/keys/client.crt:/etc/nginx/conf/ssl/client.crt:ro
+      - ${PWD-.}/config/.docker/keys/client.key:/etc/nginx/conf/ssl/client.key:ro
+      - storage:/var/www/storage:ro
+      - cpresources:/var/www/web/cpresources:ro
+      - web_assets:/var/www/web/assets
+    networks:
+      main:
+        aliases:
+          - nginx
+  php:
+    image: dulyweb.azurecr.io/website/php:7.4
+    working_dir: /var/www
+    links:
+      - redis:redis
+      - mailhog:mailhog
+      - mariadb:mariadb
+      - webpack:webpack
+    volumes:
+      - ${PWD-.}:/var/www:consistent
+      - storage:/var/www/storage
+      - cpresources:/var/www/web/cpresources
+      - web_assets:/var/www/web/assets
+    networks:
+      main:
+        aliases:
+          - php
+  queue:
+    image: dulyweb.azurecr.io/website/php:7.4
+    working_dir: /var/www
+    links:
+      - redis:redis
+      - mailhog:mailhog
+      - mariadb:mariadb
+    volumes:
+      - ${PWD-.}:/var/www
+      - storage:/var/www/storage
+      - cpresources:/var/www/web/cpresources
+    entrypoint: php /var/www/craft queue/listen
+    networks:
+      main:
+        aliases:
+          - queue
+  redis:
+    image: redis:5.0-alpine
+    networks:
+      main:
+        aliases:
+          - redis
+  mailhog:
+    build:
+      context: config/.docker/
+      dockerfile: Dockerfile.mailhog
+    networks:
+      main:
+        aliases:
+          - mailhog
+  mariadb:
+    ports:
+      - "3306:3306"
+    image: mariadb:10.8
+    command:
+      [
+        "mysqld",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+        "--max-allowed-packet=67108864",
+        "--ssl_cert=/var/lib/mysql/crt/server-cert.pem",
+        "--ssl_key=/var/lib/mysql/crt/server-key.pem",
+        "--ssl_ca=/var/lib/mysql/crt/ca-cert.pem",
+        "--general-log",
+      ]
+    volumes:
+      - mariadb:/var/lib/mysql
+      - ${PWD-.}/config/.docker/certs/mysql:/var/lib/mysql/crt
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=root
+      - MYSQL_USER=local
+      - MYSQL_PASSWORD=local
+    networks:
+      main:
+        aliases:
+          - mariadb
+  webpack:
+    image: node:12-stretch
+    working_dir: /var/www
+    environment:
+      - HOST:${HOST}
+    volumes:
+      - ${PWD-.}:/var/www:consistent
+      - ${PWD-.}/src:/var/www/src:consistent
+      - storage:/var/www/storage
+    command: bash -lc "curl -o- -L https://yarnpkg.com/install.sh | bash; source ~/.bashrc; npm cache clean --force; yarn cache clean; yarn config set registry https://registry.npmjs.org && yarn install --registry https://registry.npmjs.org --network-timeout 1000000 --no-progress && yarn run download-pbf && HOST=$HOST yarn run dev"
+    networks:
+      main:
+        aliases:
+          - webpack
+  imgproxy:
+    image: darthsim/imgproxy:latest
+    working_dir: /var/www
+    environment:
+      - IMGPROXY_ENABLE_WEBP_DETECTION=1
+      - IMGPROXY_USE_ETAG=1
+      - IMGPROXY_MAX_SRC_RESOLUTION=20000000
+      - IMGPROXY_JPEG_PROGRESSIVE=true
+      - IMGPROXY_KEY=fc8ecb679987734895656b54f1efd581352daadd0831b0841015808ba3d0595c85425784f5c009855c1d5e7b62038c2b5e937fe49c003f544dafad48b1b37a2f
+      - IMGPROXY_SALT=74f57173bf8b447e775ca645e3620ea5f549dc06c4441ecc3982db171386e49cd518f343f3bf6369cd3136566b9c09ac059ca2e104c405153ba13b76a9a0e564
+    volumes:
+      - web_assets:/var/www/web/assets
+    networks:
+      main:
+        aliases:
+          - imgproxy
+
+volumes:
+  mariadb:
+  storage:
+  cpresources:
+  web_assets:
+
+networks:
+  main:

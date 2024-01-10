@@ -1,0 +1,68 @@
+@import "~@styles/themes.scss";
+@import "../../ui-kit/nav-primary/nav-primary.scss";
+
+@keyframes slide-left {
+  from {
+    margin-left: 80%;
+  }
+
+  to {
+    margin-left: 0%;
+  }
+}
+
+.navPrimary {
+  margin: 0 2rem;
+
+  &Link {
+    @include nav-primary-link-default;
+
+    &IconWrapper {
+      @include nav-primary-link-icon-wrapper-default;
+    }
+  }
+  &LinkActive {
+    @include nav-primary-link-default;
+    color: $dupage-dark-blue;
+
+    &:hover {
+      color: $dupage-dark-blue;
+    }
+
+    &IconWrapper {
+      @include nav-primary-link-icon-wrapper-default;
+      background: $dupage-dark-blue;
+      border-radius: 50%;
+    }
+  }
+}
+
+.appointmentNav {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: 0.5s ease;
+
+  &Visible {
+    opacity: 1;
+  }
+
+  &Wrapper {
+    display: flex;
+    min-width: 20rem;
+    max-width: 0rem;
+    height: 100%;
+    padding: 2rem;
+    overflow: hidden;
+    background-color: $dupage-light-blue;
+    border-radius: 0 4.13rem 0 4.13rem;
+    box-shadow: 0 0.25rem 0.375rem -0.125rem rgb(102 110 125 / 5%),
+      0 0.625rem 0.94rem -0.2rem rgb(102 110 125 / 10%), 0 0 0.06rem 0 rgb(102 110 125 / 6%);
+
+    &Animation {
+      max-width: 100%;
+      animation-name: slide-left;
+      animation-duration: 0.5s;
+    }
+  }
+}

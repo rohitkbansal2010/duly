@@ -1,0 +1,94 @@
+<div class="dob-container">
+    {% if month is defined and day is defined and year is defined %}
+        <h3>{{ "Date of Birth"|t }}</h3>
+    {% else %}
+        <h3>{{ "What’s the patient’s date of birth?"|t }}</h3>
+    {% endif %}
+
+    {% if month is defined and month is not null %}
+    	{% include "_input/_input.twig" with {
+            type: 'bday-month',
+            name: 'date_of_birth_month',
+            value: month,
+            label: "Month"|t,
+            extraOptions: {
+                pattern: "\\d*",
+                inputmode: "numeric",
+                required: "required",
+                maxlength: "2",
+                placeholder: "MM"
+            }
+        } only %}
+    {% else %}
+        {% include "_input/_input.twig" with {
+            type: 'bday-month',
+            name: 'date_of_birth_month',
+            label: "Month"|t,
+            extraOptions: {
+                pattern: "\\d*",
+                inputmode: "numeric",
+                required: "required",
+                maxlength: "2",
+                placeholder: "MM"
+            }
+        } only %}
+    {% endif %}
+
+    {% if day is defined and day is not null %}
+        {% include "_input/_input.twig" with {
+            type: 'bday-day',
+            name: 'date_of_birth_day',
+            value: day,
+            label: "Day"|t,
+            extraOptions: {
+                pattern: "\\d*",
+                inputmode: "numeric",
+                required: "required",
+                maxlength: "2",
+                placeholder: "DD"
+            }
+        } only %}
+    {% else %}
+        {% include "_input/_input.twig" with {
+            type: 'bday-day',
+            name: 'date_of_birth_day',
+            label: "Day"|t,
+            extraOptions: {
+                pattern: "\\d*",
+                inputmode: "numeric",
+                required: "required",
+                maxlength: "2",
+                placeholder: "DD"
+            }
+        } only %}
+    {% endif %}
+
+    {% if year is defined and year is not null %}
+        {% include "_input/_input.twig" with {
+            type: 'bday-year',
+            name: 'date_of_birth_year',
+            value: year,
+            label: "Year"|t,
+            extraOptions: {
+                pattern: "\\d*",
+                inputmode: "numeric",
+                required: "required",
+                maxlength: "4",
+                placeholder: "YYYY"
+            }
+        } only %}
+    {% else %}
+        {% include "_input/_input.twig" with {
+            type: 'bday-year',
+            name: 'date_of_birth_year',
+            label: "Year"|t,
+            extraOptions: {
+                pattern: "\\d*",
+                inputmode: "numeric",
+                required: "required",
+                maxlength: "4",
+                placeholder: "YYYY"
+            }
+        } only %}
+    {% endif %}
+</div>

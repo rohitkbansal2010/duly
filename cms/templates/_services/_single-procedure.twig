@@ -1,0 +1,229 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% set entry = craft.entries()
+    .section('procedures')
+    .slug(craft.app.request.getSegment(2))
+    .one()
+%}
+
+{% set cosmeticDermEntry = craft.entries()
+    .section('services')
+    .type('cosmetic')
+    .one()
+%}
+
+{% set testimonials = craft.entries()
+    .section('testimonials')
+    .relatedTo(entry)
+    .orderBy('postDate desc')
+    .all()
+%}
+
+{% set providers = craft.entries()
+    .section('physicians')
+    .relatedTo(entry)
+    .orderBy('postDate desc')
+    .all()
+%}
+
+{% set locations = craft.entries()
+    .section('locations')
+    .relatedTo(entry)
+    .orderBy('postDate desc')
+    .all()
+%}
+
+{% set beforeAndAfterRows = entry.beforeAndAfter.all() %}
+
+{# Create a category query with the 'group' parameter #}
+{% set cosmeticServicesProceduresCategory = craft.categories()
+	.group('cosmeticServicesProcedures')
+	.relatedTo(entry)
+	.one()
+%}
+
+{% set contentSummary = null %}
+
+{% set contentTitle = null %}
+{% if entry.customSeoMetaTitle is not null %}
+    {% set contentTitle = entry.customSeoMetaTitle %}
+{% else %}
+    {% set contentTitle = entry.title %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% if entry.customSeoMetaDescription is not null %}
+    {% set contentSummary = entry.customSeoMetaDescription %}
+{% endif %}
+
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        entry: entry,
+		heroImage: null,
+        contentTitle: contentTitle,
+		contentSummary: contentSummary,
+        cacheKey: 'procedure-meta-og-' ~ entry.id
+    } only %}
+{% endblock %}
+
+{% block bodyClass "procedure-detail-page" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	{% if entry.isACosmeticDermatologyProcedure and cosmeticDermEntry %}
+		<div class="sidebar-navigation">
+			<a class="back-navigation" href="{{ cosmeticDermEntry.url }}">
+				<span class="arrow"></span>
+				<span class="text">Aesthetics Home Page</span>
+			</a>
+			<div class="schedule">
+				<span>{{ "Schedule a consultation with a {siteNameShort} {providerType}."|t(params = {
+					siteNameShort: siteNameShort,
+					providerType: cosmeticDermEntry.serviceDoctorType ?? 'Provider'
+				}) }}</span>
+				<a href="/schedule/cosmetic-dermatology">
+					<button class="button">{{ "Request a Consultation"|t }}</button>
+				</a>
+			</div>
+				<div class="navigation-container">
+					<div class="section">
+						<nav>
+							<ul>
+								<li>
+									<h4>{{ cosmeticServicesProceduresCategory.title }}</h4>
+								</li>
+								{% for procedure in cosmeticServicesProceduresCategory.procedures %}
+									<li class="{{ entry.id == procedure.id ? 'active' : '' }}">
+										<a href="{{ procedure.url }}" tabindex="0">{{ procedure.title }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						</nav>
+					</div>
+				</div>
+		</div>
+	{% endif %}
+	<section class="procedure-container">
+		{% if entry.procedureHeroImage.one() is not null %}
+			<div class="image-container">
+				{{ getOptimizedImage(entry.procedureHeroImage.one(), 'webp', false, [{'settings': ['resize:fill:970:520:1:1'],'css': '(max-width:1200px)'}])|raw }}
+			</div>
+		{% endif %}
+
+		<div class="headline">
+			<h1>{{ entry.title }}</h1>
+		</div>
+
+		<hr>
+
+		{% if entry.procedureDescription is not null %}
+			<div class="content">
+				{{ entryWithOptimizedImages(entry, 'procedureDescription')|typogrify|raw }}
+			</div>
+		{% endif %}
+
+		{% if beforeAndAfterRows|length > 0 %}
+			<div class="testimonials section">
+				<h4>{{ "Before & After"|t }}</h4>
+				<div class="container before-and-after-container">
+					{% for beforeAndAfter in beforeAndAfterRows %}
+						<div class="before-and-after">
+							<div class="images {{ beforeAndAfter.stackImagesVertically ? 'vertical' : 'horizontal' }}">
+							{% if beforeAndAfter.stackImagesVertically %}
+								<div class="before">
+									{{ getOptimizedImage(
+										beforeAndAfter.beforeImage.one(),
+										'webp',
+										false,
+										[
+											{'settings': ['resize:fill:1200:600:1:1'],'css': '(max-width:1200px)'},
+											{'settings': ['resize:fill:1000:500:1:1'],'css': '(max-width:1000px)'},
+											{'settings': ['resize:fill:800:400:1:1'],'css': '(max-width:800px)'},
+											{'settings': ['resize:fill:600:300:1:1'],'css': '(max-width:600px)'},
+										])|raw
+									}}
+									<span>{{ "Before"|t }}</span>
+								</div>
+								<div class="after">
+									{{ getOptimizedImage(beforeAndAfter.afterImage.one(),
+									'webp',
+										false,
+										[
+											{'settings': ['resize:fill:1200:600:1:1'],'css': '(max-width:1200px)'},
+											{'settings': ['resize:fill:1000:500:1:1'],'css': '(max-width:1000px)'},
+											{'settings': ['resize:fill:800:400:1:1'],'css': '(max-width:800px)'},
+											{'settings': ['resize:fill:600:300:1:1'],'css': '(max-width:600px)'},
+										])|raw
+									}}
+									<span>{{ "After"|t }}</span>
+								</div>
+							{% else %}
+								<div class="before">
+									{{ getOptimizedImage(
+										beforeAndAfter.beforeImage.one(),
+										'webp',
+										false,
+										[
+											{'settings': ['resize:fill:1200:1200:1:1'],'css': '(max-width:1200px)'},
+											{'settings': ['resize:fill:992:992:1:1'],'css': '(max-width:992px)'},
+											{'settings': ['resize:fill:768:768:1:1'],'css': '(max-width:768px)'},
+											{'settings': ['resize:fill:576:576:1:1'],'css': '(max-width:576px)'},
+										])|raw
+									}}
+									<span>{{ "Before"|t }}</span>
+								</div>
+								<div class="after">
+									{{ getOptimizedImage(beforeAndAfter.afterImage.one(),
+									'webp',
+										false,
+										[
+											{'settings': ['resize:fill:1200:1200:1:1'],'css': '(max-width:1200px)'},
+											{'settings': ['resize:fill:992:992:1:1'],'css': '(max-width:992px)'},
+											{'settings': ['resize:fill:768:768:1:1'],'css': '(max-width:768px)'},
+											{'settings': ['resize:fill:576:576:1:1'],'css': '(max-width:576px)'},
+										])|raw
+									}}
+									<span>{{ "After"|t }}</span>
+								</div>
+							{% endif  %}
+							</div>
+							<div class="text">{{ beforeAndAfter.description }}</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		{% endif %}
+
+		{% if testimonials|length > 0 %}
+			<div class="testimonials section">
+				<h4>{{ "Testimonials"|t }}</h4>
+				<div class="container testimonials">
+					{% include '_services/_details/_interactive/_testimonials.twig' %}
+				</div>
+			</div>
+		{% endif %}
+
+		{% if providers|length > 0 %}
+			<div class="providers section">
+				{% include "_physicians/single/_similar_physicians.twig" with({
+					customProviders: providers,
+					customTitle: "Performed By"|t
+				}) %}
+			</div>
+		{% endif %}
+
+		{% if locations|length > 0 %}
+			<div class="testimonials section locations-container">
+				<h4>{{ "Available At These Locations"|t }}</h4>
+				<div class="locations">
+					{% for office in locations %}
+						{% include "_locations/_single-location-module.twig" %}
+					{% endfor %}
+				</div>
+			</div>
+		{% endif %}
+	</section>
+{% endblock %}

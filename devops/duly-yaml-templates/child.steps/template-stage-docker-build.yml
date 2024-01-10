@@ -1,0 +1,39 @@
+# Template for building a Docker image
+
+variables:
+- group: duly-ci-ado
+
+parameters:
+  # Name of the Docker registry service connection
+- name: containerRegistry
+  type: string
+  default: ${{ variables.AzureContainerRegistry }}
+  # Name of repository within the container registry
+- name: repository
+  type: string
+  # Additional arguments to be passed onto the docker client
+- name: arguments
+  type: string
+  # Path to the Dockerfile
+- name: dockerFile
+  type: string
+  default: **/Dockerfile
+  # Path to the build context
+- name: buildContext
+  type: string
+  default: **
+  # Multiline input where each line contains a tag to be used in build, push or buildAndPush commands
+- name: tags
+  type: string
+
+steps:
+- task: Docker@2
+  displayName: Build Docker image
+  inputs:
+    command: build
+    arguments: ${{ parameters.arguments }}
+    containerRegistry: ${{ parameters.containerRegistry }}
+    repository: ${{ parameters.repository }}
+    Dockerfile: ${{ parameters.dockerFile }}
+    buildContext: ${{ parameters.buildContext }}
+    tags: ${{ parameters.tags }}

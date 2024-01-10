@@ -1,0 +1,20 @@
+{% if entry.slug == 'physical-occupational-therapy'%}
+    <div class="schedule">
+        <span>{{ "Request an Appointment with a {siteNameShort} Therapist."|t(params = {
+            siteNameShort: siteNameShort
+        }) }}</span>
+        <a href="/schedule/physical-occupational-therapy?returnUrl={{ entry.getUrl() }}">
+            <button class="button">{{ "Request an Appointment"|t }}</button>
+        </a>
+    </div>
+{% elseif isCosmetic %}
+    <div class="schedule">
+        <span>{{ "Schedule a consultation with a {siteNameShort} {providerType}."|t(params = {
+            siteNameShort: siteNameShort,
+            providerType: entry.serviceDoctorType ?? 'Provider'
+        }) }}</span>
+        <a href="/schedule/cosmetic-dermatology?returnUrl={{ entry.getUrl() }}">
+            <button class="button">{{ "Request a Consultation"|t }}</button>
+        </a>
+    </div>
+{% endif %}

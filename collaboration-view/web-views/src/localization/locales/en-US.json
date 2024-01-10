@@ -1,0 +1,23 @@
+{
+  "App": {
+    "title": "COTF landing page",
+    "loginButtonText": "Log In",
+    "logoutButtonText": "Log Out"
+  },
+  "careAllyHomePage": {
+    "header": "Welcome to the Care Ally's Home Page!",
+    "linkToPatientList": "See the Patient List"
+  },
+  "patientHomePage": {
+    "linkToSchedule": "Schedule an Appointment"
+  },
+  "loginPage": {
+    "modalTitle": "MOCK login window",
+    "modalLabel": "Log in with MyDHC.",
+    "username": "No need for credentials here",
+    "password": "Password",
+    "patient": "Patient",
+    "careAlly": "Care Ally",
+    "loginButtonText": "Log Into the DHC Portal"
+  }
+}

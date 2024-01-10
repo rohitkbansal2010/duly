@@ -1,0 +1,43 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title "Health Topics - Recent" %}
+{% block bodyClass "health-topics" %}
+{% block itemScope "http://schema.org/CollectionPage" %}
+
+{% set limit = 10 %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    {% include "_health-topics/_nav.twig" %}
+
+    <div class="inner-container">
+        <h1 class="category-label"><a class="dp-home-icon" href="{{ siteUrl("health-topics") }}" alt="{{ "Health Topics Homepage"|t }}" aria-label="{{ "Health Topics Homepage"|t }}"></a><span class="chevron"></span>{{ "Recent"|t }}</h1>
+            {% cache using key 'health-topic-category-' ~ titleize(category.title) ~ '-' ~ craft.app.request.getSegment(4) ?? 1 %}
+                {% set query = craft.entries({
+                        section: 'blog',
+                        limit: limit,
+                        orderBy: {
+                            featuredInCategory: SORT_DESC,
+                            postDate: SORT_DESC
+                        },
+                        type: 'healthTopic'
+                }) %}
+
+                {% paginate query as pageInfo, pageEntries %}
+
+                {% include '_health-topics/_section.twig' with {
+                    title: "Recent"|t,
+                    category: null,
+                    showCategoryBanner: false,
+                    data: pageEntries,
+                    pageInfo: pageInfo
+                } %}
+
+                {% include '_paginatePageInfo.twig' with {
+                    pageInfo: pageInfo,
+                } %}
+        {% endcache %}
+    </div>
+{% endblock %}

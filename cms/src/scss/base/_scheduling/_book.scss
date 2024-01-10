@@ -1,0 +1,388 @@
+.patient-information-page {
+	margin: 0px 0px 500px 0px;
+
+	@include responsive(bs-large) {
+		margin: 0 0 10rem 0;
+	}
+
+	.content {
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: row-reverse;
+		width: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 1rem;
+		@include responsive(bs-large) {
+			flex-wrap: wrap;
+		}
+
+		&.video-visit-selected {
+			.map-container {
+				display: none;
+			}
+		}
+	}
+	.cta-form {
+		.dmgButton {
+			span {
+				font-weight: bold;
+			}
+		}
+	}
+	.physician-info-container {
+		box-sizing: border-box;
+		@include responsive(bs-large) {
+			margin: 0 0 2rem 0;
+			width: 100%;
+		}
+		.map-container {
+			.map {
+				margin: 1rem 0 0 0;
+				width: 100%;
+				max-width: none;
+				.mapboxgl-canvas {
+					width: 100% !important;
+					height: auto !important;
+				}
+			}
+		}
+	}
+
+	#patient-information-booking-form,
+	.prepopulate-form {
+		box-sizing: border-box;
+		@include responsive(bs-large) {
+			width: 100%;
+			padding: 0;
+		}
+		> .container {
+			margin: 0 0 1rem 0;
+		}
+
+		.edit-input-container,
+		.insurance-information {
+			h2 {
+				color: $oxford;
+				margin-bottom: 0;
+			}
+			.dob {
+				padding-bottom: 16px;
+			}
+		}
+		.edit-input-container {
+			h2 {
+				color: $dark-2;
+			}
+		}
+
+		.column {
+			display: flex;
+			flex-direction: column;
+		}
+
+		h3 {
+			font-size: 14px;
+			font-weight: normal;
+			line-height: 14px;
+			margin-bottom: 7px;
+		}
+
+		h2 {
+			font-size: 16px;
+			font-weight: 900;
+			margin: 0px 0px 1rem 0px;
+			flex: 0 0 100%;
+			line-height: 1.5;
+			padding: 0;
+			color: $oxford;
+			@include responsive(medium) {
+				line-height: 26px;
+			}
+
+			&.required-text {
+				&:after {
+					margin-left: 1px;
+					content: "*" !important;
+				}
+			}
+			& + span {
+				font-size: 14px;
+				font-weight: 400;
+			}
+		}
+
+		.row {
+			margin: 14px 0px;
+			h2 {
+				color: $oxford;
+			}
+		}
+
+		.two-fields {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex: 0 0 100%;
+
+			@include responsive(medium) {
+				display: block;
+			}
+
+			.field {
+				width: 49%;
+
+				@include responsive(medium) {
+					width: 100%;
+					margin: 16px 0px;
+				}
+
+				.mdc-text-field {
+					width: 100%;
+				}
+			}
+		}
+
+		.three-fields {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			@include responsive(medium) {
+				display: block;
+			}
+
+			.field {
+				width: 33%;
+
+				@include responsive(medium) {
+					width: 100%;
+					margin: 16px 0px;
+				}
+			}
+		}
+
+		.mdc-select#patient-state {
+			width: 30%;
+
+			@include responsive(medium) {
+				width: 100%;
+			}
+
+			.mdc-select__menu {
+				max-height: 200px !important;
+			}
+		}
+
+		.dob-container {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+			margin-bottom: 20px;
+
+			h3 {
+				font-size: 14px;
+				line-height: initial;
+				flex: 0 0 100%;
+				margin: 0 0 10px 0;
+				display: none;
+			}
+
+			.inline-text-field-container {
+				flex: 0 0 32%;
+			}
+		}
+
+		.insurance-pickers-container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+
+			h3 {
+				display: none;
+			}
+			.mdc-select {
+				width: 100%;
+				.mdc-list {
+					max-height: 400px;
+				}
+			}
+			#insurance-providers {
+				margin: 0 0 14px 0;
+			}
+		}
+
+		.insurance-information {
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+
+			.two-fields {
+				margin: 0;
+			}
+
+			.description {
+				display: flex;
+				flex-direction: column;
+				margin-bottom: 10px;
+
+				.bold {
+					font-weight: bold;
+				}
+
+				span {
+					margin: 0px 0 5px;
+				}
+			}
+
+			.inline-text-field-container {
+				flex: 0 0 30%;
+			}
+		}
+
+		.additional-details {
+			padding: 10px;
+			background: #f2f2f2;
+			border-radius: 4px;
+
+			.three-fields {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				@include responsive(medium) {
+					display: block;
+				}
+
+				.field {
+					width: 33%;
+
+					@include responsive(medium) {
+						width: 100%;
+						margin: 16px 0px;
+					}
+				}
+			}
+		}
+
+		.reasons {
+			display: flex;
+			flex-wrap: wrap;
+			.mdc-form-field {
+				width: 33.33%;
+				margin: 0 0 1rem 0;
+				label {
+					font-weight: 400 !important;
+					height: unset !important;
+				}
+				@include responsive(medium) {
+					width: 100%;
+					margin: 10px 0;
+					padding-right: 0px;
+				}
+			}
+		}
+		.mdc-select--activated {
+			.mdc-select__anchor {
+				border-top: 1px solid $oxford;
+				border-right: 1px solid $oxford;
+				border-left: 1px solid $oxford;
+			}
+		}
+	}
+	#patient-information-booking-form {
+		width: calc(100% - 400px);
+		padding: 0 2rem 0 0;
+		@include responsive(bs-large) {
+			width: 100%;
+			padding: 0;
+		}
+	}
+
+	.form-actions {
+		padding: 2rem 0 1rem 0;
+		display: flex;
+		flex-direction: row-reverse;
+		flex-wrap: wrap;
+		width: 100%;
+		justify-content: center;
+		font-weight: 400;
+		align-items: center;
+
+		@include responsive(small) {
+			flex-direction: column;
+		}
+		button {
+			span {
+				color: inherit;
+				font-size: inherit;
+			}
+		}
+	}
+
+	#character-count-container {
+		text-align: right;
+		margin-top: 5px;
+
+		&.warning {
+			span {
+				color: $error-red;
+			}
+		}
+	}
+
+	.prepopulate-form {
+		margin-left: 0px;
+		border-bottom: 1px solid rgba(71, 9, 104, 0.5); // $violet
+		margin: 0 0 2rem 0;
+
+		.form-actions {
+			button {
+				width: 100%;
+				max-width: 200px;
+				font-size: 1rem;
+			}
+		}
+		h2 {
+			margin-bottom: 8px;
+		}
+
+		hr {
+			margin: 0;
+			width: 100%;
+			border-bottom: 1px solid rgba(197, 41, 155, 0.3); // $magenta
+			border-top: 0;
+		}
+
+		.edit-field {
+			display: flex;
+			align-items: center;
+			width: 100%;
+			padding: 1rem 0;
+			.label-field {
+				max-width: 200px;
+				width: 100%;
+				@include responsive(small) {
+					max-width: 175px;
+				}
+				p {
+					margin: 0px;
+				}
+			}
+
+			.value-field {
+				p {
+					margin: 0px;
+					font-weight: 700;
+					color: $oxford;
+					word-break: break-all;
+				}
+			}
+		}
+	}
+	i.fa-spin {
+		color: $white;
+	}
+}

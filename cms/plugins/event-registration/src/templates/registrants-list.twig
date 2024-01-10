@@ -1,0 +1,45 @@
+<div class="elements" id="event-registrants-by-location">
+	<div class="tableview">
+		<table class="data fullwidth">
+			<thead>
+				<tr>
+					<th scope="col" data-attribute="date" class="orderable">{{ "Event Times"|t }}</th>
+					<th scope="col" data-attribute="registrants-capacity" class="orderable">{{ "Registrants / Capacity"|t }}</th>
+					<th scope="col" data-attribute="link" title="Link" class="orderable">{{ "Download a List of Registrants"|t }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for record in dataProvider.getModels() %}
+					<tr data-id="{{ record.occurrenceDate }}" tabindex="0">
+						<td data-title="date" data-titlecell="">
+							<div class="element small hasstatus" data-type="DateTime" data-site-id="{{ location.siteId }}" data-status="enabled" data-label="{{ "Date"|t }}">
+								{{ tag('span', { class: 'status ' ~ (location.capacity <= record.count ? 'red' : 'enabled')})|raw }}
+								{{ tag('div', {
+									class: 'label',
+									html: tag('span', {
+										class: 'title',
+										text: record.occurrenceDate|date('l, F jS, Y')
+										})|raw
+									})|raw
+								}}
+							</div>
+						</td>
+						<td data-title="Registrants / Capacity" data-attr="registrants-capacity">
+							{{ record.count ~ " / " ~ location.capacity }}
+						</td>
+						<td data-title="Download" data-attr="Download">
+							<form class="csv-download" action="/admin/event-registration/registrations-by-location/participants-list" method="POST">
+								<input type="hidden" name="eventId" value="{{ event.id }}">
+								<input type="hidden" name="locationId" value="{{ location.id }}">
+								<input type="hidden" name="date" value="{{ record.occurrenceDate|date('Y-m-d') }}">
+								{{ csrfInput() }}
+								<button type="submit" data-icon="download"></button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{{ pager|raw }}
+</div>

@@ -1,0 +1,49 @@
+<div class="links">
+	{% nav node in secondaryNodes %}
+	{% set hasLoginLink = false %}
+	{% for attributes in node.customAttributes %}
+		{% if attributes.attribute == "loginLink" %}
+			{% set hasLoginLink = true %}
+		{% endif %}
+	{% endfor %}
+
+	{% if validLoggedInState and hasLoginLink %}
+		<li class="hover-effect flex-row text-oxford">{{ "{name}"|t(params={
+				name: tag('span', {
+					text: identity.name,
+					id: "PatientIdentifier",
+					class: "text-oxford",
+					data: {
+						anonymous: identity != null ? identity.anonymous : null,
+						eid: identity != null and identity.anonymous == false ? identity.id : null
+					}
+				})
+			}) | raw }}
+			<span class="ml-5 text-violet text-bold">
+				{{ "({logout})"|t(params={
+				logout: tag('a', {
+					href: getenv('ENABLE_SAML2') == true ? '/sml/slo' : '/log-out',
+					class: "text-violet text-bold",
+					text: "Logout"|t
+				}) | raw
+			}) | raw }}
+			</span>
+		</li>
+	{% else %}
+		{% if hasLoginLink %}
+			<li class="hover-effect secondary-nav">
+				{% if getenv('ENABLE_SAML2') == true %}
+					<a href="/sml/acs" loginlink="1">{{ "Log In"|t }}</a>
+				{% else %}
+					{{ node.link }}
+				{% endif %}
+			</li>
+		{% else %}
+			<li class="hover-effect secondary-nav">{{ node.link }}</li>
+		{% endif %}
+	{% endif %}
+	{% if not loop.last %}
+	<div class="vertical-divider hide-on-mobile"></div>
+	{% endif %}
+	{% endnav %}
+</div>

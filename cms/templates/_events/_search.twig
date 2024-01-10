@@ -1,0 +1,23 @@
+<div class="event-search-container">
+    <div class="search-content">
+        <form class="event-attribute">
+            {{ csrfInput() }}
+            {% include "_input/_input.twig" with {
+                type: 'text',
+                name: 'searchEvents',
+                id: 'search-events',
+                label: "Search Keywords"|t,
+            } only %}
+        </form>
+
+        <button class="event-search-btn dmgButton secondary1">{{ "Search"|t }}</button>
+        <button class="filter-btn-mobile dmgButton secondary1">{{ "Filters"|t }} <span class="filter-count-mobile"></span></button>
+    </div>
+    <div class="filters">
+        {% include "_events/filters/_desktop.twig" %}
+    </div>
+</div>
+
+<div class="filters-mobile-container hide">
+    {% include "_events/_event_filter_modal.twig" %}
+</div>

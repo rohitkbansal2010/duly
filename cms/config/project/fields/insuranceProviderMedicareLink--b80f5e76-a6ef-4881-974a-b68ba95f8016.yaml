@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: string(255)
+fieldGroup: 3bea3112-5fd4-4beb-9d1f-a9a6af85c550
+handle: insuranceProviderMedicareLink
+instructions: 'A link to the DMG Medicare overview Youtube video.'
+name: 'Medicare Overview Link'
+searchable: false
+settings:
+    maxLength: '255'
+    placeholder: 'https://www.youtube.com/watch?v=Wy2-GgpA4Gk&feature=youtu.be'
+    types: [url]
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Url

@@ -1,0 +1,10 @@
+fieldLayouts:
+    7084d71c-4aee-440e-a63f-be9148ac9e0b: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: Title, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: d6d79004-9f58-469e-829d-12895fed4803, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 58f6f8d3-0897-4e33-a9b3-20af10100ae5, instructions: '', label: '', required: '', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 0456d37a-ec41-4628-917f-fbd10f7a02ab, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: 'Tab 1', sortOrder: 1 }] }
+handle: serviceReasonsForVisit
+hasTitleField: true
+name: 'Service Reasons for Visit'
+section: 0d1f6651-c186-4f3d-8a81-54fa9729260d
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

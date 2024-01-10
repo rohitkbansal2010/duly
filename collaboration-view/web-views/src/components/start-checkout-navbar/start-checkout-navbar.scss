@@ -1,0 +1,135 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.mainDiv {
+  justify-content: space-between;
+  border-radius: 10px;
+}
+
+.childDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.addChat {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.addChat img {
+  width: 4rem;
+  height: 4rem;
+}
+
+.buttonPrimary {
+  padding: 0.5rem 3.25rem;
+  color: white;
+  font-weight: 800;
+  font-size: var(--font-size-20px-4px);
+  line-height: 1.5rem;
+  background: none;
+  background-color: $dupage-dark-blue;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.buttonSecondary {
+  padding: 0.5rem 3.25rem;
+  color: $dupage-dark-blue;
+  font-weight: 800;
+  font-size: var(--font-size-20px-4px);
+  line-height: 1.5rem;
+  background-color: white;
+  border: 0.125rem solid $dupage-dark-blue;
+  border-radius: 0.5rem;
+}
+
+.disabledPrimaryButton {
+  color: white;
+  background-color: $medium-gray;
+}
+
+// ---------------------MODAL----------------
+
+.imageIcon {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.imageIcon img {
+  width: 6rem;
+  height: 6rem;
+
+  border-radius: 50%;
+}
+
+.modalItems {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  justify-content: center;
+}
+
+.doctorStream {
+  color: rgba(102, 110, 125, 1);
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.doctorName {
+  color: rgba(0, 40, 85, 1);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.data {
+  color: rgba(0, 40, 85, 1);
+}
+
+// TODO need to be removed after testing
+.referralIcon {
+  display: block;
+  width: 4.8125rem;
+  height: 4.8125rem;
+  padding: 1rem;
+  background-color: #00b2f04d;
+  border-radius: 100%;
+}
+
+.heading {
+  @include nexa-heavy-highlight;
+  color: rgba(0, 40, 85, 1);
+  font-size: var(--font-size-32px-4px) !important;
+  line-height: 3.125rem;
+}
+
+.modalButton {
+  @include nexa-bold-highlight;
+  width: 100%;
+
+  margin-top: 2.5rem;
+  padding: 6px 16px;
+  color: white;
+  font-weight: 800;
+  font-size: 1.25rem;
+  text-align: center;
+  background: none;
+  background-color: rgba(0, 40, 85, 1);
+  border: none;
+  border-radius: 5px;
+}
+
+.modalParentDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 25rem;
+}

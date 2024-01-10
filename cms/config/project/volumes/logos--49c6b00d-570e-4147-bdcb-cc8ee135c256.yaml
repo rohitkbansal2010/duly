@@ -1,0 +1,17 @@
+fieldLayouts:
+    c368a427-5c03-4e9d-9b84-54ec5775168c: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: logos
+hasUrls: true
+name: Logos
+settings:
+    accountKey: $AZURE_STORAGE_ACCOUNT_KEY
+    accountName: $AZURE_STORAGE_ACCOUNT_NAME
+    azureStorageType: blob
+    blobEndpoint: ''
+    containerName: $AZURE_STORAGE_CONTAINER_NAME
+    subfolder: logos
+sortOrder: 7
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+type: shennyg\azureblobremotevolume\AzureVolume
+url: '@assetBaseUrl'

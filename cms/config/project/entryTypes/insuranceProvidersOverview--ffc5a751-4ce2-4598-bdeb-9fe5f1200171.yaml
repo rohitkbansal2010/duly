@@ -1,0 +1,10 @@
+fieldLayouts:
+    b9ff303d-0616-4508-9800-de4dba4a519b: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: '', max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: c8dd5390-ff61-481f-a1c1-06509756c861, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: edd80da0-fba5-4a98-bbf7-f8633f4721c9, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: b80f5e76-a6ef-4881-974a-b68ba95f8016, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Insurance, sortOrder: 1 }] }
+handle: insuranceProvidersOverview
+hasTitleField: false
+name: 'Insurance Providers Overview'
+section: 69f67b70-8971-4843-8b2b-e7328330e4f7
+sortOrder: 1
+titleFormat: '{section.name|raw}'
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

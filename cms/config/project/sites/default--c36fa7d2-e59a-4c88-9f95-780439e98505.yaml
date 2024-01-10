@@ -1,0 +1,9 @@
+baseUrl: 'https://192.168.64.10'
+enabled: true
+handle: default
+hasUrls: true
+language: en-US
+name: 'DuPage Medical Group'
+primary: true
+siteGroup: de90f2ef-e53c-4800-8b05-6a7128e4f1b3
+sortOrder: 1

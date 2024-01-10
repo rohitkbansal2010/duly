@@ -1,0 +1,17 @@
+columnSuffix: null
+contentColumnType: datetime
+fieldGroup: 99b92802-afee-4578-b959-de37dfc60066
+handle: endDate
+instructions: ''
+name: 'End Date'
+searchable: false
+settings:
+    max: null
+    min: null
+    minuteIncrement: '30'
+    showDate: true
+    showTime: false
+    showTimeZone: false
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Date

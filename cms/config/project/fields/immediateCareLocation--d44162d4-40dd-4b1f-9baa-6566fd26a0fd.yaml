@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: f1257321-1f7a-4dc1-8228-331ef587eba6
+handle: immediateCareLocation
+instructions: 'Enable if this location is considered an immediate care location.'
+name: 'Immediate Care Location'
+searchable: true
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

@@ -1,0 +1,24 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: a3f678ff-f37b-45e3-9eb0-08e2d122029b
+handle: servicePatientReasonsForVisit
+instructions: 'These are optional reasons that provide insight as to why a patient is currently scheduling an appointment with a physician related to this service.'
+name: 'Patient Reasons for Visit'
+searchable: true
+settings:
+    allowLimit: false
+    allowMultipleSources: false
+    allowSelfRelations: false
+    branchLimit: ''
+    limit: null
+    localizeRelations: false
+    selectionLabel: 'Add a Reason'
+    showSiteMenu: true
+    source: 'group:62800e16-6026-4ffd-b9a5-93e3bbb12142'
+    sources: '*'
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Categories

@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0005db84-4545-45f0-9f3f-f2ba868a0ae6
+handle: products
+instructions: ''
+name: Products
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:f965dbd2-5760-40f7-a035-d2f5759d3a42']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

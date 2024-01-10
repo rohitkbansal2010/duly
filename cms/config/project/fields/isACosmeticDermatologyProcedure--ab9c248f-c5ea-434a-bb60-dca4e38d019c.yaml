@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 8f91d2f6-9099-4724-b20b-19061d73de58
+handle: isACosmeticDermatologyProcedure
+instructions: 'If enabled, the "Schedule a consultation with Cosmetic Dermatology" CTA will render on the page.'
+name: 'Is a Cosmetic Dermatology procedure?'
+searchable: false
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: dde69d67-b94d-4a76-802d-86ebce30db4b
+handle: testimonialProvider
+instructions: ''
+name: Provider
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:a578774f-f4e1-4f95-a2f8-f9b8bae72c8c']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

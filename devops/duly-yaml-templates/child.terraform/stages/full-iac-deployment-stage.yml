@@ -1,0 +1,59 @@
+parameters:
+- name: infraSolutionRepo
+  type: string
+
+- name: configurationRepo
+  type: string
+
+- name: envList
+  type: object
+  default: []
+  
+- name: infraSolutionSequence
+  type: object
+  default: []
+
+
+# Create Terraform Artifact
+stages:
+- stage: Artifact
+
+  jobs:
+  - template: ../jobs/terraform-artifact-full-infra-jobs.yml
+    parameters:
+      infraSolutionRepo: ${{ parameters.infraSolutionRepo }}
+      configurationRepo: ${{ parameters.configurationRepo }}
+      infraSolutionList:
+      - ${{ each solutionGroup in parameters.infraSolutionSequence }}:
+        - ${{ each solution in solutionGroup.solutions }}:
+          - ${{ solution }}
+
+
+# Run triple-loop: for Each infraSolutionSequence for Each Solution for Each Environment
+- ${{ each solutionGroup in parameters.infraSolutionSequence }}:
+  - ${{ each solution in solutionGroup.solutions }}:
+    - ${{ each environment in parameters.envList }}:
+
+
+      # Run Terraform Apply stage
+      - stage: Apply_${{ solution }}_${{ environment }}
+        displayName: Apply ${{ solution }} on ${{ environment }}
+        dependsOn:
+        - ${{ if solutionGroup.dependsOnIndex }}:
+          - ${{ each dependsOnSolution in parameters.infraSolutionSequence[solutionGroup.dependsOnIndex].solutions }}:
+            - ${{ each dependsOnEnvironment in parameters.envList }}:
+              - Apply_${{ dependsOnSolution }}_${{ dependsOnEnvironment }}
+        - ${{ if not(solutionGroup.dependsOnIndex) }}:
+          - Artifact
+        variables:
+        - group: env.${{ environment }}.terraform
+        - group: terraform.modules_rsa_key
+
+        jobs:
+        # Call Terraform Apply jobs
+        - template: ../jobs/terraform-apply-jobs.yml
+          parameters:
+            environment: ${{ environment }}
+            infraSolutionFolder: ${{ solution }}
+            TerraformVarsFile: ${{ environment }}.tfvars
+            includePlanStep: true

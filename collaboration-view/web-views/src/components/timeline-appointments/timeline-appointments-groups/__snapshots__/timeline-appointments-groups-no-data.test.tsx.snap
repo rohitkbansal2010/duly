@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineApppointmentsGroupsNoData should render the TimelineApppointmentsGroupsNoData component 1`] = `
+<div
+  className="timelineAppointmentsGroupsNoData"
+>
+  <div
+    className="timelineAppointmentsGroupsNoDataIcon timelineAppointmentsGroupsNoDataIconBlue"
+  >
+    <img
+      alt="Calendar icon"
+      data-test="appointment-icon"
+      src="calendar-two-blue.svg"
+    />
+  </div>
+  <div
+    className="timelineAppointmentsGroupsNoDataTitle timelineAppointmentsGroupsNoDataTitleLightBlue"
+    data-test="appointment-title"
+  >
+    No Recent Appointments
+  </div>
+</div>
+`;

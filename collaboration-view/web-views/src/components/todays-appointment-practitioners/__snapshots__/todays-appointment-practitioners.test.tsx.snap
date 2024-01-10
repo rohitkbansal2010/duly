@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LogoutModal should match snapshot 1`] = `
+<Practitioners
+  isTodaysAppointment={true}
+  practitioners={
+    Array [
+      Object {
+        "humanName": Object {
+          "familyName": "qwe",
+          "givenNames": Array [
+            "Foo",
+            "E",
+          ],
+          "prefixes": Array [
+            "Dr.",
+          ],
+        },
+        "id": "001",
+        "isCurrentUser": true,
+        "role": "PCP",
+      },
+      Object {
+        "humanName": Object {
+          "familyName": "asd",
+          "givenNames": Array [
+            "Bar",
+            "E",
+          ],
+          "prefixes": Array [
+            "Dr.",
+          ],
+        },
+        "id": "002",
+        "photo": Object {
+          "contentType": "image/jpg",
+          "size": 0,
+          "title": "photo",
+          "url": "https://dmgwebprodstorage.blob.core.windows.net/dmgprodweb/physician-headshots/Fitzgerald_Michael_FM-003websize.jpg",
+        },
+        "role": "PCP",
+      },
+      Object {
+        "humanName": Object {
+          "familyName": "zxc",
+          "givenNames": Array [
+            "Baz",
+            "E",
+          ],
+          "prefixes": Array [
+            "Dr.",
+          ],
+        },
+        "id": "003",
+        "role": "PCP",
+      },
+    ]
+  }
+/>
+`;

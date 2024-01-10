@@ -1,0 +1,32 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.titleRow {
+  margin-top: 4.18rem !important;
+}
+.fontSettingContainer {
+  margin-top: 1.8rem !important;
+}
+.cvCheckoutPageWrap {
+  // width: 89rem;
+  width: 90%;
+  height: 100vh;
+  margin: 0 auto 0 auto;
+  background: $light-gray;
+}
+
+.checkoutFooter {
+  // margin-top: 10.8125rem;
+  margin-top: 5.18rem;
+}
+
+.cvCheckoutPageName {
+  @include nexa-heavy-highlight;
+  color: $dupage-dark-blue;
+  font-weight: 900;
+  font-size: var(--font-size-62px-4px);
+  line-height: 6.25rem;
+}

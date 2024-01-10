@@ -1,0 +1,10 @@
+fieldLayouts:
+    67c66460-8abb-4ce5-98d8-eb4ab2db0d8b: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: '', max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 0f951187-9469-428d-9690-cfd579acec3a, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 77b1109b-b93b-4464-ba27-8775c01278cd, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: 'Schedule Landing Page', sortOrder: 1 }] }
+handle: schedulingLandingPage
+hasTitleField: false
+name: 'Scheduling Landing Page'
+section: c34312aa-7634-40ae-94db-9f36bde163e6
+sortOrder: 1
+titleFormat: '{section.name|raw}'
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

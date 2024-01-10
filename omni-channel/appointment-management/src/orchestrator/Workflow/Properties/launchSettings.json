@@ -1,0 +1,11 @@
+﻿{
+  "profiles": {
+    "Service": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "DOTNET_URLS": "http://[::1]:0"
+      }
+    }
+  }
+}

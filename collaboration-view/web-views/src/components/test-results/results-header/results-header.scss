@@ -1,0 +1,44 @@
+@import "~@styles/typography";
+@import "~@styles/colors";
+
+.results {
+  &Header {
+    display: flex;
+    align-items: center;
+
+    &Icon {
+      width: 2rem;
+
+      &Wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.75rem;
+        height: 3.75rem;
+        margin-right: 1.125rem;
+        background: $light-blue;
+        border-radius: 50%;
+      }
+    }
+
+    &Titles {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      &Main {
+        @include nexa-extra-bold-highlight;
+
+        font-size: var(--font-size-24px-4px);
+        line-height: 1.875rem;
+        text-align: left;
+      }
+
+      &Additional {
+        @include inter-text-xs-bold;
+        font-size: var(--font-size-14px-4px);
+        line-height: var(--line-height-16px-4px);
+      }
+    }
+  }
+}

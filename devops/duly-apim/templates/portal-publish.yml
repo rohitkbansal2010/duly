@@ -1,0 +1,28 @@
+parameters:
+  - name: subscriptionName
+    type: string
+    default: ''
+  - name: portalUri
+    type: string
+    default: ''
+  - name: apimName
+    type: string
+    default: ''
+  - name: apimRgName
+    type: string
+    default: ''
+
+steps:
+  - template: generate-token.yml
+    parameters:
+      subscriptionName: ${{ parameters.subscriptionName }}
+      apimName: ${{ parameters.apimName }}
+      apimRgName: ${{ parameters.apimRgName }}
+
+  - task: PowerShell@2
+    displayName: 'Publish APIM Developer Portal: ${{ parameters.apimName }}'
+    inputs:
+      targetType: 'inline'
+      script: |
+        $header = @{ 'Authorization' = '$(sasAccessKey)'}
+        Invoke-RestMethod -Method Post -Uri '${{ parameters.portalUri }}' -Headers $header -ContentType 'application/json'

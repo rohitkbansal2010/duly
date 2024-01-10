@@ -1,0 +1,80 @@
+@import "~@styles/themes.scss";
+@import "~@styles/typography.scss";
+
+.patientViewModal {
+  &Header {
+    justify-content: center !important;
+    margin-bottom: 4.25rem;
+    padding: 0 !important;
+    border: 0 !important;
+
+    & img {
+      width: 12.75rem;
+      height: 5.94rem;
+    }
+  }
+
+  &Body {
+    padding: 0 !important;
+
+    &Avatar {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 13.3rem;
+      height: 13.3rem;
+
+      margin: 0 auto;
+      background: $white;
+      border-radius: 50%;
+    }
+
+    &HumanName {
+      @include nexa-heavy-highlight;
+
+      margin-top: 2rem;
+      color: $white;
+      font-weight: 800;
+      font-size: 2.5rem;
+      line-height: 3rem;
+    }
+
+    &AdditionalInfo {
+      @include nexa-regular-highlight;
+
+      margin-top: 2rem;
+      color: $white;
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      text-transform: capitalize;
+    }
+
+    &NextSteps {
+      margin-top: 6rem;
+      &ButtonPrimary {
+        width: 26.9375rem !important;
+        height: 4.625rem !important;
+        color: $white;
+        font-weight: 800;
+        font-size: 1.25rem !important;
+        line-height: 1.5rem !important;
+        background-color: $dupage-dark-blue !important;
+        border-color: $dupage-dark-blue !important;
+        border-radius: 0.5rem;
+      }
+      &ButtonDefault {
+        width: 26.9375rem !important;
+        height: 4.625rem !important;
+        margin-top: 4rem;
+        color: $white;
+        font-weight: 800;
+        font-size: 1.25rem !important;
+        line-height: 1.5rem !important;
+        background-color: transparent !important;
+        border: 1px solid $dupage-dark-blue !important;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+}

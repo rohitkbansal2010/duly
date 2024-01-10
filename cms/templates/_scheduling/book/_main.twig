@@ -1,0 +1,43 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Patient Information'|t %}
+{% block bodyClass "patient-information-page" %}
+
+{% set patientUser = craft.app.patient_user.identity %}
+
+{# 2990 is the video visit ID that comes back from Epic #}
+{% set isVideoVisit = patientUser.appointment_visit_type_id == 2990 %}
+{% set arrivedFromOutsideOfScheduling = patientUser.physician_selected_outside_of_scheduling == '1' %}
+{% set reason = patientUser.appointment_reason_for_visit_id %}
+{% set ruleOutQuestions = patientUser.appointment_rule_out_question_answer %}
+
+{% set isSchedulingFlowWithoutPhysicians = patientUser.isSchedulingFlowWithoutPhysicians() %}
+{% set service = craft.entries.id(patientUser.getAppointmentServiceIds()).one() %}
+{% set backUrl = "/schedule/select-appointment" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	<div id="backgroundPattern"></div>
+	{% if arrivedFromOutsideOfScheduling %}
+		{% if reason %}
+			{% set backUrl = "/schedule/visit-reason" %}
+		{% elseif ruleOutQuestions %}
+			{% set backUrl = "/schedule/preliminary" %}
+		{% else %}
+			{% set backUrl = "/schedule/insurance" %}
+		{% endif %}
+	{% endif %}	
+
+	{% include "_scheduling/navigation/_steps.twig" with {
+		backUrl: backUrl
+	} %}
+	{% include "_scheduling/alerts/_exit-alert.twig" %}
+	
+	<div class="{{ isVideoVisit ? 'content video-visit-selected' : 'content' }} main-scheduling-flow">
+		{% include "_scheduling/select-appointment/_physician-info" with {
+			modalMap: false
+		} %}
+		{% include "_scheduling/book/_form.twig" %}
+	</div>
+{% endblock %}

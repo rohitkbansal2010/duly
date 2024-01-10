@@ -1,0 +1,250 @@
+@import "../../scss/variables";
+@import "../../scss/mixins";
+
+section.product-detail {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	box-sizing: border-box;
+	padding: 2rem 1rem;
+	* {
+		box-sizing: border-box;
+	}
+	#product {
+		display: flex;
+		width: 100%;
+		@include responsive(medium) {
+			flex-wrap: wrap;
+		}
+		> div:nth-child(1) {
+			width: 25%;
+			@include responsive(medium) {
+				width: 100%;
+				max-width: 300px;
+				margin: 0 auto;
+			}
+		}
+		> div:nth-child(2) {
+			padding: 0 0 0 2rem;
+			width: 75%;
+			@include responsive(medium) {
+				width: 100%;
+				padding: 0;
+			}
+		}
+		h3 {
+			color: $oxford;
+			padding: 0.5rem 1rem;
+			margin: 0;
+			font-size: 18px;
+			border-bottom: 2px solid $sky;
+			font-weight: 800;
+		}
+	}
+	#productImage {
+		width: 100%;
+		picture {
+			display: block;
+			position: relative;
+			width: 100%;
+			padding: 0 0 100% 0;
+			background: $gray;
+			&.placeholder {
+				background: none;
+			}
+			img {
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				object-fit: cover;
+			}
+		}
+	}
+	#productTitle {
+		margin: 0;
+		h1 {
+			color: $oxford;
+			padding: 1rem;
+			margin: 0;
+			font-size: 2.75rem;
+			line-height: 1;
+			border-bottom: 2px solid $sky;
+			@include responsive(small) {
+				font-size: 2rem;
+				padding: 1rem 0;
+			}
+		}
+	}
+	#productDescription {
+		padding: 1rem;
+		@include responsive(small) {
+			padding: 0;
+		}
+	}
+	#back {
+		margin: 0 0 1rem 0;
+		display: flex;
+		a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: $oxford !important;
+			font-size: 1rem;
+			font-weight: 800;
+			.material-icons {
+				color: $oxford !important;
+				margin: 0 0.5rem 0 0;
+			}
+			&:hover {
+				text-decoration: none;
+			}
+			&:focus {
+				text-decoration: none;
+			}
+		}
+	}
+	#productLocations {
+		display: flex;
+		flex-wrap: wrap;
+		.locationHolder {
+			width: calc(100% / 3);
+			padding: 1rem;
+			@include responsive(medium) {
+				padding: 0.5rem;
+				width: 50%;
+			}
+			@include responsive(small) {
+				width: 100%;
+			}
+			.location {
+				border: 1px solid transparent;
+				display: flex;
+				padding: 1rem;
+				@include responsive(medium) {
+					padding: 0.5rem;
+				}
+				&:hover {
+					border: 1px solid #f8f8f8;
+					box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
+					border-radius: 4px;
+					background: $white;
+				}
+				.locationIcon {
+					width: 1.25rem;
+					img {
+						width: 100%;
+					}
+				}
+				.locationDetail {
+					width: calc(100% - 1.25rem);
+					padding: 0 0 0 0.75rem;
+					line-height: 1.5;
+					a {
+						text-decoration: none;
+						font-size: 16px;
+						font-weight: 800;
+						color: $violet;
+						.area {
+							color: $oxford;
+							font-size: 18px;
+							font-weight: 800;
+							margin: 0px 0px 4px 0px;
+						}
+						.address-one,
+						.city,
+						.suite {
+							color: $dark-2;
+							font-size: 16px;
+							font-weight: normal;
+							margin: 0px;
+						}
+					}
+					.phoneNumber,
+					.getDirections {
+						display: block;
+						margin: 1rem 0 0 0;
+						font-weight: bold;
+						&:hover {
+							text-decoration: underline;
+						}
+					}
+				}
+			}
+		}
+	}
+	#productRelatedConditions {
+		padding: 1rem;
+
+		p {
+			font-size: 16px;
+			font-weight: 600;
+			display: block;
+			line-height: 22px;
+			margin: 0 0 1.25rem 0;
+			color: #525757;
+		}
+
+		a {
+			display: block;
+			margin: 0 0 1.25rem 0;
+		}
+	}
+	#relatedProducts {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 1rem 0;
+		.relatedProduct {
+			width: 33.33%;
+			padding: 1rem;
+			@include responsive(medium) {
+				width: 50%;
+			}
+			@include responsive(small) {
+				width: 100%;
+			}
+			a:hover {
+				text-decoration: none;
+			}
+			.image {
+				width: 100%;
+				margin: 0 0 1rem 0;
+				picture {
+					display: block;
+					position: relative;
+					width: 100%;
+					padding: 0 0 100% 0;
+					background: $gray;
+					&.placeholder {
+						background: none;
+					}
+					img {
+						position: absolute;
+						height: 100%;
+						width: 100%;
+						object-fit: cover;
+					}
+				}
+			}
+			.title {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 4.5rem;
+				p {
+					color: $dark-2;
+					font-size: 1rem;
+					overflow: hidden;
+					line-height: 1.25em;
+					max-height: 3.75em;
+					-webkit-box-orient: vertical;
+					display: block;
+					display: -webkit-box;
+					text-overflow: ellipsis;
+					-webkit-line-clamp: 3;
+					text-align: center;
+					margin: 0;
+				}
+			}
+		}
+	}
+}

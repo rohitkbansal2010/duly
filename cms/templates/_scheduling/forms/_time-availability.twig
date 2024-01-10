@@ -1,0 +1,17 @@
+<div class="mdc-select mdc-select--required" id="{{ idSelector }}">
+    <div class="mdc-select__anchor" aria-required="true">
+        <input type="hidden" name="{{ name }}" value="">
+        <i class="mdc-select__dropdown-icon"></i>
+        <span class="mdc-floating-label">{{ selectorTitle }}</span>
+        <div class="mdc-select__selected-text-container">
+            <div class="mdc-select__selected-text"></div>
+        </div>
+    </div>
+    <div class="mdc-select__menu mdc-menu mdc-menu-surface">
+        <ul class="mdc-list">
+            {% for time in possibleTimes %}
+                <li class="mdc-list-item" name="time" data-value="{{ time }}">{{ time }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

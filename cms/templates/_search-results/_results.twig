@@ -1,0 +1,41 @@
+<div class="dynamic-results">
+    {% if results|length == 0 and isAjax == true %}
+        {% include "_search-results/_filters.twig" with {
+            section: section
+        }%}
+
+        <hr class="result-separator">
+
+        <div class="no-search-results">
+            <img src="/dist/img/magnifying-glass-new.png" alt="{{ "Search"|t }}">
+            <h2>{{ "Sorry, we found no results."|t }}</h2>
+            <p>{{ "Please try adjusting your search"|t }}</p>
+        </div>
+    {% endif %}
+
+    {% if results|length %}
+        {% include "_search-results/_filters.twig" with {
+            section: section
+        }%}
+
+        <p class="result-count">{{ "Showing"|t }} {{ totalCount }} {{ "results for"|t }} <span class="query">{{ query }}</span></p>
+
+        <hr class="result-separator">
+
+        {% for entry in results %}
+            {% if entry.type == 'physicians' %}
+                {% include "_search-results/types/_physician.twig" with {
+                    physician: entry
+                } %}
+                <hr class="result-separator">
+            {% else %}
+                {% include "_search-results/types/_article.twig" with {
+                    entry: entry
+                } %}
+                <hr class="result-separator">
+            {% endif %}
+        {% endfor %}
+
+        {% include '_paginate.twig' %} 
+    {% endif %}
+</div>

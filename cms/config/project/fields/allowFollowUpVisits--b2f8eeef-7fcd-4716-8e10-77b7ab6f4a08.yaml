@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: allowFollowUpVisits
+instructions: 'Whether or not follow-up visits can be scheduled for this service.'
+name: 'Allow Annual Physicals'
+searchable: false
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

@@ -1,0 +1,14 @@
+<nav id="rail" class="{{ class }}">
+    <div class="inner-rail">
+        {% for element in sidebar.all %}
+            {% if element.sidebarSectionEntries.all|length != 0 %}
+                <ul>
+                    <li><h4>{{ element.sidebarSectionHeader }}</h4></li>
+                    {% for link in element.sidebarSectionEntries.all %}
+                        <li><a {{ link.linkUrl == null ?: 'target=_blank' }} href="{{ link.linkUrl != null ? link.linkUrl|raw : link.getUrl() }}">{{ link.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endfor %}
+    </div>
+</nav>

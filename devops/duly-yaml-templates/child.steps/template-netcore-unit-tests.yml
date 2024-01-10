@@ -1,0 +1,96 @@
+parameters:
+  - name: unitTestsProject
+    type: string
+    default: '**/*.sln'
+  - name: createCoverageReport
+    type: boolean
+    default: false
+  - name: unitTestsFilter
+    type: string
+    default: 'TestCategory!=IntegrationTests'
+  - name: vstsFeed
+    type: string
+    default: 'duly.digital'
+  - name: verbosityRestore
+    type: string
+    default: 'Detailed'
+    values:
+    - 'Quiet'
+    - 'Minimal'
+    - 'Normal'
+    - 'Detailed'
+    - 'Diagnostic'
+  - name: buildConfiguration
+    type: string
+    default: 'Release'
+    values:
+    - 'Release'
+    - 'Debug'
+
+steps:
+  # Install coverlet package for coverage report
+  - task: PowerShell@2
+    displayName: 'PowerShell: Install coverlet package'
+    inputs:
+      targetType: filePath
+      filePath: 'duly-scripts/PowerShell/Add-NetCorePackage.ps1'
+      arguments: -WorkingDirectory $(Build.SourcesDirectory)
+    continueOnError: true
+    enabled: ${{ parameters.createCoverageReport }}
+
+  # It is recommended that an explicit dotnet restore step be used to restore packages.
+  # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/build/dotnet-core-cli?view=azure-devops#why-is-my-build-publish-or-test-step-failing-to-restore-packages
+  - task: DotNetCoreCLI@2
+    displayName: 'DotNetCore: Restore packages from ${{ parameters.vstsFeed }} for ${{ parameters.unitTestsProject }}'
+    inputs:
+      command: restore
+      projects: ${{ parameters.unitTestsProject }}
+      feedsToUse: 'select'
+      vstsFeed: '${{ parameters.vstsFeed }}'
+      includeNuGetOrg: true
+      verbosityRestore: '${{ parameters.verbosityRestore }}'
+
+  # Run tests
+  - task: DotNetCoreCLI@2
+    displayName: 'DotNetCore: Run unit tests'
+    inputs:
+      command: test
+      projects: ${{ parameters.unitTestsProject }}
+      publishTestResults: true
+      arguments: '--configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./TestResults/Coverage/ --filter "${{ parameters.unitTestsFilter }}" --no-restore'
+
+  # Install ReportGenerator package globally and convert all opencover reports into single cobertura report
+  - task: PowerShell@2
+    displayName: 'PowerShell: Install ReportGenerator and create code coverage report'
+    inputs:
+      targetType: inline
+      script: |
+        if (Test-Path $env:AGENT_BUILDDIRECTORY/reportgenerator -PathType Container) {
+            Remove-Item $env:AGENT_BUILDDIRECTORY/reportgenerator -Recurse -Force
+        }
+        New-Item $env:AGENT_BUILDDIRECTORY/reportgenerator -ItemType Directory
+        Push-Location $env:AGENT_BUILDDIRECTORY/reportgenerator
+
+        Write-Output "Install reportgenerator package"
+        dotnet new tool-manifest
+        dotnet tool install dotnet-reportgenerator-globaltool
+
+        Write-Output "Run reportgenerator to convert Opencover into Cobertura"
+        dotnet tool run reportgenerator "-reports:$env:BUILD_SOURCESDIRECTORY/**/coverage.opencover.xml" "-targetdir:$env:BUILD_SOURCESDIRECTORY/CodeCoverage" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
+
+        Pop-Location
+      errorActionPreference: 'stop'
+      failOnStderr: true
+      ignoreLASTEXITCODE: false
+      pwsh: true
+    enabled: ${{ parameters.createCoverageReport }}
+  
+  # Task: Publish code coverage report
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Cobertura: Publish code coverage report'
+    inputs:
+      codeCoverageTool: 'cobertura'
+      summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
+      reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+    continueOnError: true
+    enabled: ${{ parameters.createCoverageReport }}

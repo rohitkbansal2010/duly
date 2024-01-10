@@ -1,0 +1,32 @@
+@import "~@styles/colors.scss";
+
+.vitalsChartNoData {
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding-bottom: 7.5rem;
+    color: #c5299b;
+    font-size: var(--font-size-48px-4px);
+    font-family: "NexaHeavy", sans-serif;
+    font-style: normal;
+    line-height: 3.125rem;
+  }
+
+  &IconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14.5rem;
+    height: 14.5rem;
+    margin-bottom: 1.75rem;
+    background: rgba(197, 41, 155, 0.3);
+    border-radius: 50%;
+
+    img {
+      width: 8rem;
+    }
+  }
+}

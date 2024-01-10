@@ -1,0 +1,433 @@
+{# routes specific to scheduling that will display different parts of the navigation on mobile #}
+{% set schedulingRoutes = ['services', 'insurance', 'preliminary', 'visit-reason', 'select-physician', 'select-location', 'select-appointment', 'book'] %}
+{% set currentPage = craft.app.request.getSegment(2) %}
+{% set navigationPage = craft.app.request.getSegment(1) %}
+
+{# schedule/book/share #}
+{% set sharePage = craft.app.request.getSegment(3) %}
+{% set user = craft.app.patient_user.identity %}
+{% set visitReason = false %}
+{% set questionCount = 0 %}
+{% set arrivedFromOutsideOfScheduling = user and user.physician_selected_outside_of_scheduling == '1' %}
+{% set showSidePanel = user and user.appointment_physician_id is not null and user.appointment_department_id is not null %}
+{% set isLoggedIn = user and not user.anonymous %}
+{% set isSchedulingFlowWithoutPhysicians = user and user.isSchedulingFlowWithoutPhysicians() %}
+{% set generalSiteConfig = craft.app.globals().getSetByHandle('generalSiteConfig') %}
+{% set careNavEnabled = generalSiteConfig.enableCareNav %}
+{% set clearstepUrl = generalSiteConfig.clearstepUrl %}
+
+{% if user is defined and user is not null %}
+	{% set entries = craft.entries({
+        section: 'services',
+        id: user.getAppointmentServiceIds()
+    }).all() %}
+
+	{% for entry in entries %}
+		{% if entry.appointmentSchedulingRuleOutQuestions|length %}
+			{% set questionCount = questionCount + entry.appointmentSchedulingRuleOutQuestions|length %}
+		{% endif %}
+
+		{% if entry.appointmentSchedulingReasonsForVisit|length %}
+			{# only care if one entry has a reason for visit question #}
+			{% set visitReason = true %}
+		{% endif %}
+	{% endfor %}
+
+{% endif %}
+
+<header class="{{ currentPage in schedulingRoutes and sharePage is null ? 'main-header on-scheduling-pages' : 'main-header' }}">
+	<nav id="mobile-top-navigation-scheduling">
+		<div class="cta dynamic-mobile-route">
+			{% switch currentPage %}
+				{% case 'services' %}
+					<a href="/schedule" class="back-link">
+						<span class="material-icons chevron_left"></span>
+					</a>
+				{% case 'insurance' %}
+					{% if showSidePanel and isLoggedIn %}
+						{% set physician = craft.entries({
+							section: 'physicians',
+							id: patientUser.appointment_physician_id
+						}).one() %}
+
+						{% if physician is not null %}
+							{% set physicianUrl =  physician.getUrl() %}
+
+							<a href="{{ physicianUrl }}" class="back-link">
+								<span class="material-icons chevron_left"></span>
+							</a>
+						{% else %}
+							<a href="/physicians" class="back-link">
+								<span class="material-icons chevron_left"></span>
+							</a>
+						{% endif %}
+					{% else %}
+						<a href="/login-portal" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% endif %}
+				{% case 'preliminary' %}
+					{% if currentQuestionIndex == 0 %}
+						<a href="/schedule/insurance" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% elseif currentQuestionIndex == 1 %}
+						<a href="/schedule/preliminary" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% else %}
+						<a href="/schedule/preliminary?currentQuestionIndex={{ currentQuestionIndex - 1}}" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% endif %}
+				{% case 'visit-reason' %}
+					{% if questionCount %}
+						<a href="/schedule/preliminary?currentQuestionIndex={{ questionCount - 1 }}" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% else %}
+						<a href="/schedule/insurance" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% endif %}
+				{% case 'select-physician' %}
+					{% if visitReason %}
+						<a href="/schedule/visit-reason" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% elseif questionCount %}
+						<a href="/schedule/preliminary?currentQuestionIndex={{ questionCount - 1 }}" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% else %}
+						<a href="/schedule/insurance" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% endif %}
+				{% case 'select-location' %}
+					{% if visitReason %}
+						<a href="/schedule/visit-reason" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% elseif questionCount %}
+						<a href="/schedule/preliminary?currentQuestionIndex={{ questionCount - 1 }}" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% else %}
+						<a href="/schedule/insurance" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% endif %}
+				{% case 'select-appointment' %}
+					{% if isSchedulingFlowWithoutPhysicians %}
+						<a href="/schedule/select-location" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% else %}
+						<a href="/schedule/select-physician" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% endif %}
+				{% case 'book' %}
+					{% if arrivedFromOutsideOfScheduling %}
+						{% if visitReason %}
+							<a href="/schedule/visit-reason" class="back-link">
+								<span class="material-icons chevron_left"></span>
+							</a>
+						{% elseif questionCount %}
+							<a href="/schedule/preliminary?currentQuestionIndex={{ questionCount - 1 }}" class="back-link">
+								<span class="material-icons chevron_left"></span>
+							</a>
+						{% else %}
+							<a href="/schedule/insurance" class="back-link">
+								<span class="material-icons chevron_left"></span>
+							</a>
+						{% endif %}
+					{% else %}
+						<a href="/schedule/select-appointment" class="back-link">
+							<span class="material-icons chevron_left"></span>
+						</a>
+					{% endif %}
+			{% endswitch %}
+		</div>
+		<div class="header-container">
+			<a class="dmg-logo-mobile" href="/" aria-label="{{ "Homepage"|t }}"></a>
+		</div>
+		<div class="cta cancel-schedule-process">
+			<a href="/schedule">{{ "Cancel"|t }}</a>
+		</div>
+	</nav>
+	<nav id="mobile-top-navigation">
+		<div class="header-container">
+			<div id="hamburger" tabindex="0">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div class="vertical-divider-mobile"></div>
+			<a class="dmg-logo-mobile" href="/" aria-label="{{ "Homepage"|t }}"></a>
+			{% if careNavEnabled %}
+				<nav id="care-nav-mobile">
+					{% if navigationPage is null or navigationPage == "schedule" or navigationPage == "services" %}
+						<div id="tip-text-mobile" class="hide" aria-live="polite">
+							{{ "Don't know where to start? "|t }}
+							<a href="{{ clearstepUrl }}" target="_blank">{{ "Check your symptoms."|t }}</a>
+							<span id='close'>x</span>
+						</div>
+					{% endif %}
+					<ul>
+						{% set ncnodes = craft.navigation.nodes('needCareNavigation').all %}
+						{% for node in ncnodes %}
+							{% if node.getParent() is null %}
+								{% if node.children.count >= 1 %}
+									<li class="need-care-mobile">
+										<div class="care-dropdown-mobile">
+											<div
+												class="care-header" tabindex="0">
+												{# needed for icon display #}
+												<div class="dropdown-link text-white">
+													{{ node.link }}
+													<span class="icon"></span>
+													{{ node.title }}
+												</div>
+												<div class="dropdown-link">
+													<i class="material-icons keyboard_arrow_down text-white"></i>
+												</div>
+											</div>
+											<div class="care-dropdown-container-mobile collapsed">
+												{% set children = node.children.all() %}
+												<div>
+													{% for child in children %}
+														{% set title = child|split('|')[0] %}
+														{% set description = child|split('|')[1] %}
+														<div class="link">
+															<a href="{{ child.url }}" target="{{ child.target }}" class="title">{{ title }}</a>
+															<a href="{{ child.url }}" target="{{ child.target }}" class="description">{{ description }}</a>
+														</div>
+														{% if loop.first %}
+															<hr class="divider">
+														{% endif %}
+													{% endfor %}
+												</div>
+											</div>
+										</div>
+									</li>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</nav>
+			{% endif %}
+		</div>
+	</nav>
+	<div class="nav-container">
+		{% if navigationPage is null or navigationPage == "schedule" or navigationPage == "services" %}
+			<div id="tip-text" class="hide" aria-live="polite">
+				{{ "Don't know where to start? "|t }}
+				<a href="{{ clearstepUrl }}" target="_blank">{{ "Check your symptoms."|t }}</a>
+				<span id='close'>x</span>
+			</div>
+		{% endif %}
+		<nav id="main-nav">
+			<ul>
+				<li class="hide-on-mobile mr-0">
+					<a class="dmg-logo" href="/" aria-label="{{ "Homepage"|t }}"></a>
+				</li>
+				<ul>
+					<li class="search-mobile show-on-mobile">
+						<form class="search-mobile show-on-mobile" action="/search?">
+							<div class="nav-searchform-mobile">
+								{% include "_input/_input.twig" with {
+									type: 'text',
+									name: 'query',
+									id: 'search-site-mobile',
+									label: "Search"|t,
+									class: "mdc-text-field--with-leading-icon",
+									leadingIcon: 'search',
+									removeFloatingLabel: true
+								} only %}
+							</div>
+						</form>
+					</li>
+				</ul>
+				<div class="nav-stack">
+					<div>
+						{% set secondaryNodes = craft.navigation.nodes().handle('secondaryNavigation').all()%}
+						{% set identity = craft.app.patient_user.identity %}
+						{% set validLoggedInState = identity != null and identity.anonymous == false %}
+						{% set isOverflowMenu = secondaryNodes | length > 3 %}
+
+						{% if isOverflowMenu and not validLoggedInState %}
+							<ul>
+								{% include "_header-links.twig" with {
+									secondaryNodes: secondaryNodes | slice(0, 3)
+								} %}
+							</ul>
+						{% endif %}
+
+						<ul class="{{ validLoggedInState or isOverflowMenu ? 'logged-in' : '' }}">
+							<div class='hover-effect'>
+								{% if not validLoggedInState and isOverflowMenu %}
+									<span tabindex="0" class="more-menu">{{ "More"|t }}</span>
+								{% else %}
+									<span tabindex="0" class="material-icons person_pin"></span>
+								{% endif %}
+								<span tabindex="0" class="material-icons expand_more"></span>
+								<span tabindex="0" class="material-icons expand_less hidden"></span>
+							</div>
+
+							{% if isOverflowMenu and not validLoggedInState %}
+								{% include "_header-links.twig" with {
+									secondaryNodes: secondaryNodes | slice(3, secondaryNodes | length)
+								} %}
+							{% else %}
+								{% include "_header-links.twig" with {
+								secondaryNodes: secondaryNodes
+							} %}
+							{% endif %}
+						</ul>
+					</div>
+		{% cache using key "header-main-nav-container-new-bottom" %}
+					<div class="horizontal-divider"></div>
+					<div>
+						<ul>
+							{% set nodes = craft.navigation.nodes('primaryNavigation').all %}
+							{% for node in nodes %}
+								{% if node.getParent() is null %}
+									{% if node.children.count >= 1 %}
+										<li class="hover-effect">
+											<div class="nav-dropdown">
+												<div
+													class="header" tabindex="0">
+													{# needed for icon display #}
+													<div class="dropdown-link">
+														{{ node.link }}
+														<span class="icon"></span>
+														{{ node.title }}
+													</div>
+													<div class="dropdown-link">
+														<i class="material-icons keyboard_arrow_down"></i>
+														<i class="material-icons keyboard_arrow_right"></i>
+													</div>
+												</div>
+												<div class="nav-dropdown-container collapsed">
+													<div class="back-on-mobile" tabindex="0">
+														<i class="material-icons keyboard_arrow_left"></i>
+														<p class="title">{{ node.title }}</p>
+													</div>
+													<hr class="divider-mobile">
+													{% set half = (loop|length / 2) %}
+													{% set firsthalf = node.children.all|slice(0, half) %}
+													{% set secondhalf = node.children.all|slice(half, loop|length) %}
+													<div class="left-side">
+														{% for children in firsthalf %}
+															{% set title = children|split('|')[0] %}
+															{% set description = children|split('|')[1] %}
+															<div class="link">
+																<a href="{{ children.url }}" class="title">{{ title }}</a>
+																<a href="{{ children.url }}" class="description">{{ description }}</a>
+															</div>
+														{% endfor %}
+													</div>
+													<div class="divider"></div>
+													<div class="right-side">
+														{% for children in secondhalf %}
+															{% set title = children|split('|')[0] %}
+															{% set description = children|split('|')[1] %}
+															<div class="link">
+																<a href="{{ children.url }}" class="title">{{ title }}</a>
+																<a href="{{ children.url }}" class="description">{{ description }}</a>
+															</div>
+														{% endfor %}
+													</div>
+												</div>
+											</div>
+										</li>
+									{% else %}
+										<li class="{{ navigationPage in node.link ? 'hover-effect active' : 'hover-effect' }}">
+											{{ node.link }}
+											<span class="icon"></span>
+										</li>
+									{% endif %}
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</ul>
+		{% endcache %}
+			<ul class="search-need-care">
+				<nav id="secondary-nav">
+					<ul>
+						<li class="search">
+							<form class="search" action="/search?">
+								<div class="nav-searchformfld hide-on-mobile">
+									{% include "_input/_input.twig" with {
+										type: 'text',
+										name: 'query',
+										id: 'search-site',
+										label: "Search"|t,
+										removeFloatingLabel: true,
+										class: 'mdc-text-field--no-label mdc-text-field--with-leading-icon mdc-text-field--with-trailing-icon'
+									} only %}
+									<div tabindex="0" class="search-icon"></div>
+									<span tabindex="0" class="material-icons close"></span>
+								</div>
+							</form>
+						</li>
+					</ul>
+				</nav>
+				{% if careNavEnabled %}
+					<nav id="care-nav" class="hide-on-mobile">
+						<ul>
+							{% set ncnodes = craft.navigation.nodes('needCareNavigation').all %}
+							{% for node in ncnodes %}
+								{% if node.getParent() is null %}
+									{% if node.children.count >= 1 %}
+										<li class="need-care">
+											<div class="care-dropdown">
+												<div
+													class="care-header" tabindex="0">
+													{# needed for icon display #}
+													<div class="dropdown-link text-white">
+														{{ node.link }}
+														<span class="icon"></span>
+														{{ node.title }}
+													</div>
+													<div class="dropdown-link">
+														<i class="material-icons keyboard_arrow_down"></i>
+													</div>
+												</div>
+												<div class="care-dropdown-container collapsed">
+													<div class="back-on-mobile" tabindex="0">
+														<i class="material-icons keyboard_arrow_left"></i>
+														<p class="title">{{ node.title }}</p>
+													</div>
+													{% set children = node.children.all() %}
+													<div>
+														{% for child in children %}
+															{% set title = child|split('|')[0] %}
+															{% set description = child|split('|')[1] %}
+															<div class="link">
+																<a href="{{ child.url }}" target="{{ child.target }}" class="title">{{ title }}</a>
+																<a href="{{ child.url }}" target="{{ child.target }}" class="description">{{ description }}</a>
+															</div>
+															{% if loop.first %}
+																<hr class="divider">
+															{% endif %}
+														{% endfor %}
+													</div>
+												</div>
+											</div>
+										</li>
+									{% endif %}
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</nav>
+				{% endif %}
+			</ul>
+		</nav>
+	</div>
+</header>

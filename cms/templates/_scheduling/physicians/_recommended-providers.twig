@@ -1,0 +1,58 @@
+{% if seeOtherProviders is defined and seeOtherProviders %}
+	<div class="tile show-recommended-providers">
+		<a class="dmgButton secondary3" type="submit" id="single-provider-show-other-providers-cta">
+			<div class="cta">
+				<i class="fa fa-spinner fa-spin hidden"></i>
+				<span>{{ "Show Providers with availability sooner"|t }}</span>
+			</div>
+		</a>
+		<input id="csrf-token" type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">
+	</div>
+
+	<template id="available-times-location-container">
+		<div class="available-times-location-container">
+			<span class="title"></span>
+			<span class="modal-location-details">{{ "View Map"|t }}</span>
+			<span class="address-line"></span>
+			<span class="city-state-zip"></span>
+		</div>
+	</template>
+
+	<template id="available-times-location-time-selector">
+		<div class="available-times-location-time-selector" tabindex="0">
+			<span class="label"></span>
+			<span class="material-icons keyboard_arrow_down"></span>
+			<span class="material-icons keyboard_arrow_up"></span>
+		</div>
+	</template>
+
+	<template id="available-times-location-block-singular">
+		<div class="available-times-location-block-singular" tabindex="0"></div>
+	</template>
+
+	<template id="next-available-label-template">
+		<div class="next-available-date-container" tabindex="0">
+			<div class="time">
+				<p class="next-available-date-row">{{ "Next Available"|t }}:</p>
+				<span class="next-available-label-date"></span>
+			</div>
+			<span class="material-icons chevron_right"></span>
+		</div>
+	</template>
+	<form class="select-appointment" id="select-appointment-form" method="POST" action="/schedule/select-appointment">
+		{{ csrfInput() }}
+		<input type="hidden" name="appointment_time">
+		<input type="hidden" name="appointment_department_id">
+		<input type="hidden" name="appointment_visit_type_id">
+		<input type="hidden" name="appointment_selected_recommended_physician_id">
+
+		<div class="form-actions cta-form hidden">
+			<button name="continue" value="continue" class="dmgButton primary1" type="submit" id="continue">
+				<i class="cta fa fa-spinner fa-spin hidden"></i>
+				<div class="cta">
+					{{ "Continue To Patient Info"|t }}
+				</div>
+			</button>
+		</div>
+	</form>
+{% endif %}

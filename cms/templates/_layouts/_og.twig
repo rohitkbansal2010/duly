@@ -1,0 +1,40 @@
+{% if skipTagStrip is not defined %}
+	{% set contentSummary = contentSummary|striptags|striptags %}
+{% endif %}
+
+<meta charset="UTF-8"/>
+<meta property="og:url" content="{{ entry.getUrl() ?? null }}"/>
+<meta property="og:type" content="article"/>
+
+{% if contentTitle %}
+	<meta property="og:title" content="{{ contentTitle }}"/>
+{% else %}
+	<meta property="og:title" content="{{ entry.title ?? null }}"/>
+{% endif %}
+
+{% if contentSummary is not null %}
+	<meta property="og:description" content="{{ contentSummary }}"/>
+{% endif %}
+
+{% if heroImage is not null %}
+	<meta property="og:image" content="{{ getOptimizedImage(heroImage, 'jpg', true)[0]|raw }}"/>
+{% endif %}
+
+<meta name="twitter:card" content="summary_large_image"/>
+
+{% if contentTitle %}
+	<meta name="twitter:title" content="{{ contentTitle }}"/>
+{% else %}
+	<meta name="twitter:title" content="{{ entry.title }}"/>
+{% endif %}
+
+{% if contentSummary is not null %}
+	<meta name="twitter:description" content="{{ contentSummary }}"/>
+	<meta name="description" content="{{ contentSummary }}">
+{% endif %}
+
+<meta name="twitter:url" content="{{ entry.getUrl() ?? null }}"/>
+
+{% if heroImage is not null %}
+	<meta property="twitter:image" content="{{ getOptimizedImage(heroImage, 'jpg', true)[0]|raw }}"/>
+{% endif %}

@@ -1,0 +1,420 @@
+body {
+    width: 100%;
+    // transparent tap highlight color for andriod devices
+    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+
+    &.fixed {
+        position: fixed;
+    }
+
+    &.has-anchored-cta {
+        .main-footer {
+            .lower-footer {
+                margin-bottom: 87px;
+
+                @include responsive(bs-large) {
+                    margin-bottom: 60px;
+                }
+            }
+        }
+    }
+}
+
+main {
+    margin: 0px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    @include responsive(small) {
+        margin: 0px auto;
+    }
+
+    &.body-container {
+        background: transparent;
+        min-height: calc(100vh - 370px); //100 view height - footer height
+
+        &.overlay {
+            background: rgba(0,0,0,0.7);
+            animation-name: fadeIn;
+            animation-duration: 0.25s;
+
+            section,
+            #health-topics-navigation-bar-mobile,
+            .physician-search-container,
+            .body-container,
+            .content,
+            .container,
+            .filter-container,
+            .event-filter-modal .footer {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes fadeIn {
+            0%   { background: transparent; }
+            100% { background: rgba(0,0,0,0.5); }
+        }
+    }
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.body-alert-container {
+    width: 100%;
+    padding-top: 110px;
+    z-index: 999;
+
+    @include responsive(large) {
+        padding-top: 60px;
+    }
+
+    &.sticky {
+        position: fixed;
+        top: 60px;
+        padding-top: 0px;
+
+        @include responsive(bs-large) {
+            top: 60px;
+        }
+    }
+}
+
+.emergency-alert {
+    display: flex;
+    width: 100%;
+    z-index: 1000;
+
+    span, a {
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .close-alert {
+        font-size: 24px;
+        padding: 5px 5px 5px 5px;
+        margin-left: 5px;
+    }
+
+    .message {
+        padding: 0px 16px;
+
+        .view-more {
+            font-weight: 400 !important;
+        }
+    }
+
+    &.default {
+        background: $oxford;
+        color: $white;
+
+        span, a, i {
+            color: $white;
+        }
+
+        span {
+            a:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &:hover {
+            background: $oxford-70;
+        }
+
+        .access_time, .local_hospital {
+            display: none;
+        }
+    }
+
+    &.location {
+        background: $marigold;
+        color: $oxford;
+
+        span, a, i {
+            color: $oxford;
+        }
+
+        .notification_important, .local_hospital {
+            display: none;
+        }
+
+        &:hover {
+            background: $marigold-70;
+        }
+    }
+
+    &.medical {
+        background: $alert;
+        color: $white;
+
+        span, a, i {
+            color: $white;
+        }
+
+        .notification_important, .access_time {
+            display: none;
+        }
+
+        &:hover {
+            background: $alert-70;
+        }
+    }
+
+    @include responsive(bs-large) {
+        top: 60px;
+    }
+
+    .container {
+        display: flex;
+        margin: 0 auto;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1440px;
+        padding: 10px 40px;
+
+        @include responsive(bs-large) {
+            padding: 10px 15px;
+        }
+
+        &:hover span {
+            font-weight: bold !important;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            margin: auto;
+
+            &:hover {
+                .view-more {
+                    text-decoration: underline;
+                }
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                font-weight: normal;
+                text-decoration: none;
+            }
+
+            .alert-icon {
+                background-size: contain;
+                height: 25px;
+                width: 25px;
+                margin-right: 10px;
+            }
+
+            &.no-close {
+                a {
+                    border-right: none;
+                }
+            }
+        }
+
+        .close {
+            cursor: pointer;
+            border-left: 1px solid $dark-gray;
+
+            &:hover {
+                background:rgba(255,255,255, 0.15);
+                border-radius: 4px;
+            }
+        }
+    }
+
+    &.immediate-care {
+        background: $alert;
+        max-width: 100%;
+
+        &:hover {
+            background: $alert-70;
+
+            span {
+                font-weight: bold !important;
+            }
+        }
+
+        .container {
+            @include responsive(bs-large) {
+                padding: 5px;
+            }
+        }
+
+        .white-cros-icon {
+          background-image: url(/dist/img/icons/white-cross.png);
+          width: 18px;
+          height: 18px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          margin-left: 4px;
+          @include responsive(medium) {
+            width: 24px;
+            height: 24px;
+            margin-left: 13px;
+          }
+        }
+
+        .message {
+          font-size: 16px !important;
+          color: $white;
+          line-height: 1;
+          @include responsive(bs-large) {
+            font-size: 13px !important;
+          }
+
+          .bolded {
+            font-size: 16px !important;
+            font-weight: bold;
+            color: $white;
+            @include responsive(bs-large) {
+              font-size: 13px !important;
+            }
+          }
+        }
+    }
+}
+
+.emergency-alert:not(.hide) ~ .body-container {
+    @include responsive(bs-large) {
+        margin-top: 0px;
+    }
+}
+
+.hide {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.alert {
+    border-radius: 0;
+    height: 64px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    height: 24px;
+    line-height: 24px;
+    margin: auto;
+    vertical-align: middle;
+    justify-content: center;
+    display: inline-flex;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 10px;
+
+    &.alert-warning {
+        background: #f2b149;
+        color: $dark-blue-text;
+    }
+
+    &.alert-info {
+        background: $dark-blue;
+        color: $white;
+    }
+
+    &.alert-error {
+        background: $error;
+        color: $white;
+    }
+}
+
+.loading-spinner {
+    text-align: center;
+    $offset: 187;
+    $duration: 1.4s;
+
+    .spinner {
+        animation: rotator $duration linear infinite;
+    }
+
+    @keyframes rotator {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(270deg); }
+    }
+
+    .path {
+        stroke-dasharray: $offset;
+        stroke-dashoffset: 0;
+        transform-origin: center;
+        animation:
+            dash $duration ease-in-out infinite,
+            colors ($duration*4) ease-in-out infinite;
+    }
+
+    @keyframes colors {
+        0% { stroke: $dark-mute-blue; }
+        33% { stroke: $light-teal; }
+        66% { stroke: $light-green; }
+        100% { stroke: $dark-mute-blue; }
+    }
+
+    @keyframes dash {
+        0% { stroke-dashoffset: $offset; }
+        50% {
+            stroke-dashoffset: $offset/4;
+            transform:rotate(135deg);
+        }
+        100% {
+            stroke-dashoffset: $offset;
+            transform:rotate(450deg);
+        }
+    }
+}
+
+.link-effect {
+    text-decoration: none;
+    color: $violet !important;
+    div, span, p {
+        color: $violet !important;
+    }
+
+    &.white {
+        color: $white !important;
+    }
+
+    &:hover {
+        text-decoration: underline !important;
+        color: $magenta !important;
+    }
+}
+
+.grecaptcha-badge {
+    z-index: 9999;
+}
+
+.lottie {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin: auto;
+}
+
+.single-location-link {
+	text-decoration: none;
+}
+
+.invisible {
+	visibility: hidden;
+
+	@include responsive(medium) {
+		width: 10px;
+	}
+}
+
+* {
+	&:focus {
+		outline: 0;
+	}
+}
+.focus-visible {
+	outline: 2px solid $sky;
+}

@@ -1,0 +1,21 @@
+{% set onlyOneResult = physicians | length == 1 and pagination.page == 0 %}
+<div class="tile-container {{ onlyOneResult ? 'one-result' : '' }}">
+    {% if physicians|length == 0 %}
+        <div class="no-search-results">
+            <img src="/dist/img/magnifying-glass-new.png" alt="{{ "Search"|t }}">
+            <h2>{{ "Sorry, we found no results."|t }}</h2>
+            <p>{{ "Please try adjusting your search"|t }}</p>
+        </div>
+    {% else %}
+        <span class="hidden total-count-hidden">{{ totalCount }}</span>
+        {% set now = date() %}
+        {% for physician in physicians %}
+            {# IF the list contains only one physician, show the recommended providers CTA #}
+            {# We check if the current page has only one element and there is only one page #}
+            {% include "_scheduling/physicians/_physician.twig" with {
+                seeOtherProviders: onlyOneResult
+            } %}
+        {% endfor %}
+    {% endif %}
+    {% include '_paginate.twig' %} 
+</div>

@@ -1,0 +1,72 @@
+parameters:
+  - name: env
+  - name: infraSolutionFolder
+  - name: infraSolutionRepo
+    default: terraform-scripts
+  - name: dependsOn
+    type: object
+    default: []
+
+jobs:
+  - job: Artifact
+    displayName: Build Terraform Artifact
+    workspace:
+      clean: all
+    steps:
+      - checkout: ${{ parameters.infraSolutionRepo }}
+
+      - task: DownloadPipelineArtifact@2
+        displayName: 'Copy an OpenAPI spec file'
+        inputs:
+          buildType: 'current'
+          artifactName: 'swagger.json'
+          targetPath: '$(Build.ArtifactStagingDirectory)/terraform/${{ parameters.infraSolutionFolder }}'
+
+      - task: CopyFiles@2
+        displayName: 'Copy Terraform files'
+        inputs:
+          SourceFolder: $(Build.SourcesDirectory)/${{ parameters.infraSolutionFolder }}
+          Contents: |
+            *.tf
+            *.xml
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/${{ parameters.infraSolutionFolder }}'
+
+      - task: CopyFiles@2
+        displayName: 'Copy configuration files'
+        inputs:
+          SourceFolder: $(Build.SourcesDirectory)/_configuration/${{ parameters.infraSolutionFolder }}
+          Contents: |
+            *.tfvars
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/${{ parameters.infraSolutionFolder }}'
+
+      - task: CopyFiles@2
+        displayName: 'Copy global configuration files'
+        inputs:
+          SourceFolder: $(Build.SourcesDirectory)/_configuration
+          Contents: |
+            backend.tf  
+            provider.tf
+            global.tfvars
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/${{ parameters.infraSolutionFolder }}'
+      
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Terraform artifact'
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: '$(Build.BuildNumber)'
+
+  # - template: ../child.terraform/jobs/terraform-plan-jobs.yml
+  #   parameters:
+  #     infraSolutionFolder: ${{ parameters.infraSolutionFolder }}
+  #     TerraformVarsFile: ${{ parameters.env }}.tfvars
+  #     dependsOn: Artifact
+
+  - template: ../child.terraform/jobs/terraform-apply-jobs.yml
+    parameters:
+      environment: ${{ parameters.env }}
+      infraSolutionFolder: ${{ parameters.infraSolutionFolder }}
+      TerraformVarsFile: ${{ parameters.env }}.tfvars
+      dependsOn: Artifact
+
+    
+

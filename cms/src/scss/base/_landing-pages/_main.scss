@@ -1,0 +1,20 @@
+.landing-page-entry {
+	width: 100%;
+	margin: 0 auto;
+	* {
+		box-sizing: border-box;
+	}
+	.innerContent {
+		width: 100%;
+		max-width: 1600px;
+		margin: 0 auto;
+	}
+	@include responsive(fourteen-fourty) {
+		width: 100vw;
+	}
+	@import "./header";
+	@import "./overview";
+	@import "./posts";
+	@import "./featured-post";
+	@import "./resources";
+}

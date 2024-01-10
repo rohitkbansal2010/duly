@@ -1,0 +1,191 @@
+.times-container {
+	margin: 1rem 0 0 0;
+	.times {
+		display: flex;
+		flex-wrap: wrap;
+
+		.available-times-location-container {
+			padding: 0.5rem;
+			box-sizing: border-box;
+			width: calc(50% - 1rem);
+			margin: 0.5rem;
+			@include responsive(large) {
+				width: 100%;
+			}
+
+			.modal-location-details {
+				border-left: 1px solid $magenta;
+				color: $violet;
+				font-size: 14px;
+				font-weight: bold;
+				padding-left: 10px;
+				cursor: pointer;
+				&:hover {
+					color: $magenta;
+					text-decoration: underline;
+				}
+			}
+
+			.title {
+				color: $oxford;
+				font-size: 16px;
+				font-weight: 700;
+				line-height: 22px;
+				padding: 0px 10px 0px 0px;
+				margin-bottom: 5px;
+			}
+
+			.address-line {
+				color: $dark-2;
+				font-size: 14px;
+				font-weight: normal;
+				display: block;
+				line-height: 1.5;
+			}
+
+			.city-state-zip {
+				color: $dark-2;
+				font-size: 14px;
+				font-weight: normal;
+				display: inline-block;
+				line-height: 1.5;
+			}
+
+			.available-times-location-time-selector {
+				border-radius: 3px;
+				background: $footer-gray;
+				display: flex;
+				padding: 0.5rem;
+				margin: 0.5rem auto;
+				width: 100%;
+				box-sizing: border-box;
+
+				.label {
+					flex: 1 0 auto;
+					font-size: 16px;
+					font-weight: bold;
+					cursor: pointer;
+					color: $violet;
+					text-transform: capitalize;
+				}
+
+				.material-icons.keyboard_arrow_down {
+					cursor: pointer;
+					display: inline-block;
+					color: $violet;
+				}
+
+				.material-icons.keyboard_arrow_up {
+					cursor: pointer;
+					display: none;
+					color: $violet;
+				}
+
+				&.active {
+					.material-icons.keyboard_arrow_down {
+						display: none;
+					}
+
+					.material-icons.keyboard_arrow_up {
+						display: inline-block;
+					}
+				}
+			}
+			.day-blocks-container {
+				display: flex;
+				flex-wrap: wrap;
+
+				.available-times-location-block-singular {
+					font-size: 14px;
+					font-weight: bold;
+					color: $magenta;
+					background: $footer-gray;
+					border-radius: 3px;
+					padding: 8px 0;
+					width: 30%;
+					box-sizing: border-box;
+					margin: 5px 0;
+					cursor: pointer;
+					text-align: center;
+					display: none;
+					margin: 5px 0;
+					flex: 0 0 calc(33.33% - 6.7px);
+					border: 1px solid $footer-gray;
+
+					&.active {
+						display: block;
+					}
+
+					&:not(:nth-of-type(3n)) {
+						margin-right: 10px;
+					}
+
+					&:hover {
+						background: $white;
+						border-radius: 3px;
+						border: 1px solid $violet;
+						background: $white;
+						color: $violet;
+					}
+
+					&.clicked {
+						background: $violet !important;
+						color: $white !important;
+						border: 1px solid $violet;
+					}
+				}
+			}
+		}
+
+		.next-available-date-container {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			background: $footer-gray;
+			border-radius: 0.25rem;
+			margin: 0.5rem 0;
+			box-sizing: border-box;
+			padding: 0.5rem;
+			cursor: pointer;
+
+			.next-available-label-date,
+			.next-available-date-row {
+				font-weight: 600 !important;
+				color: $violet !important;
+				font-size: 16px;
+				cursor: pointer;
+
+				&:hover {
+					color: $magenta !important;
+					text-decoration: underline !important;
+				}
+
+				@include responsive(medium) {
+					font-size: 14px;
+				}
+			}
+
+			.next-available-date-row {
+				color: $dark-2 !important;
+			}
+
+			.chevron_right {
+				color: $violet !important;
+
+				@include responsive(medium) {
+					font-size: 21px;
+				}
+			}
+
+			.time {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.next-available-date-row {
+				margin: 0px;
+			}
+		}
+	}
+}

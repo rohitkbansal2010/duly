@@ -1,0 +1,90 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.customWidthModal {
+  width: 44rem !important;
+  max-width: 44rem !important;
+}
+
+.customBackDropModal {
+  background-color: #0f172a !important;
+  opacity: 0.15 !important;
+}
+
+.encounterModal {
+  &Header {
+    padding: 3.25rem 3.69rem 0.75rem !important;
+    border-bottom: none !important;
+
+    &Title {
+      @include nexa-heavy-highlight;
+      color: $dupage-magenta;
+      font-size: 2.5rem !important;
+    }
+  }
+
+  &Body {
+    padding: 0 3.69rem !important;
+
+    &Title {
+      @include nexa-heavy-highlight;
+      color: $dupage-violet;
+      font-size: 1.5rem !important;
+    }
+
+    &List {
+      padding: 2.31rem 0 0;
+      list-style-type: none;
+
+      &Item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.125rem;
+        color: $dupage-violet;
+        font-size: 1.25rem;
+        font-family: "NexaRegular", sans-serif;
+        line-height: 1.375rem;
+
+        span {
+          margin-left: 0.5rem;
+        }
+
+        & img {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 1.69rem;
+          height: 1.69rem;
+        }
+      }
+    }
+  }
+
+  &Footer {
+    padding: 1.69rem 3.69rem 3.25rem !important;
+    border-top: none !important;
+
+    &Cancel,
+    &Launch {
+      width: 10.75rem !important;
+      height: 2.625rem !important;
+      margin: 0 !important;
+      color: red !important;
+      font-weight: 800 !important;
+      border-color: $dupage-violet !important;
+      border-radius: 0.5rem !important;
+      @include nexa-extra-bold-highlight;
+    }
+
+    &Cancel {
+      margin-right: 1rem !important;
+      color: $dupage-violet !important;
+      background-color: $white !important;
+    }
+
+    &Launch {
+      color: $white !important;
+      background-color: $dupage-violet !important;
+    }
+  }
+}

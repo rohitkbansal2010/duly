@@ -1,0 +1,32 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceHeroImage
+instructions: ''
+name: 'Hero Image'
+searchable: true
+settings:
+    allowSelfRelations: false
+    allowUploads: true
+    allowedKinds: [image]
+    defaultUploadLocationSource: 'volume:48c27149-4832-44de-9d58-3f988909514b'
+    defaultUploadLocationSubpath: ''
+    limit: '1'
+    localizeRelations: false
+    previewMode: full
+    restrictFiles: '1'
+    selectionLabel: ''
+    showSiteMenu: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    singleUploadLocationSource: 'volume:49c6b00d-570e-4147-bdcb-cc8ee135c256'
+    singleUploadLocationSubpath: ''
+    source: null
+    sources: ['volume:48c27149-4832-44de-9d58-3f988909514b']
+    targetSiteId: null
+    useSingleFolder: false
+    validateRelatedElements: true
+    viewMode: large
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Assets

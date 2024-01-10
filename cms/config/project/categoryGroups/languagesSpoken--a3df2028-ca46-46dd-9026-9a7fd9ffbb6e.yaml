@@ -1,0 +1,10 @@
+defaultPlacement: end
+fieldLayouts:
+    2ee1eebd-040a-4ec2-889d-e24b166bbefb: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: languagesSpoken
+name: 'Languages Spoken'
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { hasUrls: false, template: null, uriFormat: null }
+structure:
+    maxLevels: null
+    uid: 098fb587-b619-47af-8395-ffbb8ee6a5c6

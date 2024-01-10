@@ -1,0 +1,135 @@
+{% extends "_layouts/_main.twig" %}
+{% block title "Schedule a Video Visit"|t %}
+{% set contentTitle = "Schedule a Video Visit"|t %}
+{% set contentSummary = "Schedule a Video Visit"|t %}
+{% set patientUser = craft.app.patient_user.identity %}
+{% block bodyClass 'video-visit' %}
+{% block main %}
+	{% set entry = craft.entries.section('videoVisits').one() %}
+	{% include '_scheduling/videovisit/_steps.twig' with {
+        backUrl: '/schedule/video-visit'
+    } %}
+	<div class="purple-pattern-container"></div>
+	<section
+		class="videoVisitContainer step-1">
+		{# service selection #}
+		<div id="services" class="{{ serviceTiles|length < 5 ? 'centered' }}">
+			<h2>{{ "Which next available provider would you like to visit with virtually?"|t }}</h2>
+			{% include "_scheduling/landing/_tiles.twig" with {
+                entry: {
+                    serviceTile: serviceTiles
+                }
+            } %}
+			<div id="conditionsCopy">
+				{% for tile in serviceTiles %}
+					<div class="serviceTileConditionCopy hidden" data-servicetile="specialties-{{ tile.id }}">
+						<p>{{ tile.videoVisitConditionCopy }}</p>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		{# reason for visit #}
+		<div id="reasonForVisit" class="inactive">
+			<h2>{{ "Reason for Visit" }}</h2>
+			{# needs cleanup #}
+			{% set visitReasonOptions = [] %}
+			{% for tile in serviceTiles %}
+				{% set reasonIdsFound = [] %}
+				{% set services = tile.service.all() %}
+				{% for service in services %}
+					{% set reasons = service.videoVisitReasonsForScheduling.all() %}
+					{% for reason in reasons %}
+						{% if reason.id not in reasonIdsFound %}
+							{% set reasonIdsFound = reasonIdsFound|merge([reason.id]) %}
+							{% set visitReasonOptions = visitReasonOptions|merge([{
+								content: reason.title,
+								data: {
+									value: reason.id,
+									tile_id: tile.id
+								}
+							}]) %}
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			{% endfor %}
+			{% set visitReasonOptions = visitReasonOptions|sort() %}
+			{% set visitReasonOptions = visitReasonOptions|merge([{
+                content: "Other"|t,
+                data: {
+                    value: "other"
+                }
+            }]) %}
+			{% include '_input/_select.twig' with {
+                name: 'appointment_reason_for_visit_id',
+                id: 'appointment_reason_for_visit_id',
+                required: true,
+                options: visitReasonOptions,
+                label: "Condition"|t
+            } %}
+			<form id="inClinic" class="hidden" action="/schedule" method="post">
+				{{ "An in-clinic visit with a provider may be better for your needs today. Click here to begin scheduling an" }}
+				<a>{{ "in-clinic visit" }}</a>.
+				<input type="hidden" name="is_video_visit_flow" value=""/>
+				<input type="hidden" name="appointment_physician_id" value=""/>
+				<input type="hidden" name="appointment_department_id" value=""/>
+				{{ csrfInput() }}
+			</form>
+		</div>
+
+		{# date picker #}
+		<div id="datePickerContainer" class="inactive">
+			<h2>{{ "Schedule Video Appointment"|t }}</h2>
+			<section class="content select-appointment-content">
+				{% include "_scheduling/select-appointment/_date-and-time-picker.twig" with {
+                    daysInASlice: 7,
+                    showCurrentSlice: true,
+                    nextStepCTATitle: "Continue to Patient Info"|t,
+                    fixedCta: false,
+					splitView: true
+                } %}
+			</section>
+		</div>
+
+		<template id="by-provider-physicians-physician-block">
+			<div class="physician">
+				<div class="bio">
+					<div class="image"></div>
+					<div class="details">
+						<span class="title"></span>
+						<span class="services"></span>
+						<div class="ratings">
+							<div class="rating-number"></div>
+							<div class="star-rating">
+								<i class="material-icons star"></i>
+								<i class="material-icons star"></i>
+								<i class="material-icons star"></i>
+								<i class="material-icons star"></i>
+								<i class="material-icons star"></i>
+							</div>
+							<div class="count"></div>
+						</div>
+					</div>
+				</div>
+				<div class="appointment-times">
+					<div class="times-container">
+						<div class="times"></div>
+					</div>
+				</div>
+			</div>
+		</template>
+
+		<template id="by-provider-more-physicians-link">
+			<div class="by-provider-more-physicians-link-container">
+				<div class="by-provider-more-physicians-link">
+					<span class="label">Show More Providers</span>
+					<span class="material-icons">add</span>
+				</div>
+				<div class="more-providers loading-spinner hidden">
+					<div class="lottie"></div>
+				</div>
+			</div>
+		</template>
+		<input id="csrf-token" type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">
+		<div id="physiciansWithVideoVisitsPerServicePerDate" data-physicians="{{physiciansWithVideoVisitsPerServicePerDate}}"></div>
+	</section>
+{% endblock %}

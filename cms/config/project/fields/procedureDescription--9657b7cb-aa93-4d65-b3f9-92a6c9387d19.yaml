@@ -1,0 +1,27 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 8f91d2f6-9099-4724-b20b-19061d73de58
+handle: procedureDescription
+instructions: 'Describe procedure process and benefits.'
+name: 'Procedure Description'
+searchable: true
+settings:
+    availableTransforms: '*'
+    availableVolumes: [a2a300f6-d8c0-4604-a2a0-74f14ebd7316]
+    columnType: text
+    configSelectionMode: choose
+    defaultTransform: ''
+    manualConfig: ''
+    purifierConfig: ''
+    purifyHtml: ''
+    redactorConfig: Standard.json
+    removeEmptyTags: '1'
+    removeInlineStyles: '1'
+    removeNbsp: '1'
+    showHtmlButtonForNonAdmins: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: false
+    uiMode: enlarged
+translationKeyFormat: null
+translationMethod: none
+type: craft\redactor\Field

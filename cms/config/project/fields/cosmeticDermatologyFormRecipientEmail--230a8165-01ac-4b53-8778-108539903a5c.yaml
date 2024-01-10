@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: f1257321-1f7a-4dc1-8228-331ef587eba6
+handle: cosmeticDermatologyFormRecipientEmail
+instructions: 'The Request a Consultation form for Cosmetic Dermatology will be sent here if this location offers Cosmetic Dermatology procedures.'
+name: 'Cosmetic Dermatology Form Recipient Email'
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

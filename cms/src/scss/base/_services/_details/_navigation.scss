@@ -1,0 +1,253 @@
+@import "../../../components/fonts";
+
+.sidebar-navigation {
+	max-width: 380px;
+	width: 100%;
+
+	button {
+		width: 100%;
+		padding: 15px;
+		font-size: 22px;
+		margin-bottom: 30px;
+	}
+
+	@include responsive(bs-large) {
+		max-width: 100%;
+		width: calc(100% - 20px);
+	}
+
+	h2 {
+		margin: 5px 0px;
+		font-size: 28px;
+		font-weight: 600;
+		color: $dark-2;
+	}
+
+	.schedule {
+		background: $violet;
+		width: calc(100% - 48px);
+		border-radius: 4px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 24px;
+		margin-bottom: 30px;
+
+		@include responsive(bs-large) {
+			position: fixed;
+			bottom: 0px;
+			z-index: 10000;
+			margin: 0px;
+		}
+
+		span {
+			font-size: 20px;
+			font-weight: 700;
+			margin: 0 auto 16px;
+			padding: 0;
+			color: $white;
+			text-align: center;
+
+			@include responsive(bs-large) {
+				display: none;
+			}
+		}
+
+		form {
+			width: 100%;
+		}
+
+		> a {
+			width: 100%;
+		}
+
+		button {
+			background: $white;
+			border-radius: 4px;
+			border: none;
+			flex: 0 0 48%;
+			color: $violet;
+			font-size: 18px;
+			font-weight: 700;
+			padding: 15px;
+			cursor: pointer;
+			width: 100%;
+			margin-bottom: unset;
+
+			&:hover {
+				background: $hover-pink;
+				color: $magenta;
+				border-color: $magenta;
+			}
+		}
+	}
+
+	.accreditations {
+		@include responsive(bs-large) {
+			display: none;
+		}
+	}
+
+	.company-container {
+		background: $white;
+		padding: 28px;
+
+		.company {
+			margin: 20px 0px 40px 0px;
+
+			&:last-child {
+				margin: 20px 0px;
+			}
+		}
+
+		img {
+			width: 100%;
+			margin: 0 auto;
+		}
+	}
+
+	.navigation-container {
+		.section {
+			margin-bottom: 30px;
+			width: 100%;
+			display: inline-flex;
+			flex-direction: column;
+
+			@include responsive(bs-large) {
+				margin: 10px;
+			}
+
+			&.right-rail,
+			&.left-rail {
+				margin-top: 25px;
+
+				@include responsive(large) {
+					margin: 25px;
+				}
+
+				@include responsive(small) {
+					width: 100%;
+					margin: 25px 0 auto !important;
+				}
+			}
+
+			&.right-rail {
+				margin-left: 25px;
+			}
+
+			&.left-rail {
+				margin-right: 25px;
+			}
+
+			ul {
+				width: 100%;
+				list-style: none;
+				display: flex;
+
+				flex-direction: column;
+				flex-wrap: wrap;
+				padding-left: 0;
+				margin-top: 0;
+
+				li {
+					min-height: 56px;
+					width: 100%;
+					background-color: $white;
+					display: flex;
+					align-items: center;
+					border-bottom: 1px solid $off-green;
+
+					a {
+						margin: 15px 0;
+						margin-left: 23px;
+						text-decoration: none;
+						font-size: 16px;
+						font-weight: 600;
+						line-height: 18px;
+						color: $forest !important;
+					}
+
+					&.active {
+						border-left: 5px solid #20788a;
+						width: calc(100% - 5px);
+
+						a {
+							color: #20788a;
+							font-weight: bold;
+						}
+					}
+
+					&:first-child {
+						background-color: $forest;
+						border-radius: 4px 0px;
+						border-left: 4px solid $lime;
+						color: $white !important;
+						border-bottom: none;
+
+						h4 {
+							margin: 15px 0;
+							margin-left: 20px;
+							color: $white;
+
+							&:after {
+								margin-bottom: 0;
+							}
+						}
+					}
+
+					&.view-more {
+						border-bottom: none;
+					}
+
+					&:not(:first-of-type) {
+						text-decoration: none;
+
+						&:hover {
+							&:not(.view-more) {
+								cursor: pointer;
+								background: $hover-green;
+							}
+						}
+
+						&:after {
+							@extend %fa-icon;
+							@extend .fas;
+							content: fa-content($fa-var-chevron-right);
+							margin-left: auto;
+							padding: 14px 14px 0px 10px;
+							color: $forest;
+						}
+					}
+				}
+			}
+
+			.view-more {
+				a,
+				button {
+					color: $forest;
+					font-weight: bold;
+					font-size: 16px;
+					text-align: center;
+					text-decoration: none;
+					margin-left: 35px !important;
+					width: 80%;
+
+					button {
+						border: 1px solid $forest;
+						padding: 13px 20px;
+						border-radius: 4px;
+						background: $white;
+
+						&:hover {
+							background: $hover-green;
+						}
+					}
+				}
+
+				&:after {
+					display: none !important;
+				}
+			}
+		}
+	}
+}

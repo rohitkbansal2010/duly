@@ -1,0 +1,18 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "APPINSIGHTS_INSTRUMENTATIONKEY": "2d54b52b-8d4a-42a4-a499-d2ec7470910b",
+    "QueueConnectionString": "Endpoint=sb://duly-d-app-ns.servicebus.windows.net/;SharedAccessKeyName=d-integration-sendlisten-rule;SharedAccessKey=2djqp3c2yXFFFep0LPG98Rqz7Vx7LDR2pdT1dJDCrz0=",
+    "SourceQueue": "d-integration-clinic-audit-sbq",
+    "ApplicationName": "Duly.Clinic.Audit.Ingestion"
+  },
+  "LogAnalyticsOptions": {
+    "LogAnalyticsEntryType": "TestAuditLog"
+  }, 
+  "LogAnalyticsClientOptions": {
+    "WorkspaceId": "7d87493a-ac42-4839-9b7f-af30c584fdb4",
+    "SharedKey": "{SharedKey}"
+  } 
+}

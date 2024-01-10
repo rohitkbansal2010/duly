@@ -1,0 +1,127 @@
+{% extends "_layouts/_main.twig" %}
+
+{% set product = craft.entries.section('products').slug(craft.app.request.getSegment(2)).one() %}
+{% set productPage = craft.entries.section('productsPage').one() %}
+{% set productImage = product.productImage.one() %}
+{% set locations = product.productLocations.type('suite').all() %}
+{% set relatedConditions = product.productRelatedConditions.all() %}
+{% set cosmeticDermEntry = craft.entries().section('services').type('cosmetic').one() %}
+
+{% block title product.title|t %}
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        entry: product,
+		heroImage: productImage,
+        cacheKey: 'product-page-' ~ product.id,
+        contentTitle: product.title,
+		contentSummary: product.description,
+    } only %}
+{% endblock %}
+
+{% set validRetUrls = ['/cosmetic-dermatology-products'] %}
+{% set retUrl = craft.app.request.getParam('retUrl') %}
+
+{% block main %}
+	<section class="product-detail">
+		{% if retUrl and retUrl in validRetUrls %}
+			<div id="back">
+				<a href="{{ retUrl }}">
+					<span class="material-icons">arrow_back</span>
+					{{ "All Products"|t }}
+				</a>
+			</div>
+		{% endif %}
+		<div id="product">
+			<div>
+				<div id="productImage">
+					{% if productImage %}
+						{{ getOptimizedImage(productImage)|raw }}
+					{% else %}
+						<picture class="placeholder">
+							<img src="/dist/img/placeholder/products.png" alt="{{ product.title }}"/>
+						</picture>
+					{% endif %}
+				</div>
+			</div>
+			<div>
+				<div id="productTitle">
+					<h1>{{ product.title }}</h1>
+				</div>
+				{% if product.productDescription %}
+					<div id="productDescription">
+						{{ product.productDescription }}
+					</div>
+				{% endif %}
+				{% if locations %}
+					<h3>{{ "Available At These Locations"|t }}</h3>
+					<div id="productLocations">
+						{% for location in locations %}
+							{% set parent = location.getParent() %}
+							{% if parent %}
+								{% set address = parent.address.parts %}
+								{% set url = location.getUrl() %}
+								<div class="locationHolder">
+									<div class="location">
+										<div class="locationIcon">
+											<img src="/dist/img/icons/location-new.svg" alt="location icon" />
+										</div>
+										<div class="locationDetail">
+											<a href="{{ url }}">
+												<p class="area">{{ address.city }}</p>
+												<p class="address-one">{{ address.number }} {{ address.address }}</p>
+												<p class="suite">{{ location.title }}</p>
+												<p class="city">{{ address.city }}, {{ address.state }} {{ address.postcode }}</p>
+											</a>
+
+											{% set serviceSuiteDetails = getServiceSuiteDetails(location.id, cosmeticDermEntry.id) %}
+
+											{% if serviceSuiteDetails.phoneNumber %}
+												<div class="phoneNumber">
+													{% include '_widgets/phoneNumberLink.twig' with { number: serviceSuiteDetails.phoneNumber } only %}
+												</div>
+											{% endif %}
+											<a rel="noopener noreferrer" class="getDirections" target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ address.number }} {{ address.address }} {{ address.city }} {{ address.postcode }}">{{ "Get Directions"|t }}</a>
+										</div>
+									</div>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				{% endif %}
+				{% if relatedConditions | length > 0 %}
+					<h3>{{ "Conditions"|t }}</h3>
+					<div id="productRelatedConditions">
+						{% include '_services/_details/_interactive/_conditions.twig' with {
+							conditions: relatedConditions
+						} %}
+					</div>
+				{% endif %}
+				{% set relatedProducts = getRelatedProducts(product) %}
+				{% if relatedProducts %}
+					<h3>{{ "You May Also Be Interested In"|t }}</h3>
+					<div id="relatedProducts">
+						{% for relatedProduct in relatedProducts %}
+							<div class="relatedProduct">
+								<a href="/products/{{ relatedProduct.slug }}">
+									<div class="image">
+										{% set image = relatedProduct.productImage.one() %}
+										{% if image %}
+											{{ getOptimizedImage(image)|raw }}
+										{% else %}
+											<picture class="placeholder">
+												<img src="/dist/img/placeholder/products.png" alt="{{ product.title }}"/>
+											</picture>
+										{% endif %}
+									</div>
+									<div class="title">
+										<p>{{ relatedProduct.title }}</p>
+									</div>
+								</a>
+							</div>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+{% endblock %}

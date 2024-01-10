@@ -1,0 +1,638 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MedicationsWidget component should match snapshot 1`] = `
+<MedicationsWidget>
+  <FadedScroll
+    height="100%"
+  >
+    <div
+      className="scrollWrapper"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div
+        className="topScrollFade top0 default"
+      />
+      <div
+        className="scrollContent"
+      >
+        <MedicationsPlate
+          key="REGULAR"
+          medications={
+            Array [
+              Object {
+                "id": "Regular_Medication_Id4",
+                "instructions": "Take 1 capsule by month 2 times a day",
+                "provider": Object {
+                  "familyName": "Reyes",
+                  "givenNames": Array [
+                    "Ana",
+                    "Maria",
+                  ],
+                  "prefixes": Array [
+                    "Dr.",
+                  ],
+                },
+                "reason": "For potassium replacement (COPD)",
+                "scheduleType": "Regular",
+                "title": "APotassium chloride ER Capsule 10 mEq third",
+              },
+              Object {
+                "id": "Regular_Medication_Id3",
+                "instructions": "Take 1 capsule by month 2 times a day",
+                "provider": Object {
+                  "familyName": "Reyes",
+                  "givenNames": Array [
+                    "Ana",
+                    "Maria",
+                  ],
+                  "prefixes": Array [
+                    "Dr.",
+                  ],
+                },
+                "reason": "For potassium replacement (COPD)",
+                "scheduleType": "Regular",
+                "title": "BPotassium chloride ER Capsule 10 mEq fourth",
+              },
+              Object {
+                "id": "Regular_Medication_Id_2",
+                "scheduleType": "Regular",
+                "title": "CPotassium chloride ER Capsule 10 mEq fifth",
+              },
+              Object {
+                "id": "Regular_Medication_Id2",
+                "instructions": "Take 1 capsule by month 2 times a day",
+                "provider": Object {
+                  "familyName": "Reyes",
+                  "givenNames": Array [
+                    "Ana",
+                    "Maria",
+                  ],
+                  "prefixes": Array [
+                    "Dr.",
+                  ],
+                },
+                "reason": "For potassium replacement (COPD)",
+                "scheduleType": "Regular",
+                "startDate": "2022-02-01T00:00:00Z",
+                "title": "Potassium chloride ER Capsule 10 mEq first",
+              },
+              Object {
+                "id": "Regular_Medication_Id",
+                "instructions": "Take 1 capsule by month 2 times a day",
+                "provider": Object {
+                  "familyName": "Reyes",
+                  "givenNames": Array [
+                    "Ana",
+                    "Maria",
+                  ],
+                  "prefixes": Array [
+                    "Dr.",
+                  ],
+                },
+                "reason": "For potassium replacement (COPD)",
+                "scheduleType": "Regular",
+                "startDate": "2022-02-01T00:00:00Z",
+                "title": "Potassium chloride ER Capsule 10 mEq second",
+              },
+            ]
+          }
+          type="REGULAR"
+        >
+          <div
+            className="medicationsPlateContainer"
+          >
+            <MedicationsTitle
+              count={5}
+              type="REGULAR"
+            >
+              <div
+                className="medicationsTitleWrapper"
+              >
+                <div
+                  className="medicationsIconWrapper medicationsIconWrapperREGULAR"
+                >
+                  <img
+                    alt="REGULAR medications icon"
+                    src="medication-light-blue.svg"
+                  />
+                  <div
+                    className="medicationsIconCounter medicationsIconCounterREGULAR"
+                  >
+                    5
+                  </div>
+                </div>
+                <div
+                  className="medicationsTitle"
+                >
+                  <span>
+                    Regular Scheduled Medications
+                  </span>
+                  <span
+                    className="medicationsTitleAdditional"
+                  >
+                    Medications you need to use daily
+                  </span>
+                </div>
+              </div>
+            </MedicationsTitle>
+            <MedicationsHeader
+              type="REGULAR"
+            >
+              <div
+                className="medicationsHeader medicationsHeaderREGULAR"
+              >
+                <div
+                  className="medicationsHeaderMedicine"
+                >
+                  medicine
+                </div>
+                <div
+                  className="medicationsHeaderInstructions"
+                >
+                  instructions
+                </div>
+              </div>
+            </MedicationsHeader>
+            <div
+              className="medicationsPlateMain"
+            >
+              <MedicationsItem
+                id="Regular_Medication_Id4"
+                instructions="Take 1 capsule by month 2 times a day"
+                key="Regular_Medication_Id4"
+                provider={
+                  Object {
+                    "familyName": "Reyes",
+                    "givenNames": Array [
+                      "Ana",
+                      "Maria",
+                    ],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  }
+                }
+                reason="For potassium replacement (COPD)"
+                scheduleType="Regular"
+                title="APotassium chloride ER Capsule 10 mEq third"
+              >
+                <div
+                  className="medicationsMainItem"
+                >
+                  <div
+                    className="medicationsMainItemMedicine"
+                  >
+                    <span
+                      className="medicationsMainItemMedicineTitle"
+                    >
+                      APotassium chloride ER Capsule 10 mEq third
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineReason"
+                    >
+                      For potassium replacement (COPD)
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineAdditional"
+                    >
+                      Prescriber: Dr. Reyes
+                    </span>
+                  </div>
+                  <div
+                    className="medicationsMainItemInstructions"
+                  >
+                    Take 1 capsule by month 2 times a day
+                  </div>
+                </div>
+              </MedicationsItem>
+              <MedicationsItem
+                id="Regular_Medication_Id3"
+                instructions="Take 1 capsule by month 2 times a day"
+                key="Regular_Medication_Id3"
+                provider={
+                  Object {
+                    "familyName": "Reyes",
+                    "givenNames": Array [
+                      "Ana",
+                      "Maria",
+                    ],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  }
+                }
+                reason="For potassium replacement (COPD)"
+                scheduleType="Regular"
+                title="BPotassium chloride ER Capsule 10 mEq fourth"
+              >
+                <div
+                  className="medicationsMainItem"
+                >
+                  <div
+                    className="medicationsMainItemMedicine"
+                  >
+                    <span
+                      className="medicationsMainItemMedicineTitle"
+                    >
+                      BPotassium chloride ER Capsule 10 mEq fourth
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineReason"
+                    >
+                      For potassium replacement (COPD)
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineAdditional"
+                    >
+                      Prescriber: Dr. Reyes
+                    </span>
+                  </div>
+                  <div
+                    className="medicationsMainItemInstructions"
+                  >
+                    Take 1 capsule by month 2 times a day
+                  </div>
+                </div>
+              </MedicationsItem>
+              <MedicationsItem
+                id="Regular_Medication_Id_2"
+                key="Regular_Medication_Id_2"
+                scheduleType="Regular"
+                title="CPotassium chloride ER Capsule 10 mEq fifth"
+              >
+                <div
+                  className="medicationsMainItem"
+                >
+                  <div
+                    className="medicationsMainItemMedicine"
+                  >
+                    <span
+                      className="medicationsMainItemMedicineTitle"
+                    >
+                      CPotassium chloride ER Capsule 10 mEq fifth
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineReason"
+                    />
+                    <span
+                      className="medicationsMainItemMedicineAdditional"
+                    />
+                  </div>
+                  <div
+                    className="medicationsMainItemInstructions"
+                  />
+                </div>
+              </MedicationsItem>
+              <MedicationsItem
+                id="Regular_Medication_Id2"
+                instructions="Take 1 capsule by month 2 times a day"
+                key="Regular_Medication_Id2"
+                provider={
+                  Object {
+                    "familyName": "Reyes",
+                    "givenNames": Array [
+                      "Ana",
+                      "Maria",
+                    ],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  }
+                }
+                reason="For potassium replacement (COPD)"
+                scheduleType="Regular"
+                startDate="2022-02-01T00:00:00Z"
+                title="Potassium chloride ER Capsule 10 mEq first"
+              >
+                <div
+                  className="medicationsMainItem"
+                >
+                  <div
+                    className="medicationsMainItemMedicine"
+                  >
+                    <span
+                      className="medicationsMainItemMedicineTitle"
+                    >
+                      Potassium chloride ER Capsule 10 mEq first
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineReason"
+                    >
+                      For potassium replacement (COPD)
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineAdditional"
+                    >
+                      Started: 2/1/2022 
+                      Prescriber: Dr. Reyes
+                    </span>
+                  </div>
+                  <div
+                    className="medicationsMainItemInstructions"
+                  >
+                    Take 1 capsule by month 2 times a day
+                  </div>
+                </div>
+              </MedicationsItem>
+              <MedicationsItem
+                id="Regular_Medication_Id"
+                instructions="Take 1 capsule by month 2 times a day"
+                key="Regular_Medication_Id"
+                provider={
+                  Object {
+                    "familyName": "Reyes",
+                    "givenNames": Array [
+                      "Ana",
+                      "Maria",
+                    ],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  }
+                }
+                reason="For potassium replacement (COPD)"
+                scheduleType="Regular"
+                startDate="2022-02-01T00:00:00Z"
+                title="Potassium chloride ER Capsule 10 mEq second"
+              >
+                <div
+                  className="medicationsMainItem"
+                >
+                  <div
+                    className="medicationsMainItemMedicine"
+                  >
+                    <span
+                      className="medicationsMainItemMedicineTitle"
+                    >
+                      Potassium chloride ER Capsule 10 mEq second
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineReason"
+                    >
+                      For potassium replacement (COPD)
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineAdditional"
+                    >
+                      Started: 2/1/2022 
+                      Prescriber: Dr. Reyes
+                    </span>
+                  </div>
+                  <div
+                    className="medicationsMainItemInstructions"
+                  >
+                    Take 1 capsule by month 2 times a day
+                  </div>
+                </div>
+              </MedicationsItem>
+            </div>
+          </div>
+        </MedicationsPlate>
+        <MedicationsPlate
+          key="OTHER"
+          medications={
+            Array [
+              Object {
+                "id": "Other_Medication_Id5",
+                "instructions": "For Adults and children 12 years and over: Use this medicine every 4 to 6 hours, or as needed. Inhale one to 2 puffs by month each time.",
+                "provider": Object {
+                  "familyName": "Reyes",
+                  "givenNames": Array [
+                    "Ana",
+                    "Maria",
+                  ],
+                  "prefixes": Array [
+                    "Dr.",
+                  ],
+                },
+                "reason": "Breathing medications for (Asthma) attacks",
+                "scheduleType": "Other",
+                "startDate": "2022-02-01T00:00:00Z",
+                "title": "ProAir HFA Inhaler 90 mcg/inh",
+              },
+              Object {
+                "id": "Other_Medication_Id6",
+                "instructions": "For Adults and children 12 years and over: Use this medicine every 4 to 6 hours, or as needed. Inhale one to 2 puffs by month each time.",
+                "provider": Object {
+                  "familyName": "Reyes",
+                  "givenNames": Array [
+                    "Ana",
+                    "Maria",
+                  ],
+                  "prefixes": Array [
+                    "Dr.",
+                  ],
+                },
+                "reason": "Breathing medications for (Asthma) attacks",
+                "scheduleType": "Other",
+                "startDate": "2022-02-01T00:00:00Z",
+                "title": "ProSuperAir HFA Inhaler 90 mcg/inh",
+              },
+            ]
+          }
+          type="OTHER"
+        >
+          <div
+            className="medicationsPlateContainer"
+          >
+            <MedicationsTitle
+              count={2}
+              type="OTHER"
+            >
+              <div
+                className="medicationsTitleWrapper"
+              >
+                <div
+                  className="medicationsIconWrapper medicationsIconWrapperOTHER"
+                >
+                  <img
+                    alt="OTHER medications icon"
+                    src="medicine-violet.svg"
+                  />
+                  <div
+                    className="medicationsIconCounter medicationsIconCounterOTHER"
+                  >
+                    2
+                  </div>
+                </div>
+                <div
+                  className="medicationsTitle"
+                >
+                  <span>
+                    Other Medications
+                  </span>
+                  <span
+                    className="medicationsTitleAdditional"
+                  >
+                    Medications you should use as needed or as prescribed
+                  </span>
+                </div>
+              </div>
+            </MedicationsTitle>
+            <MedicationsHeader
+              type="OTHER"
+            >
+              <div
+                className="medicationsHeader medicationsHeaderOTHER"
+              >
+                <div
+                  className="medicationsHeaderMedicine"
+                >
+                  medicine
+                </div>
+                <div
+                  className="medicationsHeaderInstructions"
+                >
+                  instructions
+                </div>
+              </div>
+            </MedicationsHeader>
+            <div
+              className="medicationsPlateMain"
+            >
+              <MedicationsItem
+                id="Other_Medication_Id5"
+                instructions="For Adults and children 12 years and over: Use this medicine every 4 to 6 hours, or as needed. Inhale one to 2 puffs by month each time."
+                key="Other_Medication_Id5"
+                provider={
+                  Object {
+                    "familyName": "Reyes",
+                    "givenNames": Array [
+                      "Ana",
+                      "Maria",
+                    ],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  }
+                }
+                reason="Breathing medications for (Asthma) attacks"
+                scheduleType="Other"
+                startDate="2022-02-01T00:00:00Z"
+                title="ProAir HFA Inhaler 90 mcg/inh"
+              >
+                <div
+                  className="medicationsMainItem"
+                >
+                  <div
+                    className="medicationsMainItemMedicine"
+                  >
+                    <span
+                      className="medicationsMainItemMedicineTitle"
+                    >
+                      ProAir HFA Inhaler 90 mcg/inh
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineReason"
+                    >
+                      Breathing medications for (Asthma) attacks
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineAdditional"
+                    >
+                      Started: 2/1/2022 
+                      Prescriber: Dr. Reyes
+                    </span>
+                  </div>
+                  <div
+                    className="medicationsMainItemInstructions"
+                  >
+                    For Adults and children 12 years and over: Use this medicine every 4 to 6 hours, or as needed. Inhale one to 2 puffs by month each time.
+                  </div>
+                </div>
+              </MedicationsItem>
+              <MedicationsItem
+                id="Other_Medication_Id6"
+                instructions="For Adults and children 12 years and over: Use this medicine every 4 to 6 hours, or as needed. Inhale one to 2 puffs by month each time."
+                key="Other_Medication_Id6"
+                provider={
+                  Object {
+                    "familyName": "Reyes",
+                    "givenNames": Array [
+                      "Ana",
+                      "Maria",
+                    ],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  }
+                }
+                reason="Breathing medications for (Asthma) attacks"
+                scheduleType="Other"
+                startDate="2022-02-01T00:00:00Z"
+                title="ProSuperAir HFA Inhaler 90 mcg/inh"
+              >
+                <div
+                  className="medicationsMainItem"
+                >
+                  <div
+                    className="medicationsMainItemMedicine"
+                  >
+                    <span
+                      className="medicationsMainItemMedicineTitle"
+                    >
+                      ProSuperAir HFA Inhaler 90 mcg/inh
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineReason"
+                    >
+                      Breathing medications for (Asthma) attacks
+                    </span>
+                    <span
+                      className="medicationsMainItemMedicineAdditional"
+                    >
+                      Started: 2/1/2022 
+                      Prescriber: Dr. Reyes
+                    </span>
+                  </div>
+                  <div
+                    className="medicationsMainItemInstructions"
+                  >
+                    For Adults and children 12 years and over: Use this medicine every 4 to 6 hours, or as needed. Inhale one to 2 puffs by month each time.
+                  </div>
+                </div>
+              </MedicationsItem>
+            </div>
+          </div>
+        </MedicationsPlate>
+      </div>
+      <div
+        className="bottomScrollFade bottom0 default"
+      />
+    </div>
+  </FadedScroll>
+</MedicationsWidget>
+`;
+
+exports[`MedicationsWidget no medications widget should match snapshot 1`] = `
+<div
+  className="noMedicationsContainer"
+>
+  <div
+    className="noMedicationsIconWrapper"
+  >
+    <img
+      alt="no medications"
+      src="medication-light-blue.svg"
+    />
+  </div>
+  <div
+    className="noMedicationsTitle"
+  >
+    No Medications Available
+  </div>
+</div>
+`;
+
+exports[`MedicationsWidget skeleton should match snapshot 1`] = `
+<div
+  className="medicationsSkeleton"
+>
+  <MedicationsPlateSkeleton />
+  <MedicationsPlateSkeleton />
+</div>
+`;

@@ -1,0 +1,77 @@
+.alert-container {
+    max-width: 970px;
+    min-width: 970px;
+    background: $white;
+    margin: 25px auto;
+    padding: 40px;
+    border-radius: 4px;
+
+    @include responsive(large) {
+        padding: 20px;
+        margin: 20px;
+        width: 100%;
+        min-width: 200px;
+    }
+
+    .header {
+        h2 {
+            margin: 0px;
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 36px;
+            margin-bottom: 20px;
+
+            @include responsive(medium) {
+                margin-top: 10px;
+                line-height: inherit;
+            }
+        }
+    
+        p {
+            margin: 0px;
+        }
+
+        .message-type {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            
+
+            span {
+                font-size: 20px;
+                line-height: 24px;
+                color: $oxford;
+            }
+
+            i {
+                font-size: 24px;
+                padding-right: 5px;
+                color: $sky;
+            }
+        }
+
+        .issued {
+            display: flex;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid $sky;
+
+            .semi-bold {
+                font-weight: bold;
+                color: $oxford;
+            }
+
+            span {
+                font-size: 14px;
+                display: inline;
+                border-left: solid 1px #D8D8D8;
+                padding-left: 10px; 
+
+                &:first-child {
+                    padding: 0px 10px 0px 0px;
+                    border-left: none;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+defaultPlacement: end
+enableVersioning: true
+handle: insurancePlans
+name: 'Insurance Plans'
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: true, hasUrls: false, template: null, uriFormat: null }
+structure:
+    maxLevels: null
+    uid: 9c7a3552-d3a9-473b-b16a-24c2c3c42f73
+type: structure

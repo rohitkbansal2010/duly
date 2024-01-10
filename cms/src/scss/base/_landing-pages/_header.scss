@@ -1,0 +1,106 @@
+.header {
+	position: relative;
+	.text-and-ctas-container {
+		padding: 5rem 2rem 7rem 2rem;
+
+		@include responsive(bs-large) {
+			padding: 57vh 0 0 0;
+		}
+		.text-and-ctas {
+			background-color: $white;
+			width: 50%;
+			padding: 2rem;
+			border-radius: 2rem 0 2rem 0;
+			@include responsive(bs-large) {
+				width: 100%;
+				border-radius: 0;
+			}
+			.title {
+				font-size: 40px;
+				font-weight: 800;
+				line-height: 1.25;
+				margin: 0;
+				color: $oxford;
+				@include responsive(medium) {
+					font-size: 2rem;
+				}
+			}
+			.description {
+				font-size: 18px;
+				font-weight: normal;
+				line-height: 1.5;
+				p {
+					font-size: inherit;
+					margin: 1rem 0;
+				}
+			}
+			.ctas {
+				display: flex;
+				@include responsive(medium) {
+					flex-wrap: wrap;
+				}
+				button {
+					margin: 0 1rem 0 0;
+					@include responsive(medium) {
+						font-size: 1rem;
+						margin: 0 auto 1rem auto;
+						width: 100%;
+					}
+					&:last-of-type {
+						margin: 0;
+					}
+				}
+			}
+		}
+	}
+	.image {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		padding: 0 0 1rem 0;
+
+		@include responsive(bs-large) {
+			height: 57vh;
+		}
+
+		picture {
+			display: flex;
+			width: 100%;
+			height: 100%;
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+	}
+	.hero-bottom-effect {
+		height: 28px;
+		display: flex;
+		background: $white;
+
+		.hero-bottom-effect-left {
+			background-color: $violet;
+			width: 65%;
+			border-radius: 0px 0px 65px 0px;
+		}
+
+		.hero-bottom-effect-right {
+			background-color: $magenta;
+			width: 35%;
+			border-radius: 0px 0px 0px 65px;
+		}
+	}
+
+	@include responsive(fourteen-fourty) {
+		iframe {
+			width: 100% !important;
+		}
+		figure {
+			margin: 0;
+		}
+	}
+}

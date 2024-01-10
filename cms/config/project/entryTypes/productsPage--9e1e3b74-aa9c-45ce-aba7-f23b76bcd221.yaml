@@ -1,0 +1,10 @@
+fieldLayouts:
+    59b313a9-44ec-480a-a3bb-426bd1267219: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: '', label: '', max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: dbe8b46b-150e-4860-8c31-1ca1e95f6d88, instructions: '', label: '', required: '', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: productsPage
+hasTitleField: false
+name: 'Products Page'
+section: 4c711cad-bc14-4c22-8021-689c4704377e
+sortOrder: 1
+titleFormat: '{section.name|raw}'
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

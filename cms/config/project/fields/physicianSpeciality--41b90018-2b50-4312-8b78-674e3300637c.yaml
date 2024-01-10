@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: physicianSpeciality
+instructions: ''
+name: Speciality
+searchable: true
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:e3299412-d9c2-4679-9fad-64e72b3c5a42']
+    targetSiteId: null
+    validateRelatedElements: true
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

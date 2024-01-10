@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceLandingManual
+instructions: 'Manually define the details of the services landing page.'
+name: 'Service Landing (Manual)'
+searchable: false
+settings:
+    contentTable: '{{%matrixcontent_servicelandingmanual}}'
+    maxBlocks: ''
+    minBlocks: '1'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

@@ -1,0 +1,159 @@
+{# general info #}
+{% set certifications = entry.physicianCertifications.all() %}
+{% set profCertifications = entry.professionalCertifications.all() %}
+{% set languages = entry.languagesSpoken.all() %}
+{% set medicalInterests = entry.physicianMedicalInterests %}
+{% set physicianInterests = entry.physicianInterests %}
+{% set physicianAwards = entry.physicianAwards.all() %}
+{% set physicianMemberships = entry.physicianMemberships.all() %}
+
+{# videos #}
+{% set mainVideo = entry.physicianVideoLinks.one() %}
+{% set relatedVideos = entry.physicianVideoLinks.all()|slice(1) %}
+
+{# hospital affiliations #}
+{% set hospitalAffiliations = entry.physicianHospitalAffiliations.all() %}
+
+{# education #}
+{% set education = entry.physicianEducation.all() %}
+{% set residency = entry.residency.all() %}
+{% set fellowships = entry.fellowships.all() %}
+{% set showEducation = education | length > 0 or residency | length > 0 or fellowships | length > 0 %}
+
+{# editorial #}
+{% set physicianBlogContributions = craft.entries({
+	section: 'blog',
+	type: 'healthTopic',
+	limit: 10,
+	orderBy: {
+		postDate: SORT_DESC
+	},
+	relatedTo: ['and',
+		{ targetElement: entry, field: 'physicianAuthors' },
+	]
+}).all() %}
+
+{# procedures, conditons and treatment styles #}
+{% set proceduresPerformed = entry.proceduresPerformed.all() %}
+{% set conditionsSeen = entry.conditionsSeen.all() %}
+{% set treatmentStyles = null %}
+
+{% if entry.treatmentStyles is defined and entry.treatmentStyles is not null %}
+	{% set treatmentStyles = entry.treatmentStyles.all() %}
+{% endif %}
+
+{% set showProcedures = proceduresPerformed|length %}
+{% set showConditions = conditionsSeen|length %}
+{% set showTreatmentStyles = treatmentStyles is not null and treatmentStyles|length %}
+
+{# publications #}
+{% set publications = entry.physicianPublications.all() %}
+{% set ratings = getProviderRatingAndComments(entry) %}
+
+{% set schema = craft.schema %}
+
+<section class="physician-single" data-physician-id="{{entry.id}}">
+	<article>
+		{% include "_physicians/single/_overview.twig" with { locations: locations } %}
+		{% include "_physicians/single/_next-appointments.twig" with { locations: locations } %}
+		{% include "_physicians/single/_details-part-a/_navigation.twig" %}
+		<div class="details-container">
+			{% include "_physicians/single/_details-part-a/_general-info.twig" %}
+			{% include "_physicians/single/_details-part-a/_video.twig" %}
+			{% include "_physicians/single/_details-part-a/_hospital-affiliations.twig" %}
+		</div>
+		{% include "_physicians/single/_details-part-b/_navigation.twig" %}
+		<div class="details-container">
+			{% include "_physicians/single/_details-part-b/_education.twig" %}
+			{% include "_physicians/single/_details-part-b/_editorial.twig" %}
+			{% include "_physicians/single/_details-part-b/_publications.twig" %}
+		</div>
+		<div class="details-container">
+			{% include "_physicians/single/_details-part-c/_navigation.twig" %}
+			{% include "_physicians/single/_details-part-c/_procedures-and-conditions.twig" %}
+			{% include "_physicians/single/_details-part-c/_treatment-styles.twig" %}
+		</div>
+		{% include "_physicians/single/_ratings.twig" with { ratings: ratings } %}
+		{% include "_physicians/single/_comments.twig"  with { comments: ratings } %}
+	</article>
+</section>
+{% include "_physicians/single/_similar_physicians.twig" %}
+<div class="pattern-container">
+</div>
+
+{% set PhysicianSchema = schema
+	.physician
+	.name(entry.title)
+	.url(craft.app.request.absoluteUrl)
+%}
+
+{% if ratings.overallRating.value is defined %}
+	{% set rating = value is defined ? value : ratings.overallRating.value %}
+	{% set PhysicianSchema = PhysicianSchema	
+		.aggregateRating(
+			schema.aggregateRating
+				.ratingValue(rating)
+				.ratingCount(ratings.overallRating.categoryResponseCount)
+				.ratingExplaination("The Patient Satisfaction Rating score is an average of all responses to care provider related questions on our independent rating system, the Press Ganey Patient Satisfaction Survey."|t)
+		)
+	%}
+{% endif %}
+
+{% set physicianImage = entry.physicianHeadshot.one() %}
+{% if physicianImage != null %}
+	{% set PhysicianSchema = PhysicianSchema
+		.image(getOptimizedImage(physicianImage, 'jpeg', true)[0])
+	%}
+{% endif %}
+
+{% set knowsLanguage = [] %}
+{% for language in entry.languagesSpoken.all() %}
+	{% set knowsLanguage = knowsLanguage|merge([schema.language
+		.name(language.title) ]) %}
+{% endfor %}
+
+{% set memberOf = [] %}
+{% for membership in entry.physicianMemberships.all() %}
+	{% set memberOf = memberOf|merge([
+		schema.organization
+			.name(membership.membershipName)
+	]) %}
+{% endfor %}
+
+{% set hospitalAffiliations = [] %}
+
+{% for hospital in entry.physicianHospitalAffiliations.all() %}
+	{% set hospitalAffiliations = hospitalAffiliations|merge([
+		schema.hospital
+			.name(hospital.title)
+			.address(
+                schema.postalAddress
+                    .streetAddress(hospital.address.number ~ " " ~ hospital.address.streetAddress)
+                    .addressLocality(hospital.address.city)
+                    .addressRegion(hospital.address.state)
+                    .addressCountry(hospital.address.country)
+                    .postalCode(hospital.address.postcode)
+            )
+	]) %}
+{% endfor %}
+
+{% set specialties = entry.physicianSpeciality | filter (v => v.type != "ancillaryServices") | sort((a, b) => a.title > b.title) %}
+{% set medicalSpeciality = [] %}
+
+{% for specialty in specialties %}
+	{% set medicalSpeciality = medicalSpeciality|merge([
+		{
+			'@type': 'MedicalSpecialty',
+			'name': specialty.title,
+			'description': specialty.serviceDescription.getRawContent()|striptags|raw
+		}
+	]) %}
+{% endfor %}
+
+{% set PhysicianSchema = PhysicianSchema.addProperties({
+	'memberOf': memberOf,
+	'knowsLanguage': knowsLanguage,
+	'hospitalAffilication': hospitalAffiliations,
+	'medicalSpeciality': medicalSpeciality
+}) %}
+{{ PhysicianSchema|raw}}

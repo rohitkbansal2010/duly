@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceRelatedProcedures
+instructions: 'Select any procedures related to this service.'
+name: 'Related Procedures'
+searchable: true
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: 'Add a procedure'
+    showSiteMenu: true
+    source: null
+    sources: ['section:d8a05845-81f0-4f51-9240-d23c124020d6']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

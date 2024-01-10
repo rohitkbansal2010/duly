@@ -1,0 +1,30 @@
+// search bar
+.searchBar {
+  height: 4.625rem;
+}
+input.searchBar {
+  box-sizing: border-box;
+  padding-left: 4rem;
+  color: #002855;
+  font-weight: 400;
+  font-size: var(--font-size-18px-4px);
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 1.625rem;
+  background: #f3f6fa;
+  border: 1px solid #d6dbe0;
+  border-radius: 0.5rem;
+  /* identical to box height, or 144% */
+
+  font-feature-settings: "tnum" on, "lnum" on;
+}
+img.blueLocoIcon {
+  position: absolute;
+  width: 1.17rem;
+  height: 1.66rem;
+  margin-top: -3.2rem;
+  margin-left: 1.73rem;
+}
+.searchBar .pac-container:after {
+  background-image: none !important;
+}

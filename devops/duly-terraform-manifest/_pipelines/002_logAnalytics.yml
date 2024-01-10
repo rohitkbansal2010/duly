@@ -1,0 +1,37 @@
+# Resource repository where pipeline templates located.
+# This is mandatory for linking to templates in other repository.
+resources:
+  repositories:
+  - repository: duly-terraform-manifest
+    type: git
+    name: duly-terraform-manifest
+    ref: 'refs/heads/dev'
+
+variables:
+- name: allow_destroy
+  value: false
+
+pool: OnAKS
+
+trigger: none
+  # branches:
+  #   include:
+  #   - main
+  # paths:
+  #   include:
+  #   - 011_logAnalytics/*
+  #   - "!011_logAnalytics/backend.tf"
+  #   - "!011_logAnalytics/provider.tf"
+  #   - _configuration/011_logAnalytics/*
+  #   - _configuration/global.tfvars
+
+
+stages:
+- template: ./_pipelines/templates/stages/terraform-apply-stage.yml@duly-terraform-manifest
+  parameters:
+    infraSolutionRepo: duly-terraform-manifest
+    infraSolutionFolder: 002_logAnalytics
+    configurationRepo: duly-terraform-manifest
+    configurationPath: _configuration/002_logAnalytics
+    envList:
+      - azure_cloud_np

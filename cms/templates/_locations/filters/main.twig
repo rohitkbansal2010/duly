@@ -1,0 +1,67 @@
+{% set careTypes = [
+	"Immediate Care"|t,
+	"Express Care"|t
+] %}
+
+{% set distances = [
+	"Within 5 miles"|t,
+	"Within 10 miles"|t,
+	"Within 20 miles"|t
+] %}
+
+<div class="location-search-container">
+	<div class="search-content">
+		{% if hideSearchByService is not defined or not hideSearchByService %}
+			<form class="location-service">
+				{{ csrfInput() }}
+				{% include "_input/_input.twig" with {
+					type: 'text',
+					name: 'searchServices',
+					id: 'search-location-services',
+					label: "Search Name, Services, Specialty, etc."|t,
+				} only %}
+			</form>
+		{% endif %}
+		<form class="physical-location">
+			{{ csrfInput() }}
+			{% include "_input/_input.twig" with {
+                type: 'text',
+                name: 'searchLocations',
+                id: 'search-locations',
+                label: "Search City, Address, Zip Code, etc."|t,
+            } only %}
+			<span class="material-icons near_me"></span>
+			<span class="near-me-clicked hidden">{{ "My Current Location"|t  }}</span>
+			<div class="loading-spinner hidden">
+				<div class="lottie"></div>
+			</div>
+		</form>
+		<button class="location-search-btn button dmgButton secondary1">{{ "Search"|t }}</button>
+		<button class="filter-btn-mobile button dmgButton secondary1">
+			{{ "Filters"|t }}
+		</button>
+	</div>
+	{% cache globally using key "global-locations-page-desktop-filters" ~ craft.app.request.pathInfo %}
+		{% include "_locations/filters/_desktop.twig" %}
+	{% endcache %}
+</div>
+
+<div class="event-filter-modal hidden">
+	<div class="header">
+		<h2>{{ "Filter"|t }}</h2>
+		<i class="material-icons close close-modal" tabindex="0"></i>
+	</div>
+	<div class="filter-container">
+		{% cache globally using key "global-locations-page-mobile-filters" ~ craft.app.request.pathInfo %}
+			{% include "_locations/filters/_mobile.twig" %}
+		{% endcache %}
+	</div>
+	<div class="footer">
+		<button class="dmgButton tertiary1 clear-all">
+			<div class="cta">{{ "Clear All"|t }}</div>
+		</button>
+		<button class="dmgButton secondary1 view-results">
+			<div class="cta">{{ "View Results"|t }}</div>
+		</button>
+	</div>
+</div>

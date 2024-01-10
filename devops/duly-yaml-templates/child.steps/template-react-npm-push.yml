@@ -1,0 +1,28 @@
+parameters:
+  - name: projectPath
+    type: string
+    default: '$(Build.SourcesDirectory)/$(Build.Repository.Name)'
+  - name: vstsFeed
+    type: string
+    default: 'duly.digital'
+
+steps:
+  - task: Npm@1
+    displayName: 'Npm: Publish'
+    inputs:
+      command: 'publish'
+      workingDir: ${{ parameters.projectPath }}
+      publishRegistry: 'useFeed'
+      publishFeed: ${{ parameters.vstsFeed }}
+    continueOnError: true
+    condition: |
+      and
+      (
+        succeeded(), or
+        (
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+          startsWith(variables['Build.SourceBranchName'], 'main'),
+          in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+        ),
+        ne(variables['Build.Reason'], 'PullRequest')
+      )

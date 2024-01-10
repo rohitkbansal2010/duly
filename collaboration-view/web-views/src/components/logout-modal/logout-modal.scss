@@ -1,0 +1,81 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.logoutModal {
+  &Header {
+    justify-content: center !important;
+    margin-bottom: 4.25rem;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    & img {
+      width: 12.75rem;
+      height: 5.94rem;
+    }
+  }
+
+  &Body {
+    padding: 0 !important;
+
+    &PractitionerLogo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 12.4rem;
+      height: 12.4rem;
+      margin: 0 auto;
+      margin-bottom: 1.31rem;
+      background: $white;
+      border-radius: 50%;
+    }
+
+    &PractitionerHumanName {
+      margin-bottom: 1.37rem;
+      color: $white;
+      font-weight: 800;
+      font-size: 3.75rem;
+      line-height: 5.63rem;
+      @include nexa-heavy-highlight;
+    }
+
+    &Question {
+      margin-bottom: 2rem;
+      color: $white;
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 1.88rem;
+      @include nexa-regular-highlight;
+    }
+
+    &ButtonDarkBlue {
+      background-color: $dupage-dark-blue;
+      border: 0.06rem solid $dupage-dark-blue;
+    }
+
+    &ButtonViolet {
+      background-color: $dupage-violet;
+      border: 0.06rem solid $dupage-violet;
+    }
+
+    &ButtonLogout,
+    &ButtonCancel {
+      width: 100%;
+      max-width: 13.75rem;
+      padding: 1.63rem 0 !important;
+      color: $white;
+      font-size: 1.25rem !important;
+      line-height: 1.5rem !important;
+      border-radius: 0.5rem !important;
+      @include nexa-extra-bold-highlight;
+    }
+
+    &ButtonLogout {
+      margin-right: 0.63rem;
+    }
+
+    &ButtonCancel {
+      background-color: transparent;
+    }
+  }
+}

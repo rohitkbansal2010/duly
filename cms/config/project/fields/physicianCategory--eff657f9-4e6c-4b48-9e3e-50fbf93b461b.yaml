@@ -1,0 +1,13 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: physicianCategory
+instructions: ''
+name: Category
+searchable: true
+settings:
+    optgroups: true
+    options: [{ __assoc__: [[label, 'Physician '], [value, physician], [default, '1']] }, { __assoc__: [[label, 'Mid-level Provider'], [value, midLevelProvider], [default, '']] }]
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown

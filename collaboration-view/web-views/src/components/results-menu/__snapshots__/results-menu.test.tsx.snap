@@ -1,0 +1,369 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TestResultsMenu should render component 1`] = `
+<div
+  class="scrollWrapper oversize"
+  style="height:100%"
+>
+  <div
+    class="topScrollFade top0 default"
+  />
+  <div
+    class="scrollContent"
+  >
+    <div
+      class="resultsMenu"
+    >
+      <button
+        class="resultsMenuItem "
+      >
+        <div
+          class="resultsMenuItemIconWrapper"
+        >
+          <img
+            alt="test result icon"
+            class="resultsMenuItemIcon"
+            src="test-results-light-blue.svg"
+          />
+          <img
+            alt="abnormal result icon"
+            class="resultsMenuItemIconAbnormal"
+            src="speech-bubble-orange.svg"
+          />
+        </div>
+        <div
+          class="resultsMenuItemTitles"
+        >
+          <span
+            class="resultsMenuItemTitlesMain"
+          >
+            Comprehensive Metabolic Panel
+          </span>
+          <span
+            class="resultsMenuItemTitlesAdditional"
+          >
+            Sat, Aug 14, 2021
+          </span>
+        </div>
+      </button>
+      <button
+        class="resultsMenuItem "
+      >
+        <div
+          class="resultsMenuItemIconWrapper"
+        >
+          <img
+            alt="test result icon"
+            class="resultsMenuItemIcon"
+            src="test-results-light-blue.svg"
+          />
+        </div>
+        <div
+          class="resultsMenuItemTitles"
+        >
+          <span
+            class="resultsMenuItemTitlesMain"
+          >
+            Alanine Aminotransferease
+          </span>
+          <span
+            class="resultsMenuItemTitlesAdditional"
+          >
+            Fri, Mar 19, 2021
+          </span>
+        </div>
+      </button>
+      <button
+        class="resultsMenuItem "
+      >
+        <div
+          class="resultsMenuItemIconWrapper"
+        >
+          <img
+            alt="test result icon"
+            class="resultsMenuItemIcon"
+            src="test-results-light-blue.svg"
+          />
+          <img
+            alt="abnormal result icon"
+            class="resultsMenuItemIconAbnormal"
+            src="speech-bubble-orange.svg"
+          />
+        </div>
+        <div
+          class="resultsMenuItemTitles"
+        >
+          <span
+            class="resultsMenuItemTitlesMain"
+          >
+            Urinalysis
+          </span>
+          <span
+            class="resultsMenuItemTitlesAdditional"
+          >
+            Fri, Mar 19, 2021
+          </span>
+        </div>
+      </button>
+      <div
+        class="resultsMenuSkeleton"
+      >
+        <div
+          class="resultsMenuItemSkeleton"
+        >
+          <div
+            class="dulyLoaderWrapper"
+            style="width:8rem"
+          >
+            <div
+              aria-label="animation"
+              role="button"
+              style="width:100%;height:100%;overflow:hidden;margin:0 auto;outline:none"
+              tabindex="0"
+              title=""
+            />
+          </div>
+        </div>
+        <div
+          class="resultsMenuItemSkeleton"
+        >
+          <div
+            class="dulyLoaderWrapper"
+            style="width:8rem"
+          >
+            <div
+              aria-label="animation"
+              role="button"
+              style="width:100%;height:100%;overflow:hidden;margin:0 auto;outline:none"
+              tabindex="0"
+              title=""
+            />
+          </div>
+        </div>
+        <div
+          class="resultsMenuItemSkeleton"
+        >
+          <div
+            class="dulyLoaderWrapper"
+            style="width:8rem"
+          >
+            <div
+              aria-label="animation"
+              role="button"
+              style="width:100%;height:100%;overflow:hidden;margin:0 auto;outline:none"
+              tabindex="0"
+              title=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="bottomScrollFade bottom0 default"
+  />
+</div>
+`;
+
+exports[`TestResultsMenu should work with incomplete data 1`] = `
+<div
+  class="scrollWrapper oversize"
+  style="height:100%"
+>
+  <div
+    class="topScrollFade top0 default"
+  />
+  <div
+    class="scrollContent"
+  >
+    <div
+      class="resultsMenu"
+    >
+      <button
+        class="resultsMenuItem resultsMenuItemActive"
+      >
+        <div
+          class="resultsMenuItemIconWrapper"
+        >
+          <img
+            alt="test result icon"
+            class="resultsMenuItemIcon"
+            src="test-results-light-blue.svg"
+          />
+        </div>
+        <div
+          class="resultsMenuItemTitles"
+        >
+          <span
+            class="resultsMenuItemTitlesMain"
+          />
+          <span
+            class="resultsMenuItemTitlesAdditional"
+          />
+        </div>
+      </button>
+      <button
+        class="resultsMenuItem resultsMenuItemActive"
+      >
+        <div
+          class="resultsMenuItemIconWrapper"
+        >
+          <img
+            alt="test result icon"
+            class="resultsMenuItemIcon"
+            src="test-results-light-blue.svg"
+          />
+        </div>
+        <div
+          class="resultsMenuItemTitles"
+        >
+          <span
+            class="resultsMenuItemTitlesMain"
+          />
+          <span
+            class="resultsMenuItemTitlesAdditional"
+          />
+        </div>
+      </button>
+      <button
+        class="resultsMenuItem resultsMenuItemActive"
+      >
+        <div
+          class="resultsMenuItemIconWrapper"
+        >
+          <img
+            alt="test result icon"
+            class="resultsMenuItemIcon"
+            src="test-results-light-blue.svg"
+          />
+          <img
+            alt="abnormal result icon"
+            class="resultsMenuItemIconAbnormal"
+            src="speech-bubble-orange.svg"
+          />
+        </div>
+        <div
+          class="resultsMenuItemTitles"
+        >
+          <span
+            class="resultsMenuItemTitlesMain"
+          />
+          <span
+            class="resultsMenuItemTitlesAdditional"
+          />
+        </div>
+      </button>
+      <div
+        class="resultsMenuSkeleton"
+      >
+        <div
+          class="resultsMenuItemSkeleton"
+        >
+          <div
+            class="dulyLoaderWrapper"
+            style="width:8rem"
+          >
+            <div
+              aria-label="animation"
+              role="button"
+              style="width:100%;height:100%;overflow:hidden;margin:0 auto;outline:none"
+              tabindex="0"
+              title=""
+            />
+          </div>
+        </div>
+        <div
+          class="resultsMenuItemSkeleton"
+        >
+          <div
+            class="dulyLoaderWrapper"
+            style="width:8rem"
+          >
+            <div
+              aria-label="animation"
+              role="button"
+              style="width:100%;height:100%;overflow:hidden;margin:0 auto;outline:none"
+              tabindex="0"
+              title=""
+            />
+          </div>
+        </div>
+        <div
+          class="resultsMenuItemSkeleton"
+        >
+          <div
+            class="dulyLoaderWrapper"
+            style="width:8rem"
+          >
+            <div
+              aria-label="animation"
+              role="button"
+              style="width:100%;height:100%;overflow:hidden;margin:0 auto;outline:none"
+              tabindex="0"
+              title=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="bottomScrollFade bottom0 default"
+  />
+</div>
+`;
+
+exports[`TestResultsMenu skeleton should match snapshot 1`] = `
+<div
+  class="resultsMenuSkeleton"
+>
+  <div
+    class="resultsMenuItemSkeleton"
+  >
+    <div
+      class="dulyLoaderWrapper"
+      style="width:8rem"
+    >
+      <div
+        aria-label="animation"
+        role="button"
+        style="width:100%;height:100%;overflow:hidden;margin:0 auto;outline:none"
+        tabindex="0"
+        title=""
+      />
+    </div>
+  </div>
+  <div
+    class="resultsMenuItemSkeleton"
+  >
+    <div
+      class="dulyLoaderWrapper"
+      style="width:8rem"
+    >
+      <div
+        aria-label="animation"
+        role="button"
+        style="width:100%;height:100%;overflow:hidden;margin:0 auto;outline:none"
+        tabindex="0"
+        title=""
+      />
+    </div>
+  </div>
+  <div
+    class="resultsMenuItemSkeleton"
+  >
+    <div
+      class="dulyLoaderWrapper"
+      style="width:8rem"
+    >
+      <div
+        aria-label="animation"
+        role="button"
+        style="width:100%;height:100%;overflow:hidden;margin:0 auto;outline:none"
+        tabindex="0"
+        title=""
+      />
+    </div>
+  </div>
+</div>
+`;

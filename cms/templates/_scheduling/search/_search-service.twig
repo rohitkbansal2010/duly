@@ -1,0 +1,16 @@
+<div class="search-results-container">
+    <div class="search-content">
+        <form class="search-appointment-services">
+            {{ csrfInput() }}
+            {% include "_input/_input.twig" with {
+                type: 'text',
+                name: 'searchServices',
+                id: 'search-services',
+                label: "Search specialty, condition, or procedure"|t,
+                trailingIcon: 'search'
+            } only %}
+        </form>
+
+        <button class="search-results-btn dmgButton secondary3">{{ "Search"|t }}</button>
+    </div>
+</div>

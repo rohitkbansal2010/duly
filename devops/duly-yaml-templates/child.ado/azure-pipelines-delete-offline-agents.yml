@@ -1,0 +1,44 @@
+trigger: none
+schedules:
+- cron: "0 23 * * 0"
+  displayName: Run every Sunday at 11:00 PM UTC
+  branches:
+    include:
+    - main
+
+variables:
+  - name: AZDO_ORGANIZATION_NAME
+    value: 'Next-Generation-Data-Platform'
+  - name: KEYVAULT_SERVICE_CONNECTION
+    value: 'azure_cloud_np'
+  - name: KEYVAULT_NAME
+    value: 'duly-d-shsvc-kv'
+  - name: AZDO_TARGET_POOL_NAME
+    value: 'OnAKS'
+
+resources:
+  repositories:
+    - repository: scripts
+      type: git
+      name: 'duly.digital.devops/duly-scripts'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: scripts
+
+  - task: AzureKeyVault@2
+    displayName: 'Get personal access token for AzDO agents management'
+    inputs:
+      connectedServiceName: $(KEYVAULT_SERVICE_CONNECTION)
+      keyVaultName: $(KEYVAULT_NAME)
+      secretsFilter: 'duly-d-ado-service--azdoagentsmanagementpat'
+    continueOnError: false
+  
+  - task: PowerShell@2
+    displayName: 'Remove offline ADO agents'
+    inputs:
+      targetType: filePath
+      filePath: '$(Build.SourcesDirectory)/PowerShell/Remove-OfflineAdoAgents.ps1'
+      arguments: -PAT $(duly-d-ado-service--azdoagentsmanagementpat) -organizationName $(AZDO_ORGANIZATION_NAME) -agentPoolName $(AZDO_TARGET_POOL_NAME)

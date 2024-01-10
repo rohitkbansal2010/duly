@@ -1,0 +1,9 @@
+field: a150c1f6-730a-42df-aa77-c1ea6d1cb45a
+fieldLayouts:
+    0e27d5b2-1037-4c39-9a6e-345084fdb506: { tabs: [{ elements: [{ fieldUid: 286eeff4-e8b4-400a-a476-9b19e3411fd8, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 7eb2ab9e-b8d4-4b50-84aa-9f645b7a0603, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    7eb2ab9e-b8d4-4b50-84aa-9f645b7a0603: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: address, instructions: '', name: Address, searchable: false, settings: { boundary: '""', boundaryRestrictionNELat: null, boundaryRestrictionNELng: null, boundaryRestrictionSWLat: null, boundaryRestrictionSWLng: null, country: US, countryRestriction: null, height: null, hideAddress: '', hideLatLng: null, hideMap: '', hideSearch: '', lat: 51.272154, lng: 0.514951, maxZoom: '18', minZoom: '3', showCurrentLocation: '1', showLatLng: '', showW3WField: false, showW3WGrid: false, size: normal, typeRestriction: null, zoom: 15 }, translationKeyFormat: null, translationMethod: none, type: ether\simplemap\fields\MapField }
+    286eeff4-e8b4-400a-a476-9b19e3411fd8: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: locationName, instructions: '', name: 'Location Name', searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: null, uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: addressList
+name: 'Address List'
+sortOrder: 1

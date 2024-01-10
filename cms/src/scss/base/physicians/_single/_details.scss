@@ -1,0 +1,253 @@
+.details-container {
+  width: 100%;
+
+  .details {
+    display: none;
+    padding: 20px 20px 60px;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &.show {
+      display: flex;
+    }
+
+    &.clinical-expertise-details {
+      display: flex;
+      flex-direction: column;
+      padding: 10px 25px 20px;
+
+      h2 {
+        color: $dark-2;
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 20px;
+      }
+
+      .value {
+        color: $dark-2;
+        font-size: 16px;
+        line-height: 22px;
+      }
+    }
+
+    @include responsive(large) {
+      padding: 10px;
+    }
+
+    &.active {
+      display: flex;
+    }
+
+    .vertical {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+
+      @include responsive(bs-large) {
+        width: 100%;
+      }
+    }
+
+    .block {
+      flex-basis: 50%;
+      flex-grow: 1;
+      box-sizing: border-box;
+      padding: 0px 0px 20px 0px;
+
+      &.full-width {
+        flex-basis: 100%;
+      }
+
+      @include responsive(large) {
+        flex-basis: 100%;
+        padding: 20px 0;
+      }
+
+      .label {
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 5px;
+        color: $dark-2;
+
+        @include responsive(large) {
+          font-size: 18px;
+        }
+      }
+
+      .value {
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 22px;
+        display: flex;
+        flex-direction: column;
+        margin: 5px 0;
+        color: $dark-2;
+
+        p {
+          margin: 0;
+        }
+
+        a {
+          color: $violet !important;
+
+          &:hover {
+            color: $magenta !important;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .general-info {
+    .block {
+		padding: 0 40px 20px 0;
+    }
+  }
+
+  .main-video {
+    width: 100%;
+    height: 500px;
+
+    .video {
+      display: none;
+    }
+
+    @include responsive(bs-large) {
+      width: 100%;
+      height: 300px;
+
+      iframe {
+        width: 100%;
+        min-height: 300px;
+      }
+    }
+  }
+
+  .related-videos {
+    display: flex;
+    margin-top: 20px;
+    flex-wrap: wrap;
+
+    @include responsive(bs-large) {
+      width: 100%;
+    }
+
+    .video {
+      width: 185px;
+      padding: 0px 15px 10px 0px;
+
+      @include responsive(bs-large) {
+        width: 45%;
+        padding: 10px 0px;
+      }
+
+      img {
+        width: 100%;
+        cursor: pointer;
+      }
+
+      p {
+        font-size: 14px;
+        margin: 0px;
+        font-weight: 400;
+
+        @include responsive(bs-large) {
+          line-height: 20px;
+        }
+      }
+    }
+  }
+
+  .physician-contributions {
+    flex-direction: column;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    .physician-contribution {
+      display: flex;
+      flex-direction: row;
+      margin: 10px 0;
+
+      @include responsive(large) {
+        flex-direction: column;
+      }
+
+      .image {
+        flex-basis: 168px;
+        height: 120px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+
+        @include responsive(large) {
+          flex-basis: 40vw;
+          width: 100%;
+        }
+
+        img {
+          width: 100%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .details {
+        display: flex;
+        flex-direction: column;
+        padding: 0 0 0 20px;
+
+        @include responsive(large) {
+          padding: 25px 0;
+        }
+
+        .title {
+          font-size: 18px;
+          font-weight: 600;
+
+          @include responsive(large) {
+            font-size: 22px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    span.expand.show-less {
+      display: flex;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+
+    span.expand.show-more {
+      display: none;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+
+    &.show-less {
+      a:nth-of-type(n + 6) {
+        display: none;
+      }
+
+      span.expand.show-less {
+        display: none;
+      }
+
+      span.expand.show-more {
+        display: flex;
+      }
+    }
+  }
+}

@@ -1,0 +1,215 @@
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Cosmetic Dermatology Appointment Request'|t %}
+{% block bodyClass "cosmetic-dermatology-appointment-request-page" %}
+
+{% set locations = [
+     'Blue Island'|t,
+     'Glen Ellyn'|t,
+     'Hinsdale'|t,
+     'Joliet'|t,
+     'Naperville'|t,
+     'Tinley Park'|t,
+     'Warrenville'|t,
+     'Wheaton'|t
+] %}
+{% set procedures = [
+     'Injectable Service'|t,
+     'Laser Service'|t,
+     'Non-Surgical Service'|t,
+     'Surgical Service'|t,
+     'Spa Service'|t
+] %}
+
+{% set proceduresPerLocation = getAListOfCosmeticProceduresPerLocation() %}
+
+{% block main %}
+	<div class="{{ showSuccessMessage ? 'modal form-request-success' : 'modal form-request-success hidden' }}">
+		<div class="content">
+			<h1>
+				{{ "Thank you for submitting your appointment request."|t }}
+			</h1>
+			<h2>
+				{{ "We will be in touch shortly to confirm your booking."|t }}
+			</h2>
+			<div class="form-actions">
+				{% set url = "/" %}
+
+				{% if returnUrl is defined and returnUrl is not null %}
+					{% set url = returnUrl %}
+				{% endif %}
+
+				<a href="{{ url }}">
+					<button class="button dmgButton primary1">
+						{{ "I understand"|t }}
+					</button>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-container">
+		<h1>
+			{{ "One Step Closer to Healthier, Happier Skin"|t }}
+		</h1>
+		<p>
+			{{ "Request a consultation with our team of expert estheticians, dermatologists or plastic surgeons today."|t }}
+		</p>
+
+		<form>
+			<input id="csrf-token" type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">
+			<input id="recaptcha-token" type="hidden" name="recaptchaToken">
+
+			<h2>
+				{{ "Patient Information"|t }}
+			</h2>
+			<div class="field-container two-columns">
+				<div class="field-group">
+					{% include "_input/_input.twig" with {
+                        type: 'text',
+                        name: 'first-name',
+                        value: model.first_name,
+                        id: 'request-form-first-name',
+                        extraOptions: {
+                            required: "required"
+                        },
+                        label: "First Name"|t,
+                    } only %}
+				</div>
+				<div class="field-group">
+					{% include "_input/_input.twig" with {
+                        type: 'text',
+                        name: 'last-name',
+                        value: model.last_name,
+                        id: 'request-form-last-name',
+                        extraOptions: {
+                            required: "required"
+                        },
+                        label: "Last Name"|t,
+                    } only %}
+				</div>
+			</div>
+
+			<div class="field-container two-columns">
+				<div class="field-group">
+					{% include "_input/_input.twig" with {
+                        type: 'email',
+                        name: 'email',
+                        value: model.email,
+                        id: 'patient-email',
+                        label: "Email address"|t,
+                        extraOptions: {
+                            required: "required"
+                        }
+                    } only %}
+				</div>
+				<div class="field-group">
+					{% include "_input/_input.twig" with {
+                        type: 'tel',
+                        name: 'phoneNumber',
+                        value: model.phone_number,
+                        id: 'patient-phone',
+                        label: "Phone Number"|t,
+                        extraOptions: {
+                            required: "required",
+                            pattern: '(1)?[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}'
+                        }
+                    } only %}
+				</div>
+			</div>
+
+			<hr>
+
+			<div class="field-container location-container">
+				<h2>
+					{{ "Consultation Information"|t }}
+				</h2>
+                <input type="hidden" name="locationId" value="">
+				<div class="field-group locations-container">
+					{% set locationsProvidedOptions = [] %}
+					{% for address, val in proceduresPerLocation %}
+						{% set locationsProvidedOptions = locationsProvidedOptions|merge([{
+							content: address,
+							data: {
+								value: address,
+								'location-id': val.location.id
+							}
+						}]) %}
+					{% endfor %}
+					{% include '_input/_select.twig' with {
+						id: "locations-provided",
+						required: true,
+						label: "Preferred Location"|t,
+						name: "location",
+						options: locationsProvidedOptions
+					} %}
+				</div>
+			</div>
+
+
+			<div class="field-group procedures-container">
+				{% set procedureTreatmentOptions = [] %}
+				{% for address, val in proceduresPerLocation %}
+					{% set alreadyListedProcedures = [] %}
+					{% for procedure in val['procedures'] %}
+						{% if procedure not in alreadyListedProcedures %}
+							{% set procedureTreatmentOptions = procedureTreatmentOptions|merge([{
+								content: procedure,
+								data: {
+									value: procedure,
+									location: address
+								}
+							}]) %}
+							{% set alreadyListedProcedures = alreadyListedProcedures|merge([procedure]) %}
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+				{% include '_input/_select.twig' with {
+					id: "procedures-provided",
+					required: true,
+					label: "Procedure/Treatment"|t,
+					name: "procedure",
+					options: procedureTreatmentOptions
+				} %}
+			</div>
+
+
+			<div class="field-group">
+				{% include '_input/_textarea.twig' with {
+					name: 'comments',
+					id: 'additional-comments',
+					required: true,
+					label: "Additional Comments"|t,
+					maxlength: 5000
+				} %}
+			</div>
+			<span id="character-count-container" data-limit="5000">
+				<span id="characters-left">5000</span>
+				<span>/5000 {{ "characters left"|t }}</span>
+			</span>
+
+			<button class="button dmgButton primary1" id="request-appointment-submit" disabled>
+				{{ "Submit"|t }}
+			</button>
+			<p class="fetch-error hidden">
+				{{ "There was an error with your request. Please try again later."|t }}
+			</p>
+
+			{% set errors = model.getErrors() %}
+
+			{% if errors %}
+				<p class="form-error">
+					{{ errors }}
+				</p>
+			{% endif %}
+
+		</form>
+	</div>
+	<div class="pattern-top-right"></div>
+	<div class="pattern-bottom-left"></div>
+{% endblock %}
+
+{% block extra_js %}
+	{# reCAPTCHA #}
+	<script nonce="__CSP_NONCE__" src="https://www.google.com/recaptcha/api.js?onload=onReCAPTCHALoadCallback&render=explicit"></script>
+{% endblock %}

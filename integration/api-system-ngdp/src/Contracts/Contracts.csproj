@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Authors>Duly Health and Care</Authors>
+    <Company>Duly Health and Care</Company>
+    <Product>Duly Health and Care NGDP Integration Api Contracts</Product>
+    <Copyright>Copyright (c) Duly Health and Care</Copyright>
+
+    <AssemblyName>Duly.Ngdp.Contracts</AssemblyName>
+    <RootNamespace>Duly.Ngdp.Contracts</RootNamespace>
+
+    <Version>1.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+
+    <LangVersion>9</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectCapability Include="DynamicDependentFile" />
+    <ProjectCapability Include="DynamicFileNesting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Duly.Common.Annotations" Version="22.2.101.1-dev" />
+    <PackageReference Include="Duly.Common.CodeAnalysis" Version="21.11.110.1-dev">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Duly.Common.Security" Version="22.1.113.1-dev" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Exclude the project from analysis -->
+    <SonarQubeExclude>true</SonarQubeExclude>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,10 @@
+fieldLayouts:
+    396ed593-2e8c-4fa1-a5de-79d42208efdc: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: Title, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 3836fdb3-5cd4-4de2-839e-c56ab98e141a, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: ca7505b4-f46a-450d-9a87-84d513272e67, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 71684f94-91d6-42bb-943c-58b6a469a8fa, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 37f430c2-9f18-46af-9db1-e46b75a134f8, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: 'Conditions Overview', sortOrder: 1 }] }
+handle: conditions
+hasTitleField: true
+name: Conditions
+section: 79924871-8592-4d28-8408-29c212f8246e
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

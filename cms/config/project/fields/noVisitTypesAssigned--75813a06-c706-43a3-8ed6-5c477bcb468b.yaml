@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: noVisitTypesAssigned
+instructions: 'If "None" is selected for both Appointment Visit Types - New Patient and Appointment Visit Types - Established Patient, a custom modal will appear preventing the user from continuing through the scheduling flow.'
+name: 'No Visit Types Assigned'
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_novisittypesassigned}}'
+    maxBlocks: '1'
+    minBlocks: '0'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

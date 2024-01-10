@@ -1,0 +1,68 @@
+parameters:
+  - name: subscriptionName
+    type: string
+    default: ''
+  - name: apimManagementUri
+    type: string
+    default: ''
+  - name: apimName
+    type: string
+    default: ''
+  - name: apimRgName
+    type: string
+    default: ''
+  - name: mediaFolder
+    type: string
+    default: './portal/content'
+  - name: vmImage
+    type: string
+    default: 'ubuntu-latest'
+
+jobs:
+  - job:
+    pool:
+      vmImage: '${{ parameters.vmImage }}'
+    displayName: 'Backup configuration of APIM Developer Portal: ${{ parameters.apimName }}'
+    steps:
+      - template: ./generate-token.yml
+        parameters:
+          subscriptionName: ${{ parameters.subscriptionName }}
+          apimName: ${{ parameters.apimName }}
+          apimRgName: ${{ parameters.apimRgName }}
+
+      - task: PowerShell@2
+        displayName: 'Download Portal Content'
+        inputs:
+          targetType: 'inline'
+          script: |
+            Write-Output "Install NPM JS Azure storage-blob library"
+            npm install @azure/storage-blob
+            Write-Output "Capture configuration and content of the source portal"
+            node ../scripts/capture '${{ parameters.apimManagementUri }}' '$(sasAccessKey)' '${{ parameters.mediaFolder }}'
+          workingDirectory: '$(Build.SourcesDirectory)'
+          
+      - task: CopyFiles@2
+        displayName: 'Copy Portal Content'
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)'
+          Contents: |
+            portal/**
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+      - task: CopyFiles@2
+        displayName: 'Copy Portal Scripts'
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)'
+          Contents: |
+            generate-sas-token.ps1
+            utils.js
+            capture.js
+            cleanup.js
+            generate.js
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Portal Content'
+        inputs:
+          pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+          artifactName: 'drop'

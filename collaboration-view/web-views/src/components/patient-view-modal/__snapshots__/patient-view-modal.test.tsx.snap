@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PatientViewModal with normal data should match snapshot 1`] = `
+<PatientViewModal>
+  <SideModal
+    onHide={[MockFunction]}
+    show={true}
+  >
+    <Header
+      className="mockClassNameHeader"
+    >
+      <img
+        alt="Large duly icon"
+        src="duly-large-white-dark-blue.svg"
+      />
+    </Header>
+    <Body
+      className="mockClassNameBody"
+    >
+      <div
+        className="mockClassNameAvatar"
+      >
+        <Avatar
+          hasBorder={true}
+          role="mockRole"
+          src="mockSrc"
+          width={50}
+        />
+      </div>
+      <div
+        className="mockClassNameHumanName"
+        data-testid="humanName"
+      >
+        mockWriteHumanName
+      </div>
+      <div
+        className="mockClassNameAdditionalInfo"
+      >
+        <div
+          data-testid="gender"
+        >
+          Female
+        </div>
+        <div
+          data-testid="age"
+        >
+          100 years old
+        </div>
+      </div>
+      <div>
+        <div>
+          <button
+            data-automation="handover-to-ma-button"
+            onClick={[Function]}
+          >
+            Handover to MA
+          </button>
+          <button
+            data-automation="continue-to-after-visit-steps-button"
+            onClick={[Function]}
+          >
+            Continue to After Visit Steps
+          </button>
+        </div>
+      </div>
+    </Body>
+  </SideModal>
+</PatientViewModal>
+`;

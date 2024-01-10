@@ -1,0 +1,15 @@
+dependencies:
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 10.9.4
+- name: rabbitmq
+  repository: https://charts.bitnami.com/bitnami
+  version: 7.5.6
+- name: elasticsearch
+  repository: https://helm.elastic.co
+  version: 7.6.1
+- name: minio
+  repository: https://charts.bitnami.com/bitnami
+  version: 7.1.9
+digest: sha256:95b1b59cd44eaefef9497c4ce1dbe3726d352a68a71118b59c0515802faada7a
+generated: "2021-12-23T13:05:34.64289481Z"

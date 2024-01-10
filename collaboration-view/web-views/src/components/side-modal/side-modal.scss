@@ -1,0 +1,30 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.sideModal {
+  &Backgrop {
+    opacity: 0 !important;
+  }
+
+  &Dialog {
+    max-width: 31.13rem !important;
+    height: 100%;
+    margin: 0 !important;
+    margin-left: calc(100% - 31.13rem) !important;
+  }
+
+  &Content {
+    height: 100%;
+    padding: 3.88rem 0.69rem 0 2.13rem;
+    border: 0 !important;
+    border-radius: 0 0 0 4.13rem !important;
+  }
+
+  &ContentBackgroundMagenta {
+    background-color: $dupage-magenta !important;
+  }
+
+  &ContentBackgroundBlue {
+    background-color: $dupage-light-blue !important;
+  }
+}

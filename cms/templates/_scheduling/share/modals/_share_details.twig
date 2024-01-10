@@ -1,0 +1,76 @@
+{% set isVideoFlow = patientUser.is_video_visit_flow %}
+
+<div class="modal share-appointment-modal hidden">
+    <div class="content">
+        <div class="header">
+            <span tabindex="0" class="material-icons close"></span>
+            <h2>{{ "Share Appointment"|t }}</h2>
+            <p>{{ "Do you want to include appointment details when sharing?"|t }}</p>
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <div class="visit-details">
+                    <div class="calendar-widget">
+                        <div class="day">
+                                {% set month = appointmentDate | date("M") %}
+                                {{ month }}
+                        </div>
+                        <div class="month-day">
+                            <div class="numeric-day">
+                                {% set numericDay = appointmentDate | date("j") %}
+                                {{ numericDay }}
+                            </div>
+                        </div>
+                    </div>
+
+                    {% set patientUser = craft.app.patient_user.identity %}
+
+                    {# 2990 is the video visit ID that comes back from Epic #}
+                    {% set isVideoVisit = patientUser.appointment_visit_type_id == 2990 %}
+
+                    <div>
+                        {% if not patientUser.isSchedulingFlowWithoutPhysicians() %}
+                            <p class="physician">{{ "Provider Visit with {physician}"|t (params = { physician: physician.title ?? service.title }) }}</p>
+                        {% endif %}
+                        {% if suite is defined and suite is not null and not isVideoVisit %}
+                            {% set location = suite.parent.address.parts %}
+                            <p class="location">{{ location.number }} {{ location.address }}</p>
+                            <p class="location">{{ location.city }}, {{ location.state }} {{ location.postcode }}</p>
+                        {% endif %}
+
+                        {% if isVideoVisit or isVideoFlow %}
+                            <p class="location">{{ "Video Visit"|t }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <button class="action-button dmgButton secondary1" id="include-details-btn">{{ "Include Details"|t }}</button>
+            </div>
+
+            <div class="column {{ isVideoFlow ? 'hidden' }}">
+                <div class="visit-details center">
+                    <div class="calendar-widget">
+                        <div class="day">
+                                {% set month = appointmentDate | date("M") %}
+                                {{ month }}
+                        </div>
+                        <div class="month-day">
+                            <div class="numeric-day">
+                                {% set numericDay = appointmentDate | date("j") %}
+                                {{ numericDay }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <p class="physician">{{ "Provider Visit"|t }}</p>
+                    </div>
+                </div>
+
+                <button class="action-button dmgButton secondary1" id="date-and-time-only">{{ "Include Date & Time Only"|t }}</button>
+            </div>
+        </div>
+        <p class="fetch-error calendar-error hidden"></p>
+    </div>
+</div>

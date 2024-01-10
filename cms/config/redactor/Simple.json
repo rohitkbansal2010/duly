@@ -1,0 +1,6 @@
+{
+  "buttons": ["formatting", "bold", "italic", "unorderedlist", "orderedlist", "link", "image", "video", "table", "alignment", "properties", "inlinestyle", "specialchars"],
+  "plugins": ["fullscreen", "video", "table", "alignment", "properties", "inlinestyle", "specialchars"],
+  "linkNewTab": true,
+  "toolbarFixed": true
+}

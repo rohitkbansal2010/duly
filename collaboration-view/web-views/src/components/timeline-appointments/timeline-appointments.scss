@@ -1,0 +1,67 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.timelineAppointments {
+  &Container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+
+    &:nth-child(2n + 1) {
+      margin-right: 0.7rem;
+    }
+
+    &:nth-child(2n) {
+      margin-left: 0.7rem;
+    }
+
+    &Title {
+      margin-bottom: 1.7rem;
+      font-size: var(--font-size-24px-4px);
+      // line-height: 1.625rem;
+      @include nexa-heavy-highlight;
+
+      &LightBlue {
+        color: $dupage-light-blue;
+      }
+
+      &Magenta {
+        color: $dupage-magenta;
+      }
+    }
+
+    &Content {
+      flex-grow: 1;
+      min-height: 0;
+    }
+  }
+
+  &Skeleton {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+
+    &Title {
+      @include nexa-heavy-highlight;
+      font-size: 1.5rem;
+      line-height: 1.625rem;
+
+      &LightBlue {
+        color: $dupage-light-blue;
+      }
+
+      &Magenta {
+        color: $dupage-magenta;
+      }
+    }
+
+    &Item {
+      position: relative;
+      height: 6.25rem;
+      margin-top: 1.25rem;
+      margin-right: 1.5rem;
+      background: $white;
+      border-radius: 0.5rem;
+    }
+  }
+}

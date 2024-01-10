@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@100;200;400;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;400;500;700;800&display=swap");
+
+@import "~@styles/devices.scss";
+@import "~@styles/colors.scss";
+
+@import "~@styles/media-mixins.scss";
+
+@font-face {
+  font-weight: 900;
+  font-family: "NexaHeavy";
+  src: url("../fonts/Nexa/Nexa-Heavy.otf") format("opentype");
+}
+
+@font-face {
+  font-weight: 700;
+  font-family: "NexaExtraBold";
+  src: url("../fonts/Nexa/Nexa-ExtraBold.otf") format("opentype");
+}
+
+@font-face {
+  font-weight: 600;
+  font-family: "NexaBold";
+  src: url("../fonts/Nexa/Nexa-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: "NexaRegular";
+  src: url("../fonts/Nexa/Nexa-Regular.otf") format("opentype");
+}
+
+html,
+body {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+  font-size: 1.25vh !important;
+  font-family: "NexaRegular", sans-serif !important;
+  background-color: $ghost-gray !important;
+
+  &.modal-open {
+    padding-right: 0 !important;
+    overflow: auto !important;
+  }
+}
+
+:global(body.modal-open > :not(.modal)) {
+  filter: blur(0.5rem);
+}
+
+:global(.swiper-slide-active) {
+  z-index: 2 !important;
+}
+
+:global(#root) {
+  position: fixed;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+  font-family: "NexaRegular", sans-serif;
+}
+
+@mixin title-text {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 24px;
+}
+
+@mixin normal-text {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 24px;
+}
+
+@mixin thin-text {
+  font-weight: 200;
+  line-height: 24px;
+}
+
+@mixin card-border {
+  border-color: $gray;
+  border-width: 1px;
+  border-radius: 8px;
+}
+
+@mixin card-shadow($color, $inset) {
+  box-shadow: 0 0 1px $light-gray, 0 10px 15px -3px $light-gray, 0 4px 6px -2px $light-gray,
+    260px 0 0 -244px $color $inset;
+}
+
+@mixin remove-focus($class) {
+  #{$class}:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+@function convertToRGBA($color, $opacity) {
+  @return rgba(red($color), green($color), blue($color), $opacity);
+}
+
+@mixin background-opacity($color, $opacity) {
+  background-color: convertToRGBA($color, $opacity);
+}
+
+@mixin ios-scrollbar {
+  & {
+    overflow-y: scroll;
+  }
+  &::-webkit-scrollbar {
+    width: 1rem;
+    background-color: $white;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: inherit;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #babac0;
+    border: 0.25rem solid $white;
+    border-radius: 1rem;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+@mixin invisible-scroll {
+  position: relative;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin invisible-scroll-top-fade {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  height: 6rem;
+  background-image: linear-gradient($ghost-gray, transparent);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+@mixin invisible-scroll-bottom-fade {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  height: 8rem;
+  background-image: linear-gradient(transparent, $ghost-gray);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}

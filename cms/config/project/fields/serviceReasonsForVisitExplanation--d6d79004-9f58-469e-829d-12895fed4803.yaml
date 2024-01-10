@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 188a7201-acbb-4843-a517-affbd2d8231f
+handle: serviceReasonsForVisitExplanation
+instructions: ''
+name: 'Reason for Visit Explanation'
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

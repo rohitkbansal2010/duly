@@ -1,0 +1,8 @@
+handle: footerLinks
+instructions: 'Links that should appear in the bottom most footer.'
+name: 'Footer Links'
+propagateNodes: true
+sortOrder: 3
+structure:
+    maxLevels: '1'
+    uid: 7927ec57-e31b-4e4e-972d-3dd54d2ab734

@@ -1,0 +1,62 @@
+{% if entry.type == 'right' or entry.type == 'left' %}
+    <section class="static-entry railed">
+{% else %}
+    <section class="static-entry no-rail">
+{% endif %}
+    <article itemscope="http://schema.org/Article">
+        {% set heroImage = entry.heroImage.one() %}
+        {% if heroImage is not null %}
+            {% include '_health-topics/_picture.twig' with {
+                url: heroImage,
+                key: 1,
+                category: null,
+                articleUrl: null,
+                pageInfo: null,
+                showCategoryBanner: false
+            } %}
+        {% endif %}
+
+        <div class="headline">
+            <h1 itemprop="headline">{{ entry.title }}</h1>
+            <h2>{{ entry.subHeadline|typogrify }}</h2>
+        </div>
+
+        <div class="article-contents">
+            <div class="content-body" itemprop="articleBody">
+                {{ entryWithOptimizedImages(entry)|typogrify|raw }}
+            </div>
+        </div>
+        {% if entry.type == "bottomRailPhysicansByLocationsAndByServices" %}
+            {% set relatedLocationsAndServices = [ 'or' ] %}
+            {# physicians related to chosen services #}
+            {% if entry.physicianServices and entry.physicianServices.count() > 0 %}
+                {% for speciality in entry.physicianServices %}
+                    {% set relatedLocationsAndServices = relatedLocationsAndServices|merge([ 'or', { targetElement: speciality, field: 'physicianSpeciality' }]) %}
+                    {% for childSpeciality in speciality.children.all() %}
+                        {% set relatedLocationsAndServices = relatedLocationsAndServices|merge([{ targetElement: childSpeciality, field: 'physicianSpeciality' }]) %}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
+            {# physicians related to chosen locations #}
+            {% if entry.physicianLocationsMany and entry.physicianLocationsMany.count() > 0 %}
+                {% for location in entry.physicianLocationsMany %}
+                    {% set relatedLocationsAndServices = relatedLocationsAndServices|merge([ 'or', { targetElement: location, field: 'physicianLocations' }]) %}
+                    {% for childLocation in location.children.all() %}
+                        {% set relatedLocationsAndServices = relatedLocationsAndServices|merge([{ targetElement: childLocation, field: 'physicianLocations' }]) %}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
+            {% include "_static/_physician_footer" with {
+                relatedLocationsAndServices: relatedLocationsAndServices,
+                class: 'bottom-rail-physicians'
+            } %}
+        {% elseif entry.physicianLocationsMany is not null %}
+            {% include "_static/_location_footer" with {
+                locations: entry.physicianLocationsMany,
+                class: 'bottom-rail-locations'
+            } %}
+        {% endif %}
+</article>
+</section>

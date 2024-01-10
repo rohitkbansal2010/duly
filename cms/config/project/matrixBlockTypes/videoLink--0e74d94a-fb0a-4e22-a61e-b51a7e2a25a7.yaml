@@ -1,0 +1,8 @@
+field: 4b93cf0c-d5b6-45c4-abf1-adec1212f080
+fieldLayouts:
+    3b943d78-3a8b-4aab-82b7-1d808352c75a: { tabs: [{ elements: [{ fieldUid: 5640b27e-e44a-486e-b68f-be24920cf6cf, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    5640b27e-e44a-486e-b68f-be24920cf6cf: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: serviceVideoLink, instructions: 'Upload YouTube video link here.', name: 'YouTube Link', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: 'https://www.youtube.com/watch?v=27uI3c0QSKc', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: videoLink
+name: 'Video Link'
+sortOrder: 1

@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineApppointmentsGroup should not render in the header number of the appoinntments if their count equal 1 1`] = `
+<Accordion
+  className="timelineAppointmentsGroup"
+>
+  <Card
+    body={false}
+    className="timelineAppointmentsGroupCard"
+  >
+    <CustomAccordionToggle
+      callback={[Function]}
+      eventKey="0"
+    >
+      <Component />
+    </CustomAccordionToggle>
+    <AccordionCollapse
+      eventKey="0"
+    >
+      <CardBody
+        className="timelineAppointmentsGroupCardBody"
+      >
+        <TimelineAppointmentsGroupItems
+          appointments={
+            Array [
+              Object {
+                "minutesDuration": 30,
+                "practitioner": Object {
+                  "humanName": Object {
+                    "familyName": "Ling",
+                    "givenNames": Array [],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  },
+                  "id": "1",
+                  "role": "MA",
+                },
+                "reason": "Patient fell - Hip problems",
+                "startTime": "2021-01-05T14:30:00Z",
+                "status": "Completed",
+              },
+            ]
+          }
+          groupId="recentAppointments-0"
+        />
+      </CardBody>
+    </AccordionCollapse>
+  </Card>
+</Accordion>
+`;
+
+exports[`TimelineApppointmentsGroup should not render in the header the farthestAppointmentDate if it not 1`] = `
+<Accordion
+  className="timelineAppointmentsGroup"
+>
+  <Card
+    body={false}
+    className="timelineAppointmentsGroupCard"
+  >
+    <CustomAccordionToggle
+      callback={[Function]}
+      eventKey="0"
+    >
+      <Component />
+    </CustomAccordionToggle>
+    <AccordionCollapse
+      eventKey="0"
+    >
+      <CardBody
+        className="timelineAppointmentsGroupCardBody"
+      >
+        <TimelineAppointmentsGroupItems
+          appointments={
+            Array [
+              Object {
+                "minutesDuration": 30,
+                "practitioner": Object {
+                  "humanName": Object {
+                    "familyName": "Ling",
+                    "givenNames": Array [],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  },
+                  "id": "1",
+                  "role": "MA",
+                },
+                "reason": "Patient fell - Hip problems",
+                "startTime": "2021-01-05T14:30:00Z",
+                "status": "Completed",
+              },
+              Object {
+                "minutesDuration": 60,
+                "practitioner": Object {
+                  "humanName": Object {
+                    "familyName": "Ling",
+                    "givenNames": Array [],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  },
+                  "id": "1",
+                  "role": "MA",
+                },
+                "reason": "Hip check - Physical Therapy",
+                "startTime": "2021-01-05T14:30:00Z",
+                "status": "NoShow",
+              },
+            ]
+          }
+          groupId="recentAppointments-0"
+        />
+      </CardBody>
+    </AccordionCollapse>
+  </Card>
+</Accordion>
+`;
+
+exports[`TimelineApppointmentsGroup should render the TimelineApppointmentsGroup component 1`] = `
+<Accordion
+  className="timelineAppointmentsGroup"
+>
+  <Card
+    body={false}
+    className="timelineAppointmentsGroupCard"
+  >
+    <CustomAccordionToggle
+      callback={[Function]}
+      eventKey="0"
+    >
+      <Component />
+    </CustomAccordionToggle>
+    <AccordionCollapse
+      eventKey="0"
+    >
+      <CardBody
+        className="timelineAppointmentsGroupCardBody"
+      >
+        <TimelineAppointmentsGroupItems
+          appointments={
+            Array [
+              Object {
+                "minutesDuration": 30,
+                "practitioner": Object {
+                  "humanName": Object {
+                    "familyName": "Ling",
+                    "givenNames": Array [],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  },
+                  "id": "1",
+                  "role": "MA",
+                },
+                "reason": "Patient fell - Hip problems",
+                "startTime": "2021-01-05T14:30:00Z",
+                "status": "Completed",
+              },
+              Object {
+                "minutesDuration": 60,
+                "practitioner": Object {
+                  "humanName": Object {
+                    "familyName": "Ling",
+                    "givenNames": Array [],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  },
+                  "id": "1",
+                  "role": "MA",
+                },
+                "reason": "Hip check - Physical Therapy",
+                "startTime": "2021-01-05T14:30:00Z",
+                "status": "NoShow",
+              },
+            ]
+          }
+          groupId="recentAppointments-0"
+        />
+      </CardBody>
+    </AccordionCollapse>
+  </Card>
+</Accordion>
+`;

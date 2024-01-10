@@ -1,0 +1,69 @@
+parameters:
+  - name: env
+  - name: helmChartName
+  - name: helmReleaseName
+  - name: helmChartsRepo
+  - name: imageACRName
+  - name: imageRepository
+  - name: imageTag
+  - name: aksServiceConnection
+  - name: addHostnameSuffix
+    default: true
+  - name: keyVault
+    default: ""
+  - name: chartArgs
+    default: ""
+  - name: dnsZone
+    default: "duly-np-local.digital"
+  - name: aadPodIdCustomName
+    default: ""
+  - name: dependsOn
+    type: object
+    default: []
+
+
+jobs: 
+  - deployment: deploy_web_views_${{parameters.env}}
+    displayName: Deploy on ${{parameters.env}}
+    dependsOn: ${{ parameters.dependsOn }}
+    variables:
+      ${{ if eq(parameters.addHostnameSuffix, 'false') }}:
+        hostnameSuffix: ""
+      ${{ else }}:
+        hostnameSuffix: "-${{parameters.env}}"
+    pool:
+      name: $(BUILD_POOL)
+    continueOnError: false
+    environment: 
+      name: ${{parameters.env}}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: ${{parameters.helmChartsRepo}}
+          - ${{ if not(eq(parameters.keyVault, '')) }}:
+              - task: AzureKeyVault@2
+                displayName: Get secrets from ${{parameters.keyVault}}
+                inputs:
+                  azureSubscription: ${{parameters.env}}
+                  KeyVaultName: ${{parameters.keyVault}}
+                  SecretsFilter: '*'
+
+          - task: HelmDeploy@0
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceConnection: ${{parameters.aksServiceConnection}}
+              namespace: ${{parameters.env}}
+              command: 'upgrade'
+              chartType: 'FilePath'
+              chartPath: '$(Build.SourcesDirectory)/${{parameters.aksServiceConnection}}/${{parameters.helmChartName}}/${{parameters.helmChartName}}'
+              releaseName: '${{parameters.helmReleaseName}}-${{parameters.env}}'
+              arguments: >
+                --set image.repository=${{parameters.imageACRName}}/${{parameters.imageRepository}} 
+                --set image.tag=${{ parameters.imageTag }}
+                --set ingress.hosts[0].host=${{parameters.helmReleaseName}}$(hostnameSuffix).${{parameters.dnsZone}}
+                --set ingress.hosts[0].paths[0].path='/(.*)'
+                --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+                --set azureAADPodIdentity.aadPodIdCustomName=${{parameters.aadPodIdCustomName}}
+                ${{ parameters.chartArgs }}
+              publishPipelineMetadata: false

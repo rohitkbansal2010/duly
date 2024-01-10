@@ -1,0 +1,10 @@
+defaultPlacement: end
+enableVersioning: true
+handle: products
+name: Products
+previewTargets:
+    - { __assoc__: [[label, 'Primary entry page'], [urlFormat, '{url}'], [refresh, '1']] }
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: true, hasUrls: true, template: _products/_product, uriFormat: 'products/{slug}' }
+type: channel

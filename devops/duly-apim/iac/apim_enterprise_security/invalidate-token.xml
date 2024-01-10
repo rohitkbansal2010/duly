@@ -1,0 +1,39 @@
+<policies>
+    <inbound>
+        <base />
+        <choose>
+            <when condition="@(context.Request.Headers.ContainsKey("Authorization"))">
+                <set-variable name="jwtValue" value="@(context.Request.Headers.GetValueOrDefault("Authorization").Substring("Bearer".Length).TrimStart().AsJwt())" />
+                <set-variable name="jwtInvalidationKey" value="@(((Jwt)context.Variables["jwtValue"])?.Claims["appid"].FirstOrDefault() + "-" + ((Jwt)context.Variables["jwtValue"])?.Claims["oid"].FirstOrDefault() + "-" + ((Jwt)context.Variables["jwtValue"])?.ExpirationTime.Value.Ticks + "-" + ((Jwt)context.Variables["jwtValue"])?.IssuedAt.Value.Ticks)" />
+                <cache-store-value key="@((string)context.Variables["jwtInvalidationKey"])" value="@(((Jwt)context.Variables["jwtValue"])?.ExpirationTime)" duration="@(Convert.ToInt32(((Jwt)context.Variables["jwtValue"])?.ExpirationTime.Value.Subtract(DateTime.UtcNow).TotalSeconds))" caching-type="prefer-external" />
+                <return-response>
+                    <set-status code="200" reason="Success" />
+                    <set-header name="jwt-Id" exists-action="override">
+                        <value>@((string)context.Variables["jwtInvalidationKey"])</value>
+                    </set-header>
+                    <set-header name="jwt-Exp" exists-action="override">
+                        <value>@(Convert.ToInt32(((Jwt)context.Variables["jwtValue"])?.ExpirationTime.Value.Subtract(DateTime.UtcNow).TotalSeconds).ToString())</value>
+                    </set-header>
+                </return-response>
+            </when>
+            <otherwise>
+                <return-response>
+                    <set-status code="401" reason="Unauthorized" />
+                    <set-header name="Content-Type" exists-action="override">
+                        <value>application/json</value>
+                    </set-header>
+                    <set-body>@(new JObject(new JProperty("statusCode","401"), new JProperty("message","Unauthorized. Access token is missing or invalid.")).ToString())</set-body>
+                </return-response>
+            </otherwise>
+        </choose>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

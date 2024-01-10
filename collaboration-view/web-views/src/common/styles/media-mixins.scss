@@ -1,0 +1,31 @@
+@import "devices";
+
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin mobile-plus {
+  @media (max-width: #{$mobile-plus}) {
+    @content;
+  }
+}
+
+@mixin portrait {
+  @media (max-width: #{$portrait}) {
+    @content;
+  }
+}
+
+@mixin landscape {
+  @media (max-width: #{$landscape}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: #{$desktop}) {
+    @content;
+  }
+}

@@ -1,0 +1,42 @@
+# Resource repository where pipeline templates located.
+# This is mandatory for linking to templates in other repository.
+parameters:
+  - name: allow_destroy
+    default: false
+    values:
+      - true
+      - false
+
+resources:
+  repositories:
+  - repository: duly-yaml-templates
+    type: git
+    name: 'duly.digital.devops/duly-yaml-templates'
+
+  - repository: terraform-scripts
+    type: git
+    name: 'duly.app.v1.collaboration-view/terraform-scripts'
+
+
+variables:
+- name: allow_destroy
+  value: ${{ parameters.allow_destroy }}
+
+pool: OnAKS
+
+
+trigger: none
+
+
+stages:
+- template: ./child.terraform/stages/terraform-apply-stage.yml@duly-yaml-templates
+  parameters:
+    infraSolutionRepo: terraform-scripts
+    infraSolutionFolder: iac/keyVault
+    configurationRepo: terraform-scripts
+    configurationPath: iac/_configuration/keyVault
+    envList:
+      - qat
+      - aut
+      - uat
+      - prd

@@ -1,0 +1,80 @@
+{% set insuranceProviderRequired = insuranceProviderRequired ?? true %}
+{% set insurancePlanRequired = insurancePlanRequired ?? true %}
+
+<div class="insurance-pickers-container">
+	<input type="hidden" id="medicareAdvantage" name="appointment_insurance_plan_medicare_advantage" value="0">
+	<h3>{{ "What insurance does the patient have?"|t }}</h3>
+	
+	{% set insuranceProviders = craft.entries({
+            section: "insuranceProviders",
+            orderBy: "title"
+        }).all()
+    %}
+
+	{% set insuranceProviderOptions = [] %}
+	{% for insuranceProvider in insuranceProviders %}
+		{% set insuranceProviderOptions = insuranceProviderOptions|merge([{ 
+			content: insuranceProvider.title, 
+			data: { 
+				value: insuranceProvider.id,
+			} 
+		}]) %}
+	{% endfor %}
+	{% set insuranceProviderOptions = insuranceProviderOptions|merge([
+		{
+			content: "Self Pay"|t,
+			data: {
+				value: 'self-pay',
+			},
+			class: 'invalid-option'
+		},
+		{
+			content: "I don't see my provider"|t,
+			data: {
+				value: 'no-provider',
+				'missing-insurance': true 
+			},
+			class: 'invalid-option'
+		}
+	]) %}
+
+	{% include '_input/_select.twig' with {
+		id: 'insurance-providers',
+		label: "Insurance Provider"|t,
+		required: insuranceProviderRequired,
+		options: insuranceProviderOptions,
+		name: 'appointment_insurance_provider_id'
+	} %}
+
+	{% set insurancePlans = craft.entries({
+		section: "insurancePlans",
+		orderBy: "title ASC"
+	}).all() %}
+
+	{% set insurancePlanOptions = [] %}
+	{% for insurancePlan in insurancePlans %}
+		{% set insurancePlanIsMedicareAdvantage = (insurancePlan.isPlanMedicare and insurancePlan.isMedicareAdvantage) ? '1' : '0' %}
+		{% set insurancePlanOptions = insurancePlanOptions|merge([{ 
+			content: insurancePlan.title, 
+			data: { 
+				value: insurancePlan.id, 
+				'provider-id': insurancePlan.planProvider.one().id,
+				'medicare-advantage': insurancePlanIsMedicareAdvantage
+			} }]) %}
+	{% endfor %}
+	{% set insurancePlanOptions = insurancePlanOptions|merge([{ 
+		content: "I don't see my plan"|t,
+		class: 'invalid-option last-option',
+		data: {
+			value: "-1",
+			'missing-insurance': true
+		}  }]) %}
+		
+	{% include '_input/_select.twig' with {
+		id: 'insurance-plans',
+		label: 'Insurance Plan',
+		required: insurancePlanRequired,
+		options: insurancePlanOptions,
+		name: 'appointment_insurance_plan_id'
+	} %}
+</div>

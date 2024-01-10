@@ -1,0 +1,312 @@
+.cosmetic-dermatology-appointment-request-page {
+	.form-request-success {
+		.content {
+			width: 35vw;
+
+			@include responsive(bs-large) {
+				width: 50vw;
+			}
+
+			@include responsive(medium) {
+				width: 80vw;
+			}
+		}
+	}
+
+	.form-container {
+		max-width: 840px;
+		width: 100%;
+		border-radius: 4px;
+		margin: 24px auto 80px auto;
+		padding: 40px;
+
+		@include responsive(bs-large) {
+			padding: 16px;
+			max-width: 100%;
+			width: 90%;
+		}
+
+		h1 {
+			color: $oxford;
+			font-size: 20px;
+			font-weight: 900;
+			text-align: center;
+			line-height: 22px;
+
+			@include responsive(medium) {
+				font-size: 18px;
+			}
+		}
+
+		h2 {
+			color: $oxford;
+			font-weight: bold;
+			font-size: 16px;
+			margin: 0px;
+
+			@include responsive(medium) {
+				line-height: 22px;
+				margin: 16px 0px;
+			}
+
+			&.required {
+				&::after {
+					content: "*" !important;
+					font-weight: bold;
+					color: $tangerine;
+					font-size: 1.25rem;
+					margin: 0 0 0 0.25rem;
+				}
+			}
+		}
+
+		p {
+			color: $oxford;
+			font-size: 16px;
+			font-weight: normal;
+			text-align: center;
+			margin: 0 0 40px 0;
+
+			@include responsive(medium) {
+				font-size: 14px;
+			}
+		}
+
+		form {
+			hr {
+				width: calc(100% + 40px);
+				border: none;
+				border-bottom: 1px solid rgba(71, 10, 104, 0.3);
+				margin: 45px 0 30px -20px;
+
+				@include responsive(medium) {
+					margin: 15px 0px;
+					width: 100%;
+				}
+			}
+
+			.field-container {
+				margin: 16px 0px;
+
+				@include responsive(medium) {
+					margin: 10px 0px;
+				}
+
+				&.two-columns {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+
+					.field-group {
+						width: 47%;
+					}
+
+					@include responsive(medium) {
+						flex-direction: column;
+
+						.field-group {
+							width: 100%;
+
+							&:last-child {
+								margin: 10px 0px 0px 0px;
+							}
+						}
+					}
+				}
+
+				&.radio-container {
+					display: flex;
+					align-items: center;
+
+					.mdc-form-field {
+						margin-right: 50px;
+					}
+
+					@include responsive(medium) {
+						margin: 20px 0px;
+
+						.mdc-form-field {
+							margin-right: 25px;
+						}
+					}
+				}
+
+				&.insurance-container {
+					.field-group {
+						.insurance-pickers-container {
+							display: flex;
+							justify-content: space-between;
+							width: 100%;
+
+							@include responsive(medium) {
+								flex-direction: column;
+							}
+
+							.mdc-select {
+								width: 48% !important;
+
+								@include responsive(medium) {
+									width: 100% !important;
+
+									&:last-child {
+										margin: 10px 0px;
+									}
+								}
+							}
+
+							.show-value {
+								display: flex !important;
+								visibility: visible !important;
+								opacity: 1 !important;
+							}
+
+							.mdc-select__menu.mdc-menu
+								mdc-menu-surface.mdc-menu-surface--open {
+								max-height: 400px !important;
+							}
+						}
+					}
+
+					h3 {
+						display: none;
+					}
+				}
+
+				&.date-of-birth {
+					.field-group {
+						display: flex;
+					}
+
+					.inline-text-field-container {
+						width: 100px;
+						margin-right: 16px;
+						border-radius: 4px 4px 2px 2px !important;
+
+						@include responsive(medium) {
+							width: 200px;
+							margin: 10px 20px 10px 0px;
+						}
+
+						&:last-child {
+							width: 125px;
+
+							@include responsive(medium) {
+								width: 95%;
+							}
+						}
+					}
+				}
+			}
+			.procedures-container {
+				margin: 1rem 0;
+			}
+
+			button {
+				margin: 2rem auto 0 auto;
+				display: block;
+				padding: 1rem 2rem;
+			}
+
+			#character-count-container {
+				text-align: right;
+				margin-top: 5px;
+				display: block;
+				color: $oxford;
+				font-size: 14px;
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+				span {
+					color: inherit;
+					font-size: inherit;
+				}
+		
+				&.warning {
+					span {
+						color: $error-red;
+					}
+				}
+			}
+		}
+	}
+
+	.date-picker {
+		@include responsive(bs-large) {
+			margin: 15px 0px;
+
+			.pika-single {
+				margin-top: 10px;
+				border-radius: 4px;
+
+				.pika-lendar {
+					width: 95% !important;
+				}
+
+				.pika-button {
+					padding: 10px !important;
+					width: 40px !important;
+					color: inherit !important;
+				}
+
+				.pika-prev,
+				.pika-next {
+					color: transparent !important;
+					width: inherit !important;
+					padding: 0px !important;
+					margin: 0px !important;
+					font-size: 1px;
+				}
+			}
+
+			&.display-calendar {
+				.pika-single {
+					display: block;
+				}
+			}
+
+			.inline-text-field-container {
+				margin-bottom: 10px;
+			}
+		}
+	}
+
+	.pattern-top-right {
+		position: absolute;
+		top: 853px;
+		right: 0;
+		background: url("/dist/img/pattern-pink.svg");
+		background-repeat: no-repeat;
+		height: calc(100% + 500px);
+		width: 478px;
+		margin-top: -500px;
+		z-index: -1;
+
+		@include responsive(medium) {
+			display: none;
+		}
+	}
+
+	.pattern-bottom-left {
+		position: absolute;
+		top: 1722px;
+		left: -341px;
+		background: url("/dist/img/pattern-pink.svg");
+		background-repeat: no-repeat;
+		height: calc(100% + 500px);
+		width: 100%;
+		margin-top: -500px;
+		z-index: -1;
+
+		@include responsive(medium) {
+			display: none;
+		}
+	}
+	.modal {
+		.content {
+			button {
+				padding: 1rem 2rem;
+				font-size: 1.25rem;
+			}
+		}
+	}
+}

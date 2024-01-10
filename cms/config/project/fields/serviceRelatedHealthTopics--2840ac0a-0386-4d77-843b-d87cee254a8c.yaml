@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceRelatedHealthTopics
+instructions: 'Enable to display related Health Topics'
+name: 'Show Related Health Topics'
+searchable: true
+settings:
+    default: true
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

@@ -1,0 +1,917 @@
+main.physicians-list-page {
+	width: 100%;
+
+	.display-error {
+		text-align: center;
+		padding: 20px;
+
+		h3 {
+			font-weight: 600;
+		}
+	}
+
+	.pagination {
+		text-align: center;
+		flex: 0 0 100%;
+
+		ul {
+			li {
+				a {
+					&.pagination-link {
+						color: $oxford;
+
+						&.is-current {
+							color: $white !important;
+							background-color: $sky;
+						}
+					}
+
+					&.pagination-text-link {
+						color: $oxford;
+					}
+				}
+			}
+		}
+	}
+
+	.events-listing-container {
+		min-height: 300px;
+	}
+
+	.event-search-container {
+		border-bottom: none !important;
+		box-shadow: none !important;
+
+		@include responsive(large) {
+			padding-bottom: 0;
+		}
+
+		.search-content {
+			.filter-btn-mobile {
+				padding: 14px 15px 13px 15px;
+				margin-top: 0;
+			}
+		}
+	}
+
+	.content-header {
+		display: none !important;
+		box-sizing: border-box;
+		@include responsive(large) {
+			display: block !important;
+			padding-left: 10px;
+			margin-top: 0;
+		}
+	}
+
+	.listings,
+	.content-header {
+		margin: 0 auto;
+		max-width: 1250px;
+		min-width: 1250px;
+		width: 100%;
+
+		@include responsive(x-large) {
+			max-width: 100%;
+			min-width: 100%;
+			width: 100%;
+		}
+
+		h2 {
+			padding-left: 20px;
+			font-size: 28px;
+			font-weight: 800;
+
+			@include responsive(medium) {
+				margin: 5px 0px;
+				padding-left: 0px;
+			}
+		}
+
+		.container {
+			background: $white;
+			border-radius: 4px;
+			margin: 15px;
+
+			a {
+				text-decoration: none;
+			}
+
+			@include responsive(medium) {
+				margin: 5px 0px;
+			}
+
+			.header {
+				display: flex;
+				align-items: center;
+				border-bottom: 1px solid $sky;
+				padding: 1rem 0px;
+				margin: 0px 1rem;
+
+				@include responsive(medium) {
+					display: none;
+				}
+
+				span {
+					font-weight: 900;
+					font-size: 20px;
+					width: 30%;
+
+					&:first-child {
+						padding-left: 25px;
+						width: 40%;
+
+						@include responsive(x-large) {
+							width: 50%;
+						}
+					}
+
+					@include responsive(x-large) {
+						width: 20%;
+					}
+
+					@include responsive(medium) {
+						width: 95%;
+					}
+				}
+			}
+
+			.event-divider {
+				width: calc(100% - 3rem);
+				height: 1px;
+				background-color: $sky-20;
+				margin: 0 auto;
+			}
+
+			.event {
+				padding: 20px 24px;
+				display: flex;
+				border-radius: 1rem;
+
+				&:hover {
+					background: $off-blue;
+					cursor: pointer;
+				}
+
+				@include responsive(medium) {
+					flex-direction: column;
+					padding: 0;
+					margin: 10px;
+				}
+
+				.semi-bold {
+					font-weight: 900;
+				}
+
+				.name {
+					display: flex;
+					width: 40%;
+
+					@include responsive(x-large) {
+						width: 50%;
+					}
+
+					@include responsive(medium) {
+						width: 100%;
+					}
+
+					.image-container {
+						img {
+							border-radius: 22px 0px;
+						}
+
+						@include responsive(medium) {
+							width: 100%;
+							img {
+								width: 100%;
+							}
+						}
+					}
+
+					.text-container {
+						padding-left: 10px;
+
+						p {
+							color: $oxford;
+							margin: 5px 0px;
+							font-size: 18px;
+							line-height: 20px;
+						}
+
+						span {
+							&:after {
+								content: ", ";
+							}
+
+							&:last-child {
+								&:after {
+									content: "";
+								}
+							}
+						}
+
+						@include responsive(medium) {
+							display: none;
+						}
+					}
+				}
+
+				.text-container-mobile {
+					display: none;
+
+					p {
+						margin: 5px 0px;
+						font-size: 18px;
+						color: $oxford;
+					}
+
+					span {
+						&:after {
+							content: ", ";
+						}
+
+						&:last-child {
+							&:after {
+								content: "";
+							}
+						}
+					}
+
+					@include responsive(medium) {
+						display: block;
+					}
+				}
+
+				.date,
+				.location {
+					width: 30%;
+					padding-left: 30px;
+
+					@include responsive(x-large) {
+						width: 20%;
+					}
+
+					@include responsive(medium) {
+						width: 95%;
+						padding-left: 0px;
+						margin: 5px 0px;
+					}
+
+					p {
+						margin: 0px;
+						font-size: 16px;
+						color: $oxford;
+
+						&:first-child {
+							margin: 0px 0px 5px 0px;
+
+							@include responsive(medium) {
+								margin: 0px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.no-search-results {
+		margin: 10px 0px;
+		text-align: center;
+		padding: 25px;
+
+		img {
+			width: 80px;
+		}
+
+		h2 {
+			margin: 5px 0px 0px 0px;
+
+			@include responsive(medium) {
+				font-size: 22px;
+			}
+		}
+
+		p {
+			margin: 0px;
+		}
+
+		@include responsive(medium) {
+			margin-bottom: 50px;
+		}
+	}
+
+	.event-filter-modal {
+		display: none;
+		height: 100vh;
+		position: fixed;
+		top: 0px;
+		background: $white;
+		width: 100%;
+		z-index: 100000;
+		overflow: auto;
+
+		label {
+			cursor: pointer;
+		}
+
+		.dropdown {
+			margin-left: -10px;
+		}
+
+		.mdc-form-field {
+			width: 100%;
+		}
+
+		.mdc-checkbox--touch {
+			margin: 0px;
+		}
+
+		.mdc-checkbox {
+			flex: 0 0 4px;
+			width: 12px;
+			height: 7px;
+			padding: 16px;
+		}
+
+		.count {
+			font-size: 16px;
+			font-weight: 600;
+		}
+
+		.mdc-text-field {
+			width: 100% !important;
+		}
+
+		.date-picker {
+			margin: 15px 0px;
+
+			.pika-single {
+				display: none;
+				margin-top: 10px;
+				border-radius: 4px;
+
+				.pika-lendar {
+					width: 95% !important;
+				}
+
+				.pika-button {
+					padding: 10px !important;
+				}
+			}
+
+			&.display-calendar {
+				.pika-single {
+					display: block;
+				}
+			}
+
+			.inline-text-field-container {
+				margin-bottom: 10px;
+			}
+		}
+
+		@include responsive(bs-large) {
+			display: block;
+		}
+
+		.header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin: 16px;
+
+			h2 {
+				color: $oxford;
+				font-size: 24px;
+				font-weight: 700;
+			}
+
+			i {
+				cursor: pointer;
+			}
+		}
+
+		.filter-container {
+			background: $white;
+			border-radius: 4px;
+			padding: 8px 0px;
+			margin: 8px 15px 100px 15px;
+
+			.filter-entry {
+				cursor: pointer;
+				padding: 16px;
+
+				.filter-label {
+					.label-text {
+						color: $oxford;
+						outline: none;
+					}
+
+					.mdc-radio {
+						padding: 5px 0px !important;
+					}
+				}
+
+				p,
+				label {
+					width: 100%;
+					margin: 0px;
+					font-size: 16px;
+					font-weight: 700;
+				}
+
+				@include responsive(bs-large) {
+					border: unset;
+				}
+
+				&:hover {
+					background: $dark-green;
+
+					.filter-label p {
+						color: $white;
+					}
+
+					@include responsive(bs-large) {
+						background: $white;
+
+						.filter-label p {
+							color: $oxford;
+						}
+					}
+				}
+
+				.type {
+					font-weight: 600;
+				}
+
+				.dropdown {
+					display: none;
+				}
+
+				&.selected {
+					.dropdown {
+						display: block;
+					}
+
+					.keyboard_arrow_down {
+						transform: rotate(180deg);
+					}
+				}
+
+				.filter-label {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+
+					.close {
+						display: none;
+					}
+				}
+
+				.radio,
+				.mdc-form-field {
+					outline: none;
+				}
+			}
+
+			hr {
+				border: none;
+				border-bottom: 1px solid $sky;
+				opacity: 0.3;
+			}
+		}
+
+		.footer {
+			width: 100%;
+			background: $white;
+			height: 80px;
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+			position: fixed;
+			bottom: 0;
+			z-index: 10000;
+			box-shadow: 0px -1px 8px 0px rgba(0, 0, 0, 0.24);
+			button {
+				margin: 0 0.5rem;
+				@include responsive(medium) {
+					font-size: 1rem;
+				}
+			}
+		}
+
+		.date-picker-container {
+			@include responsive(medium) {
+				padding-bottom: 100px;
+			}
+		}
+
+		.city-checkbox {
+			&:last-child {
+				padding-bottom: 25px;
+			}
+		}
+	}
+	.body-container {
+		display: flex;
+		padding: 0px 25px 50px 25px;
+		max-width: 1250px;
+		width: 100%;
+		margin: auto;
+		flex-direction: column;
+
+		@include responsive(medium) {
+			padding: 0;
+		}
+	}
+
+	.header-bar {
+		display: block;
+		margin: 0 0 10px auto;
+		padding: 0px 10px;
+	}
+
+	.content {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.left-container {
+		display: flex;
+		flex-direction: column;
+		width: 880px;
+
+		@include responsive(x-large) {
+			width: 765px;
+		}
+
+		@include responsive(large) {
+			width: 630px;
+		}
+
+		@include responsive(bs-large) {
+			width: 100%;
+		}
+
+		@include responsive(bs-large) {
+			padding: 0px 16px;
+		}
+	}
+
+	.tile-container {
+		width: 100%;
+		display: flex;
+		align-items: start;
+		justify-content: space-between;
+		flex-wrap: wrap;
+
+		@include responsive(large) {
+			justify-content: center;
+		}
+
+		@include responsive(bs-large) {
+			justify-content: space-between;
+		}
+
+		.no-search-results {
+			margin: 50px auto 25px auto;
+			text-align: center;
+
+			img {
+				width: 80px;
+			}
+
+			h2 {
+				margin: 5px 0px 0px 0px;
+			}
+
+			p {
+				margin: 0px;
+			}
+		}
+
+		a.physician-link {
+			padding: 8px;
+			background: $white;
+			max-width: 47%;
+			width: 100%;
+			margin-bottom: 16px;
+			min-height: 160px;
+			text-decoration: none;
+			border-bottom: 1px solid $magenta;
+
+			@include responsive(large) {
+				max-width: 90%;
+			}
+
+			@include responsive(bs-large) {
+				max-width: 47%;
+			}
+
+			@include responsive(medium) {
+				max-width: 100%;
+			}
+
+			&:hover {
+				box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
+				border-bottom: 1px solid $violet;
+				.single-tile {
+					h2 {
+						color: $magenta;
+					}
+				}
+				.appointment-time span {
+					color: $magenta !important;
+					text-decoration: underline;
+				}
+			}
+
+			.biography-content {
+				display: flex;
+
+				img {
+					border-radius: 2px;
+				}
+
+				.specialties,
+				.speciality-name {
+					line-height: 1;
+				}
+
+				.stars {
+					padding-top: 10px;
+
+					.rating-number {
+						color: $dark-2;
+						font-size: 16px;
+						font-weight: 800;
+						line-height: 22px;
+						float: left;
+					}
+
+					.star-rating {
+						height: 20px;
+						white-space: nowrap;
+
+						.material-icons {
+							color: $marigold;
+							font-size: 20px;
+						}
+
+						@include responsive(medium) {
+							height: 16px;
+
+							.material-icons {
+								font-size: 16px;
+							}
+						}
+					}
+				}
+			}
+
+			span.location-name {
+				&:not(:last-of-type):after {
+					content: ",";
+					margin-left: -3px;
+					color: $dark-blue-text;
+				}
+			}
+
+			.details {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				margin-left: 10px;
+
+				h2 {
+					margin: 0px;
+					font-size: 16px;
+					font-weight: 900;
+					line-height: 20px;
+					color: $violet;
+				}
+
+				.speciality-name {
+					font-size: 14px;
+					font-weight: normal;
+					line-height: 18px;
+
+					&:after {
+						content: ", ";
+					}
+
+					&:last-child {
+						&:after {
+							content: "";
+						}
+					}
+				}
+
+				.locations {
+					p,
+					span {
+						margin: 0px;
+						font-size: 14px;
+						font-weight: normal;
+						line-height: 18px;
+						color: $dark-2;
+					}
+
+					.location-name {
+						color: $oxford;
+					}
+				}
+			}
+
+			.appointment-time {
+				p {
+					font-size: 14px;
+					font-weight: normal;
+					margin: 0px;
+					padding-top: 12px;
+					color: $dark-2;
+					line-height: 22px;
+
+					span {
+						font-weight: 800 !important;
+						color: $violet !important;
+						font-size: 16px;
+					}
+				}
+			}
+		}
+
+		&.chosen-visit-type {
+			.visit-type-overlay {
+				display: none;
+			}
+
+			.single-day {
+				&:not(.header) {
+					filter: none !important;
+					pointer-events: auto !important;
+				}
+			}
+		}
+	}
+
+	.map {
+		width: 352px;
+		background: antiquewhite;
+		height: 500px;
+		margin-left: 24px;
+		flex-shrink: 0;
+
+		@include responsive(x-large) {
+			max-width: 300px;
+		}
+
+		@include responsive(large) {
+			width: 100%;
+			max-width: 500px;
+		}
+
+		@include responsive(bs-large) {
+			display: none;
+		}
+
+		&.show-map {
+			display: none;
+
+			@include responsive(bs-large) {
+				width: 100%;
+				max-width: 100%;
+				height: 350px;
+				margin-left: 0px;
+				display: block !important;
+
+				.mapboxgl-canvas {
+					width: 100% !important;
+					height: auto !important;
+				}
+			}
+		}
+	}
+
+	.map-list-switcher {
+		display: none;
+
+		@include responsive(bs-large) {
+			display: block;
+		}
+	}
+
+	.map-list-switcher {
+		font-size: 14px;
+		font-weight: bold;
+		background: $white;
+		border-radius: 4px;
+		padding: 9px 12px;
+		width: 30px;
+		text-align: center;
+		cursor: pointer;
+	}
+
+	.physician-search-container {
+		margin-bottom: 25px;
+		box-shadow: none;
+		border-bottom: 0;
+
+		@include responsive(bs-large) {
+			padding-bottom: 10px;
+		}
+
+		form {
+			margin-right: 16px;
+
+			@include responsive(bs-large) {
+				padding: 5px 0;
+			}
+
+			.material-icons.near_me,
+			.loading-spinner {
+				position: absolute;
+				top: 50%;
+				right: 0;
+				transform: translateY(-50%);
+				cursor: pointer;
+				padding: 0px 14px;
+				margin-right: 5px;
+				fill: $black;
+				background: $footer-gray;
+			}
+
+			.lottie {
+				width: 40px;
+				height: 40px;
+				padding: 0;
+				margin-right: -9px;
+			}
+		}
+	}
+
+	.pagination {
+		text-align: center;
+		ul {
+			li {
+				a {
+					&.pagination-link {
+						color: $violet;
+
+						&.is-current {
+							color: $white !important;
+							background-color: $magenta;
+						}
+					}
+
+					&.pagination-text-link {
+						color: $violet;
+					}
+				}
+			}
+		}
+	}
+
+	.lgbtqia-container {
+		#lgbtqiaCheckboxContainer {
+			transform: translate(0.5rem, 0);
+			.mdc-checkbox {
+				flex: unset;
+				width: unset;
+				height: unset;
+				padding: 1.25rem;
+			}
+		}
+	}
+	.material-icons {
+		&.sort {
+			@include responsive(bs-large) {
+				display: none;
+			}
+		}
+	}
+
+	.sort-container {
+		&.active {
+			&:hover {
+				.material-icons {
+					color: $white !important;
+				}
+			}
+		}
+		&:hover {
+			.material-icons {
+				color: $sky !important;
+			}
+		}
+	}
+	.filter-entry {
+		@include responsive(bs-large) {
+			&.selected {
+				border: unset;
+			}
+		}
+	}
+}

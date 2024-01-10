@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppointmentDailyStatistics should match snapshot 1`] = `
+<Col>
+  <div
+    className="topSection"
+  >
+    <Row
+      className="dateRow"
+    >
+      <span
+        className="dateRowDay"
+        data-testid="dateRowDay"
+      >
+        Tuesday
+        ,
+      </span>
+      <span
+        className="dateRowMonth"
+        data-testid="dateRowMonth"
+      >
+        1
+         
+        Nov
+      </span>
+      <span
+        className="dateRowYear"
+        data-testid="dateRowYear"
+      >
+        2022
+      </span>
+    </Row>
+    <Row
+      className="addressRow"
+      data-testid="addressRow"
+      onClick={[Function]}
+    >
+      <SitesContainer>
+        <span
+          className="addressRowTopPart"
+          data-testid="addressRowTopPart"
+        >
+          <img
+            alt="map pin magenta"
+            src="map-pin-magenta.svg"
+          />
+          <span
+            className="addressRowTopPartSpacingSpan"
+            data-testid="addressRowTopPartSpacingSpan"
+          >
+            FirstLine
+          </span>
+        </span>
+        <span
+          className="addressRowBottomPart"
+          data-testid="addressRowBottomPart"
+        >
+          Lunacity, Lunastate Lu001
+        </span>
+      </SitesContainer>
+    </Row>
+  </div>
+  <div
+    className="bottomSection"
+  >
+    <NewPatients
+      newPatients={3}
+    />
+  </div>
+</Col>
+`;

@@ -1,0 +1,24 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 49194be8-0adc-41cb-894d-e3e98a5441c0
+handle: eventCategories
+instructions: 'Select one or more categories to assign this event to.'
+name: 'Event Categories'
+searchable: true
+settings:
+    allowLimit: false
+    allowMultipleSources: false
+    allowSelfRelations: false
+    branchLimit: ''
+    limit: null
+    localizeRelations: false
+    selectionLabel: 'Select a category to assign this event to.'
+    showSiteMenu: true
+    source: 'group:34496e73-a9fa-4a6d-889a-982018fbaf9f'
+    sources: '*'
+    targetSiteId: null
+    validateRelatedElements: true
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Categories

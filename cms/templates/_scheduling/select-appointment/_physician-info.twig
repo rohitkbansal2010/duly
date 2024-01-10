@@ -1,0 +1,108 @@
+{% set patientUser = craft.app.patient_user.identity %}
+{% set isVideoVisit = patientUser.appointment_visit_type_id == 2990 %}
+{% if physician is defined %}
+	{% if suite is defined and suite is not null %}
+		{% set physicalLocation = suite.parent %}
+		{% set location = physicalLocation.address.parts %}
+		{% set addressLine = location.number ~ ' ' ~ location.address %}
+		{% set cityStateZipLine = location.city ~ ', ' ~ location.state ~ ' ' ~ location.postcode %}
+
+		{% set activeSuiteService = suite.suiteServices.all() | filter(ss => ss.externalDepartmentId == patientUser.appointment_department_id) %}
+		{% set activeSuiteService = activeSuiteService | length == 1 ? activeSuiteService|first : null %}
+	{% endif %}
+	{% if selectedLocation is defined and selectedLocation is not null %}
+		{% set suite = null %}
+		{% set activeSuiteService = null %}
+		{% set physicalLocation = selectedLocation %}
+		{% set location = physicalLocation.address.parts %}
+		{% set addressLine = location.number ~ ' ' ~ location.address %}
+		{% set cityStateZipLine = location.city ~ ', ' ~ location.state ~ ' ' ~ location.postcode %}
+	{% endif %}
+
+	<div class="{{ modalMap ? 'physician-info-container has-modal-map' : 'physician-info-container' }}" data-physician-id="{{physician.id ?? patientUser.appointment_physician_id}}" data-lat="{{physicalLocation.address.lat ?? ''}}" data-lng="{{physicalLocation.address.lng ?? ''}}" data-address-line="{{addressLine ?? ''}}" data-city-state-zip-line="{{cityStateZipLine ?? ''}}" data-only-accepts-medicare-advantage="{{ physician ? physician.onlyAcceptsMedicareAdvantage : 0 }}">
+		
+		{# suite won't be defined because appointment_department_id isn't generated until after selecting an appointment
+		all physician locations are needed in order to populate map on page load #}
+		
+		{% if physicianLocations is defined %}
+			{% for location in physicianLocations %}
+				{% set physicalLocation = location.parent %}
+
+				{% if physicalLocation is not null %}
+					{% set location = physicalLocation.address.parts %}
+					{% set addressLine = location.number ~ ' ' ~ location.address %}
+					{% set cityStateZipLine = location.city ~ ', ' ~ location.state ~ ' ' ~ location.postcode %}
+					<span class="physician-map-location hidden" data-lat="{{physicalLocation.address.lat ?? ''}}" data-lng="{{physicalLocation.address.lng ?? ''}}" data-address-line="{{addressLine ?? ''}}" data-city-state-zip-line="{{cityStateZipLine ?? ''}}"></span>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
+		{% include "_scheduling/select-appointment/_physician-details.twig" with {
+			physician: physician
+		} %}
+
+		{% set appointment_time = patientUser and patientUser.appointment_time ? patientUser.appointment_time ? : null %}
+		<div class="appointment-time {{ appointment_time ? '' : 'hidden' }}">
+			<span class="material-icons calendar_today"></span>
+			<span class="date">{{ appointment_time | date('D, M. d, Y') }}</span>
+			<span class="material-icons access_time"></span>
+			<span class="time">{{ appointment_time | date('g:ia') }}</span>
+		</div>
+
+		<div class="location-and-map {{ isVideoVisit ? 'hidden' : '' }}">
+			<input type="checkbox" id="toggle-location-details" class="toggle-input">
+			<label for="toggle-location-details" class="toggle-label">
+				<span class="toggle-less">{{ "Hide"|t }}</span>
+				<span class="toggle-more">{{ "Show"|t }}</span>
+				<span>{{ "View Map"|t }}</span>
+				<span class="material-icons expand_less"></span>
+				<span class="material-icons expand_more"></span>
+			</label>
+			<div class="map-container {{ not isSchedulingFlowWithoutPhysicians ? 'hidden' : '' }}">
+				<span class="hidden"></span>
+				<div class="location-details">
+					{% if physicalLocation is defined and physicalLocation is not null %}
+						<div class="data">
+							<a href="{{physicalLocation.url}}">
+								<p class="address-line populate-marker" data-address="{{ location.number }} {{ location.address }}, {{ location.city }}, {{ location.state }} {{ location.postcode }}" data-latitude="{{ physicalLocation.address.lat }}" data-longitude="{{ physicalLocation.address.lng }}">{{ location.number }}
+									{{ location.address }}</p>
+								{% if suite and suite.hiddenSuite == false %}
+									<p class="suite-name">{{ suite.title }}</p>
+								{% endif %}
+								<p class="city-state-zip">{{ location.city }},
+									{{ location.state }}
+									{{ location.postcode }}</p>
+							</a>
+						</div>
+
+						<div class="contact-details">
+							{% if activeSuiteService is not null and activeSuiteService.phoneNumber is defined and activeSuiteService.phoneNumber is not null %}
+								<a href="{{ activeSuiteService.phoneNumber.format('rfc3966') }}" class="phone link-effect">{{ activeSuiteService.phoneNumber.format('national') }}</a>
+							{% endif %}
+							<div class="directions">
+								<span class="material-icons">
+									directions_car
+								</span>
+								<a href="https://www.google.com/maps/search/?api=1&query={{ location.number }} {{ location.address }}, {{ location.city }}, {{ location.state }} {{ location.postcode }}" target="_blank" rel="noopener noreferrer">
+									{{ "Get Directions"|t }}
+								</a>
+							</div>
+						</div>
+					{% else %}
+						<div class="data">
+							<div>
+								<p class="address-line"></p>
+								<p class="city-state-zip"></p>
+							</div>
+
+							<a href="" class="directions hidden link-effect" target="_blank" rel="noopener noreferrer">{{ "Get Directions"|t }}</a>
+						</div>
+						
+						<a class="phone link-effect"></a>
+					{% endif %}
+				</div>
+				<div class="map"></div>
+			</div>
+		</div>
+	</div>
+{% endif %}

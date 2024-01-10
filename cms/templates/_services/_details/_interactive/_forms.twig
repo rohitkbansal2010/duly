@@ -1,0 +1,11 @@
+{% for file in entry.serviceFormFiles.all() %}
+    <div class="form">
+        <div class="icon"></div>
+        <div>
+            <a href="{{ file.getUrl() }}" target="_blank" download>
+                {{ file.fileName }}
+            </a>
+            <p>{{ file.size|filesize }}</p>
+        </div>
+    </div>
+{% endfor %}

@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: cc769682-917d-404b-9f89-de109350bed8
+handle: physicianLocationsMany
+instructions: 'Select the locations to display on the page'
+name: Locations
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: 'Select a location'
+    showSiteMenu: true
+    source: null
+    sources: ['section:17cba234-5703-403b-a9e3-d029df2d1745']
+    targetSiteId: null
+    validateRelatedElements: true
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

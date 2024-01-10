@@ -1,0 +1,130 @@
+@import "~@styles/colors.scss";
+@import "~@styles/main.scss";
+@import "~@styles/typography.scss";
+
+.appointmentContainer {
+  z-index: 20;
+  width: 0 !important;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.dots {
+  overflow: hidden;
+  color: $default-text;
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+  white-space: nowrap;
+  text-align: center;
+  @include nexa-extra-bold-highlight;
+}
+
+.btgRect {
+  display: inline-block;
+  width: 5.75rem;
+  height: 1.3125rem;
+  margin-right: 0.25rem;
+  color: $black;
+  vertical-align: sub;
+  background-color: $black;
+  border-radius: 0.5rem;
+}
+
+.appointmentCard {
+  position: relative;
+  display: flex !important;
+  flex-direction: row !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  cursor: pointer;
+
+  &NewPatient {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.7rem;
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+    background: linear-gradient(
+      90deg,
+      convertToRGBA($dupage-light-blue, 0.1) 0.7%,
+      convertToRGBA($dupage-light-blue, 0.8) 99.11%
+    );
+    border-radius: 50%;
+
+    & img {
+      width: 1rem;
+      height: 0.75rem;
+    }
+  }
+
+  &BarLeft {
+    width: 0.63rem;
+    height: auto;
+    background-color: $dupage-light-blue;
+    border-radius: 0.5rem 0 0 0.5rem;
+  }
+
+  &Body {
+    flex: 1 !important;
+    margin: 0 !important;
+    padding: 0.25rem 0.6rem 0.56rem 0.75rem !important;
+    overflow: hidden;
+    background: linear-gradient(
+      90deg,
+      convertToRGBA($dupage-light-blue, 0.1) 0.7%,
+      convertToRGBA($dupage-light-blue, 0.8) 99.11%
+    );
+
+    &Content {
+      &Title {
+        display: flex !important;
+        align-items: center !important;
+        margin: 0 !important;
+
+        & img {
+          width: 0.81rem;
+          height: 0.56rem;
+          margin-left: 0.31rem;
+        }
+      }
+
+      &HumanName,
+      &ServiceType {
+        color: $default-text;
+        font-size: 1rem !important;
+        line-height: 1.5rem !important;
+      }
+
+      &HumanName {
+        @include nexa-extra-bold-highlight;
+      }
+
+      &ServiceType {
+        @include nexa-regular-highlight;
+      }
+
+      &Practitioner {
+        margin: 0 !important;
+        color: $default-text;
+        font-size: 1rem !important;
+        line-height: 1.5rem !important;
+        @include nexa-regular-highlight;
+      }
+
+      &Time {
+        color: $dark-gray;
+        font-size: 1rem !important;
+        line-height: 1.5rem !important;
+        @include nexa-regular-highlight;
+      }
+    }
+  }
+}

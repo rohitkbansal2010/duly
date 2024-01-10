@@ -1,0 +1,13 @@
+<div class="hero">
+	{% set image = entry.serviceHeroImage.one() %}
+	{% if image is not null %}
+		<div class="hero-image">
+			{{ getOptimizedImage(image, 'webp', false, [{'settings': ['resize:fill:635:355:1:1'],'css': '(max-width:1092px)'},{'settings': ['resize:fill:735:383:1:1'],'css': '(min-width:1092px) and (max-width:1200px)'},{'settings': ['resize:fill:820:460:1:1'],'css': '(max-width:1200px)'}])|raw }}
+		</div>
+	{% endif %}
+
+	<div class="header">
+		<h1>{{ entry }}</h1>
+	</div>
+	<hr>
+</div>

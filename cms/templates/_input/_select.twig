@@ -1,0 +1,32 @@
+{% set value = value is defined and value is not null ? value : null %}
+<div class="mdc-select mdc-select--filled duly-select {{ required is defined and required == true ? 'mdc-select--required' }} {{ value ? 'mdc-select-success' }} {{ class ?? '' }}" id="{{ id ?? '' }}">
+	<div class="mdc-select__anchor" role="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="{{ name }}-label {{ name }}-selected-text">
+		<input type="hidden" name="{{ name }}" value="{{ value ?? '' }}">
+		<span id="{{ name }}-label" class="mdc-floating-label {{ value ? 'mdc-floating-label--float-above' }}">{{ label }}</span>
+		<span class="mdc-select__selected-text-container">
+			<span id="{{ name }}-selected-text" class="mdc-select__selected-text">{{ value ?? '' }}</span>
+		</span>
+		<span class="mdc-select__dropdown-icon">
+			<svg class="mdc-select__dropdown-icon-graphic" viewbox="7 10 10 5" focusable="false">
+				<span class="material-icons mdc-select__dropdown-icon-inactive">
+					expand_more
+				</span>
+				<span class="material-icons mdc-select__dropdown-icon-active">
+					expand_less
+				</span>
+			</svg>
+		</span>
+		<span class="mdc-line-ripple"></span>
+	</div>
+
+	<div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+		<ul class="mdc-list" role="listbox" aria-label="{{ label }} listbox">
+			{% for option in options %}
+				{% set selected = option.data.value is defined and option.data.value == value %}
+				<li class="mdc-list-item {{ option.class ?? '' }} {{ selected ? 'mdc-list-item--selected' }}" aria-selected="{{ selected ? 'true' : 'false' }}" {% for key, val in option.data %}data-{{ key }}="{{ val }}"{% endfor %} >
+					<span class="mdc-list-item__text">{{ option.content }}</span>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>

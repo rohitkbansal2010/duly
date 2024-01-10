@@ -1,0 +1,9 @@
+field: 900bca7f-5353-4876-8762-b732fbc9947b
+fieldLayouts:
+    90834259-b2ef-4339-b10b-ab020af39498: { tabs: [{ elements: [{ fieldUid: 704274f4-9ffe-4cba-baef-901fc35952c7, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 5cef3c21-302d-4e4b-9abd-6ec70ed5552f, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    5cef3c21-302d-4e4b-9abd-6ec70ed5552f: { columnSuffix: null, contentColumnType: string, fieldGroup: null, handle: phoneListNumber, instructions: '', name: 'Phone Number', searchable: false, settings: { defaultRegion: US }, translationKeyFormat: null, translationMethod: none, type: rynpsc\phonenumber\fields\PhoneNumberField }
+    704274f4-9ffe-4cba-baef-901fc35952c7: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: phoneListName, instructions: '', name: Name, searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: 'Main office', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: phoneList
+name: 'Phone List'
+sortOrder: 1

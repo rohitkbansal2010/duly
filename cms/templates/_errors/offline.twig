@@ -1,0 +1,17 @@
+{% extends "_layouts/_blank.twig" %}
+
+{% block title "Uh oh!"|t %}
+{% block bodyClass "offline-container" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    <div class="inner-container">
+        <div class="maintenance-main-container">
+            <h1 class="maintenance-title">{{ "Sorry, we’re currently down for scheduled maintenance."|t }}</h1>
+            <div class="maintenance-icon"></div>
+        </div>
+        <div class="separator"></div>
+
+        <div class="maintenance-description">{{ "We apologize for the inconvenience. We will be back up and running as soon as possible."|t }}</div>
+    </div>
+{% endblock %}

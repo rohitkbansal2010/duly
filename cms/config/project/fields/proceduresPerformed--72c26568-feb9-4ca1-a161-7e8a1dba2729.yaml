@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: proceduresPerformed
+instructions: 'Assign any procedures that are performed by this physician. '
+name: 'Procedures Performed '
+searchable: true
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: 'Add a procedure'
+    showSiteMenu: true
+    source: null
+    sources: ['section:d8a05845-81f0-4f51-9240-d23c124020d6']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

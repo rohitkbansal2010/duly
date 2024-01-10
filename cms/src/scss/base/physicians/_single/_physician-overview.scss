@@ -1,0 +1,204 @@
+.physician-overview {
+	display: flex;
+	flex-wrap: wrap;
+
+	@include responsive(large) {
+		flex-direction: column;
+		flex-wrap: nowrap;
+	}
+
+	.image {
+		flex-basis: 272px;
+		height: 272px;
+		border-radius: 32px 0px;
+
+		@include responsive(large) {
+			&:not(.default-headshot) {
+				height: initial;
+			}
+		}
+
+		img {
+			width: 100%;
+			border-radius: 32px 0px;
+		}
+	}
+
+	.overview {
+		flex-basis: calc(100% - 272px);
+		flex-wrap: wrap;
+		padding-left: 30px;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+
+		@include responsive(large) {
+			padding-left: 0;
+			margin-top: 20px;
+		}
+
+		.section-a {
+			@include responsive(large) {
+				text-align: center;
+			}
+
+			.accepts-patients-date {
+				padding-top: 10px;
+			}
+
+			.name {
+				color: $violet;
+				font-size: 32px;
+				font-weight: 800;
+				line-height: 36px;
+				margin: 0px;
+
+				@include responsive(large) {
+					font-size: 24px;
+				}
+			}
+
+			.services {
+				color: $dark-2;
+				font-size: 20px;
+				font-weight: 800;
+				line-height: 22px;
+				margin: 0px;
+
+				@include responsive(large) {
+					font-size: 18px;
+				}
+			}
+		}
+
+		.filler {
+			flex-grow: 1;
+		}
+
+		.section-b {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			margin-top: 20px;
+
+			@include responsive(large) {
+				flex-direction: column;
+				align-items: baseline;
+			}
+
+			.years-in-practice,
+			.locations,
+			.patients-seen {
+				flex-basis: 50%;
+				display: flex;
+				flex-direction: column;
+				margin: 10px 0 0;
+
+				@include responsive(large) {
+					flex-direction: row;
+					width: 100%;
+					flex: 0 0 auto;
+				}
+
+				.label,
+				span {
+					color: $dark-2;
+					font-size: 18px;
+					font-weight: 800;
+					line-height: 20px;
+
+					@include responsive(large) {
+						font-size: 16px;
+						flex-direction: row;
+						flex-basis: 50%;
+					}
+				}
+
+				.value,
+				span {
+					color: $dark-2;
+					font-size: 16px;
+					font-weight: normal;
+					line-height: 22px;
+					margin-top: 8px;
+
+					@include responsive(large) {
+						font-size: 16px;
+						flex-direction: row;
+						flex-basis: 50%;
+					}
+				}
+			}
+		}
+	}
+
+	.bio {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		flex-basis: 100%;
+		margin: 20px 0;
+
+
+		p {
+			color: $dark-2;
+			font-size: 16px;
+			font-weight: 700;
+			line-height: 22px;
+
+			&:first-child {
+				&:before {
+					content: open-quote;
+				}
+			}
+
+			&:last-child {
+				&:after {
+					content: close-quote;
+				}
+			}
+		}
+	}
+
+	.disclaimer {
+		font-size: 16px;
+		padding: 25px;
+		width: 100%;
+		background: rgb(255, 255, 255);
+		border-radius: 32px 0px;
+		border: 1px solid rgb(71, 10, 104);
+		box-shadow: 0px 2px 4px 0px rgb(197, 41, 155);
+		margin-bottom: 65px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		@include responsive(large) {
+			width: calc(100% - 56px);
+		}
+
+		a {
+			font-weight: bold;
+
+			&:hover {
+				color: $magenta;
+			}
+		}
+
+		* {
+			margin: 0px;
+			color: $violet;
+			font-size: 16px;
+			font-weight: normal;
+		}
+
+		strong {
+			font-weight: bold;
+			margin: 10px 0px;
+
+			span {
+				font-weight: bold !important;
+			}
+		}
+	}
+}

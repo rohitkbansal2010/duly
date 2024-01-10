@@ -1,0 +1,72 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+
+.imageIcon {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.imageIcon img {
+  width: 6rem;
+  height: 6rem;
+
+  border-radius: 50%;
+}
+.modalItems {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  justify-content: center;
+}
+
+.doctorStream {
+  color: rgba(102, 110, 125, 1);
+  font-weight: 700;
+  font-size: var(--font-size-14px-4px) !important;
+}
+
+.doctorName {
+  color: $dupage-dark-blue;
+  font-weight: 700;
+  font-size: var(--font-size-18px-4px) !important;
+}
+
+.data {
+  color: $dupage-dark-blue;
+  font-size: var(--font-size-16px-4px) !important;
+}
+
+.heading {
+  @include nexa-heavy-highlight;
+  // line-height: 2.125rem !important;
+  margin-right: 1.8rem;
+  color: $dupage-dark-blue;
+  font-weight: 900 !important;
+  font-size: var(--font-size-32px-4px) !important;
+}
+
+.modalButton {
+  @include nexa-bold-highlight;
+  width: 100%;
+
+  margin-top: 2.5rem;
+  padding: 6px 16px;
+  color: white;
+  font-weight: 800;
+  font-size: var(--font-size-20px-4px) !important;
+  text-align: center;
+  background: none;
+  background-color: $dupage-dark-blue;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.modalParentDiv {
+  // width: 29rem !important;
+  // max-width: 29rem !important;
+  width: fit-content !important ;
+  max-width: max-content !important;
+}

@@ -1,0 +1,32 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 6f3bfad2-2d52-426a-9ef6-1143b91ef81e
+handle: accreditationLogo
+instructions: 'Upload logo of accreditation'
+name: Logo
+searchable: true
+settings:
+    allowSelfRelations: false
+    allowUploads: true
+    allowedKinds: null
+    defaultUploadLocationSource: 'volume:49c6b00d-570e-4147-bdcb-cc8ee135c256'
+    defaultUploadLocationSubpath: ''
+    limit: ''
+    localizeRelations: false
+    previewMode: full
+    restrictFiles: ''
+    selectionLabel: ''
+    showSiteMenu: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    singleUploadLocationSource: 'volume:49c6b00d-570e-4147-bdcb-cc8ee135c256'
+    singleUploadLocationSubpath: ''
+    source: null
+    sources: '*'
+    targetSiteId: null
+    useSingleFolder: false
+    validateRelatedElements: false
+    viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Assets

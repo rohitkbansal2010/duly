@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: f1257321-1f7a-4dc1-8228-331ef587eba6
+handle: suiteServices
+instructions: 'Select and define service details for this suite.'
+name: Services
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_suiteservices}}'
+    maxBlocks: ''
+    minBlocks: ''
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

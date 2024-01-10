@@ -1,0 +1,32 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: e5d3aa09-204b-468b-b892-d98e74c3c819
+handle: serviceRuleOutQuestionImage
+instructions: ''
+name: 'Service Rule-Out Question Image'
+searchable: true
+settings:
+    allowSelfRelations: false
+    allowUploads: true
+    allowedKinds: [image]
+    defaultUploadLocationSource: 'volume:3936e3df-89ba-4d8a-beb6-83248dd1bdf2'
+    defaultUploadLocationSubpath: ''
+    limit: '1'
+    localizeRelations: false
+    previewMode: full
+    restrictFiles: '1'
+    selectionLabel: ''
+    showSiteMenu: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    singleUploadLocationSource: 'volume:2b01430a-33e9-44a6-87d1-5381ad9be60d'
+    singleUploadLocationSubpath: ''
+    source: null
+    sources: ['volume:3936e3df-89ba-4d8a-beb6-83248dd1bdf2']
+    targetSiteId: null
+    useSingleFolder: false
+    validateRelatedElements: false
+    viewMode: large
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Assets

@@ -1,0 +1,29 @@
+<div class="filters filter-container">
+    <div class="{{ section == '' or section == 'all' ? 'filter-entry filter selected' : 'filter-entry filter' }}" tabindex="0" id="all">
+        <p>{{ "ALL"|t|capitalize }}</p>
+    </div>
+
+    <div class="{{ section == 'conditions' ? 'filter-entry filter selected' : 'filter-entry filter' }}" tabindex="0" id="conditions">
+        <p>{{ "CONDITIONS"|t|capitalize }}</p>
+    </div>
+
+    <div class="{{ section == 'events' ? 'filter-entry filter selected' : 'filter-entry filter' }}" tabindex="0" id="events">
+        <p>{{ "EVENTS"|t|capitalize }}</p>
+    </div>
+
+    <div class="{{ section == 'locations' ? 'filter-entry filter selected' : 'filter-entry filter' }}" tabindex="0" id="locations">
+        <p>{{ "LOCATIONS"|t|capitalize }}</p>
+    </div>
+
+    <div class="{{ section == 'services' ? 'filter-entry filter selected' : 'filter-entry filter' }}" tabindex="0" id="services">
+        <p>{{ "SERVICES"|t|capitalize }}</p>
+    </div>
+
+    <div class="{{ section == 'physicians' ? 'filter-entry filter selected' : 'filter-entry filter' }}" tabindex="0" id="physicians">
+        <p>{{ "PROVIDERS"|t|capitalize }}</p>
+    </div>
+
+    <div class="{{ section == 'blog' ? 'filter-entry filter selected' : 'filter-entry filter' }}" tabindex="0" id="blog">
+        <p>{{ "NEWS"|t|capitalize }}</p>
+    </div>
+</div>

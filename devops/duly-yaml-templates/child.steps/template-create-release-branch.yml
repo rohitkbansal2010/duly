@@ -1,0 +1,38 @@
+parameters:
+  - name: projectName
+    type: string
+    default: ''
+  - name: repositoryName
+    type: string
+    default: ''
+  - name: majorVersion
+    type: number
+  - name: minorVersion
+    type: number
+  - name: commitId
+    type: string
+    default: 'latest'
+
+steps:
+  - checkout: scripts
+
+  - task: AzureKeyVault@2
+    displayName: 'Get duly-d-ado-service access token for release branches management'
+    inputs:
+      connectedServiceName: 'azure_cloud_np'
+      keyVaultName: 'duly-d-shsvc-kv'
+      secretsFilter: 'duly-d-ado-service--releasebranchesmanagementpat'
+    continueOnError: false
+
+  - task: PowerShell@2
+    displayName: 'Powershell: create release branch and apply branch policies'
+    inputs:
+      targetType: filePath
+      filePath: 'duly-scripts/PowerShell/New-ReleaseBranch.ps1'
+      arguments: >
+        -PAT $(duly-d-ado-service--releasebranchesmanagementpat)
+        -projectName ${{ parameters.projectName }}
+        -repositoryName ${{ parameters.repositoryName }}
+        -majorVersion ${{ parameters.majorVersion }}
+        -minorVersion ${{ parameters.minorVersion }}
+        -commitId ${{ parameters.commitId }}

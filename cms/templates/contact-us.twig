@@ -1,0 +1,172 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Contact Us'|t %}
+{% block bodyClass "contact-us-page" %}
+
+{% set entry = craft.entries()
+    .section('contactUsPage')
+    .one()
+%}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    <div
+        class="container">
+        <!-- Begin Mailchimp Signup Form -->
+        <div id="form">
+            <form method="POST" id="contact-us-form">
+                <div id="form_scroll">
+                    {{ csrfInput() }}
+                    <input id="recaptcha-token" type="hidden" name="recaptchaToken">
+                    <h1>{{ "Contact Us"|t }}</h1>
+
+                    {% if entry is defined and entry is not null and entry.introductionText is defined %}
+                        <div class='intro'>
+                            {{ entry.introductionText }}
+                        </div>
+                    {% endif %}
+
+                    <div class="mc-field-group">
+                        {% include "_input/_input.twig" with {
+                            type: 'email',
+                            name: 'emailAddress',
+                            id: 'email-address',
+                            value: model.emailAddress,
+                            extraOptions: {
+                                required: "required"
+                            },
+                            label: "Email Address"|t
+                        } only %}
+                    </div>
+
+                    <div class="mc-field-group">
+                        {% include "_input/_input.twig" with {
+                            type: 'text',
+                            name: 'name',
+                            id: 'name',
+                            value: model.name,
+                            extraOptions: {
+                                required: "required"
+                            },
+                            label: "Name"|t,
+                        } only %}
+                    </div>
+
+                    <div class="mc-field-group">
+                        {% include "_input/_input.twig" with {
+                            type: 'text',
+                            name: 'address',
+                            id: 'address',
+                            value: model.address,
+                            label: "Address"|t,
+                        } only %}
+                    </div>
+
+                    <div class="mc-field-group">
+                        {% include "_input/_input.twig" with {
+                            type: 'text',
+                            name: 'city',
+                            id: 'city',
+                            value: model.city,
+                            label: "City"|t,
+                        } only %}
+                    </div>
+
+                    {% set states = ['AK', 'AL', 'AR', 'AS', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'GU', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MP', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UM', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY'] %}
+                    {% set stateOptions = [] %}
+                    {% for state in states %}
+                        {% set stateOptions = stateOptions|merge([{
+                            data: {
+                                value: state
+                            },
+                            content: state
+                        }]) %}
+                    {% endfor %}
+                    {% include '_input/_select.twig' with {
+                        id: 'state',
+                        label: "State"|t,
+                        required: false,
+                        options: stateOptions,
+                        name: 'state'
+                    } %}
+
+                    <div class="mc-field-group">
+                        {% include "_input/_input.twig" with {
+                            type: 'text',
+                            name: 'zipcode',
+                            value: model.zipcode,
+                            extraOptions: {
+                                pattern: '\\d*',
+                                inputmode: "numeric",
+                                maxlength: "5"
+                            },
+                            id: 'zipcode',
+                            label: "Zip"|t,
+                        } only %}
+                    </div>
+
+                    <div class="mc-field-group">
+                        {% include "_input/_input.twig" with {
+                            type: 'tel',
+                            name: 'phoneNumber',
+                            id: 'phone',
+                            value: model.phoneNumber,
+                            label: "Primary Phone Number"|t,
+                            extraOptions: {
+                                required: "required",
+                                pattern: '(1)?[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}',
+                            }
+                        } only %}
+                    </div>
+
+                    {% set subjects = ['Billing Question', 'Insurance', 'Provider Feedback', 'Personal Experience', 'MyChart', 'Other'] %}
+                    {% set subjectOptions = [] %}
+                    {% for subject in subjects %}
+                        {% set subjectOptions = subjectOptions|merge([{
+                            data: {
+                                value: subject
+                            },
+                            content: subject
+                        }]) %}
+                    {% endfor %}
+                    {% include '_input/_select.twig' with {
+                        id: 'subject',
+                        label: "Subject"|t,
+                        required: false,
+                        options: subjectOptions,
+                        name: 'subject'
+                    } %}
+
+                    <div class="mc-field-group">
+                        {% include "_input/_textarea.twig" with {
+                            id: 'comments',
+                            label: "Comments"|t,
+                            name: 'comments',
+                            required: true
+                        } %}
+                    </div>
+
+                    <div id="mce-responses" class="clear">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>
+
+                    <div class="clear">
+                        <input type="submit" value="Submit" name="submit" id="mc-embedded-submit" class="button submit-button dmgButton primary1">
+                        <div class="loading-spinner hidden">
+					        <div class="lottie"></div>
+                        </div>
+                    </div>
+                    <span class="error">{{ model.getErrors()['recaptchaToken'][0] ?? null }}</span>
+                </div>
+            </form>
+        </div>
+        <div class="contact-pattern"></div>
+    {% endblock %}
+
+    {% block extra_js %}
+        {# reCAPTCHA #}
+        <script nonce="__CSP_NONCE__" src="https://www.google.com/recaptcha/api.js?onload=onReCAPTCHALoadCallback&render=explicit"></script>
+    {% endblock %}
+

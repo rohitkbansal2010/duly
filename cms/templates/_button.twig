@@ -1,0 +1,24 @@
+<button 
+	class="dmgButton {{ class ?? 'primary3' }}" 
+	{% if id is defined and id is not null %} 
+		id="{{ id }}" 
+	{% endif %} 
+	{% if disabled is defined and disabled is same as(true) %} 
+	disabled 
+	{% endif %}
+	{% if name is defined and name is not null %}
+		name="{{ name }}"
+	{% endif %}
+	{% if value is defined and value is not null %}
+		value="{{ value }}"
+	{% endif %}>
+	{% if href is defined and href is not null %}
+		<a href="{{ href }}">
+			{{ text ?? '' }}
+		</a>
+	{% elseif span is defined and span is not null %}
+		<div class="cta">{{ text ?? '' }}<span class="{{ span }}"></span></div>
+	{% elseif href is not defined and span is not defined %}
+		<div class="cta">{{ text ?? '' }}</div>
+	{% endif %}
+</button>

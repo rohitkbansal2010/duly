@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: c36a717d-daaf-4fa8-82e7-c1e4dbd8ba3b
+handle: virtualCareSection
+instructions: 'Provide details regarding the Virtual Care section on this page.'
+name: 'Virtual Care Section'
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_virtualcaresection}}'
+    maxBlocks: '1'
+    minBlocks: ''
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

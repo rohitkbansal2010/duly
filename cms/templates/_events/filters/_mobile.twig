@@ -1,0 +1,135 @@
+<div class="filter-entry services-container">
+    <div class="filter-label">
+        <p class="label-text" tabindex="0">{{ "Specialties"|t }} <span class="count"></span></p>
+        <i class="material-icons close hidden"></i>
+        <i class="material-icons keyboard_arrow_down"></i>
+    </div>
+
+    <div class="dropdown">
+        {% for service in services %}
+            <div class="checkbox-container service-checkbox">
+                {% include "_input/_checkbox.twig" with {
+                        name: 'checkbox',
+                        class: 'service-filter',
+                        id: 'mobile-service-' ~ titleize(service), 
+                        tabindex: 0,
+                        label: service
+                } only %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<hr>
+
+<div class="filter-entry categories-container">
+    <div class="filter-label">
+        <p class="label-text" tabindex="0">{{ "Event Type"|t }} <span class="count"></span></p>
+        <i class="material-icons close hidden"></i>
+        <i class="material-icons keyboard_arrow_down"></i>
+    </div>
+
+    <div class="dropdown large">
+        {% for type in eventTypes %}
+            <div class="checkbox-container category-checkbox">
+                {% set label = type.title %}
+
+                {% include "_input/_checkbox.twig" with {
+                        name: 'checkbox',
+                        class: 'category-filter',
+                        id: 'mobile-category-' ~ type.id, 
+                        tabindex: 0,
+                        label: label
+                } only %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<hr>
+
+<div class="filter-entry cities-container">
+    <div class="filter-label">
+        <p class="label-text" tabindex="0">{{ "City"|t }} <span class="count"></span></p>
+        <i class="material-icons close hidden"></i>
+        <i class="material-icons keyboard_arrow_down"></i>
+    </div>
+
+    <div class="dropdown">
+        {% for location in cities %}
+            {% if location %}
+                <div class="checkbox-container city-checkbox">
+                    {% set label = location %}
+
+                    {% include "_input/_checkbox.twig" with {
+                            name: 'checkbox',
+                            class: 'city-filter',
+                            id: 'mobile-city-' ~ titleize(location),
+                            tabindex: 0, 
+                            label: label
+                    } only %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<hr>
+
+<div class="filter-entry dates-container">
+    <div class="filter-label">
+        <p class="label-text" tabindex="0">{{ "Dates"|t }} <span class="type"></span></p>
+        <i class="material-icons close hidden"></i>
+        <i class="material-icons keyboard_arrow_down"></i>
+    </div>
+
+    <div class="dropdown large">
+        <div class="radio all-dates" tabindex="0">
+            {% include "_input/_radio.twig" with {
+                type: 'radio',
+                name: 'mobile-date',
+                id: 'mobile-all-dates',
+                checked: true,
+                label: "All Dates"|t,
+            } only %}
+        </div>
+
+        <div class="radio next-seven-days" tabindex="0">
+            {% include "_input/_radio.twig" with {
+                type: 'radio',
+                name: 'mobile-date',
+                id: 'mobile-next-seven-days',
+                label: "Next 7 Days"|t,
+            } only %}
+        </div>
+
+        <div class="radio date-range" tabindex="0">
+            {% include "_input/_radio.twig" with {
+                type: 'radio',
+                name: 'mobile-date',
+                id: 'mobile-date-range',
+                label: "Date Range"|t,
+            } only %}
+        </div>
+
+        <div class="date-picker-container hidden">
+            <div class="date-picker date-picker-start" tabindex="0">
+                {% include "_input/_input.twig" with {
+                    type: 'text',
+                    name: 'picker-start',
+                    id: 'mobile-date-picker-start',
+                    label: "Start Date"|t,
+                } only %}
+            </div>
+
+            <div class="date-picker date-picker-end" tabindex="0">
+                {% include "_input/_input.twig" with {
+                    type: 'text',
+                    name: 'picker-end',
+                    id: 'mobile-date-picker-end',
+                    label: "End Date"|t,
+                } only %}
+            </div>
+        </div>
+    </div>
+</div>

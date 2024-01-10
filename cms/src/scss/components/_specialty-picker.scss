@@ -1,0 +1,106 @@
+.specialty-custom-picker-container {
+	border-radius: 2px;
+	padding: 15px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	position: relative;
+
+	.default-state-text {
+		font-size: 16px;
+		font-weight: bold;
+		line-height: 24px;
+		color: $dark-2;
+		flex: 1 1 auto;
+	}
+
+	.search-icon {
+		background: url('/dist/img/icons/expand_more-24px.svg');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 23px;
+		height: 24px;
+		width: 24px;
+	}
+
+	&.active {
+		.active-list {
+			display: block;
+			z-index: 10;
+		}
+	}
+
+	.active-list {
+		display: none;
+		position: absolute;
+		top: -1.5px;
+		left: -1.5px;
+		width: 100%;
+		border: 1px solid $light-blue;
+		background: $white;
+		border-radius: 4px;
+
+		.search-containier {
+			margin: 20px;
+			border-radius: 2px;
+			overflow: hidden;
+			border-bottom: 2px solid $dark-2;
+			border-bottom-color: rgba(0, 0, 0, 0.42);
+
+			input {
+				width: calc(100% - 20px);
+				padding: 10px;
+				outline: none;
+				border: none;
+				background-color: $footer-gray;
+				font-size: 16px;
+				font-weight: bold;
+				line-height: 24px;
+				color: $dark-2;
+			}
+		}
+
+		.list-of-specialties {
+			max-height: 300px;
+			overflow: scroll;
+		}
+
+		.specialty {
+			.main-name {
+				color: $oxford;
+				padding: 8px 20px;
+				font-size: 16px;
+				font-weight: normal;
+			}
+
+			&:not(.has-subspecialties) {
+				.main-name {
+					color: $oxford;
+				}
+
+				&:hover {
+					background: $hover-option-blue;
+				}
+			}
+
+			&.has-subspecialties {
+				.main-name {
+					&:hover {
+						background: $hover-option-blue;
+					}
+				}
+
+				.subspecialty {
+					padding: 8px 20px 8px 45px;
+					font-size: 16px;
+					font-weight: normal;
+					color: $oxford;
+
+					&:hover {
+						background: $hover-option-blue;
+					}
+				}
+			}
+		}
+	}
+}

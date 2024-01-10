@@ -1,0 +1,9 @@
+field: 1ed0b3c5-b05c-4bda-9ad6-37bd437c4447
+fieldLayouts:
+    758e7807-bb0e-475d-861e-a084d863e38d: { tabs: [{ elements: [{ fieldUid: 34cece2b-01b8-4c7c-acaa-2023246232b1, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 0beabc16-6b22-4c66-a7d0-d4c3190a704b, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    0beabc16-6b22-4c66-a7d0-d4c3190a704b: { columnSuffix: null, contentColumnType: integer(10), fieldGroup: null, handle: maximumAge, instructions: 'Maximum age required for patients to register for this service.', name: 'Maximum Age', searchable: true, settings: { decimals: 0, defaultValue: 999, max: null, min: 0, prefix: null, previewCurrency: null, previewFormat: decimal, size: null, suffix: null }, translationKeyFormat: null, translationMethod: none, type: craft\fields\Number }
+    34cece2b-01b8-4c7c-acaa-2023246232b1: { columnSuffix: null, contentColumnType: integer(10), fieldGroup: null, handle: minimumAge, instructions: 'Minimum age required for patients to register for this service.', name: 'Minimum Age', searchable: true, settings: { decimals: 0, defaultValue: 0, max: null, min: 0, prefix: null, previewCurrency: null, previewFormat: decimal, size: null, suffix: null }, translationKeyFormat: null, translationMethod: none, type: craft\fields\Number }
+handle: restriction
+name: 'Age Restrictions'
+sortOrder: 1

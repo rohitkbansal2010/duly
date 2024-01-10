@@ -1,0 +1,19 @@
+columnSuffix: dikcpyxi
+contentColumnType: text
+fieldGroup: 2100fbc6-d68d-4185-8504-3ff4680dee28
+handle: physiciansExportEmailRecipient
+instructions: 'The email address or addresses that should receive the weekly Duly CMS export of provider data. For multiple emails, use a comma-separated list (ex. test@test.com, test123@test.com).'
+name: 'Physicians Export Email Recipient'
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: email@example.com
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

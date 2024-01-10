@@ -1,0 +1,45 @@
+<div class="inline-text-field-container">
+	<label class="mdc-text-field mdc-text-field--filled duly-text-field {{ error is defined and error is not null ? 'mdc-text-field-error' }} {{ trailingIcon is defined and trailingIcon is not null ? 'mdc-text-field--with-trailing-icon' }} {{ class ?? '' }}">
+		{% if removeFloatingLabel is not defined or removeFloatingLabel == false %}
+			<span class="mdc-floating-label {{ value is defined and value is not empty ? 'mdc-floating-label--float-above' }}" id="{{ name }}-label">{{ label }}</span>
+		{% endif %}
+
+		{% if leadingIcon is defined and leadingIcon is not null %}
+			<i class="material-icons mdc-text-field__icon mdc-text-field__icon--leading" tabindex="0" role="button">{{ leadingIcon }}</i>
+		{% endif %}
+
+		{% set options = {
+            autocomplete: 'off',
+            class: 'mdc-text-field__input',
+            'aria-labelledby': name ~ "-label",
+        } %}
+
+		{% if id is defined %}
+			{% set options = options|merge({ id: id }) %}
+		{% endif %}
+
+		{% if extraOptions is defined %}
+			{% set options = options|merge(extraOptions) %}
+		{% endif %}
+
+		{% if options.placeholder is not defined %}
+			{% set options = options|merge({ placeholder: ' ' }) %}
+		{% endif %}
+
+		{% if value is defined %}
+			{{ input(type, name, value, options)|raw }}
+		{% else %}
+			{{ input(type, name, '', options)|raw }}
+		{% endif %}
+
+		{% if trailingIcon is defined and trailingIcon is not null %}
+			<i class="material-icons mdc-text-field__icon mdc-text-field__icon--trailing" tabindex="0" role="button">{{ trailingIcon }}</i>
+		{% endif %}
+		<span class="mdc-line-ripple"></span>
+	</label>
+</div>
+{% if error is defined and error != null %}
+	<div class="mdc-text-field-helper-line">
+		<div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent" id="{{ label }}-helper">{{ error }}</div>
+	</div>
+{% endif %}

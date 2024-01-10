@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceRelatedConditions
+instructions: 'Select any conditions related to this service.'
+name: 'Related Conditions'
+searchable: true
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: 'Add a condition'
+    showSiteMenu: true
+    source: null
+    sources: ['section:79924871-8592-4d28-8408-29c212f8246e']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

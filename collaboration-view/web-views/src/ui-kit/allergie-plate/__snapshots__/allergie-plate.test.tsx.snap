@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AllergiesPlate component should match snapshot 1`] = `
+<div
+  className="allergiePlateContainer"
+  data-testid="allergie-plate-item"
+>
+  <div
+    className="allergiePlateTopPart"
+  >
+    <div
+      className="allergiePlateTopPartIcon"
+    >
+      <img
+        alt="allergie icon"
+        className="allergiePlateTopPartIconImg"
+        src="food-allergie-icon.svg"
+      />
+      <img
+        alt="severe level warning"
+        className="allergiePlateTopPartIconWarning"
+        src="severe-level-warning.svg"
+      />
+    </div>
+    <div
+      className="allergiePlateTopPartTitle"
+    >
+      Peanuts
+    </div>
+  </div>
+  <div
+    className="allergiePlateBottomPart"
+  >
+    <div
+      className="allergiePlateBottomPartContainer"
+    >
+      <BottomPartItem
+        title={
+          <span
+            data-testid="allergie-plate-date-recorded-title"
+          >
+            Date Recorded
+          </span>
+        }
+      >
+        <span
+          data-testid="allergie-plate-date-recorded-value"
+        >
+          2/21/2022
+        </span>
+      </BottomPartItem>
+      <BottomPartItem
+        title={
+          <span
+            data-testid="allergie-plate-category-title"
+          >
+            Category
+          </span>
+        }
+      >
+        <span
+          data-testid="allergie-plate-category-item"
+          data-testval="Food"
+          key="Food"
+        >
+          Food
+        </span>
+      </BottomPartItem>
+      <div
+        className="allergiePlateBottomPartReactionContainer"
+      >
+        <BottomPartItem
+          title={
+            <div
+              className="allergiePlateBottomPartReactionContainerItem"
+            >
+              <span
+                data-testid="allergie-plate-severity-title"
+              >
+                <SeverityItemLabel
+                  isSevereAllergie={true}
+                />
+              </span>
+              <span
+                data-testid="allergie-plate-reaction-title"
+              >
+                Reaction
+              </span>
+            </div>
+          }
+        >
+          <div
+            className="allergiePlateBottomPartReactionContainerItem"
+            key="AnaphylaxisSevere"
+          >
+            <span
+              data-testid="allergie-plate-severity-item"
+              data-testval="Severe"
+            >
+              Severe
+            </span>
+            <span
+              data-testid="allergie-plate-reaction-item"
+              data-testval="Anaphylaxis"
+            >
+              Anaphylaxis
+            </span>
+          </div>
+        </BottomPartItem>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AllergiesPlate skeleton should match snapshot 1`] = `
+<div
+  className="allergiePlateSkeleton"
+>
+  <DulyLoader
+    width={8}
+  />
+</div>
+`;

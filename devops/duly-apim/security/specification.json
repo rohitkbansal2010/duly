@@ -1,0 +1,49 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "enterprise-security",
+    "description": "Performs set of common operations to support Duly enterprise security policies.",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api-dev.duly-np.digital/shared/security/v1"
+    }
+  ],
+  "paths": {
+    "/invalidate": {
+      "post": {
+        "summary": "InvalidateToken",
+        "description": "Invalidate JWT to avoid re-usage after logout.",
+        "operationId": "invalidate-token",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "subscription-key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "subscription-key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ]
+}

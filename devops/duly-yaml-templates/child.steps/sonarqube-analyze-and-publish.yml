@@ -1,0 +1,12 @@
+steps:
+- task: SonarQubeAnalyze@4
+  displayName: 'SonarQube: Run code analysis'
+  continueOnError: true
+  condition: succeeded()
+
+- task: SonarQubePublish@4
+  displayName: 'SonarQube: Publish quality gate and analysis results'
+  inputs:
+    pollingTimeoutSec: '300'
+  continueOnError: true
+  condition: succeeded()

@@ -1,0 +1,11 @@
+{{- if eq .Values.keda.triggerType "azure-servicebus" -}}
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  labels:
+    {{- include "azure-function.labels" . | nindent 4 }}
+  name: {{ include "azure-function.fullname" . }}-auth
+spec:
+  podIdentity:
+    provider: azure
+{{- end }}

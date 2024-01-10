@@ -1,0 +1,159 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Reasons for Visit'|t %}
+{% block bodyClass "schedule-an-appointment-reasons-for-visit-page" %}
+
+{% set patientUser = craft.app.patient_user.identity %}
+{% set arrivedFromOutsideOfScheduling = patientUser.physician_selected_outside_of_scheduling == '1' %}
+{% set apointmentTimeSelectedOutsideOfScheduling = patientUser and patientUser.apointment_time_selected_outside_of_scheduling %}
+{% set showSidePanel = patientUser.appointment_physician_id is not null and patientUser.appointment_department_id is not null and showVisitError %}
+{% set isSchedulingFlowWithoutPhysicians = patientUser and patientUser.isSchedulingFlowWithoutPhysicians() %}
+{% set service = craft.entries.id(patientUser.getAppointmentServiceIds()).one() %}
+{% set serviceTitle = service.title ?? '' %}
+{% set backUrl = "/schedule/insurance" %}
+
+{% if serviceQuestionsCount %}
+	{% set backIndex = serviceQuestionsCount - 1 %}
+	{% set backUrl = "/schedule/preliminary?currentQuestionIndex=" ~ backIndex %}
+{% endif %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	{# route back to questions if there are ones assigned #}
+	{% include "_scheduling/alerts/_exit-alert.twig" %}
+	{% include "_scheduling/navigation/_steps.twig" with {
+		backUrl: backUrl
+	} %}
+
+	{% if arrivedFromOutsideOfScheduling %}
+		<h2>{{ "Just a couple of questions before scheduling your appointment."|t }}</h2>
+	{% elseif isSchedulingFlowWithoutPhysicians %}
+		<h2>{{ "Just a couple of questions to find you the best {service} location."|t(params = { service: serviceTitle|capitalize }) }}</h2>
+	{% else %}
+		<h2>{{ "Just a couple of questions to find you the best {serviceDoctorType}."|t(params = { serviceDoctorType: serviceDoctorType|capitalize }) }}</h2>
+	{% endif %}
+
+	<section class="schedule-an-appointment-reasons-for-visit-container {{ apointmentTimeSelectedOutsideOfScheduling or showSidePanel ? 'appointment-time-selected-outside-of-scheduling' : '' }}">
+		{% if apointmentTimeSelectedOutsideOfScheduling or showSidePanel %}
+			{% include "_scheduling/select-appointment/_physician-info.twig" with {
+				modalMap: false,
+				physician: craft.entries.id(patientUser.appointment_physician_id).one(),
+				suite: findSuiteEntryForGivenExternalDepartmentID(patientUser.appointment_department_id)
+			} %}
+		{% endif %}
+		<form class="reasons-for-visit" id="reasons-for-visit-form" method="POST">
+			<h3>{{ "What is the reason for your visit?"|t }}</h3>
+			{{ csrfInput() }}
+			{% set numberOfReasons = reasonsForVisit | length %}
+			{% set numberOfReasonsIsEven = numberOfReasons % 2 == 0 %}
+			<div class="reasons">
+				<div
+					class="col left">
+					{# keep the columns even #}
+					{% for reasonForVisit in reasonsForVisit[0 : numberOfReasons / 2 + (numberOfReasonsIsEven ? 1 : 0)] %}
+						<div class="radio">
+							<div class="row">
+								{% include "_input/_radio.twig" with {
+										type: 'radio',
+										name: 'appointment_reason_for_visit_id',
+										id: 'reason-for-visit-' ~ reasonForVisit.id,
+										label: reasonForVisit.title,
+										value: reasonForVisit.id,
+									} only %}
+								<span tabindex="0" class="material-icons caret down keyboard_arrow_down"></span>
+							</div>
+							<div>
+								<p class="explanation hidden">{{reasonForVisit.serviceReasonsForVisitExplanation}}</p>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				<div class="divider"></div>
+				<div class="col right">
+					{% for reasonForVisit in reasonsForVisit[numberOfReasons / 2 + (numberOfReasonsIsEven ? 1 : 0) : numberOfReasons] %}
+						<div class="radio">
+							<div class="row">
+								{% include "_input/_radio.twig" with {
+										type: 'radio',
+										name: 'appointment_reason_for_visit_id',
+										id: 'reason-for-visit-' ~ reasonForVisit.id,
+										label: reasonForVisit.title,
+										value: reasonForVisit.id,
+									} only %}
+								<span tabindex="0" class="material-icons caret keyboard_arrow_down"></span>
+							</div>
+							<p class="explanation hidden">{{reasonForVisit.serviceReasonsForVisitExplanation}}</p>
+						</div>
+					{% endfor %}
+					
+					{% set customAlert = serviceEntry.otherAppointmentReasonForVisit.one %}
+					{% if customAlert != null %}
+						<div class="radio">
+							{% include "_input/_radio.twig" with {
+								type: 'radio',
+								name: 'appointment_reason_for_visit_id',
+								id: 'reason-for-visit-other',
+								label: "Other",
+								value: "other",
+							} only %}
+						</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="form-actions cta-form">
+				{% if isSchedulingFlowWithoutPhysicians %}
+					{% set entity = "Location"|t %}
+				{% else %}
+					{% set entity = serviceDoctorType %}
+				{% endif %}
+				<button disabled name="submit" value="submit" class="action-button dmgButton primary3" type="submit" id="submit">
+					{{ (arrivedFromOutsideOfScheduling) ? "Continue"|t : "Find {entity}"|t(params = {
+							entity: indefiniteArticle(entity)
+						}) }}
+				</button>
+			</div>
+		</form>
+
+		<div class="modal physician-reason-for-visit-error-modal {{showVisitError ? " " : " hidden"}}">
+			<div class="content">
+				{% set entity = isSchedulingFlowWithoutPhysicians ? "location"|t : "provider"|t %}
+				<h1>{{ "This {entity} does not treat your reason for visit."|t(params = {
+					entity: entity
+				}) }}</h1>
+				{% set entity = isSchedulingFlowWithoutPhysicians ? "location"|t : "provider"|t %}
+				<h2>{{ "Please continue to the next step and we will help you find the best {entity}."|t(params = {
+					entity: entity
+				}) }}</h2>
+				{% set entity = isSchedulingFlowWithoutPhysicians ? "Location"|t : "Provider"|t %}
+				<div class="form-actions">
+					<button class="action-button dmgButton primary3" id="new-doctor-reason">{{ "Find A New {entity}"|t(params = {
+						entity: entity
+					}) }}</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal other-reason-selected-alert-modal hidden">
+			<div class="content">
+				<form>
+					<span tabindex="0" class="material-icons close"></span>
+					{% if serviceEntry.otherAppointmentReasonForVisit is not null %}
+						{% set customAlert = serviceEntry.otherAppointmentReasonForVisit.one %}
+
+						{% if customAlert.modalHeaderText is defined and customAlert.modalHeaderText is not null %}
+							<h2>{{ customAlert.modalHeaderText }}</h2>
+						{% endif %}
+
+						{% if customAlert.modalSubHeaderText is defined and customAlert.modalSubHeaderText is not null %}
+							<p>{{ customAlert.modalSubHeaderText }}</p>
+						{% endif %}
+					{% endif %}
+					<div class="form-actions">
+						<button class="action-button dmgButton primary3" id="exit-scheduling-process">{{ "Exit Scheduling Process"|t }}</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+{% endblock %}

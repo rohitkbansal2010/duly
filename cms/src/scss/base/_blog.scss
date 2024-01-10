@@ -1,0 +1,858 @@
+@import "../components/fonts";
+
+section {
+	&.blog-entry {
+		display: inline-flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		background-color: $white;
+		flex-basis: 70%;
+		min-height: 50px;
+		margin: 25px auto 0px auto;
+		border-bottom: 2px solid $marigold;
+
+		a {
+			text-decoration: none;
+			color: $violet;
+
+			&:hover {
+				text-decoration: underline;
+				color: $magenta;
+			}
+		}
+
+		@include responsive(medium) {
+			flex-basis: 90%;
+			margin: 0px auto;
+		}
+
+		article {
+			width: 100%;
+			display: flex;
+			flex-basis: 100%;
+			flex-direction: column;
+
+			@include responsive(small) {
+				margin: 0px;
+			}
+
+			figure {
+				margin: 0;
+				padding: 0;
+				margin: 25px 0;
+
+				iframe {
+					width: 100% !important;
+				}
+			}
+
+			.image-container {
+				position: relative;
+				height: 400px;
+				display: flex;
+				overflow: hidden;
+				border-radius: 32px 0px;
+				margin-bottom: 10px;
+
+				@include responsive(medium) {
+					height: 51vw;
+					width: initial;
+				}
+
+				picture {
+					width: 100%;
+
+					img {
+						width: 100%;
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						border-radius: 32px 0px;
+
+						@include responsive(medium) {
+							height: 51vw;
+							width: initial;
+						}
+					}
+				}
+
+				@include responsive(medium) {
+					margin-bottom: 8px;
+				}
+			}
+
+			.headline {
+				word-wrap: break-word;
+				overflow: hidden;
+				padding: 1rem 0;
+				box-sizing: border-box;
+				border-bottom: 2px solid $marigold;
+
+				@include responsive(medium) {
+					padding: 16px;
+				}
+
+				h1 {
+					font-size: 28px;
+					font-weight: 800;
+					color: $oxford;
+					line-height: 30px;
+					margin: 0px;
+				}
+
+				h2 {
+					margin: 5px 0px 0px 0px;
+					font-size: 22px;
+					font-weight: 600;
+					color: $oxford;
+					line-height: 30px;
+
+					@include responsive(medium) {
+						font-size: 18px;
+					}
+				}
+			}
+
+			.article-contents {
+				margin: 0;
+
+				h1 {
+					font-size: 1.75rem;
+				}
+				h2 {
+					font-size: 1.5rem;
+				}
+				h3 {
+					font-size: 1.25rem;
+				}
+				h4,
+				h5,
+				h6 {
+					font-size: 1rem;
+				}
+
+				h1,
+				h2,
+				h3,
+				h4,
+				h5,
+				h6,
+				strong {
+					color: $oxford;
+				}
+
+				.sub-headline {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					width: 100%;
+					border-bottom: 1px solid $marigold;
+					box-sizing: border-box;
+					padding: 1rem 0;
+					* {
+						box-sizing: border-box;
+					}
+					@include responsive(medium) {
+						flex-wrap: wrap;
+					}
+
+					.author-and-date {
+						.published-date {
+							margin: 5px 0 0 5px;
+							font-weight: bold;
+							font-size: 14px;
+
+							@include responsive(bs-large) {
+								margin: -10px 0 10px;
+								font-weight: 600;
+							}
+						}
+					}
+
+					.author {
+						font-size: 16px;
+						font-weight: 800;
+						line-height: 22px;
+						box-sizing: border-box;
+						padding: 0 1rem 0 0;
+						display: flex;
+						flex-wrap: wrap;
+						a {
+							color: $oxford !important;
+							text-decoration: none;
+
+							&:hover {
+								color: $oxford-70 !important;
+							}
+						}
+
+						.author-tag {
+							display: block;
+							padding: 0 0.5rem 0 0;
+							margin: 0 0.5rem 0 0;
+							border-right: 1px solid $marigold;
+
+							@include responsive(large) {
+								border-right: 0;
+								width: 100%;
+								padding: 0;
+							}
+
+							&:last-child {
+								border-right: none;
+								padding-right: 0;
+
+								&:after {
+									content: "";
+								}
+							}
+						}
+					}
+
+					.share-sheet {
+						display: flex;
+
+						@include responsive(medium) {
+							width: 100%;
+							justify-content: flex-end;
+							margin: 1rem 0 0 0;
+						}
+
+						a {
+							color: $oxford;
+							font-size: 32px;
+							margin: 0 0.5rem;
+							display: block;
+
+							&.non-material-icon {
+								font-size: 2rem;
+								color: $oxford !important;
+								@include responsive(small) {
+									font-size: 1.5rem;
+								}
+								&:hover {
+									text-decoration: none;
+									color: $sky !important;
+								}
+
+								&.twitter {
+									@extend %fa-icon;
+									@extend .fab;
+									&:before {
+										content: fa-content($fa-var-twitter);
+									}
+								}
+
+								&.facebook {
+									@extend %fa-icon;
+									@extend .fab;
+									&:before {
+										content: fa-content($fa-var-facebook);
+									}
+								}
+
+								&.mail {
+									@extend %fa-icon;
+									@extend .fas;
+									&:before {
+										content: fa-content($fa-var-envelope);
+									}
+								}
+							}
+						}
+
+						a:first-child {
+							@include responsive(bs-large) {
+								margin-left: 0px;
+							}
+						}
+					}
+				}
+
+				.content-body {
+					img {
+						border-radius: 4px;
+						width: 100%;
+						margin: 0 auto;
+						display: block;
+						max-width: 100%;
+					}
+
+					.health-topics {
+						box-sizing: border-box;
+						padding: 1rem 0 25px;
+						color: $oxford;
+
+						p {
+							margin: 0px;
+							font-weight: 700;
+							font-size: 17px;
+							float: left;
+							padding-right: 10px;
+						}
+
+						ul {
+							display: inline-flex;
+							list-style: none;
+							margin: 0px;
+							flex-direction: row;
+							flex-wrap: wrap;
+							padding: 0;
+
+							li {
+								font-size: 17px;
+								list-style: none;
+								font-weight: 600;
+
+								&:after {
+									content: ", ";
+									margin-right: 5px;
+								}
+
+								&:last-child {
+									&:after {
+										content: "";
+										margin-right: 5px;
+									}
+								}
+							}
+						}
+					}
+
+					.authors {
+						border-top: 2px solid $marigold;
+						padding-top: 35px;
+
+						ul {
+							margin: 15px 15px 0px;
+							margin-top: 0;
+							display: inline-flex;
+							list-style: none;
+							flex-direction: column;
+							padding: 0;
+
+							li {
+								margin-bottom: 25px;
+								display: inline-flex;
+								flex-direction: row;
+								flex-wrap: nowrap;
+								font-size: 17px;
+								list-style: none;
+
+								.headshot {
+									width: 64px;
+									height: 64px;
+									max-width: 64px;
+									max-height: 64px;
+									margin-right: 15px;
+									flex-basis: 64px;
+								}
+
+								.bio {
+									flex-basis: 100%;
+
+									p {
+										margin: 0px 0px 0px 10px;
+										padding: 0;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.physicians-list-grid,
+			.locations-list-grid {
+				margin: 15px 25px 0;
+
+				h4 {
+					font-size: 20px;
+				}
+
+				.locations-list {
+					position: relative;
+					left: 7%;
+				}
+
+				.physicians-list,
+				.locations-list {
+					color: $dark-blue;
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: space-between;
+
+					.location-short-empty {
+						flex: 0 32%;
+						width: 32%;
+						margin-bottom: 80px;
+					}
+
+					.location-short {
+						flex: 0 32%;
+						width: 32%;
+						margin-top: -40px;
+						margin-bottom: 80px;
+
+						&:before {
+							background: url(/dist/img/icons/location-new.svg)
+								no-repeat center;
+							display: block;
+							width: 50px;
+							height: 50px;
+							min-width: 50px;
+							min-height: 50px;
+							position: relative;
+							content: " ";
+							right: 60px;
+							top: 50px;
+						}
+
+						h5 {
+							font-size: 18px;
+							font-weight: 600;
+							margin: 5px 0;
+							margin-bottom: 10px;
+						}
+
+						.address {
+							width: 80%;
+
+							span {
+								display: block;
+								width: 100%;
+
+								a {
+									&.phone-number {
+										text-decoration: none;
+										color: $violet;
+
+										&:hover {
+											text-decoration: underline;
+											color: $magenta;
+										}
+									}
+								}
+
+								&.map-link {
+									margin-top: 15px;
+
+									a {
+										text-decoration: none;
+										color: $violet;
+
+										&:hover {
+											text-decoration: underline;
+											color: $magenta;
+										}
+									}
+								}
+							}
+						}
+					}
+
+					@include responsive(medium) {
+						margin-left: 21%;
+
+						.location-short,
+						.location-short-empty {
+							flex: 0 79%;
+
+							margin-top: -40px;
+							margin-bottom: 0;
+
+							&:last-of-type {
+								margin-bottom: 50px;
+							}
+						}
+					}
+
+					.physician-short {
+						text-align: center;
+						flex: 0 19%;
+						width: 19%;
+						margin-bottom: 80px;
+
+						img {
+							width: 120px;
+							height: 120px;
+							max-width: 120px;
+							max-width: 120px;
+						}
+
+						h5 {
+							margin: 0;
+							margin-top: 15px;
+							font-size: 16px;
+							font-weight: 600;
+						}
+
+						span {
+							font-size: 13px;
+							line-height: 18px;
+							text-align: center;
+
+							&.speciality-name {
+								font-weight: 600;
+								margin-bottom: 5px;
+
+								&:after {
+									content: ", ";
+								}
+
+								&:last-child {
+									&:after {
+										content: "";
+									}
+								}
+							}
+						}
+
+						.specialties,
+						.locations {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+							justify-content: center;
+
+							.speciality-name,
+							.location-name {
+								padding-right: 3px;
+								&:not(:last-child):after {
+									content: ", ";
+									color: $oxford;
+								}
+							}
+
+							.location-name {
+								font-weight: normal;
+							}
+						}
+					}
+				}
+
+				@include responsive(medium) {
+					.physician-short {
+						flex: 0 45% !important;
+					}
+				}
+			}
+		}
+	}
+
+	&.related-articles {
+		display: inline-flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-start;
+		flex-wrap: wrap;
+		flex-basis: 70%;
+		min-height: 50px;
+		margin: 0 auto 50px auto !important;
+		padding: 0px 50px 40px 60px;
+		width: 100%;
+
+		@include responsive(small) {
+			flex-basis: 90%;
+			margin: 0px auto;
+			padding: 15px;
+		}
+
+		h3 {
+			font-weight: bold;
+			width: 100%;
+			color: $dark-2;
+			@include responsive(small) {
+				padding: 0px 15px;
+			}
+		}
+
+		section {
+			&.related-article {
+				flex-basis: 28%;
+				width: 28%;
+				margin-bottom: 20px;
+
+				@include responsive(small) {
+					flex-basis: 100%;
+					width: 100%;
+					padding: 15px;
+				}
+
+				img {
+					border-radius: 32px 0px !important;
+					width: 100%;
+				}
+
+				.blue-line {
+					background: $sky;
+					width: 40px;
+					height: 1px;
+				}
+
+				h4 {
+					margin-top: 5px;
+					margin-bottom: 4px;
+					font-size: 18px;
+					font-weight: bold;
+					line-height: 20px;
+
+					a {
+						text-decoration: none;
+						color: $oxford !important;
+					}
+				}
+
+				h5 {
+					margin-top: 5px;
+					margin-bottom: 0;
+					font-weight: 600;
+					line-height: 23px;
+
+					a {
+						text-decoration: none;
+						color: $oxford;
+					}
+				}
+			}
+		}
+	}
+}
+
+.blog-entry {
+	@include responsive(medium) {
+		.physicians-list {
+			margin-left: 0px !important;
+		}
+	}
+}
+
+.topics-container {
+	flex-wrap: inherit;
+	position: relative;
+
+	@include responsive(small) {
+		flex-wrap: wrap;
+	}
+}
+
+.single-location-link {
+	text-decoration: none;
+}
+
+.health-topics {
+	flex-direction: row;
+	flex: 1;
+	max-width: 1440px;
+	flex-basis: 90%;
+
+	@include responsive(fourteen-fourty) {
+		max-width: 1201px;
+	}
+
+	@include responsive(x-large) {
+		max-width: 1093px;
+	}
+
+	&.bottom-rail,
+	&.no-rail {
+		max-width: 1093px;
+		width: 94%;
+	}
+
+	@include responsive(small) {
+		margin-top: 10px;
+	}
+
+	&.right-rail,
+	&.left-rail {
+		display: flex;
+		width: 80%;
+		margin: 0 auto;
+		flex-wrap: nowrap;
+	}
+
+	&.left-rail {
+		flex-direction: row-reverse;
+
+		@include responsive(small) {
+			flex-direction: column;
+			width: 94%;
+		}
+	}
+
+	&.right-rail {
+		flex-direction: row;
+
+		@include responsive(small) {
+			flex-direction: column;
+			width: 94%;
+		}
+	}
+
+	div.inner-container {
+		flex-basis: 740px;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		min-width: 0;
+		overflow: hidden;
+		padding-top: 25px;
+
+		@include responsive(large) {
+			flex-basis: 100%;
+			margin: 0 1%;
+		}
+
+		@include responsive(medium) {
+			padding-top: 5px;
+		}
+
+		h1 {
+			font-size: 28px;
+			font-weight: 800;
+			margin-top: 0;
+			margin-bottom: 0;
+			color: $oxford;
+
+			a {
+				margin-right: 17px;
+
+				&.dp-home-icon {
+					background-image: url("/dist/img/home-new.svg");
+					height: 26px;
+					width: 26px;
+					background-size: contain;
+					background-repeat: no-repeat;
+				}
+			}
+
+			span.chevron {
+				font-size: 14px !important;
+				margin-right: 10px;
+
+				&:before {
+					display: inline-block;
+					@extend %fa-icon;
+					@extend .fas;
+					content: fa-content($fa-var-chevron-right);
+				}
+			}
+		}
+
+		.category-label {
+			display: flex;
+			align-items: center;
+			font-size: 28px !important;
+			font-weight: 800;
+			padding: 0px 15px;
+
+			@include responsive(bs-large) {
+				font-size: 20px !important;
+			}
+		}
+
+		.pagination {
+			margin-bottom: 125px;
+
+			ul {
+				li {
+					a {
+						&.pagination-link {
+							color: $oxford;
+
+							&.is-current {
+								color: $white !important;
+								background-color: $tangerine;
+							}
+						}
+
+						&.pagination-text-link {
+							color: $oxford;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.footer-effect-blog {
+		height: 28px;
+		display: flex;
+		width: 100vw;
+		position: relative;
+		margin-left: -50vw;
+		left: 50%;
+
+		.footer-effect-left {
+			background-color: $tangerine;
+			width: 35%;
+			border-radius: 0px 65px 0px 0px;
+		}
+
+		.footer-effect-right {
+			background-color: $marigold;
+			width: 65%;
+			border-radius: 65px 0px 0px 0px;
+		}
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		span {
+			font-size: inherit !important;
+			color: inherit !important;
+			font-weight: inherit !important;
+		}
+	}
+}
+
+.future-date-error {
+	background: $white;
+	width: 185px;
+	border-radius: 4px;
+	padding: 3px;
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto 10px auto;
+
+	.error {
+		margin: 0px;
+		font-size: 14px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.error,
+	.warning {
+		color: $error-red;
+	}
+
+	.warning {
+		font-size: 24px;
+	}
+}
+
+.invisible {
+	visibility: hidden;
+
+	@include responsive(medium) {
+		width: 10px;
+	}
+}
+
+.fetch-error,
+.form-error {
+	color: $error-red !important;
+	text-align: center;
+	width: 100%;
+	display: block;
+	font-size: 12px !important;
+	margin: 10px auto;
+}

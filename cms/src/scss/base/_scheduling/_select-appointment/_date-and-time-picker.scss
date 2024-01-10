@@ -1,0 +1,210 @@
+.date-and-time-picker {
+	margin: 0 auto;
+	box-sizing: border-box;
+	@include responsive(bs-large) {
+		width: 100%;
+		box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.12);
+		background: $white;
+	}
+
+	#select-appointment-form {
+		display: flex;
+		flex-direction: column;
+		border-radius: 4px;
+	}
+
+	.physician-info {
+		display: flex;
+		padding: 1rem;
+
+		@include responsive(bs-large) {
+			flex: 0 0 95%;
+			margin: 10px auto;
+		}
+
+		.image {
+			flex: 0 0 48px;
+			img {
+				border-radius: 0.5rem 0 0.5rem 0;
+				width: 100%;
+			}
+			&.default-headshot {
+				border-radius: 0.5rem 0 0.5rem 0;
+			}
+		}
+
+		.details {
+			display: flex;
+			flex-direction: column;
+			margin-left: 12px;
+			position: relative;
+
+			.name {
+				font-size: 1rem;
+				font-weight: 800;
+				color: $violet;
+			}
+			.service {
+				font-size: 14px;
+				color: $dark-2;
+				font-weight: normal;
+			}
+		}
+	}
+
+	.title {
+		padding: 24px;
+
+		span {
+			font-size: 16px;
+			font-weight: 600;
+		}
+	}
+
+	.date-picker {
+		background: $white;
+		.month-picker {
+			display: flex;
+			border-top: 1px solid #e6e6e6;
+			border-bottom: 1px solid #e6e6e6;
+			justify-content: center;
+			align-items: center;
+
+			.month {
+				font-size: 14px;
+				font-weight: 600;
+				color: $violet;
+			}
+
+			.material-icons.keyboard_arrow_right,
+			.material-icons.keyboard_arrow_left {
+				font-size: 16px;
+				padding: 10px 20px;
+				box-sizing: border-box;
+				cursor: pointer;
+				color: $oxford;
+			}
+		}
+
+		.day-picker {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			box-shadow: inset 0px -1px 0px 0px #e6e6e6,
+				0px 5px 10px 0px rgba(0, 0, 0, 0.05);
+
+			.material-icons {
+				padding: 10px;
+				cursor: pointer;
+				color: $violet;
+
+				@include responsive(bs-large) {
+					padding: 10px 0;
+				}
+			}
+
+			.days {
+				display: flex;
+				flex: 1 0 auto;
+				justify-content: space-between;
+
+				.day-container {
+					height: 56px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex: 0 0 68.5px;
+					position: relative;
+					cursor: pointer;
+					color: $violet;
+
+					@include responsive(medium) {
+						flex: 0 0 50px;
+					}
+
+					@include responsive(bs-large) {
+						&:nth-child(n + 6) {
+							display: none;
+						}
+					}
+
+					.day {
+						display: flex;
+						flex-direction: column;
+						text-align: center;
+
+						.day-name {
+							font-size: 12px;
+							font-weight: normal;
+							color: $violet;
+						}
+
+						.day-number {
+							font-size: 18px;
+							font-weight: 600;
+							color: $violet;
+						}
+					}
+
+					.scalene-triangle-bottom {
+						width: 0;
+						height: 0;
+						border-style: solid;
+						border-width: 10px 34.25px 0;
+						border-color: $magenta transparent transparent
+							transparent;
+						position: absolute;
+						bottom: -10px;
+						display: none;
+
+						@include responsive(medium) {
+							border-width: 10px 25.25px 0;
+						}
+					}
+
+					&.active {
+						background: $magenta;
+
+						span {
+							color: $white;
+						}
+
+						.scalene-triangle-bottom {
+							display: block;
+						}
+
+						.day {
+							.day-name {
+								color: $white;
+							}
+
+							.day-number {
+								color: $white;
+							}
+						}
+					}
+
+					&.invalid {
+						opacity: 0.3;
+						pointer-events: none;
+
+						.day {
+							.day-name {
+								color: $dark-2;
+							}
+
+							.day-number {
+								color: $dark-2;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.error {
+		margin: auto;
+	}
+}

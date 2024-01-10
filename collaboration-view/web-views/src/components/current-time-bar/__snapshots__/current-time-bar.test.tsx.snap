@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`current-time-bar should render correctly 1`] = `
+<CurrentTimeBar>
+  <div
+    className="barWrapper"
+    data-testid="current-time-bar__container"
+    style={
+      Object {
+        "top": "16.575rem",
+      }
+    }
+  >
+    <span
+      className="currentTime"
+      data-testid="current-time-bar__text"
+    >
+      8:00 am
+    </span>
+    <div
+      className="currentTimeBar"
+    />
+  </div>
+</CurrentTimeBar>
+`;

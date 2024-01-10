@@ -1,0 +1,134 @@
+parameters:
+  - name: PUBLISH_FROM_FEATURE_BRANCH
+    type: boolean
+    default: false
+    displayName: 'Build and publish NuGet package from feature branch.'
+  - name: FORCE_RUN_SONAR_CHECK
+    type: boolean
+    default: false
+    displayName: 'Force a launch of SonarCloud analysis.'
+  - name: CREATE_NUGET_RELEASE_VERSION
+    type: boolean
+    default: false
+    displayName: 'Create release version of the Nuget package'
+
+trigger:
+  branches:
+    include:
+      - dev
+      - feature/*
+  paths:
+    include:
+      - src/Client/*
+
+variables:
+  - name: VM_IMAGE
+    value: 'ubuntu-latest'
+  - name: BUILD_POOL
+    value: OnAKS
+  - name: PUBLISH_FROM_FEATURE_BRANCH
+    value: ${{ parameters.PUBLISH_FROM_FEATURE_BRANCH }}
+  - name: FORCE_RUN_SONAR_CHECK
+    value: ${{ parameters.FORCE_RUN_SONAR_CHECK }}
+  - name: PROJECT_NAME
+    value: '**/Client.csproj'
+
+resources:
+  repositories:
+    - repository: yamltemplates
+      type: git
+      name: 'duly.digital.devops/duly-yaml-templates'
+
+    - repository: scripts
+      type: git
+      name: duly.digital.devops/duly-scripts
+
+stages:
+
+- stage: CI
+  jobs:
+   - job: Analyse
+     displayName: Continuous Integration
+     pool:
+       name: $(BUILD_POOL)
+     workspace:
+       clean: outputs
+     steps:
+       - checkout: self
+
+       # Template: Execute CI process for particular project
+       - template: child.build/ci-netcore-cli.yml@yamltemplates
+         parameters:
+           solution: $(PROJECT_NAME)
+           # No need to scan this project by SonarQube and there are no unit tests, so just build the project
+           enableSonarCloudScan: false
+           runUnitTests: false
+           createCoverageReport: false
+           includeDotNetSdkVersionForAzureFunctions: true
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        eq(variables['Build.Reason'], 'PullRequest'),
+        eq(variables['FORCE_RUN_SONAR_CHECK'], 'true'),
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/feature')
+      )
+    )
+
+- stage: Publish
+  dependsOn: []
+  jobs:
+   - job: Build
+     displayName: Build Artifacts
+     pool:
+       name: $(BUILD_POOL)
+     workspace:
+       clean: outputs
+     steps:
+     - checkout: self
+
+     # Template: Prepare and publish NuGet package
+     - template: child.build/build-netcore.yml@yamltemplates
+       parameters:
+         packProjects: [$(PROJECT_NAME)]
+         dotnetBuild: true
+         publishNuget: true
+         createNugetReleaseVersion: ${{ parameters.CREATE_NUGET_RELEASE_VERSION }}
+         # No need to scan this project by SonarQube and there are no unit tests, so just build the project and publish the Nuget package
+         enableSonarCloudScan: false
+         runUnitTests: false
+         createCoverageReport: false
+         vstsFeed: 'duly.digital'
+         includeDotNetSdkVersionForAzureFunctions: true
+      
+      # Explicitly add '-client' into tag name and tag message to differentiate tags which will be set by api-system-ngdp pipelines 
+     - task: PowerShell@2
+       displayName: 'PowerShell: Set commit tag'
+       inputs:
+         targetType: filePath
+         filePath: '$(Build.SourcesDirectory)/duly-scripts/PowerShell/Add-TagToAdoCommit.ps1'
+         arguments: > 
+           -PAT $(System.AccessToken)
+           -organizationUri $(System.CollectionUri)
+           -projectName $(System.TeamProject)
+           -repositoryID $(Build.Repository.ID)
+           -commitID $(Build.SourceVersion)
+           -tagName $(Build.BuildNumber)-client
+           -tagMessage $(Build.BuildNumber)-client
+       continueOnError: true
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['PUBLISH_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )

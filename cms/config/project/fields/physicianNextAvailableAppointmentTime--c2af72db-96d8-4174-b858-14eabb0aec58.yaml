@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: physicianNextAvailableAppointmentTime
+instructions: ''
+name: physicianNextAvailableAppointmentTime
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    mode: hidden
+    modeOverride: ''
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: mmikkel\incognitofield\fields\IncognitoFieldType

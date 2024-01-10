@@ -1,0 +1,41 @@
+{% extends "_layouts/_layout.twig" %}
+
+{% block body %}
+	<ul>
+		{% if first_name %}
+			<li>First Name:
+				{{first_name}}</li>
+			<br>
+		{% endif %}
+		{% if last_name %}
+			<li>Last Name:
+				{{last_name}}</li>
+			<br>
+		{% endif %}
+		{% if email %}
+			<li>Email:
+				{{email}}</li>
+			<br>
+		{% endif %}
+		{% if phone_number %}
+			<li>Phone Number:
+				{{phone_number}}</li>
+			<br>
+		{% endif %}
+		{% if location %}
+			<li>Location:
+				{{location}}</li>
+			<br>
+		{% endif %}
+		{% if procedure %}
+			<li>Procedure:
+				{{procedure}}</li>
+			<br>
+		{% endif %}
+		{% if comments %}
+			<li>Comments:
+				{{comments}}</li>
+			<br>
+		{% endif %}
+	</ul>
+{% endblock %}

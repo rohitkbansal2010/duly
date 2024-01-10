@@ -1,0 +1,49 @@
+parameters:
+- name: infraSolutionRepo
+  type: string
+
+- name: infraSolutionFolder
+  type: string
+
+- name: configurationRepo
+  type: string
+
+- name: configurationPath
+  type: string
+
+- name: envList
+  type: object
+  default: {}
+
+# Create Terraform Artifact
+stages:
+- stage: Artifact
+
+  jobs:
+  - template: ../jobs/terraform-artifact-jobs.yml
+    parameters:
+      infraSolutionRepo: ${{ parameters.infraSolutionRepo }}
+      infraSolutionFolder: ${{ parameters.infraSolutionFolder }}
+      configurationRepo: ${{ parameters.configurationRepo }}
+      configurationPath: ${{ parameters.configurationPath }}
+
+
+# Create loop for Environments list 
+- ${{ each environment in parameters.envList }}:
+
+
+  # Run Terraform Destroy stage
+  - stage: Destroy_${{ environment }}
+    displayName: Destroy on ${{ environment }}
+    dependsOn: Artifact
+    variables:
+    - group: env.${{ environment }}.terraform
+    - group: terraform.modules_rsa_key
+
+    jobs:
+    # Call Terraform Destroy jobs
+    - template: ../jobs/terraform-destroy-jobs.yml
+      parameters:
+        environment: ${{ environment }}
+        infraSolutionFolder: ${{ parameters.infraSolutionFolder }}
+        TerraformVarsFile: ${{ environment }}.tfvars

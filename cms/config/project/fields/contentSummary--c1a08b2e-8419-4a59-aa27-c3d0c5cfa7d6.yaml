@@ -1,0 +1,27 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 59d569da-1526-45bb-bd4c-883ccf638fd3
+handle: contentSummary
+instructions: 'Provide a brief summary of the page contents. This should be a brief summary no more than one or two sentences.'
+name: Summary
+searchable: true
+settings:
+    availableTransforms: '*'
+    availableVolumes: ''
+    columnType: text
+    configSelectionMode: choose
+    defaultTransform: ''
+    manualConfig: ''
+    purifierConfig: ''
+    purifyHtml: '1'
+    redactorConfig: ''
+    removeEmptyTags: '1'
+    removeInlineStyles: '1'
+    removeNbsp: '1'
+    showHtmlButtonForNonAdmins: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    uiMode: enlarged
+translationKeyFormat: null
+translationMethod: none
+type: craft\redactor\Field

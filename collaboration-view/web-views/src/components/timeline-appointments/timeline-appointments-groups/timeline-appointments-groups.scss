@@ -1,0 +1,57 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.timelineAppointmentsGroups {
+  &NoData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 45.25rem;
+    background-color: $white;
+    border-radius: 0.5rem;
+
+    &Icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 14.375rem;
+      height: 14.375rem;
+      margin-bottom: 3.75rem;
+      border-radius: 50%;
+
+      &Blue {
+        @include background-opacity($dupage-blue, 0.3);
+      }
+
+      &Magenta {
+        @include background-opacity($dupage-magenta, 0.3);
+      }
+
+      & img {
+        width: 8.125rem;
+        height: 8.125rem;
+        object-fit: cover;
+      }
+    }
+
+    &Title {
+      font-size: var(--font-size-40px-4px);
+      // line-height: 2.625rem;
+      @include nexa-heavy-highlight;
+
+      &LightBlue {
+        color: $dupage-light-blue;
+      }
+
+      &Magenta {
+        color: $dupage-magenta;
+      }
+    }
+  }
+
+  &Items {
+    height: 45.25rem;
+  }
+}

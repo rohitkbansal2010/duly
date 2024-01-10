@@ -1,0 +1,50 @@
+{% set displayCount = 6 %}
+<div class="specials-container">
+    <div id="specials">
+        {% for special in specials %}
+            <div class="specialContainer {{ loop.index > displayCount ? 'hidden' : '' }}" data-hidden="{{ loop.index > displayCount }}">
+                <div class="special">
+                    <div class="title">
+                        <p>{{ special.title|length > 110 ? special.title|truncate(110) : special.title }}</p>
+                    </div>
+                    {% if special.description %}
+                        <div class="description">
+                            <p>{{ special.description|length > 110 ? special.description|truncate(110) : special.description }}</p>
+                        </div>
+                    {% endif %}
+                    {% if special.startDate or special.endDate %}
+                        <div class="validDates">
+                            <p>Valid:
+                            {% if special.startDate %}
+                                <span>{{ special.startDate|date('m/d') }}</span>
+                            {% endif %}                          
+                            {% if special.endDate %}
+                                <span>- {{ special.endDate|date('m/d') }}</span>
+                            {% endif %}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% set participatingLocations = getParticipatingLocationsForSpecial(special.participatingLocations.all()) %}
+                    <div class="participatingLocations">
+                    {% if participatingLocations|length %}
+                        <p>Participating locations:</p>
+                        <p>
+                        {% for participatingLocation in participatingLocations %}
+                            <span>{{ participatingLocation }}{{ loop.index > 0 and loop.index < participatingLocations|length ? ', ' : '' }}</span>
+                        {% endfor %}
+                        </p>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if specials|length > displayCount %}
+        <div id="viewMoreToggleHolder">
+            <div id="viewMoreToggle">
+                <span class="toggleText">{{ "Show More"|t }}</span> 
+                <span class="material-icons">expand_more</span>
+            </div>
+        </div>
+    {% endif %}
+</div>

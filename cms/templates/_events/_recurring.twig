@@ -1,0 +1,27 @@
+<div class="event-block no-end-date">
+    {% if event.freq == "SELECT_DATES" %}
+        <h4>{{ "{type} Dates"|t(params = { type: inflector.singularize(event.eventCategories.one.title) }) }}</h4>
+        <ul>
+            <li>{{ event.startDate.format("D. M. j") }}</li>
+            {% for o in event.occurrences %}
+                <li>{{ o.startDate.format("D. M. j") }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        {% set requestedDays = event.byDay | split(',') %}
+        {% set eventExceptionDates = [] %}
+            {% if event.exceptions is not null %}
+                {% for exceptionDate in event.exceptions %}
+                    {% set eventExceptionDates = eventExceptionDates | merge([exceptionDate.date.format('l, M d, Y')]) %}
+                {% endfor %}
+            {% endif %}
+
+            {{ "{rule}{except}"|t(params = {
+                    rule: event.readableRepeatRule,
+                    except: eventExceptionDates is not empty ? " except on {days}."|t(params = {
+                        days: eventExceptionDates | join(', ', ' and ')
+                    }) : '.'
+                })
+            }}
+    {% endif %}
+</div>

@@ -1,0 +1,220 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.timelineAppointmentsGroup {
+  &Item {
+    &:not(:last-child) {
+      margin-bottom: 1.25rem;
+    }
+
+    &Card {
+      overflow: hidden;
+      border: 0.06rem solid $gray !important;
+      border-radius: 0.625rem !important;
+
+      &Header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.8rem 1.25rem 0.625rem !important;
+        column-gap: 2rem;
+        background-color: $white !important;
+        border-bottom: 0 !important;
+        border-radius: 0 !important;
+        cursor: pointer;
+      }
+
+      &Body {
+        padding: 1.25rem;
+        background-color: $light-gray;
+
+        &Table {
+          display: flex;
+          flex-direction: column;
+
+          &Head,
+          &Body {
+            display: flex;
+          }
+
+          &HeadReason,
+          &BodyReason {
+            width: 50%;
+          }
+
+          &HeadDuration,
+          &BodyDuration {
+            width: 28%;
+          }
+
+          &HeadStatus,
+          &BodyStatus {
+            width: 22%;
+          }
+
+          &HeadReason,
+          &HeadDuration,
+          &HeadStatus {
+            color: $dark-gray;
+            font-size: var(--font-size-12px-4px) !important;
+            text-transform: uppercase;
+            @include inter-nano-bold;
+          }
+
+          &BodyReason,
+          &BodyDuration,
+          &BodyStatus {
+            color: $default-text;
+            font-weight: 700;
+            font-size: var(--font-size-14px-4px);
+            font-family: "Inter", sans-serif;
+            // line-height: 1.7rem;
+          }
+
+          &BodyReason {
+            &Telehealth {
+              & span {
+                margin-right: 0.44rem;
+                color: $dark-gray;
+                font-weight: 400;
+                font-size: var(--font-size-14px-4px);
+                font-family: "Inter", sans-serif;
+                // line-height: 1.7rem;
+              }
+
+              & img {
+                width: 1.25rem;
+                height: 1.25rem;
+              }
+            }
+          }
+
+          &BodyStatus {
+            display: flex;
+            align-items: center;
+
+            &Indicator {
+              width: 0.75rem;
+              height: 0.75rem;
+              margin-left: 0.5rem;
+              border-radius: 50%;
+
+              &Completed {
+                @extend .timelineAppointmentsGroupItemCardBodyTableBodyStatusIndicator;
+                background-color: $dupage-green;
+              }
+
+              &Cancelled,
+              &NoShow {
+                font-size: var(--font-size-14px-4px);
+                background-color: $dupage-orange;
+                @extend .timelineAppointmentsGroupItemCardBodyTableBodyStatusIndicator;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &Info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      // width: 100%;
+
+      &DateTime {
+        color: $default-text;
+        // display: flex;
+      }
+
+      &Status {
+        display: inline;
+        align-items: center;
+        width: max-content;
+        margin-top: 0.13rem;
+        color: #ff6a14;
+        font-weight: 600;
+        font-size: 0.9rem;
+        line-height: 1.5px;
+
+        img {
+          width: 1.6rem;
+          margin-top: -0.3rem;
+          margin-left: 0.5rem;
+        }
+
+        &Divider {
+          width: 1px;
+          height: 1rem;
+          margin-top: 2px;
+          margin-right: 5px;
+          margin-left: 5px;
+          background: #8d8d8d;
+        }
+      }
+
+      &Date {
+        @include inter-text-default-bold;
+        font-size: var(--font-size-16px-4px) !important;
+      }
+
+      &Time {
+        font-size: var(--font-size-16px-4px) !important;
+        text-transform: uppercase;
+        @include inter-text-default;
+      }
+
+      &Practitioner {
+        display: flex;
+        align-items: center;
+
+        &Name {
+          margin: 0px;
+          margin-left: 0.625rem;
+          color: $default-text;
+          font-weight: 700;
+          font-size: var(--font-size-14px-4px);
+          font-family: "Inter", sans-serif;
+          // line-height: 1.7rem;
+        }
+
+        &Speciality {
+          margin: 0px;
+          margin-left: 0.625rem;
+          color: #002855;
+          font-weight: 400;
+          font-size: var(--font-size-14px-4px);
+          font-family: "Inter", sans-serif;
+          line-height: var(--line-height-16px-4px);
+          // margin-top: -5px;
+          word-break: break-word;
+        }
+      }
+    }
+
+    &AccordionToggle {
+      display: flex;
+      align-items: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-left: 1.875rem;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      outline: 0;
+
+      & img {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+  }
+
+  &RightBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 12rem;
+  }
+}

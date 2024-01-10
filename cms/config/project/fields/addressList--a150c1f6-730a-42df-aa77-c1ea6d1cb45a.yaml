@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: eca27ab5-4de8-41d9-85c4-b3c60701f59d
+handle: addressList
+instructions: ''
+name: 'Address List'
+searchable: false
+settings:
+    contentTable: '{{%matrixcontent_addresslist}}'
+    maxBlocks: '3'
+    minBlocks: '1'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

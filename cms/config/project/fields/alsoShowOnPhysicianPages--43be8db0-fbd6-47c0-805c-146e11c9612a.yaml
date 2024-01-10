@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 59d569da-1526-45bb-bd4c-883ccf638fd3
+handle: alsoShowOnPhysicianPages
+instructions: 'Physicians selected will have this article feature on their physicians page.'
+name: 'Also Show on Physician Pages'
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: 'Select a physician'
+    showSiteMenu: true
+    source: null
+    sources: ['section:a578774f-f4e1-4f95-a2f8-f9b8bae72c8c']
+    targetSiteId: null
+    validateRelatedElements: true
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

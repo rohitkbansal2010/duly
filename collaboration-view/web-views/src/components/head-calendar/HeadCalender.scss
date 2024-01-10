@@ -1,0 +1,185 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.navbar {
+  &Item {
+    height: 100%;
+    &Link {
+      height: 100%;
+      padding: 0 !important;
+    }
+    &Active {
+      position: relative;
+      height: 100%;
+      padding: 0 !important;
+    }
+  }
+}
+
+.monthContainer {
+  @include nexa-heavy-highlight;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.625rem;
+  color: $dupage-dark-blue;
+
+  &ShiftLeftInactive {
+    width: 3.75rem;
+    margin-top: -0.25rem;
+    padding: 0 1rem;
+    color: $gray;
+    font-size: 1rem;
+    cursor: default;
+  }
+
+  &ShiftLeft {
+    width: 3.75rem;
+    margin-top: -0.25rem;
+    padding: 0 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  &Name {
+    font-weight: 900;
+    font-size: var(--font-size-24px-4px);
+    line-height: 1.625rem;
+  }
+
+  &ShiftRight {
+    width: 3.75rem;
+    margin-top: -0.25rem;
+    padding: 0 1rem;
+    font-size: 1rem;
+    text-align: end;
+    cursor: pointer;
+  }
+}
+
+.dateContainer {
+  display: flex;
+  align-items: center;
+  height: var(--calendar-height);
+  background: $white;
+
+  box-shadow: 0px 0px 1px rgba(102, 110, 125, 0.06), 0px 10px 15px -3px rgba(102, 110, 125, 0.1),
+    0px 4px 6px -2px rgba(102, 110, 125, 0.05);
+
+  &ShiftLeftInactive {
+    width: 4.25rem;
+    padding: 0 1rem;
+    color: $gray;
+    font-size: 1rem;
+    cursor: default;
+  }
+
+  &ShiftLeft {
+    width: 4.25rem;
+    padding: 0 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  &ShiftRight {
+    width: 4.25rem;
+    padding: 0 1rem;
+    font-size: 1rem;
+    text-align: end;
+    cursor: pointer;
+  }
+
+  &Dates {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    // column-gap: 1.375rem;
+    &Date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 4.875rem;
+      height: 100%;
+      color: $dupage-dark-blue;
+      cursor: pointer;
+      &Day {
+        @include nexa-regular-highlight;
+        font-weight: 700;
+        font-size: var(--font-size-14px-4px);
+        line-height: 130%;
+      }
+      &Number {
+        @include nexa-heavy-highlight;
+        font-weight: 900;
+        font-size: var(--font-size-18px-4px);
+        line-height: 120%;
+      }
+    }
+  }
+}
+
+.activeTab {
+  color: $white;
+  background-color: $dupage-magenta;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.activeTab:after {
+  position: absolute;
+  top: var(--calendar-arrow);
+  // left: -0.125rem;
+  clear: both;
+  width: 0;
+  height: 0;
+  border-top: 1.25rem solid $dupage-magenta;
+  border-right: 2.65rem solid transparent;
+  border-left: 2.65rem solid transparent;
+  border-radius: 0.5rem;
+  content: "";
+}
+
+.line {
+  height: 0.125rem;
+  background-color: $ghost-gray;
+}
+
+.timeslotContainerLoading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22rem;
+  color: $dupage-dark-blue;
+  font-size: 3rem;
+}
+.noSlots {
+  color: $white;
+  background-color: $medium-gray;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.noSlots:after {
+  position: absolute;
+  top: var(--calendar-arrow);
+  // left: -0.125rem;
+  clear: both;
+  width: 0;
+  height: 0;
+  border-top: 1.25rem solid $medium-gray;
+  border-right: 2.65rem solid transparent;
+  border-left: 2.65rem solid transparent;
+  border-radius: 0.5rem;
+  content: "";
+}

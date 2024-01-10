@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <Version>1.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+
+    <AssemblyName>Fhir.Adapter.Tests</AssemblyName>
+    <RootNamespace>Fhir.Adapter.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Duly.Common.Testing" Version="21.11.126.1-dev" />
+    <PackageReference Include="FluentAssertions" Version="6.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+    <PackageReference Include="coverlet.collector" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Duly.Common.CodeAnalysis" Version="21.11.110.1-dev">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Adapter\Fhir.Adapter.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Exclude the project from analysis -->
+    <SonarQubeExclude>true</SonarQubeExclude>
+  </PropertyGroup>
+
+  <Target Name="AddPackageAliases" BeforeTargets="ResolveReferences" Outputs="%(PackageReference.Identity)">
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)'=='Hl7.Fhir.STU3.Core'">
+        <Aliases>stu3</Aliases>
+      </ReferencePath>
+      <ReferencePath Condition="'%(FileName)'=='Hl7.Fhir.R4.Core'">
+        <Aliases>r4</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
+</Project>

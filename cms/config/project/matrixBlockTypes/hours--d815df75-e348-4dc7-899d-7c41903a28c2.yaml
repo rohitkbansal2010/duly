@@ -1,0 +1,9 @@
+field: ad113c43-7ced-4329-94f9-2539fc799cfc
+fieldLayouts:
+    b7ffdb10-8f53-457e-842e-2dcb20eb4697: { tabs: [{ elements: [{ fieldUid: 91a70be7-0d2e-412a-82fd-3a76b48b31be, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: eedd1d00-a881-4368-a74a-c5a01ef347e2, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    91a70be7-0d2e-412a-82fd-3a76b48b31be: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: daysOfWeek, instructions: '', name: 'Day(s) of Week', searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: 'Sunday, Monday-Friday', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    eedd1d00-a881-4368-a74a-c5a01ef347e2: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: hours, instructions: '', name: Hours, searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: '8AM - 5PM', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: hours
+name: Hours
+sortOrder: 1

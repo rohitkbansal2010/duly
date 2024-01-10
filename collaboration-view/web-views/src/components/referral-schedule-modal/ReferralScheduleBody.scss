@@ -1,0 +1,68 @@
+@import "~@styles/typography.scss";
+
+.card {
+  margin-bottom: 1rem;
+  border-radius: 0.625rem !important;
+}
+
+.modal-content {
+  border-radius: 0.625rem !important;
+}
+
+.textData {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem 0.25rem 1rem;
+  color: rgba(15, 23, 42, 1);
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+}
+
+.providerImage {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.providerImage img {
+  width: 2.125rem;
+  height: 2.125rem;
+  border-radius: 50%;
+}
+
+.providerImage span {
+  font-size: 0.875rem;
+}
+
+.lowerBody {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem 1rem 1rem;
+  background-color: rgba(244, 247, 250, 1);
+}
+
+.location .referralVisit .duration {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  color: rgba(102, 110, 125, 1);
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.address,
+.speciality,
+.time {
+  color: rgba(15, 23, 42, 1);
+  font-weight: 700;
+  font-size: 0.85rem;
+  font-family: "Inter", sans-serif;
+}
+
+.secondAddress {
+  font-size: 0.75rem;
+}

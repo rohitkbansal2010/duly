@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 9d2b0cf4-8930-4e23-a498-cc8eac920e8e
+handle: healthTopicsShowRecent
+instructions: 'Should recent entries be shown on the health topics page?'
+name: 'Show Recent?'
+searchable: false
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

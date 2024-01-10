@@ -1,0 +1,10 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Schedule an Appointment'|t %}
+{% block bodyClass "schedule-an-appointment-page" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	{% include "_scheduling/landing/_main.twig" %}
+{% endblock %}

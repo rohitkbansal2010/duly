@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: firstName
+instructions: "Provide the physician's first name.\r\nThis is only used for sorting purposes and is not being displayed anywhere on the client side."
+name: 'First Name'
+searchable: true
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: 'John '
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

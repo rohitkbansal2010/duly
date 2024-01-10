@@ -1,0 +1,41 @@
+{% set image = header.heroImage.all()|first %}
+{% set description = header.description %}
+{% set primaryCtaText = header.primaryCtaText %}
+{% set primaryCtaTarget = header.primaryCtaTarget|first %}
+{% set secondaryCtaText = header.secondaryCtaText %}
+{% set secondaryCtaTarget = header.secondaryCtaTarget|first %}
+
+<div class="header">
+    <div class="text-and-ctas-container innerContent">
+    <div class="image">
+        {% if image %}
+            {{ getOptimizedImage(image, 'webp')|raw }}
+        {% endif %}
+    </div>
+        <div class="text-and-ctas">
+            <h1 class="title">
+                {{ title }}
+            </h1>
+            <span class="description">
+                {{ description }}
+            </span>
+            <div class="ctas">
+                <button class="dmgButton primary1">
+                    <a href="{{ primaryCtaTarget.url ?? primaryCtaTarget.linkUrl }}">
+                        {{ primaryCtaText }}
+                    </a>
+                </button>
+                <button class="dmgButton secondary1">
+                    <a href="{{ secondaryCtaTarget.url ?? secondaryCtaTarget.linkUrl }}">
+                        {{ secondaryCtaText }}
+                    </a>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-bottom-effect">
+        <div class="hero-bottom-effect-left"></div>
+        <div class="hero-bottom-effect-right"></div>
+    </div>
+</div>

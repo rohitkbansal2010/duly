@@ -1,0 +1,9 @@
+{{ tag('a', {
+        href: number.format('rfc3966'),
+        'data-attr-number': number.format('e164'),
+        rel: 'noopener noreferrer',
+        target: "_blank",
+        class: 'phone-number',
+        text: number.number
+    })|raw
+}}

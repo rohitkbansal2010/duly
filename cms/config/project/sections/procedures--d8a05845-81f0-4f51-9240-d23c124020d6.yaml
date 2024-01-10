@@ -1,0 +1,13 @@
+defaultPlacement: end
+enableVersioning: true
+handle: procedures
+name: Procedures
+previewTargets:
+    - { __assoc__: [[label, 'Primary entry page'], [urlFormat, '{url}']] }
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: true, hasUrls: true, template: _services/_single-procedure, uriFormat: 'procedures/{slug}' }
+structure:
+    maxLevels: null
+    uid: 0214af0a-13fe-4ae0-b4cd-3fc5f53dbcc0
+type: structure

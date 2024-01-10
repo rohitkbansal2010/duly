@@ -1,0 +1,8 @@
+handle: footerNavigation
+instructions: 'Links that should appear in the primary footer.'
+name: 'Footer Navigation'
+propagateNodes: true
+sortOrder: 3
+structure:
+    maxLevels: '1'
+    uid: a870bae2-431e-4724-9771-4623cdaf8de9

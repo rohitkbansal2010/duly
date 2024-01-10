@@ -1,0 +1,10 @@
+field: b0e78e2d-432c-415c-bd56-f238655222d4
+fieldLayouts:
+    adaafdbf-2945-4840-b7b6-8aa6e8801825: { tabs: [{ elements: [{ fieldUid: 08740f8c-5aa0-43f7-984f-d9c3d837aa08, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 416a80f8-54be-4b54-8aaf-6bf59f945440, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 5151b72f-05f7-4756-9b8a-f62815bf57e1, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    416a80f8-54be-4b54-8aaf-6bf59f945440: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: publicationDate, instructions: '', name: 'Publication Date', searchable: false, settings: { byteLimit: null, charLimit: 14, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: 'November 1998', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    5151b72f-05f7-4756-9b8a-f62815bf57e1: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: publicationUrl, instructions: 'Provide a URL link to this publication if one exists.', name: 'Publication URL', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: null, uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    08740f8c-5aa0-43f7-984f-d9c3d837aa08: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: publicationName, instructions: '', name: Name, searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: null, uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: publication
+name: Publication
+sortOrder: 1

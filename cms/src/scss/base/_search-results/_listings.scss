@@ -1,0 +1,295 @@
+.search-page {
+    min-height: 500px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+    .search-results-container  {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: flex-end;
+        background: transparent;
+        min-height: 0px;
+        box-shadow: initial;
+        border-bottom: none;
+
+        .search-content {
+            padding: 25px 25px 0px;
+
+            button.search-results-btn {
+                padding: 15px 0;
+                width: 190px;
+            }
+
+            @include responsive(bs-large) {
+                padding: 0;
+                margin-top: 25px;
+
+                button.search-results-btn {
+                    padding: 15px;
+                    width: 100%;
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+
+    .no-search-results {
+        margin: 50px auto 25px auto;
+        text-align: center;
+
+        img {
+            width: 80px;
+            margin: 60px auto 25px;
+        }
+
+        h2 {
+            color: $oxford;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 44px;
+            margin: 0px;
+        }
+
+        p {
+            color: $dark-2;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 22px;
+            margin: 0px;
+        }
+    }
+
+    .content {
+        width: 100%;
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 0px 16px;
+        min-height: 50vh;
+
+        @include responsive(medium) {
+            width: calc(100% - 32px);
+        }
+
+        .result-count, span {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 24px;
+            color: $oxford;
+        }
+
+        .result-count {
+            margin: 16px 0px;
+            padding: 0px 16px;
+
+            @include responsive(bs-large) {
+                padding: 0;
+            }
+        }
+
+        .pagination {
+            text-align: center;
+            
+            a {
+                &.pagination-link {
+                    color: $oxford !important;
+                    
+                    &.is-current {
+                        color: $white !important;
+                        background-color: $sky !important;
+                    }
+                }
+        
+                &.pagination-text-link {
+                    color: $oxford !important;
+                }
+            }
+        }
+
+        .query {
+            &:before {
+                content: open-quote;
+            }
+        
+            &:after {
+                content: close-quote;
+            }
+        }
+
+        .result-separator {
+            border: none;
+            border-bottom: 1px solid $sky;
+            margin: 0;
+
+            &:first-of-type() {
+                margin: 0px auto;
+                width: calc(100% - 32px);
+
+                @include responsive(bs-large) {
+                    width: 100%;
+                }
+            }
+        }
+
+        .filter-container {
+            display: flex;
+            align-items: center;
+            margin: 16px 0px;
+            overflow: auto;
+            width: 100%;
+            padding: 0px 16px;
+
+            @include responsive(bs-large) {
+                padding: 0;
+            }
+
+            .filter {
+                padding: 4px 12px;
+                margin-left: 0;
+                margin-right: 16px;
+                cursor: pointer;
+
+                &:first-of-type {
+                    margin-right: 30px;
+
+                    @include responsive(bs-large) {
+                        margin-right: 16px;
+                    }
+                }
+
+                @include responsive(bs-large) {
+                    border-bottom: 1px solid $oxford;
+                }
+
+                p {
+                    text-align: center;
+                    color: $oxford;
+                    font-size: 14px;
+                    margin: 0px;
+                    font-weight: 700;
+                }
+
+                &:hover {
+                    p {
+                        color: $sky;
+                    }
+                }
+
+                &.selected {
+                    background: $oxford;
+                    border-color: $oxford;
+                    
+                    p {
+                        color: $white;
+                    }
+
+                    &:hover {
+                        border-color: $sky;
+
+                        p {
+                            color: $white;
+                        }
+                    }
+                }
+            }
+
+            @include responsive(medium) {
+                flex-wrap: wrap;
+
+                .filter {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .results {
+            margin: 0px 0px 50px 0px;
+
+            .result {
+                cursor: pointer;
+                padding: 20px;
+
+                a {
+                    text-decoration: none;
+                }
+
+                h2 {
+                    font-size: 28px;
+                    font-weight: 700;
+                    margin: 0px;
+                    color: $oxford;
+
+                    @include responsive(medium) {
+                        font-size: 18px;
+                        line-height: 24px;
+                    }
+                }
+    
+                p {
+                    font-size: 16px;
+                    font-weight: 400;
+                    margin: 10px 0px;
+                    color: $dark-2;
+                }
+
+                &:hover {
+                    background: $off-blue;
+                }
+            }
+            
+            .physician {
+                .physician-content {
+                    display: flex;
+
+                    img,
+                    .default-headshot {
+                        width: 120px;
+                        height: 120px;
+                        border-radius: 32px 0;
+                    }
+
+                    .text {
+                        display: flex;
+                        flex-direction: column;
+                        margin-left: 20px;
+    
+                        h2 {
+                            color: $violet;
+                            font-weight: 700;
+                            line-height: 34px;
+                            
+                            @include responsive(medium) {
+                                font-size: 18px;
+                                line-height: 24px;
+                            }
+                        }
+    
+                        span {
+                            color: $dark-2;
+                            font-size: 16px;
+                            font-weight: normal;
+                            line-height: 22px;
+                        }
+
+                        .specialities {
+                            margin: 5px 0px;
+                        }
+    
+                        .speciality-name {
+                            &:after {
+                                content: ", ";
+                            }
+    
+                            &:last-child {
+                                &:after {
+                                    content: "";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SitesContainer should render correctly 1`] = `
+<SitesContainer>
+  <TestComponent>
+    <div
+      data-testid="test-component"
+    >
+      test
+    </div>
+  </TestComponent>
+</SitesContainer>
+`;

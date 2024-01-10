@@ -1,0 +1,67 @@
+{% set patientUser = craft.app.patient_user.identity %}
+
+{% if patientUser and patientUser.anonymous == false %}
+	{% set patients = craft.app.patient_user.identity.getPatients() %}
+	{% set currentPatient = craft.app.patient_user.identity.getPatients()[patientUser.appointment_current_epi] ?? null %}
+
+	<div class="schedule-navigation login desktop">
+		<div class="content patients">
+			{% for key,value in patients %}
+				<form class="select-patient {{patientUser.appointment_current_epi == key ? 'active' : ''}}" method="POST">
+					{{ csrfInput() }}
+					<input type="hidden" name="appointment_current_epi" value="{{key}}">
+					<button type="submit" class="patient">{{value.details.Name}}</button>
+					<div class="scalene-triangle-bottom"></div>
+				</form>
+			{% endfor %}
+			<form class="select-patient {{patientUser.appointment_current_epi == '-1' ? 'active' : ''}}" method="POST">
+				{{ csrfInput() }}
+				<input type="hidden" name="appointment_current_epi" value="-1">
+				<button type="submit" class="patient">{{ "Someone Else"|t }}</button>
+				<div class="scalene-triangle-bottom"></div>
+			</form>
+			<div class="divider"></div>
+			<a class="log-out" href="/log-out">{{ "Log Out"|t }}</a>
+		</div>
+	</div>
+	<div class="schedule-navigation login mobile">
+		<div class="details-container">
+			<div class="person-picker">
+				<div class="overlay">
+					<span class="title">{{ "Person"|t }}</span>
+					<div class="name-container">
+						<span class="name">{{currentPatient.details.Name ?? "Someone Else"}}</span>
+						<span class="material-icons keyboard_arrow_down"></span>
+					</div>
+				</div>
+				<select name="patient-select-mobile">
+					{% for key,value in patients %}
+						<option {{patientUser.appointment_current_epi == key ? "selected"}} value="{{key}}">{{value.details.Name}}</option>
+					{% endfor %}
+					<option {{patientUser.appointment_current_epi == "-1" ? "selected"}} value="-1">{{ "Someone Else"|t }}</option>
+				</select>
+				<form class="hidden change-person-form" id="select-appointment-form" method="POST">
+					{{ csrfInput() }}
+					<input type="hidden" name="appointment_current_epi" value="">
+				</form>
+			</div>
+			<div class="next-appointment">
+				{% if currentPatient and currentPatient.nextUpcomingAppointment %}
+					<span class="title">{{ "Next Appointment"|t }}</span>
+					{% set date = currentPatient.nextUpcomingAppointment.Date %}
+					<span class="appointment-details">{{ date|date('F') ~ ' ' ~ date|date('d') ~ ' at ' ~ currentPatient.nextUpcomingAppointment.Time }} -<br>{{ currentPatient.nextUpcomingAppointment.ProviderDepartments[0].Provider.Name }}</span>
+				{% endif %}
+			</div>
+		</div>
+		<div class="vertical-divider"></div>
+		<a class="log-out" href="/log-out">{{ "Log Out"|t }}</a>
+	</div>
+{% else %}
+	<div class="schedule-navigation login">
+		<div class="text">
+			<h2>{{ "Do you have a patient account?"|t }}</h2>
+			<a href="/login-portal">{{ "Log In"|t }}</a>
+		</div>
+		<div class="divider"></div>
+	</div>
+</div>{% endif %}

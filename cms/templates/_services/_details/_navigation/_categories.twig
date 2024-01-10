@@ -1,0 +1,110 @@
+<div class="navigation-container">
+    {% if entry.serviceUpcomingClassAndEvents == true %}
+        {% set events = craft.calendar.events({
+                rangeStart: 'now',
+                relatedTo: [
+                    'and',
+                    { targetElement: entry, field: 'eventSpecialty.specialty' }
+                ]
+            }).all()
+        %}
+
+        {% set eventIds = [] %}
+
+        {% if events|length %}
+            <div class="section">
+                <nav>
+                    <ul>
+                        <li><h4>{{ 'Upcoming Classes and Events'|t }}</h4></li>
+                        {% for event in events %}
+                            {% if eventIds|length < 4 %}
+                                {% if event.id not in eventIds %}
+                                    {% set eventIds = eventIds|merge([event.id]) %}
+                                    {% if event.repeating and event.freq != "SELECT_DATES" %}
+                                        {% set class = craft.calendar.events({
+                                            id: event.id,
+                                            rangeStart: 'now',
+                                        }).one() %}
+
+                                        {% if class|length %}
+                                            {% if class.eventLocation.one.id is defined %}
+                                                {% set locationId = class.eventLocation.one().id %}
+                                                {% set startDate = class.startDate.format("Y-m-d") %}
+
+                                                <li>
+                                                    <a href="/event/{{ class.slug }}/{{ locationId }}/{{ startDate }}">{{ class.title }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% else %}
+                                        <li>
+                                            <a href="{{ event.url }}">{{ event.title }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if eventIds|length >= 4 %}
+                            <li class="view-more"><a href="/events">{{ "View More"|t }}</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% set sidebarContent = entry.sidebarContent %}
+    {% if sidebarContent|length %}
+        {% for column in sidebarContent.all() %}
+            <div class="section">
+                <nav>
+                    <ul>
+                        <li><h4>{{ column.sidebarSectionHeader }}</h4></li>
+                        {% for entry in column.sidebarSectionEntries.all() %}
+                            <li>
+                                <a href="{{ entry.linkUrl ? entry.linkUrl : entry.getUrl() }}" tabindex="0">{{ entry.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if entry.serviceRelatedHealthTopics == true %}
+        {% set healthTopics = craft.entries({
+                section: 'blog',
+                limit: 4,
+                orderBy: {
+                    featuredInCategory: SORT_DESC,
+                    postDate: SORT_DESC
+                },
+                type: 'healthTopic',
+                relatedTo: entry
+        }) %}
+
+        {% if healthTopics|length %}
+            <div class="section">
+                <nav>
+                    <ul>
+                        <li><h4>{{ 'Health Topics'|t }}</h4></li>
+                        {% for category in healthTopics.all() %}
+                            <li>
+                                <a href="{{ category.url }}">{{ category.title }}</a>
+                            </li>
+                        {% endfor %}
+
+                        {% if healthTopics|length >= 4 %}
+                            <li class="view-more">
+                                <a href="/health-topics">
+                                <button class="button">{{ "View More"|t }}</button>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>

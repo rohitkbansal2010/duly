@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsComponents component should match snapshot 1`] = `
+<Fragment>
+  <div
+    className="resultsComponents"
+  >
+    <div
+      className="resultsComponentsHeader"
+    >
+      <div
+        className="resultsComponentsHeaderName"
+      >
+        components
+      </div>
+      <div
+        className="resultsComponentsHeaderValue"
+      >
+        your value
+      </div>
+      <div
+        className="resultsComponentsHeaderRange"
+      >
+        standard range
+      </div>
+      <div
+        className="resultsComponentsHeaderAdditional"
+      />
+    </div>
+    <div
+      className="resultsComponentsList"
+    >
+      <FadedScroll
+        height="100%"
+        view="bottom-white"
+      >
+        <ResultsItem
+          activeKey={null}
+          componentName="Cholesterol, Total"
+          eventKey="06cd80cf-7230-4e53-bdd1-6956402b2ef8"
+          isAbnormalResult={false}
+          key="06cd80cf-7230-4e53-bdd1-6956402b2ef8"
+          measurement={
+            Object {
+              "unit": "mg/dL",
+              "value": 150,
+            }
+          }
+          notes={
+            Array [
+              "Desirable  <200 mg/dL\\\\r\\\\nBorderline  200-239 mg/dL\\\\r\\\\nHigh      >=240 mg/dL\\\\r\\\\n\\\\r\\\\n",
+            ]
+          }
+          onClickNotes={[Function]}
+          onClickPastResults={[Function]}
+          referenceRange={
+            Object {
+              "text": "<200",
+            }
+          }
+        />
+        <ResultsItem
+          activeKey={null}
+          componentName="LDL Cholesterol"
+          eventKey="9bea73b9-d173-4cc4-b67b-fb43971557e4"
+          isAbnormalResult={true}
+          key="9bea73b9-d173-4cc4-b67b-fb43971557e4"
+          measurement={
+            Object {
+              "unit": "mg/dL",
+              "value": 117,
+            }
+          }
+          notes={
+            Array [
+              "Desirable <100 mg/dL \\\\r\\\\nBorderline 100-129 mg/dL \\\\r\\\\nHigh     >=130mg/dL\\\\r\\\\n\\\\r\\\\n",
+            ]
+          }
+          onClickNotes={[Function]}
+          onClickPastResults={[Function]}
+          referenceRange={
+            Object {
+              "text": "<100",
+            }
+          }
+        />
+        <ResultsItem
+          activeKey={null}
+          componentName="Sodium"
+          eventKey="c1f12ce2-323e-4c7b-b3e0-73183ad58330"
+          isAbnormalResult={false}
+          key="c1f12ce2-323e-4c7b-b3e0-73183ad58330"
+          measurement={
+            Object {
+              "unit": "mmol/L",
+              "value": 138,
+            }
+          }
+          onClickNotes={[Function]}
+          onClickPastResults={[Function]}
+          referenceRange={
+            Object {
+              "high": Object {
+                "unit": "mmol/L",
+                "value": 145,
+              },
+              "low": Object {
+                "unit": "mmol/L",
+                "value": 136,
+              },
+              "text": "136 - 145 mmol/L",
+            }
+          }
+        />
+      </FadedScroll>
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`ResultsComponents component should work with empty data 1`] = `<Fragment />`;

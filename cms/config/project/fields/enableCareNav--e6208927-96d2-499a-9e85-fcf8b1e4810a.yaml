@@ -1,0 +1,14 @@
+columnSuffix: njsslnnh
+contentColumnType: boolean
+fieldGroup: 2100fbc6-d68d-4185-8504-3ff4680dee28
+handle: enableCareNav
+instructions: 'Use to show/hide the care navigation found in the header of the website'
+name: 'Enable Care Nav'
+searchable: false
+settings:
+    default: true
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

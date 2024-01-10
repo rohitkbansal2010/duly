@@ -1,0 +1,50 @@
+<div class="featured">
+	<h1>{{ "Find the care that's right for{nbsp}you."|t(params={
+		nbsp: "&nbsp;"
+	}) | raw }}</h1>
+
+	{% include "_scheduling/landing/_patient-appointments-details.twig" %}
+
+	{% set patientUser = craft.app.patient_user.identity %}
+
+	{% if patientUser is null or patientUser.anonymous %}
+		{% if entry.featuredService|length %}
+			<div class="services">
+				{% for service in entry.featuredService.all() %}
+					{% set subservices = service.featuredService.all() %}
+					{% set serviceSchedulingUrl = service.serviceSchedulingUrl %}
+					{% if subservices[0].type == "landingPage" %}
+						<form class="service" id="specialties-{{ service.id }}" method="POST">
+							<h2>{{ service.serviceTitle }}</h2>
+							{% if service.serviceSubtitle is defined and service.serviceSubtitle is not null %}
+								<p>{{ service.serviceSubtitle }}</p>
+							{% endif %}
+							<a href="{{ serviceSchedulingUrl ?? subservices[0].url }}" class="button dmgButton primary3">{{ "Schedule An Appointment"|t }}</a>
+						</form>
+					{% else %}
+						<form class="service" id="specialties-{{ service.id }}" method="POST">
+							{{ csrfInput() }}
+
+							{% for subservice in subservices %}
+								<input type="hidden" name="appointmentServiceIds[]" value="{{ subservice.id }}">
+							{% endfor %}
+
+							<h2>{{ service.serviceTitle }}</h2>
+							{% if service.serviceSubtitle is defined and service.serviceSubtitle is not null %}
+								<p>{{ service.serviceSubtitle }}</p>
+							{% endif %}
+							{% if serviceSchedulingUrl is not empty %}
+								<a class="button dmgButton primary3" href="{{ serviceSchedulingUrl }}">{{ "Schedule an Appointment"|t }}</a>
+							{% else %}
+								<button class="button dmgButton primary3">{{ "Schedule An Appointment"|t }}</button>
+							{% endif %}
+						</form>
+					{% endif %}
+					{% if loop.first %}
+						<div class="divider"></div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+	{% endif %}
+</div>

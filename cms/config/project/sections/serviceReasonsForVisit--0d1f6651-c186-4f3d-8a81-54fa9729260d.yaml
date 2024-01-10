@@ -1,0 +1,8 @@
+defaultPlacement: end
+enableVersioning: true
+handle: serviceReasonsForVisit
+name: 'Service Reasons for Visit'
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: true, hasUrls: false, template: null, uriFormat: null }
+type: channel

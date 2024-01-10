@@ -1,0 +1,22 @@
+@import "devices";
+
+//Landscape width
+$content-width-landscape: $landscape;
+$content-px-landscape: 70px;
+$content-mt-negative-landscape: -48px;
+$content-mt-positive-landscape: 48px;
+
+//Mobile plus width
+$content-px-mobile-plus: 27px;
+
+//Mixins
+@mixin content-padding-landscape {
+  max-width: $content-width-landscape !important;
+  padding: 0 $content-px-landscape !important;
+}
+
+@mixin content-padding-mobile-plus {
+  @media (max-width: $mobile-plus) {
+    padding: 0 $content-px-mobile-plus !important;
+  }
+}

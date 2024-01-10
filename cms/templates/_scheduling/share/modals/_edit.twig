@@ -1,0 +1,28 @@
+<div class="modal edit-appointment-modal hidden">
+	<div class="content">
+		<div class="header">
+			<span tabindex="0" class="material-icons close"></span>
+			<h2>{{ "Edit Appointment"|t }}</h2>
+			<p>
+				{{
+					"To edit your appointment, please call {phone}, or cancel and reschedule it for a different time"|t (params = { 
+						phone: tag('a', {
+							href: 'tel:' ~ globalPhoneNumber,
+							rel: 'noopener noreferrer',
+							class: 'link-effect',
+							text: globalPhoneNumber
+						})
+					})|raw 
+				}}
+			</p>
+		</div>
+
+		<form method="POST" action="/schedule/cancel-appointment">
+			{{ csrfInput() }}
+			<input type="hidden" name="show_follow_up_prompt">
+			<div class="form-actions">
+				<button name="cancel-appointment" class="action-button dmgButton primary3" id="edit-cancel">{{ "Cancel Appointment"|t }}</button>
+			</div>
+		</form>
+	</div>
+</div>

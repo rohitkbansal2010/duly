@@ -1,0 +1,30 @@
+{% extends "_layouts/_main.twig" %}
+
+{% block title "Events Listings"|t %}
+{% block bodyClass "event-listings" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    {% set eventParams = {
+        'rangeStart': 'now',
+        'rangeEnd': '+1 year'
+    } %}
+
+    {% set services = getServicesForEvents(eventParams) %}
+
+    <section class="event-listings">
+        {% include '_events/_search.twig' %}
+
+        <div class="content-header">
+            <h2>{{ "Events"|t }}</h2>
+        </div>
+
+        <div class="loading-spinner hidden">
+			<div class="lottie"></div>
+        </div>
+
+        <div class="listings-container events-listing-container">
+            {% include '_events/_container.twig' %}
+        </div>
+    </section>
+{% endblock %}

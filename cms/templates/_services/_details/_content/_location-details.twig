@@ -1,0 +1,85 @@
+<div class="location-suite-details {{ serviceSuiteDetails.temporarilyClosed or serviceSuiteDetails.closedToday or serviceSuiteDetails.closedTomorrow or serviceSuiteDetails.todayStartTime or serviceSuiteDetails.tomorrowStartTime ? '' : 'hidden' }}">
+    {% if serviceSuiteDetails.temporarilyClosed %}
+        <div class="temporarilyClosed">{{ "Temporarily Closed" }}</div>
+        {% if serviceSuiteDetails.nearestLocations %}
+            {% set labServiceIds = craft.categories().group('laboratoryServices').one().assignedService.ids() %}
+            {% set locationLocations = serviceSuiteDetails.nearestLocations|length > 1 ? "Locations" : "Location" %}
+            <div class="nearestLocations">
+                <div class="toggle">
+                    {{ entry.id in labServiceIds ? "View Nearest Lab " ~ locationLocations : "View Nearest " ~ locationLocations }}
+                    <span class="material-icons">keyboard_arrow_down</span>
+                </div>
+                <div class="nearestLocationsContainer">
+                {% for nearestLocation in serviceSuiteDetails.nearestLocations %}
+                    {% set nearestLocationParent = nearestLocation.getParent() ?? nearestLocation %}
+                    {% set nearestLocationSuiteDetails = getServiceSuiteDetails(nearestLocation.id, entry.id) %}
+                    {% if nearestLocationSuiteDetails %}
+                        <div class="nearestLocation">
+                            <div class="title">
+                                <img src="/dist/img/icons/location-new.svg" class="location-icon" alt="location icon" /> 
+                                <a href="{{ nearestLocationParent.getUrl() }}?referrer={{ entry.id }}">
+                                    {{ nearestLocationParent.address.parts.city }}   
+                                    {% set distance = getUserDistance(location.address.lng, location.address.lat, nearestLocationParent.address.lng, nearestLocationParent.address.lat) %}                           
+                                    <span class="distanceIndicator">{{ distance|number_format(0) ~ " Miles Away" }}</span>
+                                </a>
+                            </div>
+                            {% include '_services/_details/_content/_suite-details.twig' with {
+                                serviceSuiteDetails: nearestLocationSuiteDetails
+                            } %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% else %}
+        {% set activeSuiteServiceInfo = office.suiteServices
+            .relatedTo(entry)
+            .one()
+        %}
+        {% if activeSuiteServiceInfo %}
+            <div class="viewAllHours">
+                {% include '_services/_details/_content/_suite-details.twig' %}
+                <div class="toggle">
+                    {{ "View All Hours" }}
+                    <span class="material-icons">keyboard_arrow_down</span>
+                </div>
+                <div class="hoursContainer">
+                    {% if activeSuiteServiceInfo.temporarilyClosed %}
+                        <div class="list-of-hours">
+                            <span class="closed">{{ "Temporarily Closed"|t }}</span>
+                        </div>
+                    {% else %}
+                        {% if activeSuiteServiceInfo.officeHours|length and activeSuiteServiceInfo.officeHours[0].daysOfWeek != "" %}
+                            <div class="list-of-hours">
+                                {% for time in activeSuiteServiceInfo.officeHours %}
+                                    <div class="single-hours-element">
+                                        {% set hasClosedDateWithinNextWeek = false %}
+                                        {% if activeSuiteServiceInfo.closedDates|length %}
+                                            {% set hasClosedDateWithinNextWeek = determineClosedDateWithinNextWeek(activeSuiteServiceInfo.closedDates, time.daysOfWeek) %}
+                                        {% endif %}
+                                        <span class="days value">{{ time.daysOfWeek|capitalize }}</span>
+                                        <div class="times">
+                                            {% if hasClosedDateWithinNextWeek %}
+                                                <span class="hours value">{{ "Closed Today"|t }}</span>
+                                            {% elseif time.closed %}
+                                                <span class="hours value">{{ "Closed"|t }}</span>
+                                            {% else %}
+                                                <span class="hours value">{{ time.openingHours|date("g:i A") }}
+                                                -
+                                                {{ time.closingHours|date("g:i A") }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    {% if activeSuiteServiceInfo.additionalInformation %}
+                        <span class="value">{{ activeSuiteServiceInfo.additionalInformation }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+</div> 

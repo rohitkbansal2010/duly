@@ -1,0 +1,142 @@
+parameters:
+  - name: env
+    type: string
+    default: '' # TODO: add env values when all environments are ready
+  - name: testProjectName
+    type: string
+    default: ''
+  - name: testFilter
+    type: string
+    default: 'none'
+
+  # Additional parameters for UI tests
+  - name: browserType
+    type: string
+    default: 'Edge'
+    values:
+    - 'Edge'
+    - 'Chrome'
+  - name: headlessMode
+    type: boolean
+    default: true
+  
+  # Send test report to Reportportal
+  - name: sendReportToReportPortal
+    type: boolean
+    default: false
+  - name: reportPortalServerURL
+    type: string
+    default: 'http://reportportal.dulydevops.privatelink.northcentralus.azmk8s.io'
+
+steps:
+  # Set environment variable which will be used by test automation code to determine application environment
+  - task: PowerShell@2
+    displayName: 'PowerShell: Set environment: ${{ parameters.env }}'
+    inputs:
+      targetType: inline
+      script: |
+        Write-Host "Use enviroment ${{ upper(parameters.env) }}" 
+        Write-Host '##vso[task.setvariable variable=env;]${{ upper(parameters.env) }}'        
+
+  # Build test-automation project
+  - template: ../child.build/build-netcore.yml
+    parameters:
+      runUnitTests: false
+      solution: '**/${{ parameters.testProjectName }}.csproj'
+      setBuildVersion: false
+      setCsprojBuildVersion: false
+      dotNetBuildConfiguration: 'Debug'
+      dotnetBuild: true
+      vstsFeed: 'duly.app.v1.collaboration-view/duly.collaboration-view'
+      dotnetPublish: false
+      publishNuget: false
+      createCoverageReport: false
+      enableSonarCloudScan: false
+
+  # UI tests require additional environment variables and browser
+  - ${{ if eq(parameters.testProjectName, 'Web.UI') }}:
+    - task: PowerShell@2
+      displayName: 'PowerShell: Set variables for UI tests'
+      inputs:
+        targetType: inline
+        script: |
+          Write-Host "Use browser ${{ upper(parameters.browserType) }} with headlessMode ${{ parameters.headlessMode }}" 
+          Write-Host "Use location ANY" 
+          Write-Host '##vso[task.setvariable variable=currentLocation;]ANY'
+          Write-Host '##vso[task.setvariable variable=browserType;]${{ upper(parameters.browserType) }}'
+          Write-Host '##vso[task.setvariable variable=headlessMode;]${{ parameters.headlessMode }}'
+
+    - ${{ if eq(parameters.browserType, 'Edge') }}:
+      - task: PowerShell@2
+        displayName: 'PowerShell: Install latest MS Edge'
+        inputs:
+          targetType: filePath
+          filePath: '$(Build.SourcesDirectory)/duly-scripts/PowerShell/Install-MSEdgeLatestVersion.ps1'
+          errorActionPreference: 'continue'
+
+    - ${{ if eq(parameters.browserType, 'Chrome') }}:
+      - task: PowerShell@2
+        displayName: 'PowerShell: Install latest Google Chrome'
+        inputs:
+          targetType: filePath
+          filePath: '$(Build.SourcesDirectory)/duly-scripts/PowerShell/Install-GoogleChromeLatestVersion.ps1'
+          errorActionPreference: 'continue'
+
+  # API tests require the environment variable that helps to get correct user account from test settings.
+  # For automated runs in pipeline the variable 'currentLocation' should be 'US'.
+  # The restriction is related to strong Conditional Access policies.
+  - ${{ if endsWith(parameters.testProjectName, 'Api') }}:
+    - task: PowerShell@2
+      displayName: 'PowerShell: Set variables for Api tests'
+      inputs:
+        targetType: inline
+        script: |
+          Write-Host "Use location US" 
+          Write-Host '##vso[task.setvariable variable=currentLocation;]US'
+
+  # Make some preparation for uploading test report to Reportportal if needed.
+  - ${{ if eq(parameters.sendReportToReportPortal, true) }}:
+    - task: AzureKeyVault@2
+      displayName: 'Get access token for Reportportal'
+      inputs:
+        connectedServiceName: ${{ parameters.env }}
+        keyVaultName: 'duly-d-shsvc-kv'
+        secretsFilter: 'reportportal-azdo-reporter-token'
+      continueOnError: true
+
+    - task: PowerShell@2
+      displayName: 'PowerShell: Update Reportportal config file'
+      inputs:
+        targetType: filePath
+        filePath: '$(Build.SourcesDirectory)/duly-scripts/PowerShell/Update-ReportPortalConfigFile.ps1'
+        arguments: >
+          -filePath './ReportPortal.config.json'
+          -reportPortalProject $(System.TeamProject)-${{ parameters.env }}
+          -accessToken $(reportportal-azdo-reporter-token)
+          -reportPortalServerUrl ${{ parameters.reportPortalServerURL }}
+          -description "Azure DevOps link: $(System.CollectionUri)$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)"
+          -attributes: "Pipeline: $(Build.DefinitionName)", "Build: $(Build.BuildNumber)", "Branch: $(Build.SourceBranch)"
+        errorActionPreference: 'continue'
+        workingDirectory: $(Build.ArtifactStagingDirectory)
+
+  # Run all tests (testFilter is not provided)
+  - ${{ if eq(parameters.testFilter, 'none') }}:
+    - task: DotNetCoreCLI@2
+      displayName: 'DotNetCore: Run ${{ parameters.testProjectName }} tests'
+      inputs:
+        command: test
+        testRunTitle: ${{ parameters.testProjectName }}_${{ parameters.env }}
+        publishTestResults: true
+        arguments: 'Duly.CollaborationView.TestAutomation.${{ parameters.testProjectName }}.dll'
+        workingDirectory: $(Build.ArtifactStagingDirectory)
+
+  # Run specific tests using testFilter 
+  - ${{ if ne(parameters.testFilter, 'none') }}:
+    - task: DotNetCoreCLI@2
+      displayName: 'DotNetCore: Run ${{ parameters.testProjectName }} tests with filter'
+      inputs:
+        command: test
+        testRunTitle: ${{ parameters.testProjectName }}_${{ parameters.env }}
+        publishTestResults: true
+        arguments: 'Duly.CollaborationView.TestAutomation.${{ parameters.testProjectName }}.dll --filter "${{ parameters.testFilter }}"'
+        workingDirectory: $(Build.ArtifactStagingDirectory)

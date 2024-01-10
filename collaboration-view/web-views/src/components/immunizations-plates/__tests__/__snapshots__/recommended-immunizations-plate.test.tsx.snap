@@ -1,0 +1,2736 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecommendedImmunizationsPlate should render component 1`] = `
+<RecommendedImmunizationsPlate
+  accordions={
+    Object {
+      "recommendedImmunization": Array [
+        "1",
+        "2",
+        "3",
+      ],
+    }
+  }
+  handleClickImmunizationGroupItem={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          "recommendedImmunization",
+          "0-0",
+        ],
+        Array [
+          "recommendedImmunization",
+          "0-1",
+        ],
+        Array [
+          "recommendedImmunization",
+          "0-2",
+        ],
+        Array [
+          "recommendedImmunization",
+          "1-0",
+        ],
+        Array [
+          "recommendedImmunization",
+          "1-1",
+        ],
+        Array [
+          "recommendedImmunization",
+          "1-2",
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  immunizations={
+    Array [
+      Object {
+        "title": "TDAP",
+        "vaccinations": Array [
+          Object {
+            "date": "3/11/2002",
+            "dateTitle": "ADMINISTRATED",
+            "status": "Completed",
+            "title": "Tdap",
+          },
+          Object {
+            "date": "3/21/2012",
+            "dateTitle": "ADMINISTRATED",
+            "status": "Completed",
+            "title": "Tdap",
+          },
+          Object {
+            "date": "3/15/2022",
+            "dateTitle": "DUE",
+            "status": "DueOn",
+            "title": "Tdap",
+          },
+        ],
+      },
+      Object {
+        "title": "FLU",
+        "vaccinations": Array [
+          Object {
+            "date": "9/3/2017",
+            "dateTitle": "ADMINISTRATED",
+            "status": "Addressed",
+            "title": "Influenza, seasonal, injectable",
+          },
+          Object {
+            "date": "9/5/2018",
+            "dateTitle": "ADMINISTRATED",
+            "status": "Addressed",
+            "title": "Influenza, seasonal, injectable",
+          },
+          Object {
+            "date": "9/7/2019",
+            "dateTitle": "ADMINISTRATED",
+            "status": "Addressed",
+            "title": "Influenza, seasonal, injectable",
+          },
+          Object {
+            "date": "9/1/2020",
+            "dateTitle": "ADMINISTRATED",
+            "status": "Completed",
+            "title": "Influenza, high dose seasonal",
+          },
+          Object {
+            "dateTitle": "POSTPONED",
+            "status": "Postponed",
+            "title": "Influenza, high dose seasonal",
+          },
+        ],
+      },
+      Object {
+        "title": "Encephalitis",
+        "vaccinations": Array [
+          Object {
+            "date": "5/7/2018",
+            "dateTitle": "ADMINISTRATED",
+            "status": "Completed",
+            "title": "IXIARO",
+          },
+          Object {
+            "date": "5/11/2019",
+            "dateTitle": "POSTPONED",
+            "notes": "Patient refused second dose on 5/11/2019 as she noticed she felt like the first dose gave her anxiety and made her feel dizzy.",
+            "status": "Postponed",
+            "title": "IXIARO",
+          },
+        ],
+      },
+      Object {
+        "title": "COVID-19",
+        "vaccinations": Array [
+          Object {
+            "date": "3/17/2021",
+            "dateTitle": "ADMINISTRATED",
+            "status": "Completed",
+            "title": "Covid-19 Vaccine Pfizer 30 mcg/0.3 ml",
+          },
+          Object {
+            "date": "5/17/2021",
+            "dateTitle": "ADMINISTRATED",
+            "status": "Completed",
+            "title": "Covid-19 Vaccine Pfizer 30 mcg/0.3 ml",
+          },
+          Object {
+            "dateTitle": "DUE",
+            "status": "DueSoon",
+            "title": "Covid-19 Vaccine Pfizer 30 mcg/0.3 ml",
+          },
+        ],
+      },
+      Object {
+        "title": "ADENO",
+        "vaccinations": Array [
+          Object {
+            "dateTitle": "DUE",
+            "status": "DueSoon",
+            "title": "Adenovirus types 4 and 7",
+          },
+        ],
+      },
+      Object {
+        "title": "RABIES",
+        "vaccinations": Array [
+          Object {
+            "dateTitle": "DUE",
+            "status": "NotDue",
+            "title": "Rabies - IM fibroblast culture",
+          },
+        ],
+      },
+    ]
+  }
+  immunizationsCount={6}
+>
+  <div
+    className="immunizationsPlateContainer"
+  >
+    <ImmunizationsTitle
+      immunizationsCount={6}
+      type="RECOMMENDED"
+    >
+      <div
+        className="immunizationsTitle"
+      >
+        <div
+          className="immunizationsTitleIcon immunizationsTitleIconRECOMMENDED"
+        >
+          <img
+            alt="RECOMMENDED immunizations icon"
+            src="immunization-light-blue.svg"
+          />
+          <div
+            className="immunizationsTitleCounter immunizationsTitleCounterRECOMMENDED"
+          >
+            6
+          </div>
+        </div>
+        <div
+          className="immunizationsTitleText"
+        >
+          <span>
+            Recommended Immunizations
+          </span>
+          <span
+            className="immunizationsTitleTextAdditional"
+          >
+            Immunizations recommended based on your age, prior vaccinations, health, lifestyle and other indications
+          </span>
+        </div>
+      </div>
+    </ImmunizationsTitle>
+    <ImmunizationsBody
+      accordionsGroup={
+        Array [
+          "1",
+          "2",
+          "3",
+        ]
+      }
+      groupId="recommendedImmunization"
+      handleClickImmunizationGroupItem={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "recommendedImmunization",
+              "0-0",
+            ],
+            Array [
+              "recommendedImmunization",
+              "0-1",
+            ],
+            Array [
+              "recommendedImmunization",
+              "0-2",
+            ],
+            Array [
+              "recommendedImmunization",
+              "1-0",
+            ],
+            Array [
+              "recommendedImmunization",
+              "1-1",
+            ],
+            Array [
+              "recommendedImmunization",
+              "1-2",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+      immunizations={
+        Array [
+          Object {
+            "title": "TDAP",
+            "vaccinations": Array [
+              Object {
+                "date": "3/11/2002",
+                "dateTitle": "ADMINISTRATED",
+                "status": "Completed",
+                "title": "Tdap",
+              },
+              Object {
+                "date": "3/21/2012",
+                "dateTitle": "ADMINISTRATED",
+                "status": "Completed",
+                "title": "Tdap",
+              },
+              Object {
+                "date": "3/15/2022",
+                "dateTitle": "DUE",
+                "status": "DueOn",
+                "title": "Tdap",
+              },
+            ],
+          },
+          Object {
+            "title": "FLU",
+            "vaccinations": Array [
+              Object {
+                "date": "9/3/2017",
+                "dateTitle": "ADMINISTRATED",
+                "status": "Addressed",
+                "title": "Influenza, seasonal, injectable",
+              },
+              Object {
+                "date": "9/5/2018",
+                "dateTitle": "ADMINISTRATED",
+                "status": "Addressed",
+                "title": "Influenza, seasonal, injectable",
+              },
+              Object {
+                "date": "9/7/2019",
+                "dateTitle": "ADMINISTRATED",
+                "status": "Addressed",
+                "title": "Influenza, seasonal, injectable",
+              },
+              Object {
+                "date": "9/1/2020",
+                "dateTitle": "ADMINISTRATED",
+                "status": "Completed",
+                "title": "Influenza, high dose seasonal",
+              },
+              Object {
+                "dateTitle": "POSTPONED",
+                "status": "Postponed",
+                "title": "Influenza, high dose seasonal",
+              },
+            ],
+          },
+          Object {
+            "title": "Encephalitis",
+            "vaccinations": Array [
+              Object {
+                "date": "5/7/2018",
+                "dateTitle": "ADMINISTRATED",
+                "status": "Completed",
+                "title": "IXIARO",
+              },
+              Object {
+                "date": "5/11/2019",
+                "dateTitle": "POSTPONED",
+                "notes": "Patient refused second dose on 5/11/2019 as she noticed she felt like the first dose gave her anxiety and made her feel dizzy.",
+                "status": "Postponed",
+                "title": "IXIARO",
+              },
+            ],
+          },
+          Object {
+            "title": "COVID-19",
+            "vaccinations": Array [
+              Object {
+                "date": "3/17/2021",
+                "dateTitle": "ADMINISTRATED",
+                "status": "Completed",
+                "title": "Covid-19 Vaccine Pfizer 30 mcg/0.3 ml",
+              },
+              Object {
+                "date": "5/17/2021",
+                "dateTitle": "ADMINISTRATED",
+                "status": "Completed",
+                "title": "Covid-19 Vaccine Pfizer 30 mcg/0.3 ml",
+              },
+              Object {
+                "dateTitle": "DUE",
+                "status": "DueSoon",
+                "title": "Covid-19 Vaccine Pfizer 30 mcg/0.3 ml",
+              },
+            ],
+          },
+          Object {
+            "title": "ADENO",
+            "vaccinations": Array [
+              Object {
+                "dateTitle": "DUE",
+                "status": "DueSoon",
+                "title": "Adenovirus types 4 and 7",
+              },
+            ],
+          },
+          Object {
+            "title": "RABIES",
+            "vaccinations": Array [
+              Object {
+                "dateTitle": "DUE",
+                "status": "NotDue",
+                "title": "Rabies - IM fibroblast culture",
+              },
+            ],
+          },
+        ]
+      }
+    >
+      <div
+        className="immunizationsBody"
+      >
+        <div
+          className="immunizationsBodyGroups"
+          key="0"
+        >
+          <ImmunizationsGroup
+            activeKey={null}
+            eventKey="0-0"
+            isSpeechBubbleIcon={false}
+            key="0"
+            title="TDAP"
+            vaccinations={
+              Array [
+                Object {
+                  "date": "3/11/2002",
+                  "dateTitle": "ADMINISTRATED",
+                  "status": "Completed",
+                  "title": "Tdap",
+                },
+                Object {
+                  "date": "3/21/2012",
+                  "dateTitle": "ADMINISTRATED",
+                  "status": "Completed",
+                  "title": "Tdap",
+                },
+                Object {
+                  "date": "3/15/2022",
+                  "dateTitle": "DUE",
+                  "status": "DueOn",
+                  "title": "Tdap",
+                },
+              ]
+            }
+          >
+            <Accordion
+              activeKey={null}
+              className="immunizationsGroup"
+            >
+              <div
+                className="immunizationsGroup accordion"
+              >
+                <ImmunizationsToggle
+                  eventKey="0-0"
+                >
+                  <CustomAccordionToggle
+                    callback={[Function]}
+                    eventKey="0-0"
+                  >
+                    <button
+                      className="toggleButton"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <span
+                        className="immunizationsGroupTitle"
+                      >
+                        TDAP
+                      </span>
+                      <img
+                        alt="expand collapse button"
+                        className="toggleButtonImage"
+                        src="plus.svg"
+                      />
+                    </button>
+                  </CustomAccordionToggle>
+                </ImmunizationsToggle>
+                <AccordionCollapse
+                  eventKey="0-0"
+                >
+                  <ForwardRef
+                    appear={false}
+                    className="accordion-collapse"
+                    getDimensionValue={[Function]}
+                    in={false}
+                    mountOnEnter={false}
+                    timeout={300}
+                    unmountOnExit={false}
+                  >
+                    <ForwardRef
+                      addEndListener={[Function]}
+                      appear={false}
+                      aria-expanded={null}
+                      childRef={null}
+                      in={false}
+                      mountOnEnter={false}
+                      onEnter={[Function]}
+                      onEntered={[Function]}
+                      onEntering={[Function]}
+                      onExit={[Function]}
+                      onExiting={[Function]}
+                      timeout={300}
+                      unmountOnExit={false}
+                    >
+                      <Transition
+                        addEndListener={[Function]}
+                        appear={false}
+                        aria-expanded={null}
+                        enter={true}
+                        exit={true}
+                        in={false}
+                        mountOnEnter={false}
+                        nodeRef={
+                          Object {
+                            "current": <div
+                              class="accordion-collapse collapse"
+                            >
+                              <div
+                                class="immunizationsGroupBody"
+                              >
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Tdap
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      ADMINISTRATED
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      3/11/2002
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Completed
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Tdap
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      ADMINISTRATED
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      3/21/2012
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Completed
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Tdap
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      DUE
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      3/15/2022
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Due On
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>,
+                          }
+                        }
+                        onEnter={[Function]}
+                        onEntered={[Function]}
+                        onEntering={[Function]}
+                        onExit={[Function]}
+                        onExited={[Function]}
+                        onExiting={[Function]}
+                        timeout={300}
+                        unmountOnExit={false}
+                      >
+                        <div
+                          aria-expanded={null}
+                          className="accordion-collapse collapse"
+                        >
+                          <div
+                            className="immunizationsGroupBody"
+                          >
+                            <ImmunizationsItem
+                              date="3/11/2002"
+                              dateTitle="ADMINISTRATED"
+                              key="0"
+                              status="Completed"
+                              title="Tdap"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Tdap
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    3/11/2002
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Completed
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                            <ImmunizationsItem
+                              date="3/21/2012"
+                              dateTitle="ADMINISTRATED"
+                              key="1"
+                              status="Completed"
+                              title="Tdap"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Tdap
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    3/21/2012
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Completed
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                            <ImmunizationsItem
+                              date="3/15/2022"
+                              dateTitle="DUE"
+                              key="2"
+                              status="DueOn"
+                              title="Tdap"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Tdap
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    DUE
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    3/15/2022
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Due On
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                          </div>
+                        </div>
+                      </Transition>
+                    </ForwardRef>
+                  </ForwardRef>
+                </AccordionCollapse>
+              </div>
+            </Accordion>
+          </ImmunizationsGroup>
+          <ImmunizationsGroup
+            activeKey={null}
+            eventKey="0-1"
+            isSpeechBubbleIcon={false}
+            key="1"
+            title="Encephalitis"
+            vaccinations={
+              Array [
+                Object {
+                  "date": "5/7/2018",
+                  "dateTitle": "ADMINISTRATED",
+                  "status": "Completed",
+                  "title": "IXIARO",
+                },
+                Object {
+                  "date": "5/11/2019",
+                  "dateTitle": "POSTPONED",
+                  "notes": "Patient refused second dose on 5/11/2019 as she noticed she felt like the first dose gave her anxiety and made her feel dizzy.",
+                  "status": "Postponed",
+                  "title": "IXIARO",
+                },
+              ]
+            }
+          >
+            <Accordion
+              activeKey={null}
+              className="immunizationsGroup"
+            >
+              <div
+                className="immunizationsGroup accordion"
+              >
+                <ImmunizationsToggle
+                  eventKey="0-1"
+                >
+                  <CustomAccordionToggle
+                    callback={[Function]}
+                    eventKey="0-1"
+                  >
+                    <button
+                      className="toggleButton"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <span
+                        className="immunizationsGroupTitle"
+                      >
+                        Encephalitis
+                      </span>
+                      <img
+                        alt="expand collapse button"
+                        className="toggleButtonImage"
+                        src="plus.svg"
+                      />
+                    </button>
+                  </CustomAccordionToggle>
+                </ImmunizationsToggle>
+                <AccordionCollapse
+                  eventKey="0-1"
+                >
+                  <ForwardRef
+                    appear={false}
+                    className="accordion-collapse"
+                    getDimensionValue={[Function]}
+                    in={false}
+                    mountOnEnter={false}
+                    timeout={300}
+                    unmountOnExit={false}
+                  >
+                    <ForwardRef
+                      addEndListener={[Function]}
+                      appear={false}
+                      aria-expanded={null}
+                      childRef={null}
+                      in={false}
+                      mountOnEnter={false}
+                      onEnter={[Function]}
+                      onEntered={[Function]}
+                      onEntering={[Function]}
+                      onExit={[Function]}
+                      onExiting={[Function]}
+                      timeout={300}
+                      unmountOnExit={false}
+                    >
+                      <Transition
+                        addEndListener={[Function]}
+                        appear={false}
+                        aria-expanded={null}
+                        enter={true}
+                        exit={true}
+                        in={false}
+                        mountOnEnter={false}
+                        nodeRef={
+                          Object {
+                            "current": <div
+                              class="accordion-collapse collapse"
+                            >
+                              <div
+                                class="immunizationsGroupBody"
+                              >
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      IXIARO
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      ADMINISTRATED
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      5/7/2018
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Completed
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      IXIARO
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      POSTPONED
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      5/11/2019
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Postponed
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemNotes"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      notes
+                                    </span>
+                                    <span
+                                      class="immunizationsItemNotesValue"
+                                    >
+                                      Patient refused second dose on 5/11/2019 as she noticed she felt like the first dose gave her anxiety and made her feel dizzy.
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>,
+                          }
+                        }
+                        onEnter={[Function]}
+                        onEntered={[Function]}
+                        onEntering={[Function]}
+                        onExit={[Function]}
+                        onExited={[Function]}
+                        onExiting={[Function]}
+                        timeout={300}
+                        unmountOnExit={false}
+                      >
+                        <div
+                          aria-expanded={null}
+                          className="accordion-collapse collapse"
+                        >
+                          <div
+                            className="immunizationsGroupBody"
+                          >
+                            <ImmunizationsItem
+                              date="5/7/2018"
+                              dateTitle="ADMINISTRATED"
+                              key="0"
+                              status="Completed"
+                              title="IXIARO"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    IXIARO
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    5/7/2018
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Completed
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                            <ImmunizationsItem
+                              date="5/11/2019"
+                              dateTitle="POSTPONED"
+                              key="1"
+                              notes="Patient refused second dose on 5/11/2019 as she noticed she felt like the first dose gave her anxiety and made her feel dizzy."
+                              status="Postponed"
+                              title="IXIARO"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    IXIARO
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    POSTPONED
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    5/11/2019
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Postponed
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemNotes"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    notes
+                                  </span>
+                                  <span
+                                    className="immunizationsItemNotesValue"
+                                  >
+                                    Patient refused second dose on 5/11/2019 as she noticed she felt like the first dose gave her anxiety and made her feel dizzy.
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                          </div>
+                        </div>
+                      </Transition>
+                    </ForwardRef>
+                  </ForwardRef>
+                </AccordionCollapse>
+              </div>
+            </Accordion>
+          </ImmunizationsGroup>
+          <ImmunizationsGroup
+            activeKey={null}
+            eventKey="0-2"
+            isSpeechBubbleIcon={false}
+            key="2"
+            title="ADENO"
+            vaccinations={
+              Array [
+                Object {
+                  "dateTitle": "DUE",
+                  "status": "DueSoon",
+                  "title": "Adenovirus types 4 and 7",
+                },
+              ]
+            }
+          >
+            <Accordion
+              activeKey={null}
+              className="immunizationsGroup"
+            >
+              <div
+                className="immunizationsGroup accordion"
+              >
+                <ImmunizationsToggle
+                  eventKey="0-2"
+                >
+                  <CustomAccordionToggle
+                    callback={[Function]}
+                    eventKey="0-2"
+                  >
+                    <button
+                      className="toggleButton"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <span
+                        className="immunizationsGroupTitle"
+                      >
+                        ADENO
+                      </span>
+                      <img
+                        alt="expand collapse button"
+                        className="toggleButtonImage"
+                        src="plus.svg"
+                      />
+                    </button>
+                  </CustomAccordionToggle>
+                </ImmunizationsToggle>
+                <AccordionCollapse
+                  eventKey="0-2"
+                >
+                  <ForwardRef
+                    appear={false}
+                    className="accordion-collapse"
+                    getDimensionValue={[Function]}
+                    in={false}
+                    mountOnEnter={false}
+                    timeout={300}
+                    unmountOnExit={false}
+                  >
+                    <ForwardRef
+                      addEndListener={[Function]}
+                      appear={false}
+                      aria-expanded={null}
+                      childRef={null}
+                      in={false}
+                      mountOnEnter={false}
+                      onEnter={[Function]}
+                      onEntered={[Function]}
+                      onEntering={[Function]}
+                      onExit={[Function]}
+                      onExiting={[Function]}
+                      timeout={300}
+                      unmountOnExit={false}
+                    >
+                      <Transition
+                        addEndListener={[Function]}
+                        appear={false}
+                        aria-expanded={null}
+                        enter={true}
+                        exit={true}
+                        in={false}
+                        mountOnEnter={false}
+                        nodeRef={
+                          Object {
+                            "current": <div
+                              class="accordion-collapse collapse"
+                            >
+                              <div
+                                class="immunizationsGroupBody"
+                              >
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Adenovirus types 4 and 7
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      DUE
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      N/A
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Due Soon
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>,
+                          }
+                        }
+                        onEnter={[Function]}
+                        onEntered={[Function]}
+                        onEntering={[Function]}
+                        onExit={[Function]}
+                        onExited={[Function]}
+                        onExiting={[Function]}
+                        timeout={300}
+                        unmountOnExit={false}
+                      >
+                        <div
+                          aria-expanded={null}
+                          className="accordion-collapse collapse"
+                        >
+                          <div
+                            className="immunizationsGroupBody"
+                          >
+                            <ImmunizationsItem
+                              dateTitle="DUE"
+                              key="0"
+                              status="DueSoon"
+                              title="Adenovirus types 4 and 7"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Adenovirus types 4 and 7
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    DUE
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    N/A
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Due Soon
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                          </div>
+                        </div>
+                      </Transition>
+                    </ForwardRef>
+                  </ForwardRef>
+                </AccordionCollapse>
+              </div>
+            </Accordion>
+          </ImmunizationsGroup>
+        </div>
+        <div
+          className="immunizationsBodyGroups"
+          key="1"
+        >
+          <ImmunizationsGroup
+            activeKey={null}
+            eventKey="1-0"
+            isSpeechBubbleIcon={false}
+            key="0"
+            title="FLU"
+            vaccinations={
+              Array [
+                Object {
+                  "date": "9/3/2017",
+                  "dateTitle": "ADMINISTRATED",
+                  "status": "Addressed",
+                  "title": "Influenza, seasonal, injectable",
+                },
+                Object {
+                  "date": "9/5/2018",
+                  "dateTitle": "ADMINISTRATED",
+                  "status": "Addressed",
+                  "title": "Influenza, seasonal, injectable",
+                },
+                Object {
+                  "date": "9/7/2019",
+                  "dateTitle": "ADMINISTRATED",
+                  "status": "Addressed",
+                  "title": "Influenza, seasonal, injectable",
+                },
+                Object {
+                  "date": "9/1/2020",
+                  "dateTitle": "ADMINISTRATED",
+                  "status": "Completed",
+                  "title": "Influenza, high dose seasonal",
+                },
+                Object {
+                  "dateTitle": "POSTPONED",
+                  "status": "Postponed",
+                  "title": "Influenza, high dose seasonal",
+                },
+              ]
+            }
+          >
+            <Accordion
+              activeKey={null}
+              className="immunizationsGroup"
+            >
+              <div
+                className="immunizationsGroup accordion"
+              >
+                <ImmunizationsToggle
+                  eventKey="1-0"
+                >
+                  <CustomAccordionToggle
+                    callback={[Function]}
+                    eventKey="1-0"
+                  >
+                    <button
+                      className="toggleButton"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <span
+                        className="immunizationsGroupTitle"
+                      >
+                        FLU
+                      </span>
+                      <img
+                        alt="expand collapse button"
+                        className="toggleButtonImage"
+                        src="plus.svg"
+                      />
+                    </button>
+                  </CustomAccordionToggle>
+                </ImmunizationsToggle>
+                <AccordionCollapse
+                  eventKey="1-0"
+                >
+                  <ForwardRef
+                    appear={false}
+                    className="accordion-collapse"
+                    getDimensionValue={[Function]}
+                    in={false}
+                    mountOnEnter={false}
+                    timeout={300}
+                    unmountOnExit={false}
+                  >
+                    <ForwardRef
+                      addEndListener={[Function]}
+                      appear={false}
+                      aria-expanded={null}
+                      childRef={null}
+                      in={false}
+                      mountOnEnter={false}
+                      onEnter={[Function]}
+                      onEntered={[Function]}
+                      onEntering={[Function]}
+                      onExit={[Function]}
+                      onExiting={[Function]}
+                      timeout={300}
+                      unmountOnExit={false}
+                    >
+                      <Transition
+                        addEndListener={[Function]}
+                        appear={false}
+                        aria-expanded={null}
+                        enter={true}
+                        exit={true}
+                        in={false}
+                        mountOnEnter={false}
+                        nodeRef={
+                          Object {
+                            "current": <div
+                              class="accordion-collapse collapse"
+                            >
+                              <div
+                                class="immunizationsGroupBody"
+                              >
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Influenza, seasonal, injectable
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      ADMINISTRATED
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      9/3/2017
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Addressed
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Influenza, seasonal, injectable
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      ADMINISTRATED
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      9/5/2018
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Addressed
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Influenza, seasonal, injectable
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      ADMINISTRATED
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      9/7/2019
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Addressed
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Influenza, high dose seasonal
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      ADMINISTRATED
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      9/1/2020
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Completed
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Influenza, high dose seasonal
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      POSTPONED
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      N/A
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Postponed
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>,
+                          }
+                        }
+                        onEnter={[Function]}
+                        onEntered={[Function]}
+                        onEntering={[Function]}
+                        onExit={[Function]}
+                        onExited={[Function]}
+                        onExiting={[Function]}
+                        timeout={300}
+                        unmountOnExit={false}
+                      >
+                        <div
+                          aria-expanded={null}
+                          className="accordion-collapse collapse"
+                        >
+                          <div
+                            className="immunizationsGroupBody"
+                          >
+                            <ImmunizationsItem
+                              date="9/3/2017"
+                              dateTitle="ADMINISTRATED"
+                              key="0"
+                              status="Addressed"
+                              title="Influenza, seasonal, injectable"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Influenza, seasonal, injectable
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    9/3/2017
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Addressed
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                            <ImmunizationsItem
+                              date="9/5/2018"
+                              dateTitle="ADMINISTRATED"
+                              key="1"
+                              status="Addressed"
+                              title="Influenza, seasonal, injectable"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Influenza, seasonal, injectable
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    9/5/2018
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Addressed
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                            <ImmunizationsItem
+                              date="9/7/2019"
+                              dateTitle="ADMINISTRATED"
+                              key="2"
+                              status="Addressed"
+                              title="Influenza, seasonal, injectable"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Influenza, seasonal, injectable
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    9/7/2019
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Addressed
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                            <ImmunizationsItem
+                              date="9/1/2020"
+                              dateTitle="ADMINISTRATED"
+                              key="3"
+                              status="Completed"
+                              title="Influenza, high dose seasonal"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Influenza, high dose seasonal
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    9/1/2020
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Completed
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                            <ImmunizationsItem
+                              dateTitle="POSTPONED"
+                              key="4"
+                              status="Postponed"
+                              title="Influenza, high dose seasonal"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Influenza, high dose seasonal
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    POSTPONED
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    N/A
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Postponed
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                          </div>
+                        </div>
+                      </Transition>
+                    </ForwardRef>
+                  </ForwardRef>
+                </AccordionCollapse>
+              </div>
+            </Accordion>
+          </ImmunizationsGroup>
+          <ImmunizationsGroup
+            activeKey={null}
+            eventKey="1-1"
+            isSpeechBubbleIcon={false}
+            key="1"
+            title="COVID-19"
+            vaccinations={
+              Array [
+                Object {
+                  "date": "3/17/2021",
+                  "dateTitle": "ADMINISTRATED",
+                  "status": "Completed",
+                  "title": "Covid-19 Vaccine Pfizer 30 mcg/0.3 ml",
+                },
+                Object {
+                  "date": "5/17/2021",
+                  "dateTitle": "ADMINISTRATED",
+                  "status": "Completed",
+                  "title": "Covid-19 Vaccine Pfizer 30 mcg/0.3 ml",
+                },
+                Object {
+                  "dateTitle": "DUE",
+                  "status": "DueSoon",
+                  "title": "Covid-19 Vaccine Pfizer 30 mcg/0.3 ml",
+                },
+              ]
+            }
+          >
+            <Accordion
+              activeKey={null}
+              className="immunizationsGroup"
+            >
+              <div
+                className="immunizationsGroup accordion"
+              >
+                <ImmunizationsToggle
+                  eventKey="1-1"
+                >
+                  <CustomAccordionToggle
+                    callback={[Function]}
+                    eventKey="1-1"
+                  >
+                    <button
+                      className="toggleButton"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <span
+                        className="immunizationsGroupTitle"
+                      >
+                        COVID-19
+                      </span>
+                      <img
+                        alt="expand collapse button"
+                        className="toggleButtonImage"
+                        src="plus.svg"
+                      />
+                    </button>
+                  </CustomAccordionToggle>
+                </ImmunizationsToggle>
+                <AccordionCollapse
+                  eventKey="1-1"
+                >
+                  <ForwardRef
+                    appear={false}
+                    className="accordion-collapse"
+                    getDimensionValue={[Function]}
+                    in={false}
+                    mountOnEnter={false}
+                    timeout={300}
+                    unmountOnExit={false}
+                  >
+                    <ForwardRef
+                      addEndListener={[Function]}
+                      appear={false}
+                      aria-expanded={null}
+                      childRef={null}
+                      in={false}
+                      mountOnEnter={false}
+                      onEnter={[Function]}
+                      onEntered={[Function]}
+                      onEntering={[Function]}
+                      onExit={[Function]}
+                      onExiting={[Function]}
+                      timeout={300}
+                      unmountOnExit={false}
+                    >
+                      <Transition
+                        addEndListener={[Function]}
+                        appear={false}
+                        aria-expanded={null}
+                        enter={true}
+                        exit={true}
+                        in={false}
+                        mountOnEnter={false}
+                        nodeRef={
+                          Object {
+                            "current": <div
+                              class="accordion-collapse collapse"
+                            >
+                              <div
+                                class="immunizationsGroupBody"
+                              >
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Covid-19 Vaccine Pfizer 30 mcg/0.3 ml
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      ADMINISTRATED
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      3/17/2021
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Completed
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Covid-19 Vaccine Pfizer 30 mcg/0.3 ml
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      ADMINISTRATED
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      5/17/2021
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Completed
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Covid-19 Vaccine Pfizer 30 mcg/0.3 ml
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      DUE
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      N/A
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Due Soon
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>,
+                          }
+                        }
+                        onEnter={[Function]}
+                        onEntered={[Function]}
+                        onEntering={[Function]}
+                        onExit={[Function]}
+                        onExited={[Function]}
+                        onExiting={[Function]}
+                        timeout={300}
+                        unmountOnExit={false}
+                      >
+                        <div
+                          aria-expanded={null}
+                          className="accordion-collapse collapse"
+                        >
+                          <div
+                            className="immunizationsGroupBody"
+                          >
+                            <ImmunizationsItem
+                              date="3/17/2021"
+                              dateTitle="ADMINISTRATED"
+                              key="0"
+                              status="Completed"
+                              title="Covid-19 Vaccine Pfizer 30 mcg/0.3 ml"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Covid-19 Vaccine Pfizer 30 mcg/0.3 ml
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    3/17/2021
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Completed
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                            <ImmunizationsItem
+                              date="5/17/2021"
+                              dateTitle="ADMINISTRATED"
+                              key="1"
+                              status="Completed"
+                              title="Covid-19 Vaccine Pfizer 30 mcg/0.3 ml"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Covid-19 Vaccine Pfizer 30 mcg/0.3 ml
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    ADMINISTRATED
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    5/17/2021
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Completed
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                            <ImmunizationsItem
+                              dateTitle="DUE"
+                              key="2"
+                              status="DueSoon"
+                              title="Covid-19 Vaccine Pfizer 30 mcg/0.3 ml"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Covid-19 Vaccine Pfizer 30 mcg/0.3 ml
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    DUE
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    N/A
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Due Soon
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                          </div>
+                        </div>
+                      </Transition>
+                    </ForwardRef>
+                  </ForwardRef>
+                </AccordionCollapse>
+              </div>
+            </Accordion>
+          </ImmunizationsGroup>
+          <ImmunizationsGroup
+            activeKey={null}
+            eventKey="1-2"
+            isSpeechBubbleIcon={false}
+            key="2"
+            title="RABIES"
+            vaccinations={
+              Array [
+                Object {
+                  "dateTitle": "DUE",
+                  "status": "NotDue",
+                  "title": "Rabies - IM fibroblast culture",
+                },
+              ]
+            }
+          >
+            <Accordion
+              activeKey={null}
+              className="immunizationsGroup"
+            >
+              <div
+                className="immunizationsGroup accordion"
+              >
+                <ImmunizationsToggle
+                  eventKey="1-2"
+                >
+                  <CustomAccordionToggle
+                    callback={[Function]}
+                    eventKey="1-2"
+                  >
+                    <button
+                      className="toggleButton"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <span
+                        className="immunizationsGroupTitle"
+                      >
+                        RABIES
+                      </span>
+                      <img
+                        alt="expand collapse button"
+                        className="toggleButtonImage"
+                        src="plus.svg"
+                      />
+                    </button>
+                  </CustomAccordionToggle>
+                </ImmunizationsToggle>
+                <AccordionCollapse
+                  eventKey="1-2"
+                >
+                  <ForwardRef
+                    appear={false}
+                    className="accordion-collapse"
+                    getDimensionValue={[Function]}
+                    in={false}
+                    mountOnEnter={false}
+                    timeout={300}
+                    unmountOnExit={false}
+                  >
+                    <ForwardRef
+                      addEndListener={[Function]}
+                      appear={false}
+                      aria-expanded={null}
+                      childRef={null}
+                      in={false}
+                      mountOnEnter={false}
+                      onEnter={[Function]}
+                      onEntered={[Function]}
+                      onEntering={[Function]}
+                      onExit={[Function]}
+                      onExiting={[Function]}
+                      timeout={300}
+                      unmountOnExit={false}
+                    >
+                      <Transition
+                        addEndListener={[Function]}
+                        appear={false}
+                        aria-expanded={null}
+                        enter={true}
+                        exit={true}
+                        in={false}
+                        mountOnEnter={false}
+                        nodeRef={
+                          Object {
+                            "current": <div
+                              class="accordion-collapse collapse"
+                            >
+                              <div
+                                class="immunizationsGroupBody"
+                              >
+                                <div
+                                  class="immunizationsItem"
+                                >
+                                  <div
+                                    class="immunizationsItemVaccine"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      vaccine
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Rabies - IM fibroblast culture
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemDue"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      DUE
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      N/A
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="immunizationsItemStatus"
+                                  >
+                                    <span
+                                      class="immunizationsItemTitle"
+                                    >
+                                      status
+                                    </span>
+                                    <span
+                                      class="immunizationsItemValue"
+                                    >
+                                      Not Due
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>,
+                          }
+                        }
+                        onEnter={[Function]}
+                        onEntered={[Function]}
+                        onEntering={[Function]}
+                        onExit={[Function]}
+                        onExited={[Function]}
+                        onExiting={[Function]}
+                        timeout={300}
+                        unmountOnExit={false}
+                      >
+                        <div
+                          aria-expanded={null}
+                          className="accordion-collapse collapse"
+                        >
+                          <div
+                            className="immunizationsGroupBody"
+                          >
+                            <ImmunizationsItem
+                              dateTitle="DUE"
+                              key="0"
+                              status="NotDue"
+                              title="Rabies - IM fibroblast culture"
+                            >
+                              <div
+                                className="immunizationsItem"
+                              >
+                                <div
+                                  className="immunizationsItemVaccine"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    vaccine
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Rabies - IM fibroblast culture
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemDue"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    DUE
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    N/A
+                                  </span>
+                                </div>
+                                <div
+                                  className="immunizationsItemStatus"
+                                >
+                                  <span
+                                    className="immunizationsItemTitle"
+                                  >
+                                    status
+                                  </span>
+                                  <span
+                                    className="immunizationsItemValue"
+                                  >
+                                    Not Due
+                                  </span>
+                                </div>
+                              </div>
+                            </ImmunizationsItem>
+                          </div>
+                        </div>
+                      </Transition>
+                    </ForwardRef>
+                  </ForwardRef>
+                </AccordionCollapse>
+              </div>
+            </Accordion>
+          </ImmunizationsGroup>
+        </div>
+      </div>
+    </ImmunizationsBody>
+  </div>
+</RecommendedImmunizationsPlate>
+`;

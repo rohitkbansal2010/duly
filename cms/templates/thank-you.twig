@@ -1,0 +1,29 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Thank You'|t %}
+{% block bodyClass "thank-you-page" %}
+
+{% set entry = craft.entries()
+    .section('thankYouPage')
+    .one()
+%}
+{% block main %}
+    <div class="container">
+        <h1>{{ "Contact Us"|t }}</h1>
+            {% if entry is defined and entry is not null and entry.introductionText is defined %}
+                <div class='intro'>
+                    {{ entry.introductionText }}
+                </div>
+            {% endif %}
+        <div class="thank-you-text">
+            <img src="/dist/img/icons/check_circle_outline.svg" alt="{{ "Done"|t }}"/></img>
+			<h1>{{ "Thank You!"|t }}</h1>
+				<div>{{ "Our team will be in touch with you shortly."|t }} </div>
+		</div>
+        <button type="button" class="dmgButton primary1">
+            <a href="/">{{ "Return Home"|t }}</a>
+        </button>
+        <div class="ty-pattern"></div>
+    </div>
+    {% endblock %}

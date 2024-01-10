@@ -1,0 +1,9 @@
+field: 0f4d2dc9-2fac-468a-966e-a456a43c0a5f
+fieldLayouts:
+    d4c9c371-dac7-444c-834a-9f862167b4eb: { tabs: [{ elements: [{ fieldUid: 96ca93ac-da9c-4256-ba32-30ee7b509a6c, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: af3506a4-4ca6-4122-b679-abbaee13500f, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    96ca93ac-da9c-4256-ba32-30ee7b509a6c: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: awardName, instructions: '', name: 'Award Name', searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: null, uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    af3506a4-4ca6-4122-b679-abbaee13500f: { columnSuffix: null, contentColumnType: smallint(4), fieldGroup: null, handle: awardYear, instructions: '', name: 'Award Year', searchable: false, settings: { decimals: 0, defaultValue: 2020, max: 2100, min: 1900, prefix: 'Award Year', previewCurrency: null, previewFormat: decimal, size: null, suffix: null }, translationKeyFormat: null, translationMethod: none, type: craft\fields\Number }
+handle: award
+name: Award
+sortOrder: 1

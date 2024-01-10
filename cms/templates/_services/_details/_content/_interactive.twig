@@ -1,0 +1,195 @@
+
+{% set relatedServices = entry.serviceRelatedServices.with(['serviceHeroImage']).all() ?? [] %}
+{% set hasRelatedServices = relatedServices|length %}
+{% set procedures = entry.serviceRelatedProcedures.all() ?? []%}
+{% set hasServiceRelatedProcedures = procedures|length %}
+{% set conditions = entry.serviceRelatedConditions.all() ?? []%}
+{% set hasServiceRelatedConditions = conditions|length %}
+{% set treatmentStyles = entry.serviceRelatedTreatmentStyles.all() ?? []%}
+{% set hasServiceRelatedTreatmentStyles = treatmentStyles|length %}
+{% set hasServiceVideos = entry.serviceVideoLinks|length %}
+{% set hasViewMedicaVideos = entry.interactiveViewmedicaEmbedVideo.one() ?? null %}
+{% set hasFormFiles = entry.serviceFormFiles|length %}
+{% set products = entry.products ? entry.products.limit(20).all() : null %}
+{% set hasProducts = products ?? false %}
+{% set relatedProducts = entry.serviceRelatedProducts.with(['serviceHeroImage']).all() ?? []%}
+{% set hasRelatedProducts = relatedProducts|length %}
+{% set servicesProceduresCategories = entry.servicesProceduresCategories.all() ?? null %}
+{% set hasServicesProceduresCategories = servicesProceduresCategories|length %}
+{% set hasTestimonials = testimonials is defined and testimonials|length %}
+{% set hasSpecials = specials is defined and specials|length %}
+
+<div class="{{ hasServiceRelatedProcedures or hasServiceRelatedConditions or hasServiceRelatedTreatmentStyles or hasServiceVideos or hasFormFiles or hasRelatedServices or hasViewMedicaVideos or products or hasServicesProceduresCategories or hasTestimonials or hasSpecials or hasRelatedProducts ? 'interactive-container' : 'interactive-container hidden' }}">
+    <div class="header">
+		{% if hasServiceRelatedConditions %}
+            <div class="category" tabindex="0">
+                <h3>{{ "Conditions"|t }}</h3>
+            </div>
+        {% endif %}
+	
+		{% if hasServiceRelatedProcedures %}
+            <div class="category" tabindex="0">
+                <h3>{{ "Procedures"|t }}</h3>
+            </div>
+        {% endif %}
+
+        {% if hasServiceRelatedTreatmentStyles %}
+            <div class="category" tabindex="0">
+                <h3>{{ "Treatment Styles"|t }}</h3>
+            </div>
+        {% endif %}
+
+        {% if hasRelatedServices %}
+            <div class="category" tabindex="0">
+                <h3>{{ "Related Specialties"|t }}</h3>
+            </div>
+        {% endif %}
+
+        {% if hasServicesProceduresCategories %}
+            <div class="category" tabindex="0">
+                <h3>{{ "Services & Procedures"|t }}</h3>
+            </div>
+        {% endif %}
+
+        {% if hasRelatedProducts %}
+            <div class="category" tabindex="0">
+                <h3>{{ "Products & Services"|t }}</h3>
+            </div>
+        {% endif %}
+
+        {% if hasProducts %}
+            <div class="category" tabindex="0">
+                <h3>{{ "Products"|t }}</h3>
+            </div>
+        {% endif %}
+
+        {% if hasServiceVideos or hasViewMedicaVideos %}
+            <div class="category" tabindex="0">
+                <h3>{{ "Interactive"|t }}</h3>
+            </div>
+        {% endif %}
+
+        {% if hasFormFiles %}
+            <div class="category" tabindex="0">
+                <h3>{{ "Forms"|t }}</h3>
+            </div>
+        {% endif %}
+
+        {% if hasSpecials %}
+            <div class="category" tabindex="0">
+                <h3>{{ "Specials"|t }}</h3>
+            </div>
+        {% endif %}
+
+        {% if hasTestimonials %}
+            <div class="category" tabindex="0">
+                <h3>{{ "Testimonials"|t }}</h3>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="categories-container">
+		{% if hasServiceRelatedConditions %}
+			<div class="container conditions">
+				{% include '_services/_details/_interactive/_conditions.twig' with {
+					conditions: conditions
+				} %}
+				{% if conditions|length > 18 %}
+					<div class="view-more-expand">
+						<p class="expand-conditions">
+							<span class='more'>{{ "View More"|t }}</span>
+							<span class='less'>{{ "View Less"|t }}</span>
+						</p>
+						<i class="material-icons keyboard_arrow_down"></i>
+					</div>
+				{% endif %}
+			</div>
+		{% endif %}
+		
+        {% if hasServiceRelatedProcedures %}
+            <div class="container procedures">
+                {% include '_services/_details/_interactive/_procedures.twig' with {
+                    procedures: procedures
+                } %}
+                {% if procedures|length > 18 %}
+                    <div class="view-more-expand">
+                        <p class="expand-procedures">
+                            <span class='more'>{{ "View More"|t }}</span>
+                            <span class='less'>{{ "View Less"|t }}</span>
+                        </p>
+                        <i class="material-icons keyboard_arrow_down"></i>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if hasServiceRelatedTreatmentStyles %}
+            <div class="container treatment-styles">
+                {% include '_services/_details/_interactive/_treatment-styles.twig' with {
+                    treatmentStyles: treatmentStyles
+                } %}
+                {% if treatmentStyles|length > 18 %}
+                    <div class="view-more-expand">
+                        <p class="expand-treatment-styles">
+                            <span class='more'>{{ "View More"|t }}</span>
+                            <span class='less'>{{ "View Less"|t }}</span>
+                        </p>
+                        <i class="material-icons keyboard_arrow_down"></i>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if hasRelatedServices %}
+            <div class="container related-specialties">
+                {% include '_services/_details/_interactive/_services.twig' %}
+            </div>
+        {% endif %}
+
+        {% if hasServicesProceduresCategories %}
+            {% cache %}
+                <div class="container servicesprocedures">
+                    {% include '_services/_details/_interactive/_servicesProcedures.twig' with {
+                        servicesProceduresCategories: servicesProceduresCategories
+                    } %}
+                </div>
+            {% endcache %}
+        {% endif %}
+
+        {% if hasRelatedProducts %}
+            <div class="container products">
+                {% include '_services/_details/_interactive/_serviceProducts.twig' %}
+            </div>
+        {% endif %}
+
+        {% if products %}
+            <div class="container products">
+                {% include '_services/_details/_interactive/_products.twig' %}
+            </div>
+        {% endif %}
+
+        {% if hasServiceVideos or hasViewMedicaVideos %}
+            <div class="container interactive">
+                {% include '_services/_details/_interactive/_interactive-tab.twig' %}
+            </div>
+        {% endif %}
+
+        {% if hasFormFiles %}
+            <div class="container forms">
+                {% include '_services/_details/_interactive/_forms.twig' %}
+            </div>
+        {% endif %}
+
+        {% if hasSpecials %}
+            <div class="container specials">
+                {% include '_services/_details/_interactive/_specials.twig' %}
+            </div>
+        {% endif %}
+
+        {% if hasTestimonials %}
+            <div class="container testimonials">
+                {% include '_services/_details/_interactive/_testimonials.twig' %}
+            </div>
+        {% endif %}
+    </div>
+</div>

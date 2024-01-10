@@ -1,0 +1,32 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 3bea3112-5fd4-4beb-9d1f-a9a6af85c550
+handle: insuranceProviderLogo
+instructions: 'The insurance provider''s logo to display on the homepage. This image should be in SVG format and sized for display on the website.'
+name: Logo
+searchable: false
+settings:
+    allowSelfRelations: false
+    allowUploads: true
+    allowedKinds: [image]
+    defaultUploadLocationSource: 'volume:49c6b00d-570e-4147-bdcb-cc8ee135c256'
+    defaultUploadLocationSubpath: ''
+    limit: '1'
+    localizeRelations: false
+    previewMode: full
+    restrictFiles: '1'
+    selectionLabel: ''
+    showSiteMenu: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    singleUploadLocationSource: 'volume:49c6b00d-570e-4147-bdcb-cc8ee135c256'
+    singleUploadLocationSubpath: ''
+    source: null
+    sources: '*'
+    targetSiteId: null
+    useSingleFolder: true
+    validateRelatedElements: true
+    viewMode: large
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Assets

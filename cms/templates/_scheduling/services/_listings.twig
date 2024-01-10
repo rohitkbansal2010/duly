@@ -1,0 +1,18 @@
+{% include "_scheduling/navigation/_services.twig" with {
+    url: "/schedule"
+} %}
+
+<div class="content">
+    {% include "_scheduling/search/_search-service.twig" %}
+    <p class="fetch-error hidden"></p>
+
+    <div class="loading-spinner hidden">
+        <div class="lottie"></div>
+    </div>
+
+    <div class="results-container">
+        {% include "_scheduling/services/_results.twig" with {
+            results: results
+        } %}
+    </div>
+</div>

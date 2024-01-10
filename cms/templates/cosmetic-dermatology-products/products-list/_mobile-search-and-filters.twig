@@ -1,0 +1,23 @@
+<div id="filters-mobile">
+	<button class="dmgButton secondary1 filter-btn-mobile">
+		{{ "Filters"|t }}
+	</button>
+</div>
+
+<div class="mobile-filters-modal hidden">
+	<div class="header">
+		<h2>{{ "Filter"|t }}</h2>
+		<i class="material-icons close close-modal" tabindex="0"></i>
+	</div>
+	<div class="filter-container">
+		{% include "cosmetic-dermatology-products/products-list/_filters.twig" %}
+	</div>
+	<div class="footer">
+		<button class="dmgButton tertiary1 clear-all">
+			<div class="cta">{{ "Clear All"|t }}</div>
+		</button>
+		<button class="dmgButton secondary1 view-results">
+			<div class="cta">{{ "View Results"|t }}</div>
+		</button>
+	</div>
+</div>

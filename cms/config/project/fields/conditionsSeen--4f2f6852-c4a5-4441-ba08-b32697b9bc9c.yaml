@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: conditionsSeen
+instructions: 'Assign conditions that can be seen by this physician. '
+name: 'Conditions Seen'
+searchable: true
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: 'Add a condition'
+    showSiteMenu: true
+    source: null
+    sources: ['section:79924871-8592-4d28-8408-29c212f8246e']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

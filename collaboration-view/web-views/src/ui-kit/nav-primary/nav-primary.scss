@@ -1,0 +1,60 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+@mixin nav-primary-link-default {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: max-content;
+  color: $white;
+  text-transform: capitalize;
+  text-decoration: none;
+  cursor: pointer;
+  @include inter-text-xs-bold;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+@mixin nav-primary-link-icon-wrapper-default {
+  display: flex !important;
+  justify-content: center !important;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0.5rem;
+
+  img {
+    width: 100%;
+  }
+}
+
+.navPrimary {
+  margin: 0 2rem;
+
+  &Link {
+    @include nav-primary-link-default;
+    font-size: var(--font-size-12px-4px) !important;
+
+    &IconWrapper {
+      @include nav-primary-link-icon-wrapper-default;
+    }
+  }
+
+  &LinkActive {
+    @include nav-primary-link-default;
+    color: $dupage-dark-blue;
+    font-size: var(--font-size-12px-4px) !important;
+
+    &:hover {
+      color: $dupage-dark-blue;
+    }
+
+    &IconWrapper {
+      @include nav-primary-link-icon-wrapper-default;
+      background: $dupage-dark-blue;
+      border-radius: 50%;
+    }
+  }
+}

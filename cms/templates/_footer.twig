@@ -1,0 +1,150 @@
+<footer class="main-footer">
+    {% if craft.app.session.getFlash('login-success') %}
+        <input type="hidden" name="login-success">
+    {% endif %}
+
+    {% if craft.app.session.getFlash('edit-appointment-success') %}
+        <input type="hidden" name="edit-appointment-success">
+    {% endif %}
+
+    {% if craft.app.request.url matches '/schedule/' %}
+        {% set patientUser = craft.app.patient_user.identity %}
+        {% if patientUser %}
+            {% if patientUser.appointment_current_epi and patientUser.appointment_current_epi != patientUser.main_patient_epi %}
+                <input type="hidden" name="scheduling-for" value="Other">
+            {% elseif patientUser.appointment_current_epi and patientUser.appointment_current_epi == patientUser.main_patient_epi %}
+                <input type="hidden" name="scheduling-for" value="Self">
+            {% endif %}
+
+            {% if patientUser.appointment_new_patient_visit is not empty %}
+                <input type="hidden" name="patient-type" value="{{ "1" == patientUser.appointment_new_patient_visit ? "New" : "Existing" }}">
+            {% endif %}
+
+            {% if patientUser.appointment_visit_type_id is not empty %}
+                <input type="hidden" name="appointment-type" value="{{ patientUser.appointment_visit_type_id == "2990" ? "Video" : "In-Person" }}">
+            {% endif %}
+
+            {% if patientUser.is_video_visit_flow is not empty %}
+                <input type="hidden" name="schedule-flow-type" value="{{ "Video Visit Flow" }}">
+            {% elseif patientUser.deeplinked_session is not empty %}
+                <input type="hidden" name="schedule-flow-type" value="{{ "Clearstep Flow" }}">
+            {% else %}
+                <input type="hidden" name="schedule-flow-type" value="{{ "Regular Flow" }}">
+            {% endif %}
+
+            {% if patientUser.appointment_selected_recommended_physician_id is not empty %}
+                <input type="hidden" name="appointment_selected_recommended_physician_id" value="Recommended Provider Chosen" />
+            {% endif %}
+
+            {% if patientUser.conversation_id is not empty %}
+                <input type="hidden" name="clearstep-conversation-id" value="{{ patientUser.conversation_id }}">
+            {% endif %}
+
+            <input type="hidden" name="service-id" value="{{ patientUser.getAppointmentServiceIds() | join(',') }}">
+        {% endif %}
+    {% endif %}
+
+    <section class="upper-footer">
+        <section id="about">
+            <p class="section-header">{{ "{siteName}"|t(params = {
+                siteName: siteName
+            }) }}</p>
+            
+            {% cache globally using key "global-footer-footerNavigation-handle" %}
+                {% set primaryNodes = craft.navigation.nodes()
+                    .handle('footerNavigation')
+                    .all() %}
+
+                <ul>
+                    {% for node in primaryNodes %}
+                        <li>{{ node.link }}</li>
+                    {% endfor %}
+                </ul>
+            {% endcache %}
+        </section>
+
+        <section id="contact">
+            <p class="section-header contact-us-header">{{ "CONTACT US"|t }}</p>
+            <ul>
+                <li><a href="/contact-us">Need Help?</a></li>
+            </ul>
+
+            {% cache globally using key "global-footer-footerDetails-handle" %}
+                {% set footerDetails = craft.globalSets()
+                    .handle('footerDetails')
+                    .one %}
+                {% for key, location in footerDetails.addressList.all %}
+                    <p class="location-name">{{ location.locationName }}</p>
+                    {% set lat = location.address.lat %}
+                    {% set lng = location.address.lng %}
+                    {# standard Google Maps Zoom #}
+                    {% set zoom = "17z" %}
+                    <div class="address">
+                        <a rel="noopener noreferrer" target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ location.address.address }}">
+                            <span>{{ location.address.parts.number }} {{ location.address.parts.address }}</span>
+                            <br>
+                            <span>{{ location.address.parts.city }}, {{ location.address.parts.state }} {{ location.address.parts.postcode }}</span>
+                        </a>
+                    </div>
+                {% endfor %}
+
+                {% for key, phone in footerDetails.phoneList.all() %}
+                    <div class="number">
+                        <span>{{ phone.phoneListName }} - </span>{% include '_widgets/phoneNumberLink.twig' with { number: phone.phoneListNumber } only %}
+                    </div>
+                {% endfor %}
+            {% endcache %}
+        </section>
+
+        <section id="connect">
+            <p class="section-header">{{ "STAY CONNECTED"|t }}</p>
+
+            <div class="sign-up">
+                <p>{{ "Sign up for {siteNameShort} e-Newsletters"|t(params = {
+                    siteNameShort: siteNameShort
+                }) }}</p>
+                <a href="https://cloud.contact.dulyhealthandcare.com/newsletter" target="_blank" rel="noopener noreferrer">
+                    <button class="button">
+                        {{ "Subscribe Now!"|t }}
+                    </button>
+                </a>
+            </div>
+
+            {% cache globally using key "global-footer-socialLinks-handle" %}
+                <div class="icons">
+                    {% set socialLinks = craft.navigation.nodes()
+                        .handle('socialLinks')
+                        .all() %}
+
+                        {% for node in socialLinks %}
+                            <a href="{{ node.url }}" class="{{ node.classes }}" alt="{{ node.title|title }}" aria-label="{{ node.title|title }}" rel="noopener noreferrer" target="_blank"></a>
+                        {% endfor %}
+                </div>
+            {% endcache %}
+        </section>
+    </section>
+    <section class="lower-footer">
+        <ul>
+            <li>&copy {{ '{date} by {siteName}'|t(params = {
+                date: "now"|date("Y"),
+                siteName: siteName
+                }) }}
+            </li>
+            {% cache globally using key "global-footer-footerLinks-handle" %}
+                {% set secondaryNodes = craft.navigation.nodes()
+                    .handle('footerLinks')
+                    .all() %}
+
+                {% for node in secondaryNodes %}
+                    <li>{{ node.link }}</li>
+                {% endfor %}
+            {% endcache %}
+        </ul>
+    </section>
+    {% if be is defined %}
+        <div class="be-ix-link-block">
+            {{ be.getBodyString("body_1")|raw }}
+            {{ be.close()|raw }}
+        </div>
+    {% endif %}
+</footer>

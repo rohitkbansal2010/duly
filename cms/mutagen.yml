@@ -1,0 +1,32 @@
+sync:
+  code:
+    alpha: "."
+    beta: "docker://cms_php_1/var/www"
+    mode: "two-way-safe"
+    ignore:
+      vcs: true
+      paths:
+        - "src"
+        - "templates"
+        - "vendor"
+        - "plugins"
+        - "storage"
+        - "web/dist"
+        - "cpresources"
+        - "node_modules"
+        - "web/assets"
+  node:
+    alpha: "docker://cms_webpack_1/var/www/node_modules"
+    beta: "./node_modules"
+    mode: "two-way-safe"
+    ignore:
+      vcs: true
+  vendor:
+    alpha: "docker://cms_php_1/var/www/vendor"
+    beta: "./vendor"
+    mode: "two-way-safe"
+    ignore:
+      vcs: true
+      paths:
+        - "punchkick/craft3-maintenance"
+        - "punchkick/event-registration"

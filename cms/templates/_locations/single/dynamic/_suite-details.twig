@@ -1,0 +1,37 @@
+{% if serviceSuiteDetails %}
+    <hr class="{{serviceSuiteDetails.temporarilyClosed or serviceSuiteDetails.closedToday or serviceSuiteDetails.closedTomorrow or serviceSuiteDetails.todayStartTime or serviceSuiteDetails.tomorrowStartTime ? '' : 'hidden'}}">
+
+    {% if serviceSuiteDetails.temporarilyClosed %}
+        <p class="closed">{{ "Temporarily Closed"|t }}</p>
+    {% else %}
+        {% if serviceSuiteDetails.closedToday %}
+            <p class="day">{{ 'now'|date('D') }}: <span class="closed">{{ "Closed Today"|t }}</span></p>
+        {% else %}
+            {% if serviceSuiteDetails.todayStartTime is not null and serviceSuiteDetails.todayEndTime is not null %}
+                <p class="day">{{ 'now'|date('D') }}: 
+                    <span>{{ "Open {start} - {end}"|t(params={
+                            start: serviceSuiteDetails.todayStartTime|date("g:i A"),
+                            end: serviceSuiteDetails.todayEndTime|date("g:i A")  
+                            }) 
+                        }}
+                    </span>
+                </p>
+            {% endif %}
+        {% endif %}
+
+        {% if serviceSuiteDetails.closedTomorrow %}
+            <p class="day">{{ 'tomorrow'|date('D') }}: <span class="closed">{{ "Closed Tomorrow"|t }}</span></p>
+        {% else %}
+            {% if serviceSuiteDetails.tomorrowStartTime is not null and serviceSuiteDetails.tomorrowEndTime is not null %}
+                <p class="day">{{ 'tomorrow'|date('D') }}: 
+                    <span>{{ "Open {start} - {end}"|t(params={
+                            start: serviceSuiteDetails.tomorrowStartTime|date("g:i A"),
+                            end: serviceSuiteDetails.tomorrowEndTime|date("g:i A")  
+                            }) 
+                        }}
+                    </span>
+                </p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endif %}

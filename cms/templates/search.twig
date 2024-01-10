@@ -1,0 +1,12 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title "Search"|t %}
+
+{% block bodyClass "search-page" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	{% include "_search-results/_listing.twig" %}
+{% endblock %}

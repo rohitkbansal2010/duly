@@ -1,0 +1,265 @@
+
+{% set physicianLocationCities = craft.entries({
+	section: 'locations'
+}).all() | group('address.parts.city') | keys | filter (v => v != "") | sort((a, b) => a > b) %}
+
+<div class="filters">
+	<div class="filter-entry availability-container">
+		<div class="filter-label">
+			<p class="label-text" tabindex="0">{{ "Availability"|t }}
+				<span class="count"></span>
+			</p>
+			<i class="material-icons close hidden"></i>
+			<i class="material-icons keyboard_arrow_down"></i>
+		</div>
+
+		<div class="dropdown">
+			{% for availability in availabilities %}
+				<div class="radio" tabindex="0">
+					{% include "_input/_radio.twig" with {
+						type: 'radio',
+						name: 'availability',
+						id: 'availability-id-' ~ loop.index,
+						checked: false,
+						label: availability|t,
+					} only %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<div class="filter-entry ages-container">
+		<div class="filter-label">
+			<p class="label-text" tabindex="0">{{ "Ages Seen"|t }}
+				<span class="count"></span>
+			</p>
+			<i class="material-icons close hidden"></i>
+			<i class="material-icons keyboard_arrow_down"></i>
+		</div>
+
+		<div class="dropdown">
+			{% for age in ages %}
+				<div class="checkbox-container age-checkbox">
+					{% include "_input/_checkbox.twig" with {
+						name: 'age-checkbox',
+						class: 'age-filter',
+						id: 'age-' ~ titleize(age), 
+						tabindex: 0,
+						label: age
+					} only %}
+				</div>
+			{% endfor %}
+
+			<div class="slider">
+				<hr>
+
+				<div class="radio" tabindex="0">
+					{% include "_input/_radio.twig" with {
+						type: 'radio',
+						name: 'age-range',
+						id: 'age-slider',
+						label: "Custom Age Range"|t
+					} only %}
+				</div>
+
+				<p class="indicator hidden">{{ "Sees All Ages Between "|t }}<span class='min'></span> - <span class='max'></span></p>
+
+				<div class="hidden slider-container" id="slider"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="filter-entry cities-container">
+		<div class="filter-label">
+			<p class="label-text" tabindex="0">{{ "City"|t }}
+				<span class="count"></span>
+			</p>
+			<i class="material-icons close hidden"></i>
+			<i class="material-icons keyboard_arrow_down"></i>
+		</div>
+
+		<div class="dropdown">
+			{% for physicianLocationCity in physicianLocationCities %}
+				<div class="checkbox-container city-checkbox">
+					{% set label = physicianLocationCity %}
+						{% include "_input/_checkbox.twig" with {
+						name: 'city-checkbox',
+						class: 'city-filter',
+						id: 'city-' ~ titleize(label), 
+						tabindex: 0,
+						label: label
+                	} only %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<div class="filter-entry genders-container">
+		<div class="filter-label">
+			<p class="label-text" tabindex="0">{{ "Gender"|t }}
+				<span class="count"></span>
+			</p>
+			<i class="material-icons close hidden"></i>
+			<i class="material-icons keyboard_arrow_down"></i>
+		</div>
+
+		<div class="dropdown">
+			{% for gender in genderField %}
+				<div class="checkbox-container gender-checkbox">
+					{% include "_input/_checkbox.twig" with {
+                    name: 'gender-checkbox',
+                    class: 'gender-filter',
+                    id: 'gender-' ~ titleize(gender), 
+                    tabindex: 0,
+                    label: gender
+                } only %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<div class="filter-entry hospital-affiliations-container">
+		<div class="filter-label">
+			<p class="label-text" tabindex="0">{{ "Hospital Affiliations"|t }}
+				<span class="count"></span>
+			</p>
+			<i class="material-icons close hidden"></i>
+			<i class="material-icons keyboard_arrow_down"></i>
+		</div>
+
+		<div class="dropdown">
+			{% for physicianHospitalAffiliation in physicianHospitalAffiliations.all() | reduce((unique, item) => item.title in unique ? unique : unique|merge([item.title]), []) %}
+				<div class="checkbox-container hospital-affiliation-checkbox">
+					{% set label = physicianHospitalAffiliation %}
+					{% include "_input/_checkbox.twig" with {
+						name: 'hospital-affiliation-checkbox',
+						class: 'hospital-affiliation-filter',
+						id: 'hospital-affiliation-' ~ titleize(label), 
+						tabindex: 0,
+						label: label
+					} only %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<div class="filter-entry languages-container">
+		<div class="filter-label">
+			<p class="label-text" tabindex="0">{{ "Language"|t }}
+				<span class="count"></span>
+			</p>
+			<i class="material-icons close hidden"></i>
+			<i class="material-icons keyboard_arrow_down"></i>
+		</div>
+
+		<div class="dropdown">			
+			{% for language in languages.all() %}
+				<div class="checkbox-container language-checkbox">
+					{% set label = language %}
+					{% include "_input/_checkbox.twig" with {
+						name: 'language-checkbox',
+						class: 'language-filter',
+						id: 'language-' ~ titleize(label), 
+						tabindex: 0,
+						label: label
+                	} only %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<div class="filter-entry lgbtqia-container">
+		<div class="filter-label">
+			<p class="label-text" tabindex="0">{{ "LGBTQIA+ Resource"|t }}
+				<span class="count"></span>
+			</p>
+			<i class="material-icons close hidden"></i>
+			<i class="material-icons keyboard_arrow_down"></i>
+		</div>
+	</div>
+
+	<div class="filter-entry services-container">
+		<div class="filter-label">
+			<p class="label-text" tabindex="0">{{ "Specialties"|t }}
+				<span class="count"></span>
+			</p>
+			<i class="material-icons close hidden"></i>
+			<i class="material-icons keyboard_arrow_down"></i>
+		</div>
+
+		<div class="dropdown">
+			{% for service in services %}
+				{% set subspecialties = craft.entries({
+					section: 'services',
+					orderBy: 'title ASC',
+					displayInProviderSpecialtiesFilter: true,
+					descendantOf: service.id
+				}).all() %}
+
+				{% set label = service.title %}
+				{% set hasSubSpecialties = subspecialties is not null and subspecialties|length %}
+
+				{% if hasSubSpecialties %} 
+					<div class='checkbox-container service-checkbox parent-service' data-service-id="{{ service.id }}">
+						{% include "_input/_checkbox.twig" with {
+							name: 'service-checkbox',
+							class: 'service-filter',
+							id: 'service-' ~ titleize(service),
+							tabindex: 0,
+							label: label
+						} only %}
+					</div>
+				{% else %}
+					<div class='checkbox-container service-checkbox'>
+						{% include "_input/_checkbox.twig" with {
+							name: 'service-checkbox',
+							class: 'service-filter',
+							id: 'service-' ~ titleize(service),
+							tabindex: 0,
+							label: label
+						} only %}
+					</div>
+				{% endif %}
+
+				{% if hasSubSpecialties %}
+					{% for subservice in subspecialties %}
+						<div class="checkbox-container service-checkbox subservice" data-service-id="{{ service.id }}">
+							{% include "_input/_checkbox.twig" with {
+								name: 'service-checkbox',
+								class: 'service-filter',
+								id: 'service-' ~ titleize(subservice.slug),
+								tabindex: 0,
+								label: subservice.title
+							} only %} 
+						</div> 
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+
+	<div class="filter-entry sort-container">
+		<div class="filter-label">
+			<p class="label-text" tabindex="0">{{ "Sort By"|t }}
+				<span class="count"></span>
+			</p>
+			<span class="material-icons sort"></span>
+			<i class="material-icons close hidden"></i>
+			<i class="material-icons keyboard_arrow_down"></i>
+		</div>
+
+		<div class="dropdown">
+			{% for sort in sorts %}
+				<div class="radio" tabindex="0">
+					{% include "_input/_radio.twig" with {
+						type: 'radio',
+						name: 'sort',
+						id: 'sort-id-' ~ loop.index,
+						checked: false,
+						label: sort|t
+					} only %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

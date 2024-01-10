@@ -1,0 +1,170 @@
+@import "~@styles/main.scss";
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.mainDiv {
+  width: 100%;
+  height: 46.25rem;
+  overflow-y: auto;
+}
+
+.accordianHeader {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.headerData {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 20rem;
+}
+
+.pageHeading {
+  @include nexa-heavy-highlight;
+  display: flex;
+  font-size: var(--font-size-24px-4px);
+  line-height: var(--line-height-26px-4px);
+}
+
+.date {
+  @include inter-text-default;
+  font-size: var(--font-size-14px-4px) !important;
+  line-height: var(--line-height-20px-4px);
+}
+
+.scheduleLength {
+  margin-left: 0.25rem;
+}
+
+.detailsBar {
+  color: rgba(15, 23, 42, 1);
+  font-weight: 700;
+  font-size: 1rem;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  font-family: "Inter", sans-serif;
+  line-height: 1.5rem;
+  // gap: 8.4375rem;
+
+  &Doctor {
+    display: flex;
+    gap: 0.625rem;
+    align-items: center;
+  }
+}
+
+.cardHeaderDate {
+  display: flex;
+  flex: 0 0 auto !important;
+  align-items: center;
+  width: 35.12% !important;
+  font-size: var(--font-size-16px-4px);
+  line-height: 1.5rem;
+}
+
+.ProviderName {
+  font-weight: 700;
+  font-size: var(--font-size-18px-4px);
+  line-height: 1.6rem;
+}
+
+.cardHeaderFlex {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+}
+
+.labsDetailsHeading {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.card {
+  &Header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  &Body {
+    padding: 1rem;
+    background-color: rgba(244, 247, 250, 1);
+  }
+}
+
+.detailsHeading {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1rem;
+
+  &Col:nth-child(2) {
+    padding-left: 1.5rem !important;
+  }
+
+  &Key {
+    color: rgba(102, 110, 125, 1);
+    font-weight: bold;
+    font-size: var(--font-size-14px-4px);
+    font-family: "Inter", sans-serif;
+    line-height: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  &Data {
+    margin-top: 0.25rem;
+    color: rgba(15, 23, 42, 1);
+    font-weight: bold;
+    font-size: var(--font-size-14px-4px);
+    font-family: "Inter", sans-serif;
+    line-height: var(--font-size-24px-4px);
+  }
+}
+
+.bottomLine {
+  color: $default-text;
+  font-size: var(--font-size-14px-4px);
+  font-family: "Inter", sans-serif;
+  line-height: var(--font-size-22px-4px);
+}
+
+.pdfIcon {
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.exportPdfIconLine {
+  height: 4rem;
+  margin-top: 0.6rem;
+  margin-left: 2rem;
+}
+
+.exportPdfIcon {
+  cursor: pointer;
+
+  img {
+    width: 5rem;
+  }
+}
+
+.exportPdfIconContainer {
+  position: absolute;
+  top: 6.5rem;
+  right: 14%;
+  display: flex;
+
+  .pdfExportStatus {
+    display: flex;
+    align-items: center;
+    width: 20rem;
+  }
+}
+
+.emptyContainer {
+  height: 54.18rem;
+  margin: -1.5rem -1.875rem;
+  background-color: $white;
+  border-radius: 0.625rem;
+}

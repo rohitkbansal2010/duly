@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SchedulerScaleMarks should render correctly 1`] = `
+<ListGroup
+  className="schedulerScaleMarks"
+  variant="flush"
+>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="7:00 am"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        7:00 am
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="8:00 am"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        8:00 am
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="9:00 am"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        9:00 am
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="10:00 am"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        10:00 am
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="11:00 am"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        11:00 am
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="12:00 pm"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        12:00 pm
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="1:00 pm"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        1:00 pm
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="2:00 pm"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        2:00 pm
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="3:00 pm"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        3:00 pm
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="4:00 pm"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        4:00 pm
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="5:00 pm"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        5:00 pm
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="6:00 pm"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        6:00 pm
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+  <ListGroupItem
+    className="schedulerScaleMarksItem"
+    key="7:00 pm"
+  >
+    <div>
+      <div
+        className="schedulerScaleMarksItemDivision"
+      >
+        7:00 pm
+      </div>
+      <div
+        className="schedulerScaleMarksItemLine"
+      />
+    </div>
+  </ListGroupItem>
+</ListGroup>
+`;

@@ -1,0 +1,71 @@
+@import "~@styles/typography.scss";
+@import "~@styles/themes.scss";
+
+.medications {
+  &TitleWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.3rem;
+  }
+
+  &Icon {
+    &Wrapper {
+      position: relative;
+      margin-right: 1.125rem;
+      padding: 0.95rem;
+      border-radius: 50%;
+
+      img {
+        width: 1.875rem;
+      }
+
+      &REGULAR {
+        background: rgba($dupage-blue, 0.3);
+      }
+
+      &OTHER {
+        background: rgba($dupage-magenta, 0.3);
+      }
+    }
+
+    &Counter {
+      @include nexa-regular-highlight;
+
+      position: absolute;
+      top: var(--counter-top-location);
+      right: var(--counter-right-location);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--counter-size);
+      height: var(--counter-size);
+      color: $white;
+      font-size: var(--font-size-14px-4px);
+      line-height: 1.68rem;
+      border: 0.0625rem solid $white;
+      border-radius: 50%;
+
+      &REGULAR {
+        background: $dupage-dark-blue;
+      }
+
+      &OTHER {
+        background: $dupage-violet;
+      }
+    }
+  }
+
+  &Title {
+    @include nexa-heavy-highlight;
+
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
+    font-size: var(--font-size-24px-4px);
+
+    &Additional {
+      font-size: var(--font-size-16px-4px) !important;
+      @include inter-text-default;
+    }
+  }
+}

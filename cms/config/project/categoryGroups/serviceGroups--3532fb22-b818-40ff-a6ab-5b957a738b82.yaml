@@ -1,0 +1,10 @@
+defaultPlacement: end
+fieldLayouts:
+    78297990-d047-4f16-8933-d37a19ca5a7d: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }, { fieldUid: c36cf0b4-74ed-4b7e-ba3d-e491f30c4115, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: 'Service Groups', sortOrder: 1 }] }
+handle: serviceGroups
+name: 'Service Groups'
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { hasUrls: false, template: null, uriFormat: null }
+structure:
+    maxLevels: null
+    uid: c1b810ef-ef32-4218-9dac-20c3d379f0a4

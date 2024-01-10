@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: dde69d67-b94d-4a76-802d-86ebce30db4b
+handle: testimonialProcedure
+instructions: ''
+name: Procedure
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: '1'
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:d8a05845-81f0-4f51-9240-d23c124020d6']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

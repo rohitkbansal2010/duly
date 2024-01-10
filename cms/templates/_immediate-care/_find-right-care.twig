@@ -1,0 +1,29 @@
+<div class="find-right-care-container">
+	<div class="find-right-care">
+		<input id="csrf-token" type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">
+		<h2 class="title">{{entry.immediateCareCheckSymptomsTitle}}</h2>
+		<span class="description">{{entry.immediateCareCheckSymptomsDescription}}</span>
+		<div class="input-and-cta">
+			<div class="input-and-copy" data-clearstep-url="{{entry.immediateCareCheckSymptomsClearStepURL}}">
+				{% include "_input/_input.twig" with {
+                type: 'text',
+                name: 'find-right-care-symptoms',
+                id: 'find-right-care-symptoms',
+                label: entry.immediateCareCheckSymptomsInputFieldPlaceholderText
+            } only %}
+				<span class="copy">{{entry.immediateCareCheckSymptomsTextUnderInput}}</span>
+			</div>
+			<button id="submit-symptoms" class="dmgButton primary3">{{entry.immediateCareCheckSymptomsButtonText}}</button>
+		</div>
+		<div class="checkbox-and-copy">
+			{% include "_input/_checkbox.twig" with {
+                id: 'on-behalf-of-someone-else', 
+                name: 'on-behalf-of-someone-else',
+                label: entry.immediateCareCheckSymptomsCheckboxCopy,
+                tabindex: 0,
+            } only %}
+		</div>
+	</div>
+	<div class="pattern-container left"></div>
+	<div class="pattern-container right"></div>
+</div>

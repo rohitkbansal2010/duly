@@ -1,0 +1,9 @@
+field: 75813a06-c706-43a3-8ed6-5c477bcb468b
+fieldLayouts:
+    5f119311-881f-4cc0-9f75-0f6edaa6dda0: { tabs: [{ elements: [{ fieldUid: 9f2a0731-9dbe-46f7-b099-57be829373e7, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: f32d1a94-fcf1-4a80-9301-7b92c6a35f55, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    9f2a0731-9dbe-46f7-b099-57be829373e7: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: modalHeaderText, instructions: 'Provide header text that will be displayed to the user if they select no appointment visit types are assigned.', name: 'Modal Header Text', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: 'There is no online scheduling for this service.', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    f32d1a94-fcf1-4a80-9301-7b92c6a35f55: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: modalSubHeaderText, instructions: 'Provide sub header text that will be displayed to the user if they select no appointment visit types are assigned.', name: 'Modal Sub Header Text', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: 'Please call 630-790-1872 for more information.', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: addACustomAlert
+name: 'Add a custom alert'
+sortOrder: 1

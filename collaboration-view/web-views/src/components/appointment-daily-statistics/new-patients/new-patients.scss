@@ -1,0 +1,35 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/main.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/devices.scss";
+
+.newPatientsRow {
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+  white-space: nowrap;
+  @include nexa-heavy-highlight;
+
+  &Container {
+    position: relative;
+    padding-left: 3.2rem !important;
+  }
+
+  & img {
+    position: absolute;
+    bottom: 0;
+    left: 0.5rem;
+    width: 2.6rem;
+    padding: 0 0.3rem;
+  }
+
+  &Count {
+    color: $dupage-dark-blue;
+  }
+
+  &Label {
+    margin-left: 0.4rem;
+    color: $medium-gray;
+  }
+}

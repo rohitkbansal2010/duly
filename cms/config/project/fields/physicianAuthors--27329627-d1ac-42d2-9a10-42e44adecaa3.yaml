@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 59d569da-1526-45bb-bd4c-883ccf638fd3
+handle: physicianAuthors
+instructions: 'Optionally add physician authors to this post.'
+name: 'Physician Authors'
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_physicianauthors}}'
+    maxBlocks: ''
+    minBlocks: ''
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

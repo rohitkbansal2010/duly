@@ -1,0 +1,17 @@
+{% if showProcedures %}
+    <div class="details clinical-expertise-details show">
+        <h2>{{ "Procedures" }}</h2>
+        <div>
+            <div class="value">{{ proceduresPerformed|sort((a, b) => a.title > b.title)|join(', ') }}</div>
+        </div>
+    </div>
+{% endif %}
+
+{% if showConditions %}
+    <div class="details clinical-expertise-details show">
+        <h2>{{ "Conditions" }}</h2>
+        <div>
+            <div class="value">{{ conditionsSeen|sort((a, b) => a.title > b.title)|join(', ') }}</div>
+        </div>
+    </div>
+{% endif %}

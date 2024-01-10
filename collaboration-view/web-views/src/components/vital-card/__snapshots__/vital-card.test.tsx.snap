@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VitalCard should render correctly 1`] = `
+<button
+  className="todayVitalCard"
+  data-testid="vital-card__container"
+  onClick={[MockFunction]}
+>
+  <div
+    className="todayVitalCardIcon"
+  >
+    <img
+      alt="vital icon"
+      className="todayVitalCardIconHeartRate"
+      data-testid="vital-card__icon"
+      src="heart-rate-light-blue.svg"
+    />
+  </div>
+  <div
+    className="todayVitalCardTitle"
+    data-testid="vital-card__title"
+  >
+    HEART RATE
+  </div>
+  <Measurements
+    activeClass=""
+    index={0}
+    isVitalHeight={true}
+    isVitalWeight={true}
+    isWeighHeightCard={false}
+    key="HeartRate"
+    measurements={
+      Array [
+        Object {
+          "measured": "",
+          "measurementType": "HeartRate",
+          "value": 1,
+        },
+      ]
+    }
+  />
+  <Measurements
+    activeClass=""
+    index={1}
+    isVitalHeight={true}
+    isVitalWeight={true}
+    isWeighHeightCard={false}
+    key="PainLevel"
+    measurements={
+      Array [
+        Object {
+          "measured": "",
+          "measurementType": "PainLevel",
+          "value": 1,
+        },
+      ]
+    }
+  />
+</button>
+`;

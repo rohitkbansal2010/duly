@@ -1,0 +1,26 @@
+<div class="posts innerContent">
+	{% for post in posts %}
+		{% set image = post.image.all()|first %}
+		{% set title = post.postTitle %}
+		{% set description = post.postDescription %}
+		{% set ctaText = post.ctaText %}
+		{% set ctaTarget = post.ctaTarget|first %}
+
+		<div class="post">
+			<div class="text-and-ctas-container">
+				<div class="text-and-ctas">
+					<h2>{{title}}</h2>
+					<span class="description">{{description}}</span>
+					<button class="dmgButton secondary1">
+						<a href="{{ctaTarget.url ?? ctaTarget.linkUrl}}">{{ctaText}}</a>
+					</button>
+				</div>
+			</div>
+			<div class="image">
+				{% if image %}
+					{{ getOptimizedImage(image, 'webp')|raw }}
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+</div>

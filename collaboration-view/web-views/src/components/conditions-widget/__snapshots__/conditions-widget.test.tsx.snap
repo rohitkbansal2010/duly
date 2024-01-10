@@ -1,0 +1,871 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HealthConditionsWidget component should contain right count of conditions 1`] = `
+<ConditionsWidget>
+  <div
+    className="conditionsWidget"
+  >
+    <ConditionsWidgetCol
+      conditions={
+        Array [
+          Object {
+            "date": "2022-02-16T00:00:00Z",
+            "title": "Pneumonia",
+          },
+          Object {
+            "date": "2019-05-28T00:00:00Z",
+            "title": "Chronic sinusitis",
+          },
+          Object {
+            "title": "Diabetes mellitus, type II",
+          },
+          Object {
+            "title": "Osteoarthritis",
+          },
+        ]
+      }
+      isCurrent={true}
+      title="Current Health Conditions"
+    >
+      <div
+        className="conditionsWidgetCol"
+      >
+        <div>
+          <h2
+            className="conditionsWidgetColCurrentTitle"
+          >
+            Current Health Conditions
+          </h2>
+        </div>
+        <div
+          className="conditionsWidgetColContent"
+        >
+          <FadedScroll
+            height="100%"
+          >
+            <div
+              className="scrollWrapper"
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            >
+              <div
+                className="topScrollFade top0 default"
+              />
+              <div
+                className="scrollContent"
+              >
+                <div
+                  className="conditionsWidgetColData"
+                >
+                  <ConditionPlate
+                    date="2022-02-16T00:00:00Z"
+                    isCurrent={true}
+                    key="Pneumonia"
+                    title="Pneumonia"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIconCurrent"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="current-conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Pneumonia
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        >
+                          2/16/2022
+                        </span>
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    date="2019-05-28T00:00:00Z"
+                    isCurrent={true}
+                    key="Chronic sinusitis"
+                    title="Chronic sinusitis"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIconCurrent"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="current-conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Chronic sinusitis
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        >
+                          5/28/2019
+                        </span>
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    isCurrent={true}
+                    key="Diabetes mellitus, type II"
+                    title="Diabetes mellitus, type II"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIconCurrent"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="current-conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Diabetes mellitus, type II
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        />
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    isCurrent={true}
+                    key="Osteoarthritis"
+                    title="Osteoarthritis"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIconCurrent"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="current-conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Osteoarthritis
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        />
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                </div>
+              </div>
+              <div
+                className="bottomScrollFade bottom0 default"
+              />
+            </div>
+          </FadedScroll>
+        </div>
+      </div>
+    </ConditionsWidgetCol>
+    <ConditionsWidgetCol
+      conditions={
+        Array [
+          Object {
+            "date": "2022-02-11T00:00:00Z",
+            "title": "Pneumonia",
+          },
+          Object {
+            "date": "2022-02-01T00:00:00Z",
+            "title": "Dehydration",
+          },
+          Object {
+            "date": "2021-12-23T00:00:00Z",
+            "title": "Myocardial infarction (STEMI)",
+          },
+          Object {
+            "title": "Hypertension associated with diabetes (HCC)",
+          },
+          Object {
+            "title": "Kidney stones",
+          },
+        ]
+      }
+      isCurrent={false}
+      title="Previous Health Conditions"
+    >
+      <div
+        className="conditionsWidgetCol"
+      >
+        <div>
+          <h2
+            className="conditionsWidgetColTitle"
+          >
+            Previous Health Conditions
+          </h2>
+        </div>
+        <div
+          className="conditionsWidgetColContent"
+        >
+          <FadedScroll
+            height="100%"
+          >
+            <div
+              className="scrollWrapper"
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            >
+              <div
+                className="topScrollFade top0 default"
+              />
+              <div
+                className="scrollContent"
+              >
+                <div
+                  className="conditionsWidgetColData"
+                >
+                  <ConditionPlate
+                    date="2022-02-11T00:00:00Z"
+                    isCurrent={false}
+                    key="Pneumonia"
+                    title="Pneumonia"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIcon"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Pneumonia
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        >
+                          2/11/2022
+                        </span>
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    date="2022-02-01T00:00:00Z"
+                    isCurrent={false}
+                    key="Dehydration"
+                    title="Dehydration"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIcon"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Dehydration
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        >
+                          2/1/2022
+                        </span>
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    date="2021-12-23T00:00:00Z"
+                    isCurrent={false}
+                    key="Myocardial infarction (STEMI)"
+                    title="Myocardial infarction (STEMI)"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIcon"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Myocardial infarction (STEMI)
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        >
+                          12/23/2021
+                        </span>
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    isCurrent={false}
+                    key="Hypertension associated with diabetes (HCC)"
+                    title="Hypertension associated with diabetes (HCC)"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIcon"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Hypertension associated with diabetes (HCC)
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        />
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    isCurrent={false}
+                    key="Kidney stones"
+                    title="Kidney stones"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIcon"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Kidney stones
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        />
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                </div>
+              </div>
+              <div
+                className="bottomScrollFade bottom0 default"
+              />
+            </div>
+          </FadedScroll>
+        </div>
+      </div>
+    </ConditionsWidgetCol>
+  </div>
+</ConditionsWidget>
+`;
+
+exports[`HealthConditionsWidget component should match to snapshot 1`] = `
+<ConditionsWidget>
+  <div
+    className="conditionsWidget"
+  >
+    <ConditionsWidgetCol
+      conditions={
+        Array [
+          Object {
+            "date": "2022-02-16T00:00:00Z",
+            "title": "Pneumonia",
+          },
+          Object {
+            "date": "2019-05-28T00:00:00Z",
+            "title": "Chronic sinusitis",
+          },
+          Object {
+            "title": "Diabetes mellitus, type II",
+          },
+          Object {
+            "title": "Osteoarthritis",
+          },
+        ]
+      }
+      isCurrent={true}
+      title="Current Health Conditions"
+    >
+      <div
+        className="conditionsWidgetCol"
+      >
+        <div>
+          <h2
+            className="conditionsWidgetColCurrentTitle"
+          >
+            Current Health Conditions
+          </h2>
+        </div>
+        <div
+          className="conditionsWidgetColContent"
+        >
+          <FadedScroll
+            height="100%"
+          >
+            <div
+              className="scrollWrapper"
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            >
+              <div
+                className="topScrollFade top0 default"
+              />
+              <div
+                className="scrollContent"
+              >
+                <div
+                  className="conditionsWidgetColData"
+                >
+                  <ConditionPlate
+                    date="2022-02-16T00:00:00Z"
+                    isCurrent={true}
+                    key="Pneumonia"
+                    title="Pneumonia"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIconCurrent"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="current-conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Pneumonia
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        >
+                          2/16/2022
+                        </span>
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    date="2019-05-28T00:00:00Z"
+                    isCurrent={true}
+                    key="Chronic sinusitis"
+                    title="Chronic sinusitis"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIconCurrent"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="current-conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Chronic sinusitis
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        >
+                          5/28/2019
+                        </span>
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    isCurrent={true}
+                    key="Diabetes mellitus, type II"
+                    title="Diabetes mellitus, type II"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIconCurrent"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="current-conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Diabetes mellitus, type II
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        />
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    isCurrent={true}
+                    key="Osteoarthritis"
+                    title="Osteoarthritis"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIconCurrent"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="current-conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Osteoarthritis
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        />
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                </div>
+              </div>
+              <div
+                className="bottomScrollFade bottom0 default"
+              />
+            </div>
+          </FadedScroll>
+        </div>
+      </div>
+    </ConditionsWidgetCol>
+    <ConditionsWidgetCol
+      conditions={
+        Array [
+          Object {
+            "date": "2022-02-11T00:00:00Z",
+            "title": "Pneumonia",
+          },
+          Object {
+            "date": "2022-02-01T00:00:00Z",
+            "title": "Dehydration",
+          },
+          Object {
+            "date": "2021-12-23T00:00:00Z",
+            "title": "Myocardial infarction (STEMI)",
+          },
+          Object {
+            "title": "Hypertension associated with diabetes (HCC)",
+          },
+          Object {
+            "title": "Kidney stones",
+          },
+        ]
+      }
+      isCurrent={false}
+      title="Previous Health Conditions"
+    >
+      <div
+        className="conditionsWidgetCol"
+      >
+        <div>
+          <h2
+            className="conditionsWidgetColTitle"
+          >
+            Previous Health Conditions
+          </h2>
+        </div>
+        <div
+          className="conditionsWidgetColContent"
+        >
+          <FadedScroll
+            height="100%"
+          >
+            <div
+              className="scrollWrapper"
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            >
+              <div
+                className="topScrollFade top0 default"
+              />
+              <div
+                className="scrollContent"
+              >
+                <div
+                  className="conditionsWidgetColData"
+                >
+                  <ConditionPlate
+                    date="2022-02-11T00:00:00Z"
+                    isCurrent={false}
+                    key="Pneumonia"
+                    title="Pneumonia"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIcon"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Pneumonia
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        >
+                          2/11/2022
+                        </span>
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    date="2022-02-01T00:00:00Z"
+                    isCurrent={false}
+                    key="Dehydration"
+                    title="Dehydration"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIcon"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Dehydration
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        >
+                          2/1/2022
+                        </span>
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    date="2021-12-23T00:00:00Z"
+                    isCurrent={false}
+                    key="Myocardial infarction (STEMI)"
+                    title="Myocardial infarction (STEMI)"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIcon"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Myocardial infarction (STEMI)
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        >
+                          12/23/2021
+                        </span>
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    isCurrent={false}
+                    key="Hypertension associated with diabetes (HCC)"
+                    title="Hypertension associated with diabetes (HCC)"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIcon"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Hypertension associated with diabetes (HCC)
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        />
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                  <ConditionPlate
+                    isCurrent={false}
+                    key="Kidney stones"
+                    title="Kidney stones"
+                  >
+                    <div
+                      className="conditionPlate"
+                    >
+                      <div
+                        className="conditionPlateIcon"
+                      >
+                        <img
+                          alt="conditions icon"
+                          src="conditions-icon.svg"
+                        />
+                      </div>
+                      <div
+                        className="conditionPlateData"
+                      >
+                        <h2
+                          className="conditionPlateDataName"
+                        >
+                          Kidney stones
+                        </h2>
+                        <span
+                          className="conditionPlateDataDate"
+                        />
+                      </div>
+                    </div>
+                  </ConditionPlate>
+                </div>
+              </div>
+              <div
+                className="bottomScrollFade bottom0 default"
+              />
+            </div>
+          </FadedScroll>
+        </div>
+      </div>
+    </ConditionsWidgetCol>
+  </div>
+</ConditionsWidget>
+`;
+
+exports[`HealthConditionsWidget no conditions widget should match to snapshot 1`] = `
+<WidgetNoData
+  align="top"
+  icon={
+    <img
+      alt="no conditions"
+      src="current-conditions-icon.svg"
+    />
+  }
+  title="No Current Health Conditions"
+  view="magenta"
+/>
+`;

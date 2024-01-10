@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewPatients should match snapshot 1`] = `
+<Row
+  className="newPatientsRow"
+>
+  <span
+    className="newPatientsRowContainer"
+  >
+    <img
+      alt="new patients icon"
+      src="new-patients-magenta.svg"
+    />
+    <span
+      className="newPatientsRowCount"
+    >
+      5
+    </span>
+    <span
+      className="newPatientsRowLabel"
+    >
+      New Patients
+    </span>
+  </span>
+</Row>
+`;

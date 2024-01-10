@@ -1,0 +1,210 @@
+{% set initWebUserSuccess = initWebUser() %}
+{% set patientUser = craft.app.patient_user.identity %}
+{% set appointmentServices = getSchedulableServicesForPhysician(entry) %}
+{% set appointmentServiceIds = appointmentServices | map(s => s.id) %}
+{% set serviceDoctorName = getServiceDoctorName(appointmentServiceIds) %}
+{% set isPrimaryCare = determineIfAdditionalPromptNeeded(appointmentServiceIds, 'primaryCareServices') %}
+{% set isVeinClinic = determineIfAdditionalPromptNeeded(appointmentServiceIds, 'vascularSurgery')%}
+{% set isDermatology = determineIfAdditionalPromptNeeded(appointmentServiceIds, 'dermatologyServices')%}
+{% set shouldAskIfPregnant = determineIfAdditionalPromptNeeded(appointmentServiceIds, 'obstetricsGynecologyServices') %}
+{% set canScheduleOnline = initWebUserSuccess and appointmentServices | length > 0 and entry.allowsOnlineScheduling %}
+{% set schedulingDisabledGlobally = craft.app.globals().getSetByHandle('generalSiteConfig').schedulingLoginRedirectUrl is not empty %}
+
+<div class="next-available-appointments-container">
+	<div class="sticky-container">
+		{% if patientUser and canScheduleOnline and not schedulingDisabledGlobally %}
+			<div class="appointments-module">
+				<span class="title">{{ "Next Available Appointments"|t }}</span>
+				{# Show only if physician has more than one schedulable service #}
+				<div class="select-service-prompt {{ appointmentServiceIds | length <= 1 ? 'hidden' : '' }}">
+					<span class="question additional-question">{{ "Which service would you like to schedule?"|t }}</span>
+					<div class="ctas">
+						{% for service in appointmentServices %}
+							{% if loop.index <= 3 %}
+								<button data-service-id="{{ service.id }}" class="action-button dmgButton tertiary3">{{ service.title }}</button>
+								{% if service.allowFollowUpVisits %}
+									<input type="hidden" data-service-id="{{ service.id }}" name="follow-up-allowed">
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="new-patient-prompt {{ appointmentServiceIds | length > 1 ? 'hidden' : '' }}">
+					{# serviceDoctorName comes back null if there is more than one service assigned to the physician #}
+					{% if serviceDoctorName is null %}
+						{% set serviceDoctorName = "provider in this specialty"|t %}
+					{% endif %}
+					<span class="question">{{ "Have you seen a {siteNameShort} {serviceDoctorName} before?"|t(params={
+							serviceDoctorName: serviceDoctorName,
+							siteNameShort: siteNameShort
+						}) }}</span>
+					<p class="three-years">{{ "within the last three (3) years"|t }}</p>
+					<div class="ctas">
+						<button id="established-patient-appointment" class="action-button dmgButton tertiary3">{{ "Yes"|t }}</button>
+						<button id="new-patient-appointment" class="action-button dmgButton tertiary3">{{ "No"|t }}</button>
+					</div>
+				</div>
+
+				<div class="follow-up-visit-prompt hidden">
+					<span class="question additional-question">{{ "Is this appointment for an annual physical?"|t }}</span>
+					<div class="ctas">
+						<button id="follow-up-visit" class="action-button dmgButton tertiary3">{{ "Yes"|t }}</button>
+						<button id="not-follow-up-visit" class="action-button dmgButton tertiary3">{{ "No"|t }}</button>
+					</div>
+				</div>
+
+				{% if isPrimaryCare %}
+					<div class="hospital-followup-prompt hidden">
+						<span class="question additional-question">{{ "Is this for a hospital stay follow-up?"|t }}</span>
+						<div class="ctas">
+							<button id="hospital-follow-up-visit" class="action-button dmgButton tertiary3">{{ "Yes"|t }}</button>
+							<button id="not-hospital-follow-up-visit" class="action-button dmgButton tertiary3">{{ "No"|t }}</button>
+						</div>
+					</div>
+
+					<div class="hospital-followup-disclaimer hidden">
+						<span class="question">{{ "Please schedule your Hospital Follow-Up visit within seven (7) days of your discharge date."|t }}</span>
+						<span class="subtext">{{ "If you are unable to find an appointment time that works for you within seven days, please call your provider’s office to schedule your appointment."|t }}</span>
+						<div class="ctas">
+							<button id="confirm-disclaimer" class="action-button dmgButton tertiary3">{{ "I understand"|t }}</button>
+						</div>
+					</div>
+				{% endif %}
+
+				{% if isVeinClinic %}
+					<div class="vein-clinic-prompt hidden">
+						<span class="question additional-question">{{ "Is this for a Vein Clinic appointment?"|t }}</span>
+						<div class="ctas">
+							<button id="vein-clinic-visit" class="action-button dmgButton tertiary3">{{ "Yes"|t }}</button>
+							<button id="not-vein-clinic-visit" class="action-button dmgButton tertiary3">{{ "No"|t }}</button>
+						</div>
+					</div>
+				{% endif %}
+
+				{% if isDermatology %}
+					<div class="full-body-skin-exam-prompt hidden">
+						<span class="question additional-question">{{ "Is this for a full-body skin exam?"|t }}</span>
+						<div class="ctas">
+							<button id="full-body-skin-exam-visit" class="action-button dmgButton tertiary3">{{ "Yes"|t }}</button>
+							<button id="not-full-body-skin-exam-visit" class="action-button dmgButton tertiary3">{{ "No"|t }}</button>
+						</div>
+					</div>
+				{% endif %}
+
+				{% if shouldAskIfPregnant %}
+					<div class="ask-if-pregnant-prompt hidden">
+						<span class="question">{{ "Are you pregnant?"|t }}</span>
+						<div class="ctas">
+							<button id="patient-is-pregnant" class="action-button dmgButton tertiary3">{{ "Yes"|t }}</button>
+							<button id="patient-is-not-pregnant" class="action-button dmgButton tertiary3">{{ "No"|t }}</button>
+						</div>
+					</div>
+
+					<div class="last-menstrual-cycle-prompt hidden">
+						<span class="question">{{ "What was the first date of your last menstrual cycle?"|t }}</span>
+
+						<div class="form-fields">
+							{% include "_input/_input.twig" with {
+								type: 'menstrual-cycle-month',
+								name: 'last_menstrual_cycle_month',
+								label: "Month"|t,
+								extraOptions: {
+									required: "required",
+									pattern: "\\d*",
+									inputmode: "numeric",
+									maxlength: "2",
+									placeholder: "MM"
+								}
+							} only %}
+
+							{% include "_input/_input.twig" with {
+								type: 'menstrual-cycle-day',
+								name: 'last_menstrual_cycle_day',
+								label: "Day"|t,
+								extraOptions: {
+									required: "required",
+									pattern: "\\d*",
+									inputmode: "numeric",
+									maxlength: "2",
+									placeholder: "DD"
+								}
+							} only %}
+
+							{% include "_input/_input.twig" with {
+								type: 'menstrual-cycle-year',
+								name: 'last_menstrual_cycle_year',
+								label: "Year"|t,
+								extraOptions: {
+									required: "required",
+									pattern: "\\d*",
+									inputmode: "numeric",
+									maxlength: "4",
+									placeholder: "YYYY"
+								}
+							} only %}
+						</div>
+
+						<div class="future-date-error hidden">
+							<span class="material-icons warning"></span>
+							<p class="error">{{ "Cannot be a future date."|t }}</p>
+						</div>
+
+						<div class="ctas">
+							<button id="submit-last-menstrual-date" disabled class="action-button dmgButton tertiary3">{{ "Submit"|t }}</button>
+						</div>
+					</div>
+
+					<div class="pregnancy-congrats-message hidden">
+						<span class="question">{{ "Congratulations on your pregnancy!"|t }}</span>
+						<span class="question subtext">{{ "We need additional information to schedule your appointment. Please call "|t }} 
+							<a href="tel:630-469-9200">{{ "1-630-469-9200" }}</a>
+							{{ " to speak with an associate."|t }}
+						</span>
+					</div>
+				{% endif %}
+
+				<section class="content select-appointment-content hidden">
+					<div id="dateAndTimePickerContainer">
+						{% include "_scheduling/select-appointment/_date-and-time-picker.twig" with {
+							daysInASlice: 5,
+							nextStepCTATitle: "Schedule Appointment"|t,
+							fixedCta: false
+						} %}
+					</div>
+					<div id="recommendedProvidersContainer">
+						<div id="recommendedBackArrow">
+							<span class="material-icons">arrow_back_ios</span>
+						</div>
+						{% include '_scheduling/select-appointment/_recommended-physicians.twig' with {
+							collapsed: false,
+							title: ' '
+						} %}
+						<div id="recommendedScheduleCta" class="cta-form">
+							<button disabled="" name="continue" value="continue" class="dmgButton primary1" type="submit" id="continue">
+								<i class="cta fa fa-spinner fa-spin hidden"></i>
+								<div class="cta">
+									Schedule Appointment
+								</div>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		<button id="showRecommended" class="dmgButton secondary3 hidden">
+			<div class="cta">{{ "Show providers with availability sooner" }}</div>
+		</button>
+		<div class="locations-list-grid">
+			<div class="locations-container">
+				<h4>{{ headerText|default("Locations")|t }}</h4>
+				<div class="locations">
+					{% for office in locations %}
+						{% include "_locations/_single-location-module.twig" %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input id="csrf-token" type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">

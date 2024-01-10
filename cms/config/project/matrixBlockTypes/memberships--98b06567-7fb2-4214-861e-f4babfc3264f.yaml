@@ -1,0 +1,8 @@
+field: 6007e2e7-4a7c-4cdb-a850-7fa61b93892b
+fieldLayouts:
+    d652153d-9f8f-4112-9bf6-49c8494767d6: { tabs: [{ elements: [{ fieldUid: bdacea57-5617-49c1-b011-334b6b8e0974, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    bdacea57-5617-49c1-b011-334b6b8e0974: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: membershipName, instructions: '', name: 'Membership Name', searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: 'American Academy of Family Physicians', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: memberships
+name: Memberships
+sortOrder: 1

@@ -1,0 +1,28 @@
+{% set totalRegistrantsForEvent = getRegistrantsCountForEventByLocationAndTime(event, location, date(date)) %}
+{% set capacity = location.capacity ?? constant('PHP_INT_MAX')  %}
+
+{% if location.onlineRegistrations == true and event.startDate >= date() %}
+    <button class="register dmgButton secondary3" {% if totalRegistrantsForEvent >= capacity %} disabled{% endif %}>
+        {% if totalRegistrantsForEvent >= capacity %}
+            {{ "Event Full"|t }}
+        {% else %}
+            {{ "Register"|t }}
+        {% endif %}
+    </button>
+{% endif %}
+
+{% if totalRegistrantsForEvent < capacity %}
+    {% if location.phoneRegistrations == true and location.phoneNumber.number is defined and event.startDate >= date() %}
+        <div class="phone-registration">
+            {% set numberHtml %}
+                {% include '_widgets/phoneNumberLink.twig' with { number: location.phoneNumber } only %}
+            {% endset %}
+            {{ "{or} {register} {phone}"|t(params = {
+                    or: location.onlineRegistrations == true ? tag('div', { class: 'phone-line', text: "or"|t })|raw : '',
+                    register: tag('div', { class: 'phone-line', text: "Register by Phone"|t })|raw,
+                    phone: tag('div', { class: 'phone-line', html: numberHtml })|raw
+                })|raw
+            }}
+        </div>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,10 @@
+fieldLayouts:
+    ce947b50-832d-45d9-bcb8-ab1de84ad8de: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: '', max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 1cc66f43-3ce2-4f2f-bcbb-099367bd739f, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: b1a5d5d1-cee7-4b5c-ad37-ed7e1377838d, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: 'Health Topics', sortOrder: 1 }] }
+handle: healthTopics
+hasTitleField: false
+name: 'Health Topics Overview'
+section: 69e3f59a-771f-49e5-ae72-3d4cf6ce1fa6
+sortOrder: 1
+titleFormat: '{section.name|raw}'
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

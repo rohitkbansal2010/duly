@@ -1,0 +1,79 @@
+{# If the entry isn't found, throw a 404 #}
+{% if entry is not defined or entry is null %}
+    {% exit 404 %}
+{% endif %}
+
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% set contentTitle = null %}
+{% if entry.customSeoMetaTitle is not null %}
+    {% set contentTitle = entry.customSeoMetaTitle %}
+{% else %}
+    {% set contentTitle = entry.title %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% set specialties = entry.physicianSpeciality | filter (v => v.type != "ancillaryServices") | sort((a, b) => a.title > b.title) | join(', ') %}
+{% set locations = sortLocationsByCity(entry) %}
+{% set physicalLocations = getPhysicianLocations(entry) %}
+{% set practicingLocations = physicalLocations.getModels() | map(m => "#{m.city}" ) | unique | join(', ') %}
+{% set ageSeen = entry.ageRestrictions.one %}
+{% set seesAllAges = false %}
+
+{% if ageSeen.minimumAge <= 12 and ageSeen.maximumAge <= 12 %}
+    {% set typeSeen = "Children"|t %}
+{% elseif ageSeen.minimumAge >= 13 and ageSeen.maximumAge <= 17 %}
+    {% set typeSeen = "Adolescents"|t %}
+{% elseif ageSeen.minimumAge <= 17 and ageSeen.maximumAge <= 17 %}
+    {% set typeSeen = "Children and Adolescents"|t %}
+{% elseif ageSeen.minimumAge >= 18 and ageSeen.maximumAge <= 999 %}
+    {% set typeSeen = "Adults"|t %}
+{% elseif ageSeen.minimumAge >= 13 and ageSeen.maximumAge <= 999 %}
+    {% set typeSeen = "Adolescents and Adults"|t %}
+{% else %}
+    {% set typeSeen = "Children and Adolescents and Adults"|t %}
+    {% set seesAllAges = true %}
+{% endif %}
+
+{% set typeOfPhysician = entry.type %}
+
+{# Physicians is the only plural entry type. If present, make singular #}
+{% if typeOfPhysician == "physicians" %}
+    {% set typeOfPhysician = "physician" %}
+{% endif %}
+
+{% set contentSummary = "{physician} is a {specialties} {drType} with {siteName}, seeing {patientTypes} in {cities}."|t(params = 
+    {   physician: entry.title, 
+        specialties: specialties,
+        patientTypes: typeSeen,
+        cities: practicingLocations,
+        drType: typeOfPhysician,
+        siteName: siteName
+    })|raw 
+%}
+
+{% if entry.customSeoMetaDescription is not null %}
+    {% set contentSummary = entry.customSeoMetaDescription %}
+{% endif %}
+
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        entry: entry,
+		heroImage: entry.physicianHeadshot.one,
+        cacheKey: 'physician-details-' ~ entry,
+        contentTitle: contentTitle,
+		contentSummary: contentSummary,
+        skipTagStrip: true
+    } only %}
+{% endblock %}  
+
+{% block bodyClass "physician-page only-list" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    {% include "_modals/_login-modal.twig" %}
+	{% include "_physicians/single/_physician-single.twig" %}
+{% endblock %}

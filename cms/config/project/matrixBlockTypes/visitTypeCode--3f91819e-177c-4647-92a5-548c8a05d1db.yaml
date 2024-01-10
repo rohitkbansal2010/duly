@@ -1,0 +1,9 @@
+field: 78ec4973-24dc-400f-ba2a-780020906e38
+fieldLayouts:
+    1a8580e6-5228-4b4b-ad83-d3e49de50b94: { tabs: [{ elements: [{ fieldUid: 11b4a365-cb98-4bb8-8077-85d16bcae3e6, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 779bb124-3132-49b9-aad9-52929a16a797, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    11b4a365-cb98-4bb8-8077-85d16bcae3e6: { columnSuffix: null, contentColumnType: integer(10), fieldGroup: null, handle: code, instructions: '', name: Code, searchable: true, settings: { decimals: 0, defaultValue: null, max: null, min: 0, prefix: null, previewCurrency: '', previewFormat: none, size: null, suffix: null }, translationKeyFormat: null, translationMethod: none, type: craft\fields\Number }
+    779bb124-3132-49b9-aad9-52929a16a797: { columnSuffix: null, contentColumnType: string, fieldGroup: null, handle: services, instructions: '', name: Services, searchable: true, settings: { allowSelfRelations: false, limit: '', localizeRelations: false, selectionLabel: '', showSiteMenu: true, source: null, sources: ['section:e3299412-d9c2-4679-9fad-64e72b3c5a42'], targetSiteId: null, validateRelatedElements: false, viewMode: null }, translationKeyFormat: null, translationMethod: site, type: craft\fields\Entries }
+handle: visitTypeCode
+name: 'Visit Type Code'
+sortOrder: 1

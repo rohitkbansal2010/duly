@@ -1,0 +1,7 @@
+{% if userLat is defined and userLat is not null and userLng is defined and userLng is not null %}
+    <span class="distance"> 
+        <span class="miles">
+            {{ "Distance"|t }}: {{ getUserDistance(userLng, userLat, location.address.lng, location.address.lat)|number_format(1) }} {{ " Miles Away"|t }}
+        </span> 
+    </span>
+{% endif %}

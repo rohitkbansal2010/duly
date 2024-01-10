@@ -1,0 +1,18 @@
+handle: needCareNavigation
+instructions: 'Need care drop down navigation. Use the pipe | to divide the title and the description text.'
+maxNodes: ''
+name: 'Need Care Navigation'
+permissions:
+    craft\elements\Asset: { enabled: '1', permissions: '*' }
+    craft\elements\Category: { enabled: '1', permissions: '*' }
+    craft\elements\Entry: { enabled: '1', permissions: '*' }
+    craft\elements\Tag: { enabled: '', permissions: '*' }
+    custom: { enabled: '1' }
+    verbb\navigation\nodetypes\PassiveType: { enabled: '1' }
+propagateNodes: false
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: null
+sortOrder: 8
+structure:
+    maxLevels: '2'
+    uid: 35b1d0bd-a47e-4a86-a6cb-3e85274bcc4a

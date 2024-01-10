@@ -1,0 +1,19 @@
+columnSuffix: srdlpgpq
+contentColumnType: text
+fieldGroup: 2100fbc6-d68d-4185-8504-3ff4680dee28
+handle: clearstepUrl
+instructions: 'The URL the user will be navigated to after clicking the "Check your symptoms" CTA in the floating "Don''t know where to start?" tooltip, and the "Check Symptoms" CTA on the /schedule landing page'
+name: 'Clearstep URL'
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

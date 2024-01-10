@@ -1,0 +1,55 @@
+{% cache %}
+{% set isServiceSleepMedicine = entry.type == "sleepCenterSleepMedicine" %}
+{% if isServiceSleepMedicine %}
+    {% set sleepCenterLocations = entry.sleepCenterLocations.ids() | map(v => v|number_format) %}
+    {% set sleepCenterSleepMedicineLocations = entry.sleepCenterSleepMedicineLocations.ids() | map(v => v|number_format) %}
+{% endif %}
+
+{% if locations|length %}
+    <div class="locations-container">
+        <h3>{{ "Locations"|t }}</h3>
+        <hr>
+        <div class="locations">
+            {% for office in locations %}
+                {% set location = office.getParent() ?? office %}
+                {% set physicalAddress = location.address.parts %}
+
+                {% if location.hiddenLocation != '1' %}
+                    <div class="location">
+                        <div class="location-icon">
+                            <img src="/dist/img/icons/location-new.svg" alt="location icon" />
+                        </div>
+                        <div class="address">
+                            {% set url = location.getUrl() ~ "?referrer=" ~ entry.id %}
+                            
+                            <a href="{{ url }}" class="single-location-link">
+                                <p class="area">{{ physicalAddress.city }}</p>
+                                {% if isServiceSleepMedicine %}
+                                    {% set isASleepCenterLocation = office.id|number_format in sleepCenterLocations %}
+                                    {% set isASleepCenterSleepMedicineLocation = office.id|number_format in sleepCenterSleepMedicineLocations %}
+                                    {% if isASleepCenterLocation %}
+                                        <p class="sleepServiceLocation"> {{ "Sleep Center"|t }}</p>
+                                    {% endif %}
+                                    {% if isASleepCenterSleepMedicineLocation %}
+                                        <p class="sleepServiceLocation">{{ "Sleep Center & Sleep Medicine"|t }}</p>
+                                    {% endif %}
+                                {% endif %}
+                                <p class="address-one">{{ physicalAddress.number }} {{ physicalAddress.address }}</p>
+                                <p class="city">{{ physicalAddress.city }}, {{ physicalAddress.state }} {{ physicalAddress.postcode }}</p>
+                            </a>
+
+                            {% set serviceSuiteDetails = getServiceSuiteDetails(office.id, entry.id) %}
+                            {% if serviceSuiteDetails is not empty %}
+                                {% if serviceSuiteDetails.phoneNumber is not empty %}
+                                    {% include '_widgets/phoneNumberLink.twig' with { number: serviceSuiteDetails.phoneNumber } only %}
+                                {% endif %}
+                                {% include '_services/_details/_content/_location-details.twig' %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+{% endcache %}

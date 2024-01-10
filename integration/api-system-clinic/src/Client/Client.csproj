@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Authors>Duly Health and Care</Authors>
+    <Company>Duly Health and Care</Company>
+    <Product>Duly Health and Care Clinic Integration Api Client</Product>
+    <Copyright>Copyright (c) Duly Health and Care</Copyright>
+   
+    <AssemblyName>Duly.Clinic.Api.Client</AssemblyName>
+    <RootNamespace>Duly.Clinic.Api.Client</RootNamespace>
+
+    <Version>1.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+
+    <LangVersion>9</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Duly.Common.CodeAnalysis" Version="21.11.110.1-dev">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+ </ItemGroup>
+  
+  <PropertyGroup>
+    <!-- Exclude the project from analysis -->
+    <SonarQubeExclude>true</SonarQubeExclude>
+  </PropertyGroup>
+  
+</Project>

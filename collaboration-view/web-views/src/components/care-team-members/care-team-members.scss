@@ -1,0 +1,41 @@
+@import "~@styles/colors.scss";
+
+@keyframes slide-right {
+  from {
+    margin-right: 80%;
+    overflow: hidden;
+  }
+
+  to {
+    margin-right: 0%;
+    overflow: hidden;
+  }
+}
+
+.careTeamMembers {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: 0.5s ease;
+
+  &Visible {
+    opacity: 1;
+  }
+
+  &Wrapper {
+    max-width: 0rem;
+    height: 100%;
+    padding: 2rem;
+    background-color: $white;
+    border-radius: 4.13rem 0 4.13rem 0;
+    box-shadow: 0 0 0.06rem convertToRGBA($dark-gray, 0.06),
+      0 0.63rem 0.94rem -0.2rem convertToRGBA($dark-gray, 0.1),
+      0 0.25rem 0.38rem -0.13rem convertToRGBA($dark-gray, 0.05);
+
+    &Animation {
+      max-width: 100%;
+      animation-name: slide-right;
+      animation-duration: 0.5s;
+    }
+  }
+}

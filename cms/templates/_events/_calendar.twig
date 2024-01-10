@@ -1,0 +1,13 @@
+<div class="calendar-widget">
+    <div class="day">
+        {{ event.startDate.isoFormat('dddd') }}
+    </div>
+    <div class="month-day">
+        <div class="month">
+            {{ event.startDate.formatLocalized('%b') | upper }}
+        </div>
+        <div class="numeric-day">
+            {{ event.startDate.isoFormat('D') }}
+        </div>
+    </div>
+</div>

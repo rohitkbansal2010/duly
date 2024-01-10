@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 59d569da-1526-45bb-bd4c-883ccf638fd3
+handle: showRelatedContent
+instructions: 'Enable to show related content from the manually specified content or from the primary category. Disable to hide related content.'
+name: 'Show Related Content'
+searchable: true
+settings:
+    default: true
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

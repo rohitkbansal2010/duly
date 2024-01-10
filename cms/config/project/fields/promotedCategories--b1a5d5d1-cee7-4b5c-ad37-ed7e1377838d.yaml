@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 9d2b0cf4-8930-4e23-a498-cc8eac920e8e
+handle: promotedCategories
+instructions: 'Select the health topic categories you would like to promote on the health topics page.'
+name: 'Promoted Categories'
+searchable: false
+settings:
+    contentTable: '{{%matrixcontent_promotedcategories}}'
+    maxBlocks: ''
+    minBlocks: ''
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

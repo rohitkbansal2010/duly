@@ -1,0 +1,24 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: professionalCertifications
+instructions: ''
+name: 'Professional Certifications'
+searchable: false
+settings:
+    allowLimit: false
+    allowMultipleSources: false
+    allowSelfRelations: false
+    branchLimit: ''
+    limit: null
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: 'group:f5bd7221-b1b4-4e73-84c0-8dabede8546a'
+    sources: '*'
+    targetSiteId: null
+    validateRelatedElements: true
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Categories

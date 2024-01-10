@@ -1,0 +1,15 @@
+[Unit]
+Description=Craft 3 Queue Service
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+ExecStart=/usr/bin/nice -n 10 /usr/bin/php /var/www/craft queue/listen --verbose
+Restart=always
+PrivateTmp=true
+NoNewPrivileges=true
+TimeoutStopSec=30s
+
+[Install]
+WantedBy=multi-user.target

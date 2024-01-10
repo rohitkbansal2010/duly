@@ -1,0 +1,17 @@
+<div class="resources">
+	<div class="innerContent">
+		{% for resource in resources %}
+			<div class="resource-group">
+				<div class="title">{{resource.groupTitle}}</div>
+				<div class="links">
+					{% for link in resource.resources %}
+						<a href="{{link.url ?? link.linkUrl}}" class="link">
+							<span class="label">{{link}}</span>
+							<span class="material-icons">keyboard_arrow_right</span>
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>

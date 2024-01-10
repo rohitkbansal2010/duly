@@ -1,0 +1,11 @@
+{{- if .Values.azureAADPodIdentity.enabled }}
+apiVersion: aadpodidentity.k8s.io/v1
+kind: AzureIdentityBinding
+metadata:
+  name: {{ .Values.azureAADPodIdentity.aadPodIdName }}-binding
+  labels:
+    {{- include "webapi.labels" . | nindent 4 }}
+spec:
+  azureIdentity: {{ include "webapi.fullname" . }}
+  selector: {{ include "webapi.fullname" . }}
+{{- end }}

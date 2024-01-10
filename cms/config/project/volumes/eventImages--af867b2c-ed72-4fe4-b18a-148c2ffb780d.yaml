@@ -1,0 +1,17 @@
+fieldLayouts:
+    2b8415b2-28e6-4d5c-9441-3519e1693909: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }, { fieldUid: 3764ef78-f7e2-4e83-a88f-db0c6111c2c5, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: eventImages
+hasUrls: true
+name: 'Event Images'
+settings:
+    accountKey: $AZURE_STORAGE_ACCOUNT_KEY
+    accountName: $AZURE_STORAGE_ACCOUNT_NAME
+    azureStorageType: blob
+    blobEndpoint: ''
+    containerName: $AZURE_STORAGE_CONTAINER_NAME
+    subfolder: event-images
+sortOrder: 3
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+type: shennyg\azureblobremotevolume\AzureVolume
+url: '@assetBaseUrl'

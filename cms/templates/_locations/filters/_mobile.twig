@@ -1,0 +1,218 @@
+
+{% set physicianLocationCities = craft.entries({
+	section: 'locations'
+}).all() | group('address.parts.city') | keys | filter (v => v != "") | sort((a, b) => a > b) %}
+
+{% if hideSpecialtiesFilter is not defined or not hideSpecialtiesFilter %}
+	<div class="filter-entry services-container">
+		<div class="filter-label">
+			<p class="label-text" tabindex="0">{{ "Specialties"|t }}
+				<span class="count"></span>
+			</p>
+			<i class="material-icons close hidden"></i>
+			<i class="material-icons keyboard_arrow_down"></i>
+		</div>
+
+		<div class="dropdown">
+			{% for service in services %}
+				{% set subspecialties = craft.entries({
+					section: 'services',
+					orderBy: 'title ASC',
+					descendantOf: service.id
+				}).all() %}
+
+				{% set label = service.title %}
+				{% set hasSubSpecialties = subspecialties is not null and subspecialties|length %}
+
+				{% if hasSubSpecialties %} 
+					<div class='checkbox-container service-checkbox parent-service' data-service-id="{{ service.id }}">
+						{% include "_input/_checkbox.twig" with {
+							name: 'service-checkbox',
+							class: 'service-filter',
+							id: 'mobile-service-' ~ titleize(service.slug),
+							tabindex: 0,
+							label: label
+						} only %}
+					</div>
+				{% else %}
+					<div class='checkbox-container service-checkbox'>
+						{% include "_input/_checkbox.twig" with {
+							name: 'service-checkbox',
+							class: 'service-filter',
+							id: 'mobile-service-' ~ titleize(service.slug),
+							tabindex: 0,
+							label: label
+						} only %}
+					</div>
+				{% endif %}
+
+				{% if subspecialties is not null %}
+					{% for subservice in subspecialties %}
+						<div class="checkbox-container service-checkbox subservice" data-service-id="{{ service.id }}">
+							{% include "_input/_checkbox.twig" with {
+								name: 'service-checkbox',
+								class: 'mobile-service-filter',
+								id: 'mobile-service-' ~ titleize(subservice.slug),
+								tabindex: 0,
+								label: subservice.title
+							} only %} 
+						</div> 
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="filter-entry care-container">
+		<div class="filter-label">
+			<p class="label-text" tabindex="0">{{ "Convenient Care"|t }}
+				<span class="count"></span>
+			</p>
+			<i class="material-icons close hidden"></i>
+			<i class="material-icons keyboard_arrow_down"></i>
+		</div>
+
+		<div class="dropdown">
+			{% for care in careTypes %}
+				<div class="checkbox-container care-checkbox">
+					{% set label = care %}
+					{% include "_input/_checkbox.twig" with {
+						name: 'care-checkbox',
+						class: 'care-filter',
+						id: 'mobile-care-' ~ titleize(care),
+						tabindex: 0,
+						label: label
+					} only %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<hr>
+{% endif %}
+
+<div class="filter-entry laboratory-services-container">
+	<div class="filter-label">
+		<p class="label-text" tabindex="0">{{ "Laboratory Services"|t }}
+			<span class="count"></span>
+		</p>
+		<i class="material-icons close hidden"></i>
+		<i class="material-icons keyboard_arrow_down"></i>
+		<div>
+			<div class="mdc-form-field" id="labServCheckboxContainer">
+				<div class="mdc-checkbox">
+					<input type="checkbox"
+						class="mdc-checkbox__native-control"
+						id="labServCheckbox"/>
+					<div class="mdc-checkbox__background">
+						<svg class="mdc-checkbox__checkmark"
+							viewBox="0 0 24 24">
+							<path class="mdc-checkbox__checkmark-path"
+								fill="none"
+								d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+						</svg>
+						<div class="mdc-checkbox__mixedmark"></div>
+					</div>
+					<div class="mdc-checkbox__ripple"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<hr>
+
+<div class="filter-entry cities-container">
+	<div class="filter-label">
+		<p class="label-text" tabindex="0">{{ "City"|t }}
+			<span class="count"></span>
+		</p>
+		<i class="material-icons close hidden"></i>
+		<i class="material-icons keyboard_arrow_down"></i>
+	</div>
+
+	<div class="dropdown">
+		{% for physicianLocationCity in physicianLocationCities %}
+			<div class="checkbox-container city-checkbox">
+				{% set label = physicianLocationCity %}
+				{% include "_input/_checkbox.twig" with {
+                    name: 'city-checkbox',
+                    class: 'city-filter',
+                    id: 'mobile-city-' ~ titleize(physicianLocationCity), 
+                    tabindex: 0,
+                    label: label
+                } only %}
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<hr class="open-now-divider">
+
+<div class="filter-entry open-now-container hidden">
+	<div class="filter-label">
+		<p class="label-text" tabindex="0">{{ "Open Now"|t }}
+			<span class="count"></span>
+		</p>
+		<i class="material-icons close hidden"></i>
+		<i class="material-icons keyboard_arrow_down"></i>
+		<div>
+			<div class="mdc-form-field" id="openNowCheckboxContainer">
+				<div class="mdc-checkbox">
+					<input type="checkbox"
+						class="mdc-checkbox__native-control"
+						id="openNowCheckbox"/>
+					<div class="mdc-checkbox__background">
+						<svg class="mdc-checkbox__checkmark"
+							viewBox="0 0 24 24">
+							<path class="mdc-checkbox__checkmark-path"
+								fill="none"
+								d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+						</svg>
+						<div class="mdc-checkbox__mixedmark"></div>
+					</div>
+					<div class="mdc-checkbox__ripple"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<hr>
+
+<div class="filter-entry distance-container">
+	<div class="filter-label">
+		<p class="label-text" tabindex="0">{{ "Distance"|t }}
+			<span class="count"></span>
+		</p>
+		<i class="material-icons close hidden"></i>
+		<i class="material-icons keyboard_arrow_down"></i>
+	</div>
+
+	<div class="dropdown">
+		<div class="radio" tabindex="0">
+			{% include "_input/_radio.twig" with {
+				type: 'radio',
+				name: 'date',
+				id: 'mobile-distance-id-any',
+				checked: false,
+				label: "Any"|t,
+			} only %}
+		</div>
+
+		{% for distance in distances %}
+			{% set number = distance|split(' ')[1] %}
+			<div class="radio" tabindex="0">
+				{% include "_input/_radio.twig" with {
+					type: 'radio',
+					name: 'date',
+					id: 'mobile-distance-id-' ~ number,
+					checked: false,
+					label: distance|t,
+				} only %}
+			</div>
+		{% endfor %}
+	</div>
+</div>

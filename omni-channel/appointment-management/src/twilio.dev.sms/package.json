@@ -1,0 +1,31 @@
+{
+  "name": "sms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "local": "node index.js",
+    "ngrok": "node index.js --type ngrok",
+    "sync": "node index.js --type sync"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@twilio-labs/serverless-api": "^5.4.1",
+    "body-parser": "^1.19.2",
+    "dateformat": "^4.6.3",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "ngrok": "^4.3.1",
+    "public-ip": "^4.0.4",
+    "twilio": "^3.75.1",
+    "twilio-sync": "^3.1.0",
+    "yargs": "^17.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4"
+  }
+}

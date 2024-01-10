@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 407784b6-b881-482c-9d97-a42cb7b42f03
+handle: immediateCareLocationDetails
+instructions: 'Provide statistics that describe location-specific details.'
+name: 'Immediate Care Location Details'
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_immediatecarelocationdetails}}'
+    maxBlocks: '1'
+    minBlocks: '1'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

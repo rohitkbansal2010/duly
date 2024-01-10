@@ -1,0 +1,11 @@
+{% for treatment in treatmentStyles|batch(9) %}
+    <div {% if loop.index > 2 %} class="column hidden"{% else %} class="column" {% endif %}>
+        {% for type in treatment %}
+            {% if type.treatmentDescription is not null %} 
+                <a href="{{ type.url }}">{{ type.title }}</a>
+            {% else %}
+                <p>{{ type.title }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endfor %}

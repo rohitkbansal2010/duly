@@ -1,0 +1,12 @@
+USE  master
+GO
+EXEC sp_configure 'clr enabled', 1;
+RECONFIGURE;
+ 
+GO
+DROP DATABASE IF EXISTS Tests
+GO
+CREATE DATABASE  Tests
+GO
+ALTER DATABASE Tests SET TRUSTWORTHY ON;
+GO

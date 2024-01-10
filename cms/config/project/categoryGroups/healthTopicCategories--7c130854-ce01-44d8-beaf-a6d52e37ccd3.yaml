@@ -1,0 +1,10 @@
+defaultPlacement: end
+fieldLayouts:
+    ba6618a5-124e-4e15-bbb0-aa290b93ada1: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }, { fieldUid: 71684f94-91d6-42bb-943c-58b6a469a8fa, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 37f430c2-9f18-46af-9db1-e46b75a134f8, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: healthTopicCategories
+name: 'Health Topics'
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { hasUrls: true, template: _health-topics/_category, uriFormat: 'health-topics/{slug}' }
+structure:
+    maxLevels: null
+    uid: 11ff8e1c-9f8c-45ce-b693-c1b7db7cc709

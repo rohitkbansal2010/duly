@@ -1,0 +1,40 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block bodyClass "immediate-care" %}
+
+{% set contentTitle = null %}
+{% set contentSummary = entry.contentSummary %}
+
+{% set contentTitle = null %}
+{% if entry.customSeoMetaTitle is not null %}
+    {% set contentTitle = entry.customSeoMetaTitle %}
+{% else %}
+    {% set contentTitle = entry.title %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% if entry.customSeoMetaDescription is not null %}
+    {% set contentSummary = entry.customSeoMetaDescription %}
+{% endif %}
+
+{% block og %}
+	{% include "_layouts/_og.twig" with {
+        entry: entry,
+		heroImage: entry.heroImage.one,
+		contentTitle: contentTitle,
+		contentSummary: contentSummary,
+        cacheKey: 'immediate-care-page'
+    } only %}
+{% endblock %}
+
+{% block main %}
+	{% include "_immediate-care/_hero.twig" %}
+	{% include "_immediate-care/_find-right-care.twig" %}
+	{% include "_immediate-care/_types-of-care.twig" %}
+	{% include "_immediate-care/_conditions-and-testing.twig" %}
+	<div class="pattern-container-bottom"></div>
+{% endblock %}

@@ -1,0 +1,20 @@
+columnSuffix: null
+contentColumnType: integer(10)
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: nationalProviderIdentifier
+instructions: 'Not providing a valid NPI number will result in ratings and comments not being displayed to the user.'
+name: 'National Provider Identifier'
+searchable: false
+settings:
+    decimals: 0
+    defaultValue: -1
+    max: null
+    min: 0
+    prefix: null
+    previewCurrency: ''
+    previewFormat: none
+    size: null
+    suffix: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Number

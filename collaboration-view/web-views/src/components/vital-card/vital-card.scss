@@ -1,0 +1,163 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.todayVitalCard {
+  width: calc(50% - 0.75rem);
+  height: 10.4rem;
+  padding: 1.125rem 0 0.875rem 1.25rem;
+  text-align: left;
+  background-color: $white;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 1.875rem rgba(0, 178, 240, 0.1);
+
+  &:last-child,
+  &:nth-child(7) {
+    margin-bottom: 0;
+  }
+
+  &Icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.75rem;
+    height: 3.75rem;
+    margin-bottom: 0.75rem;
+    border-radius: 50%;
+    @include background-opacity($dupage-light-blue, 0.3);
+  }
+
+  &Icon,
+  &ActiveIcon {
+    & img {
+      object-fit: cover;
+    }
+
+    &BloodPressure {
+      width: 2.4rem;
+      height: 2.02rem;
+    }
+
+    &BloodOxygen {
+      width: 1.66rem;
+      height: 2.75rem;
+    }
+
+    &HeartRate {
+      width: 2.29rem;
+      height: 2.1rem;
+    }
+
+    &Temperature {
+      width: 1.38rem;
+      height: 2.5rem;
+    }
+
+    &RespiratoryRate {
+      width: 2.29rem;
+      height: 2.29rem;
+    }
+
+    &PainLevel {
+      width: 1.16rem;
+      height: 2.06rem;
+    }
+
+    &WeightAndHeight {
+      width: 2.29rem;
+      height: 2.29rem;
+    }
+
+    &BodyMassIndex {
+      width: 2.29rem;
+      height: 2.29rem;
+    }
+  }
+
+  &Title {
+    @include inter-text-default-bold;
+    margin-bottom: 0.25rem;
+    color: $dupage-dark-blue;
+    font-size: var(--font-size-16px-4px);
+  }
+
+  &Measurement,
+  &ActiveMeasurement {
+    color: $dupage-dark-blue;
+
+    &ValueEmpty,
+    &Value {
+      @include nexa-heavy-highlight;
+      font-size: 2rem;
+      line-height: 1.375rem;
+    }
+
+    &ScaleValue,
+    &Unit {
+      @include nexa-heavy-highlight;
+      font-size: 1.25rem;
+      line-height: 1.25rem;
+    }
+
+    &ValueWeightHeight {
+      @include nexa-heavy-highlight;
+      font-size: 1.5rem;
+      line-height: 1.25rem;
+    }
+  }
+
+  &Active {
+    @extend .todayVitalCard;
+    background-color: $dupage-dark-blue;
+
+    &Icon {
+      @extend .todayVitalCardIcon;
+      @include background-opacity($white, 0.7);
+    }
+
+    &Title {
+      @extend .todayVitalCardTitle;
+      color: $white;
+      font-size: var(--font-size-16px-4px) !important;
+    }
+
+    &Measurement,
+    &MeasurementValueEmpty {
+      color: $white;
+    }
+  }
+
+  &Skeleton {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 0.75rem);
+    height: 10.4rem;
+    background: $white;
+    border-radius: 0.5rem;
+
+    &Image {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 3.75rem;
+      height: 3.75rem;
+      margin-top: 1.25rem;
+      margin-left: 1.25rem;
+      background: rgba(0, 165, 223, 0.3);
+      border-radius: 50%;
+
+      img {
+        width: 2rem;
+      }
+    }
+
+    &Loader {
+      position: relative;
+      width: max-content;
+      height: 100%;
+      margin-top: 1.25rem;
+    }
+  }
+}

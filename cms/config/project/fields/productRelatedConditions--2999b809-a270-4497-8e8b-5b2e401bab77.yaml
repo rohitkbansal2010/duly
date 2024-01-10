@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0005db84-4545-45f0-9f3f-f2ba868a0ae6
+handle: productRelatedConditions
+instructions: 'Used to populate the Products list page "categories" filters.'
+name: Conditions
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: false
+    source: null
+    sources: ['section:79924871-8592-4d28-8408-29c212f8246e']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

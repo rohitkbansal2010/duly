@@ -1,0 +1,822 @@
+{
+	"info": {
+		"_postman_id": "1cb776d3-aa79-4210-ad45-0bb8d40b52f9",
+		"name": "Clearstep",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://npd.dupagemedicalgroup.com:448/api/v1/ping",
+					"protocol": "https",
+					"host": [
+						"npd",
+						"dupagemedicalgroup",
+						"com"
+					],
+					"port": "448",
+					"path": [
+						"api",
+						"v1",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Services",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://npd.dupagemedicalgroup.com:448/api/v1/service",
+					"protocol": "https",
+					"host": [
+						"npd",
+						"dupagemedicalgroup",
+						"com"
+					],
+					"port": "448",
+					"path": [
+						"api",
+						"v1",
+						"service"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Services",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://npd.dupagemedicalgroup.com:448/api/v1/service",
+							"protocol": "https",
+							"host": [
+								"npd",
+								"dupagemedicalgroup",
+								"com"
+							],
+							"port": "448",
+							"path": [
+								"api",
+								"v1",
+								"service"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 01 Feb 2022 22:50:53 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Permissions-Policy",
+							"value": "interest-cohort=()"
+						},
+						{
+							"key": "X-Pagination-Total-Count",
+							"value": "42"
+						},
+						{
+							"key": "X-Pagination-Page-Count",
+							"value": "3"
+						},
+						{
+							"key": "X-Pagination-Current-Page",
+							"value": "0"
+						},
+						{
+							"key": "X-Pagination-Per-Page",
+							"value": "15"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "none, noimageindex"
+						},
+						{
+							"key": "Link",
+							"value": "<https://npd.dupagemedicalgroup.com:8444/api/v1/service>; rel=\"canonical\""
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubDomains; preload"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "strict-origin-when-cross-origin"
+						},
+						{
+							"key": "Expect-CT",
+							"value": "max-age=3600"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src https: 'unsafe-inline' 'unsafe-eval' data:"
+						},
+						{
+							"key": "X-Content-Security-Policy",
+							"value": "default-src https: 'unsafe-inline' 'unsafe-eval' data:"
+						},
+						{
+							"key": "Service-Worker-Allowed",
+							"value": "/"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 3625,\n        \"name\": \"Allergy, Asthma & Immunology\",\n        \"resource\": \"physician\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 1061745,\n        \"name\": \"Annual Screening Mammogram\",\n        \"resource\": \"location\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 1351418,\n        \"name\": \"Bariatric Surgery\",\n        \"resource\": \"physician\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 4160,\n        \"name\": \"BreakThrough Care Center\",\n        \"resource\": \"physician\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 3003,\n        \"name\": \"Cardiology\",\n        \"resource\": \"physician\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 1352526,\n        \"name\": \"COVID-19 Pediatric Vaccine\",\n        \"resource\": \"location\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 1032015,\n        \"name\": \"COVID-19 Updates\",\n        \"resource\": \"physician\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 1099799,\n        \"name\": \"COVID-19 Vaccine\",\n        \"resource\": \"location\",\n        \"reasonForVisit\": [\n            {\n                \"id\": 1350006,\n                \"name\": \"Moderna\",\n                \"description\": \"Moderna vaccine preference\"\n            },\n            {\n                \"id\": 1350008,\n                \"name\": \"Pfizer\",\n                \"description\": \"Pfizer vaccine preference\"\n            },\n            {\n                \"id\": 1350010,\n                \"name\": \"Pfizer or Moderna - No vaccine preference\",\n                \"description\": \"Open to receiving either Moderna or Pfizer vaccines\"\n            }\n        ]\n    },\n    {\n        \"id\": 1352057,\n        \"name\": \"COVID-19 Vaccine Booster - Moderna\",\n        \"resource\": \"location\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 1352051,\n        \"name\": \"COVID-19 Vaccine Booster - Pfizer\",\n        \"resource\": \"location\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 1352452,\n        \"name\": \"COVID-19 Vaccine Third Dose - Moderna\",\n        \"resource\": \"location\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 5348,\n        \"name\": \"Dermatology\",\n        \"resource\": \"physician\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 5643,\n        \"name\": \"Diabetes Care & Education\",\n        \"resource\": \"physician\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 6345,\n        \"name\": \"Endocrinology\",\n        \"resource\": \"physician\",\n        \"reasonForVisit\": []\n    },\n    {\n        \"id\": 7022,\n        \"name\": \"Family Medicine\",\n        \"resource\": \"physician\",\n        \"reasonForVisit\": []\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Location",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://npd.dupagemedicalgroup.com:448/api/v1/location",
+					"protocol": "https",
+					"host": [
+						"npd",
+						"dupagemedicalgroup",
+						"com"
+					],
+					"port": "448",
+					"path": [
+						"api",
+						"v1",
+						"location"
+					],
+					"query": [
+						{
+							"key": "service_id",
+							"value": "49649",
+							"disabled": true
+						},
+						{
+							"key": "is_new_patient",
+							"value": "true",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Location",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://npd.dupagemedicalgroup.com:448/api/v1/location?service_id=49649&is_new_patient=true",
+							"protocol": "https",
+							"host": [
+								"npd",
+								"dupagemedicalgroup",
+								"com"
+							],
+							"port": "448",
+							"path": [
+								"api",
+								"v1",
+								"location"
+							],
+							"query": [
+								{
+									"key": "service_id",
+									"value": "49649"
+								},
+								{
+									"key": "is_new_patient",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 02 Feb 2022 16:35:31 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store, no-cache, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Permissions-Policy",
+							"value": "interest-cohort=()"
+						},
+						{
+							"key": "X-Pagination-Total-Count",
+							"value": "6"
+						},
+						{
+							"key": "X-Pagination-Page-Count",
+							"value": "1"
+						},
+						{
+							"key": "X-Pagination-Current-Page",
+							"value": "0"
+						},
+						{
+							"key": "X-Pagination-Per-Page",
+							"value": "15"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "none, noimageindex"
+						},
+						{
+							"key": "Link",
+							"value": "<https://npd.dupagemedicalgroup.com:8444/api/v1/location>; rel=\"canonical\""
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubDomains; preload"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "strict-origin-when-cross-origin"
+						},
+						{
+							"key": "Expect-CT",
+							"value": "max-age=3600"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src https: 'unsafe-inline' 'unsafe-eval' data:"
+						},
+						{
+							"key": "X-Content-Security-Policy",
+							"value": "default-src https: 'unsafe-inline' 'unsafe-eval' data:"
+						},
+						{
+							"key": "Service-Worker-Allowed",
+							"value": "/"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 36376,\n        \"address\": {\n            \"number\": \"1206\",\n            \"street\": \"E. 9th St.\",\n            \"city\": \"Lockport\",\n            \"postcode\": \"60441\",\n            \"county\": \"Will County\",\n            \"state\": \"Illinois\",\n            \"lat\": 41.59843538718607,\n            \"lng\": -88.0320954322815\n        },\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/location/1206-east-9th-street-lockport\",\n        \"appointment_slots_per_service\": [\n            {\n                \"49649\": {\n                    \"suite\": \"N/A\",\n                    \"service\": \"Immediate Care Centers\",\n                    \"times\": [\n                        \"2022-02-02T10:40:00-06:00\",\n                        \"2022-02-02T11:00:00-06:00\",\n                        \"2022-02-02T11:20:00-06:00\",\n                        \"2022-02-02T11:40:00-06:00\",\n                        \"2022-02-02T13:00:00-06:00\",\n                        \"2022-02-02T13:20:00-06:00\",\n                        \"2022-02-02T13:40:00-06:00\",\n                        \"2022-02-02T14:00:00-06:00\",\n                        \"2022-02-02T14:20:00-06:00\",\n                        \"2022-02-02T14:40:00-06:00\",\n                        \"2022-02-02T15:00:00-06:00\",\n                        \"2022-02-02T15:20:00-06:00\",\n                        \"2022-02-02T15:40:00-06:00\",\n                        \"2022-02-02T16:00:00-06:00\",\n                        \"2022-02-02T16:20:00-06:00\",\n                        \"2022-02-02T16:40:00-06:00\",\n                        \"2022-02-02T17:00:00-06:00\",\n                        \"2022-02-02T17:20:00-06:00\",\n                        \"2022-02-02T17:40:00-06:00\",\n                        \"2022-02-02T18:20:00-06:00\",\n                        \"2022-02-02T18:40:00-06:00\",\n                        \"2022-02-03T08:00:00-06:00\",\n                        \"2022-02-03T08:20:00-06:00\",\n                        \"2022-02-03T08:40:00-06:00\",\n                        \"2022-02-03T09:00:00-06:00\",\n                        \"2022-02-03T09:20:00-06:00\",\n                        \"2022-02-03T09:40:00-06:00\",\n                        \"2022-02-03T10:00:00-06:00\"\n                    ]\n                }\n            }\n        ]\n    },\n    {\n        \"id\": 18155,\n        \"address\": {\n            \"number\": \"220 \",\n            \"street\": \"Springfield Drive\",\n            \"city\": \"Bloomingdale\",\n            \"postcode\": \"60108\",\n            \"county\": \"DuPage County\",\n            \"state\": \"Illinois\",\n            \"lat\": 41.9446967,\n            \"lng\": -88.1107188\n        },\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/location/220-springfield-drive-bloomingdale\",\n        \"appointment_slots_per_service\": [\n            {\n                \"49649\": {\n                    \"suite\": \"Suite 100\",\n                    \"service\": \"Immediate Care Centers\",\n                    \"times\": [\n                        \"2022-02-02T10:40:00-06:00\",\n                        \"2022-02-02T11:00:00-06:00\",\n                        \"2022-02-02T11:20:00-06:00\",\n                        \"2022-02-02T11:40:00-06:00\",\n                        \"2022-02-02T13:00:00-06:00\",\n                        \"2022-02-02T13:20:00-06:00\",\n                        \"2022-02-02T13:40:00-06:00\",\n                        \"2022-02-02T14:00:00-06:00\",\n                        \"2022-02-02T14:20:00-06:00\",\n                        \"2022-02-02T14:40:00-06:00\",\n                        \"2022-02-02T15:00:00-06:00\",\n                        \"2022-02-02T15:20:00-06:00\",\n                        \"2022-02-02T15:40:00-06:00\",\n                        \"2022-02-02T16:00:00-06:00\",\n                        \"2022-02-02T16:20:00-06:00\",\n                        \"2022-02-02T16:40:00-06:00\",\n                        \"2022-02-02T17:00:00-06:00\",\n                        \"2022-02-02T17:20:00-06:00\",\n                        \"2022-02-02T17:40:00-06:00\",\n                        \"2022-02-02T18:20:00-06:00\",\n                        \"2022-02-02T18:40:00-06:00\",\n                        \"2022-02-03T08:00:00-06:00\",\n                        \"2022-02-03T08:20:00-06:00\",\n                        \"2022-02-03T08:40:00-06:00\",\n                        \"2022-02-03T09:00:00-06:00\",\n                        \"2022-02-03T09:20:00-06:00\",\n                        \"2022-02-03T09:40:00-06:00\",\n                        \"2022-02-03T10:00:00-06:00\"\n                    ]\n                }\n            }\n        ]\n    },\n    {\n        \"id\": 19735,\n        \"address\": {\n            \"number\": \"40\",\n            \"street\": \"S. Clay St.\",\n            \"city\": \"Hinsdale\",\n            \"postcode\": \"60521\",\n            \"county\": \"DuPage County\",\n            \"state\": \"Illinois\",\n            \"lat\": 41.802066721137315,\n            \"lng\": -87.93608844280244\n        },\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/location/40-south-clay-street-hinsdale-illinois-60521\",\n        \"appointment_slots_per_service\": [\n            {\n                \"49649\": {\n                    \"suite\": \"East Building, Suite 110\",\n                    \"service\": \"Immediate Care Centers\",\n                    \"times\": [\n                        \"2022-02-02T10:40:00-06:00\",\n                        \"2022-02-02T11:00:00-06:00\",\n                        \"2022-02-02T11:20:00-06:00\",\n                        \"2022-02-02T11:40:00-06:00\",\n                        \"2022-02-02T13:00:00-06:00\",\n                        \"2022-02-02T13:20:00-06:00\",\n                        \"2022-02-02T13:40:00-06:00\",\n                        \"2022-02-02T14:00:00-06:00\",\n                        \"2022-02-02T14:20:00-06:00\",\n                        \"2022-02-02T14:40:00-06:00\",\n                        \"2022-02-02T15:00:00-06:00\",\n                        \"2022-02-02T15:20:00-06:00\",\n                        \"2022-02-02T15:40:00-06:00\",\n                        \"2022-02-02T16:00:00-06:00\",\n                        \"2022-02-02T16:20:00-06:00\",\n                        \"2022-02-02T16:40:00-06:00\",\n                        \"2022-02-02T17:00:00-06:00\",\n                        \"2022-02-02T17:20:00-06:00\",\n                        \"2022-02-02T17:40:00-06:00\",\n                        \"2022-02-02T18:00:00-06:00\",\n                        \"2022-02-02T18:20:00-06:00\",\n                        \"2022-02-02T18:40:00-06:00\",\n                        \"2022-02-03T08:00:00-06:00\",\n                        \"2022-02-03T08:20:00-06:00\",\n                        \"2022-02-03T08:40:00-06:00\",\n                        \"2022-02-03T09:00:00-06:00\",\n                        \"2022-02-03T09:20:00-06:00\",\n                        \"2022-02-03T09:40:00-06:00\"\n                    ]\n                }\n            }\n        ]\n    },\n    {\n        \"id\": 30020,\n        \"address\": {\n            \"number\": \"430\",\n            \"street\": \"Pennsylvania Ave.\",\n            \"city\": \"Glen Ellyn\",\n            \"postcode\": \"60137\",\n            \"county\": \"DuPage County\",\n            \"state\": \"Illinois\",\n            \"lat\": 41.87718226208711,\n            \"lng\": -88.07131469249727\n        },\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/location/430-pennsylvania-avenue-glen-ellyn\",\n        \"appointment_slots_per_service\": [\n            {\n                \"49649\": {\n                    \"suite\": \"Suite 150\",\n                    \"service\": \"Immediate Care Centers\",\n                    \"times\": [\n                        \"2022-02-02T10:40:00-06:00\",\n                        \"2022-02-02T11:00:00-06:00\",\n                        \"2022-02-02T11:20:00-06:00\",\n                        \"2022-02-02T11:40:00-06:00\",\n                        \"2022-02-02T13:00:00-06:00\",\n                        \"2022-02-02T13:20:00-06:00\",\n                        \"2022-02-02T13:40:00-06:00\",\n                        \"2022-02-02T14:00:00-06:00\",\n                        \"2022-02-02T14:20:00-06:00\",\n                        \"2022-02-02T14:40:00-06:00\",\n                        \"2022-02-02T15:00:00-06:00\",\n                        \"2022-02-02T15:20:00-06:00\",\n                        \"2022-02-02T15:40:00-06:00\",\n                        \"2022-02-02T16:00:00-06:00\",\n                        \"2022-02-02T16:20:00-06:00\",\n                        \"2022-02-02T16:40:00-06:00\",\n                        \"2022-02-02T17:00:00-06:00\",\n                        \"2022-02-02T17:20:00-06:00\",\n                        \"2022-02-02T17:40:00-06:00\",\n                        \"2022-02-02T18:20:00-06:00\",\n                        \"2022-02-02T18:40:00-06:00\",\n                        \"2022-02-03T08:00:00-06:00\",\n                        \"2022-02-03T08:20:00-06:00\",\n                        \"2022-02-03T08:40:00-06:00\",\n                        \"2022-02-03T09:00:00-06:00\",\n                        \"2022-02-03T09:20:00-06:00\",\n                        \"2022-02-03T09:40:00-06:00\",\n                        \"2022-02-03T10:00:00-06:00\"\n                    ]\n                }\n            }\n        ]\n    },\n    {\n        \"id\": 38224,\n        \"address\": {\n            \"number\": \"430\",\n            \"street\": \"Warrenville Road\",\n            \"city\": \"Lisle\",\n            \"postcode\": \"60532\",\n            \"county\": \"DuPage County\",\n            \"state\": \"Illinois\",\n            \"lat\": 41.80912441900324,\n            \"lng\": -88.0591106414795\n        },\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/location/430-warrenville-road-lisle\",\n        \"appointment_slots_per_service\": [\n            {\n                \"49649\": {\n                    \"suite\": \"Suite 230\",\n                    \"service\": \"Immediate Care Centers\",\n                    \"times\": [\n                        \"2022-02-02T10:40:00-06:00\",\n                        \"2022-02-02T11:00:00-06:00\",\n                        \"2022-02-02T11:20:00-06:00\",\n                        \"2022-02-02T11:40:00-06:00\",\n                        \"2022-02-02T12:00:00-06:00\",\n                        \"2022-02-02T12:20:00-06:00\",\n                        \"2022-02-02T12:40:00-06:00\",\n                        \"2022-02-02T13:00:00-06:00\",\n                        \"2022-02-02T13:20:00-06:00\",\n                        \"2022-02-02T13:40:00-06:00\",\n                        \"2022-02-02T15:00:00-06:00\",\n                        \"2022-02-02T15:20:00-06:00\",\n                        \"2022-02-02T15:40:00-06:00\",\n                        \"2022-02-02T16:00:00-06:00\",\n                        \"2022-02-02T16:20:00-06:00\",\n                        \"2022-02-02T16:40:00-06:00\",\n                        \"2022-02-02T17:00:00-06:00\",\n                        \"2022-02-02T17:20:00-06:00\",\n                        \"2022-02-02T17:40:00-06:00\",\n                        \"2022-02-02T18:00:00-06:00\",\n                        \"2022-02-02T18:20:00-06:00\",\n                        \"2022-02-02T18:40:00-06:00\",\n                        \"2022-02-02T19:00:00-06:00\",\n                        \"2022-02-02T19:20:00-06:00\",\n                        \"2022-02-02T19:40:00-06:00\",\n                        \"2022-02-02T20:20:00-06:00\",\n                        \"2022-02-02T20:40:00-06:00\",\n                        \"2022-02-03T10:00:00-06:00\"\n                    ]\n                }\n            }\n        ]\n    },\n    {\n        \"id\": 27867,\n        \"address\": {\n            \"number\": \"808\",\n            \"street\": \"Rickert Drive\",\n            \"city\": \"Naperville\",\n            \"postcode\": \"60540\",\n            \"county\": \"DuPage County\",\n            \"state\": \"Illinois\",\n            \"lat\": 41.7592007,\n            \"lng\": -88.1862823\n        },\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/location/808-rickert-drive-naperville\",\n        \"appointment_slots_per_service\": [\n            {\n                \"49649\": {\n                    \"suite\": \"Suite 103\",\n                    \"service\": \"Immediate Care Centers\",\n                    \"times\": [\n                        \"2022-02-02T10:40:00-06:00\",\n                        \"2022-02-02T11:00:00-06:00\",\n                        \"2022-02-02T11:20:00-06:00\",\n                        \"2022-02-02T11:40:00-06:00\",\n                        \"2022-02-02T13:00:00-06:00\",\n                        \"2022-02-02T13:20:00-06:00\",\n                        \"2022-02-02T13:40:00-06:00\",\n                        \"2022-02-02T14:00:00-06:00\",\n                        \"2022-02-02T14:20:00-06:00\",\n                        \"2022-02-02T14:40:00-06:00\",\n                        \"2022-02-02T15:00:00-06:00\",\n                        \"2022-02-02T15:20:00-06:00\",\n                        \"2022-02-02T15:40:00-06:00\",\n                        \"2022-02-02T16:00:00-06:00\",\n                        \"2022-02-02T16:20:00-06:00\",\n                        \"2022-02-02T16:40:00-06:00\",\n                        \"2022-02-02T17:00:00-06:00\",\n                        \"2022-02-02T17:20:00-06:00\",\n                        \"2022-02-02T17:40:00-06:00\",\n                        \"2022-02-02T18:20:00-06:00\",\n                        \"2022-02-02T18:40:00-06:00\",\n                        \"2022-02-03T08:00:00-06:00\",\n                        \"2022-02-03T08:20:00-06:00\",\n                        \"2022-02-03T08:40:00-06:00\",\n                        \"2022-02-03T09:00:00-06:00\",\n                        \"2022-02-03T09:20:00-06:00\",\n                        \"2022-02-03T09:40:00-06:00\",\n                        \"2022-02-03T10:00:00-06:00\"\n                    ]\n                }\n            }\n        ]\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Physicians",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://npd.dupagemedicalgroup.com:448/api/v1/physician/?service_id=3727&visit_reason_id=637112",
+					"protocol": "https",
+					"host": [
+						"npd",
+						"dupagemedicalgroup",
+						"com"
+					],
+					"port": "448",
+					"path": [
+						"api",
+						"v1",
+						"physician",
+						""
+					],
+					"query": [
+						{
+							"key": "service_id",
+							"value": "3727"
+						},
+						{
+							"key": "visit_reason_id",
+							"value": "637112"
+						},
+						{
+							"key": "is_new_patient",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "zip_code",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Physicians",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://npd.dupagemedicalgroup.com:448/api/v1/physician/?service_id=2900",
+							"protocol": "https",
+							"host": [
+								"npd",
+								"dupagemedicalgroup",
+								"com"
+							],
+							"port": "448",
+							"path": [
+								"api",
+								"v1",
+								"physician",
+								""
+							],
+							"query": [
+								{
+									"key": "service_id",
+									"value": "2900"
+								},
+								{
+									"key": "visit_reason_id",
+									"value": "637112",
+									"disabled": true
+								},
+								{
+									"key": "is_new_patient",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 01 Feb 2022 22:53:03 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store, no-cache, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Permissions-Policy",
+							"value": "interest-cohort=()"
+						},
+						{
+							"key": "X-Pagination-Total-Count",
+							"value": "4"
+						},
+						{
+							"key": "X-Pagination-Page-Count",
+							"value": "1"
+						},
+						{
+							"key": "X-Pagination-Current-Page",
+							"value": "0"
+						},
+						{
+							"key": "X-Pagination-Per-Page",
+							"value": "15"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "none, noimageindex"
+						},
+						{
+							"key": "Link",
+							"value": "<https://npd.dupagemedicalgroup.com:8444/api/v1/physician>; rel=\"canonical\""
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubDomains; preload"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "strict-origin-when-cross-origin"
+						},
+						{
+							"key": "Expect-CT",
+							"value": "max-age=3600"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src https: 'unsafe-inline' 'unsafe-eval' data:"
+						},
+						{
+							"key": "X-Content-Security-Policy",
+							"value": "default-src https: 'unsafe-inline' 'unsafe-eval' data:"
+						},
+						{
+							"key": "Service-Worker-Allowed",
+							"value": "/"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"address\": {\n            \"number\": \"133\",\n            \"street\": \"E. Brush Hill Road\",\n            \"city\": \"Elmhurst\",\n            \"postcode\": \"60126\",\n            \"county\": \"United States of America\",\n            \"state\": \"Illinois\",\n            \"suite\": \"Suite 100\",\n            \"lat\": 41.86151314141414,\n            \"lng\": -87.93659437373738\n        },\n        \"id\": 465018,\n        \"title\": \"John Reilly, MD\",\n        \"appointment_slots\": [\n            \"2022-02-02T13:00:00-06:00\",\n            \"2022-02-02T13:10:00-06:00\",\n            \"2022-02-02T13:20:00-06:00\",\n            \"2022-02-02T13:30:00-06:00\",\n            \"2022-02-02T13:40:00-06:00\",\n            \"2022-02-02T13:50:00-06:00\",\n            \"2022-02-02T14:00:00-06:00\",\n            \"2022-02-02T14:10:00-06:00\",\n            \"2022-02-02T14:20:00-06:00\",\n            \"2022-02-02T14:30:00-06:00\",\n            \"2022-02-02T14:40:00-06:00\",\n            \"2022-02-02T14:50:00-06:00\",\n            \"2022-02-02T15:00:00-06:00\",\n            \"2022-02-02T15:10:00-06:00\",\n            \"2022-02-02T15:20:00-06:00\",\n            \"2022-02-02T15:30:00-06:00\",\n            \"2022-02-02T15:40:00-06:00\"\n        ],\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/physicians/john-reilly-md\",\n        \"rating\": 4.7,\n        \"distance\": 0,\n        \"service_id\": 3727\n    },\n    {\n        \"address\": {\n            \"number\": \"133\",\n            \"street\": \"E. Brush Hill Road\",\n            \"city\": \"Elmhurst\",\n            \"postcode\": \"60126\",\n            \"county\": \"United States of America\",\n            \"state\": \"Illinois\",\n            \"suite\": \"Suite 100\",\n            \"lat\": 41.86151314141414,\n            \"lng\": -87.93659437373738\n        },\n        \"id\": 508468,\n        \"title\": \"Richard L. Rosseau, MD\",\n        \"appointment_slots\": [\n            \"2022-02-08T07:20:00-06:00\",\n            \"2022-02-08T07:40:00-06:00\",\n            \"2022-02-08T08:00:00-06:00\",\n            \"2022-02-08T08:20:00-06:00\",\n            \"2022-02-08T08:40:00-06:00\",\n            \"2022-02-08T09:00:00-06:00\",\n            \"2022-02-08T09:20:00-06:00\",\n            \"2022-02-08T09:40:00-06:00\",\n            \"2022-02-08T10:00:00-06:00\",\n            \"2022-02-08T10:20:00-06:00\",\n            \"2022-02-08T10:40:00-06:00\",\n            \"2022-02-08T11:00:00-06:00\",\n            \"2022-02-08T13:20:00-06:00\",\n            \"2022-02-08T13:40:00-06:00\",\n            \"2022-02-08T14:00:00-06:00\",\n            \"2022-02-08T14:20:00-06:00\",\n            \"2022-02-08T14:40:00-06:00\"\n        ],\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/physicians/richard-l-rosseau-md\",\n        \"rating\": 4.8,\n        \"distance\": 0,\n        \"service_id\": 3727\n    },\n    {\n        \"address\": {\n            \"number\": \"133\",\n            \"street\": \"E. Brush Hill Road\",\n            \"city\": \"Elmhurst\",\n            \"postcode\": \"60126\",\n            \"county\": \"United States of America\",\n            \"state\": \"Illinois\",\n            \"suite\": \"Suite 100\",\n            \"lat\": 41.86151314141414,\n            \"lng\": -87.93659437373738\n        },\n        \"id\": 606607,\n        \"title\": \"Vijay Thangamani, MD\",\n        \"appointment_slots\": [\n            \"2022-02-03T13:00:00-06:00\",\n            \"2022-02-03T13:10:00-06:00\",\n            \"2022-02-03T13:20:00-06:00\",\n            \"2022-02-03T14:00:00-06:00\",\n            \"2022-02-03T14:10:00-06:00\",\n            \"2022-02-03T14:20:00-06:00\",\n            \"2022-02-03T14:30:00-06:00\",\n            \"2022-02-03T14:40:00-06:00\",\n            \"2022-02-03T14:50:00-06:00\",\n            \"2022-02-03T15:00:00-06:00\",\n            \"2022-02-03T15:10:00-06:00\",\n            \"2022-02-03T15:20:00-06:00\",\n            \"2022-02-03T15:30:00-06:00\",\n            \"2022-02-07T08:00:00-06:00\",\n            \"2022-02-07T08:10:00-06:00\",\n            \"2022-02-07T08:20:00-06:00\",\n            \"2022-02-07T08:30:00-06:00\",\n            \"2022-02-07T08:40:00-06:00\",\n            \"2022-02-07T08:50:00-06:00\",\n            \"2022-02-07T09:00:00-06:00\",\n            \"2022-02-07T09:10:00-06:00\",\n            \"2022-02-07T09:20:00-06:00\",\n            \"2022-02-07T09:30:00-06:00\",\n            \"2022-02-07T10:10:00-06:00\",\n            \"2022-02-07T10:20:00-06:00\",\n            \"2022-02-07T10:30:00-06:00\",\n            \"2022-02-07T10:40:00-06:00\",\n            \"2022-02-07T13:00:00-06:00\"\n        ],\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/physicians/vijay-thangamani-md\",\n        \"rating\": 4.8,\n        \"distance\": 0,\n        \"service_id\": 3727\n    },\n    {\n        \"address\": {\n            \"number\": \"430\",\n            \"street\": \"Pennsylvania Ave.\",\n            \"city\": \"Glen Ellyn\",\n            \"postcode\": \"60137\",\n            \"county\": \"United States\",\n            \"state\": \"Illinois\",\n            \"suite\": \"Suite 240\",\n            \"lat\": 41.87718226208711,\n            \"lng\": -88.07131469249727\n        },\n        \"id\": 157632,\n        \"title\": \"Julio C. Gonzalez, MD\",\n        \"appointment_slots\": [\n            \"2022-02-03T08:00:00-06:00\",\n            \"2022-02-03T08:15:00-06:00\",\n            \"2022-02-03T08:30:00-06:00\",\n            \"2022-02-03T08:45:00-06:00\",\n            \"2022-02-03T09:00:00-06:00\",\n            \"2022-02-03T09:15:00-06:00\",\n            \"2022-02-03T10:00:00-06:00\",\n            \"2022-02-03T10:15:00-06:00\",\n            \"2022-02-03T10:30:00-06:00\",\n            \"2022-02-03T10:45:00-06:00\",\n            \"2022-02-03T11:00:00-06:00\",\n            \"2022-02-03T13:00:00-06:00\",\n            \"2022-02-03T13:15:00-06:00\",\n            \"2022-02-03T13:30:00-06:00\",\n            \"2022-02-03T13:45:00-06:00\",\n            \"2022-02-03T14:00:00-06:00\",\n            \"2022-02-03T14:15:00-06:00\",\n            \"2022-02-03T15:00:00-06:00\",\n            \"2022-02-03T15:45:00-06:00\",\n            \"2022-02-03T16:00:00-06:00\",\n            \"2022-02-03T16:15:00-06:00\",\n            \"2022-02-04T08:00:00-06:00\",\n            \"2022-02-04T08:15:00-06:00\",\n            \"2022-02-04T08:30:00-06:00\",\n            \"2022-02-04T08:45:00-06:00\",\n            \"2022-02-04T09:00:00-06:00\",\n            \"2022-02-04T09:15:00-06:00\",\n            \"2022-02-04T10:00:00-06:00\"\n        ],\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/physicians/julio-c-gonzalez-md\",\n        \"rating\": 4.7,\n        \"distance\": 0,\n        \"service_id\": 3727\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Physicians Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://npd.dupagemedicalgroup.com:8444/physicians?address=60441",
+					"protocol": "https",
+					"host": [
+						"npd",
+						"dupagemedicalgroup",
+						"com"
+					],
+					"port": "8444",
+					"path": [
+						"physicians"
+					],
+					"query": [
+						{
+							"key": "service_id",
+							"value": "3727",
+							"disabled": true
+						},
+						{
+							"key": "visit_reason_id",
+							"value": "637112",
+							"disabled": true
+						},
+						{
+							"key": "is_new_patient",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "address",
+							"value": "60441"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Physicians",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://npd.dupagemedicalgroup.com:448/api/v1/physician/?service_id=3727&visit_reason_id=637112&is_new_patient=true",
+							"protocol": "https",
+							"host": [
+								"npd",
+								"dupagemedicalgroup",
+								"com"
+							],
+							"port": "448",
+							"path": [
+								"api",
+								"v1",
+								"physician",
+								""
+							],
+							"query": [
+								{
+									"key": "service_id",
+									"value": "3727"
+								},
+								{
+									"key": "visit_reason_id",
+									"value": "637112"
+								},
+								{
+									"key": "is_new_patient",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 01 Feb 2022 22:53:03 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store, no-cache, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Permissions-Policy",
+							"value": "interest-cohort=()"
+						},
+						{
+							"key": "X-Pagination-Total-Count",
+							"value": "4"
+						},
+						{
+							"key": "X-Pagination-Page-Count",
+							"value": "1"
+						},
+						{
+							"key": "X-Pagination-Current-Page",
+							"value": "0"
+						},
+						{
+							"key": "X-Pagination-Per-Page",
+							"value": "15"
+						},
+						{
+							"key": "X-Robots-Tag",
+							"value": "none, noimageindex"
+						},
+						{
+							"key": "Link",
+							"value": "<https://npd.dupagemedicalgroup.com:8444/api/v1/physician>; rel=\"canonical\""
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubDomains; preload"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "strict-origin-when-cross-origin"
+						},
+						{
+							"key": "Expect-CT",
+							"value": "max-age=3600"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src https: 'unsafe-inline' 'unsafe-eval' data:"
+						},
+						{
+							"key": "X-Content-Security-Policy",
+							"value": "default-src https: 'unsafe-inline' 'unsafe-eval' data:"
+						},
+						{
+							"key": "Service-Worker-Allowed",
+							"value": "/"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"address\": {\n            \"number\": \"133\",\n            \"street\": \"E. Brush Hill Road\",\n            \"city\": \"Elmhurst\",\n            \"postcode\": \"60126\",\n            \"county\": \"United States of America\",\n            \"state\": \"Illinois\",\n            \"suite\": \"Suite 100\",\n            \"lat\": 41.86151314141414,\n            \"lng\": -87.93659437373738\n        },\n        \"id\": 465018,\n        \"title\": \"John Reilly, MD\",\n        \"appointment_slots\": [\n            \"2022-02-02T13:00:00-06:00\",\n            \"2022-02-02T13:10:00-06:00\",\n            \"2022-02-02T13:20:00-06:00\",\n            \"2022-02-02T13:30:00-06:00\",\n            \"2022-02-02T13:40:00-06:00\",\n            \"2022-02-02T13:50:00-06:00\",\n            \"2022-02-02T14:00:00-06:00\",\n            \"2022-02-02T14:10:00-06:00\",\n            \"2022-02-02T14:20:00-06:00\",\n            \"2022-02-02T14:30:00-06:00\",\n            \"2022-02-02T14:40:00-06:00\",\n            \"2022-02-02T14:50:00-06:00\",\n            \"2022-02-02T15:00:00-06:00\",\n            \"2022-02-02T15:10:00-06:00\",\n            \"2022-02-02T15:20:00-06:00\",\n            \"2022-02-02T15:30:00-06:00\",\n            \"2022-02-02T15:40:00-06:00\"\n        ],\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/physicians/john-reilly-md\",\n        \"rating\": 4.7,\n        \"distance\": 0,\n        \"service_id\": 3727\n    },\n    {\n        \"address\": {\n            \"number\": \"133\",\n            \"street\": \"E. Brush Hill Road\",\n            \"city\": \"Elmhurst\",\n            \"postcode\": \"60126\",\n            \"county\": \"United States of America\",\n            \"state\": \"Illinois\",\n            \"suite\": \"Suite 100\",\n            \"lat\": 41.86151314141414,\n            \"lng\": -87.93659437373738\n        },\n        \"id\": 508468,\n        \"title\": \"Richard L. Rosseau, MD\",\n        \"appointment_slots\": [\n            \"2022-02-08T07:20:00-06:00\",\n            \"2022-02-08T07:40:00-06:00\",\n            \"2022-02-08T08:00:00-06:00\",\n            \"2022-02-08T08:20:00-06:00\",\n            \"2022-02-08T08:40:00-06:00\",\n            \"2022-02-08T09:00:00-06:00\",\n            \"2022-02-08T09:20:00-06:00\",\n            \"2022-02-08T09:40:00-06:00\",\n            \"2022-02-08T10:00:00-06:00\",\n            \"2022-02-08T10:20:00-06:00\",\n            \"2022-02-08T10:40:00-06:00\",\n            \"2022-02-08T11:00:00-06:00\",\n            \"2022-02-08T13:20:00-06:00\",\n            \"2022-02-08T13:40:00-06:00\",\n            \"2022-02-08T14:00:00-06:00\",\n            \"2022-02-08T14:20:00-06:00\",\n            \"2022-02-08T14:40:00-06:00\"\n        ],\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/physicians/richard-l-rosseau-md\",\n        \"rating\": 4.8,\n        \"distance\": 0,\n        \"service_id\": 3727\n    },\n    {\n        \"address\": {\n            \"number\": \"133\",\n            \"street\": \"E. Brush Hill Road\",\n            \"city\": \"Elmhurst\",\n            \"postcode\": \"60126\",\n            \"county\": \"United States of America\",\n            \"state\": \"Illinois\",\n            \"suite\": \"Suite 100\",\n            \"lat\": 41.86151314141414,\n            \"lng\": -87.93659437373738\n        },\n        \"id\": 606607,\n        \"title\": \"Vijay Thangamani, MD\",\n        \"appointment_slots\": [\n            \"2022-02-03T13:00:00-06:00\",\n            \"2022-02-03T13:10:00-06:00\",\n            \"2022-02-03T13:20:00-06:00\",\n            \"2022-02-03T14:00:00-06:00\",\n            \"2022-02-03T14:10:00-06:00\",\n            \"2022-02-03T14:20:00-06:00\",\n            \"2022-02-03T14:30:00-06:00\",\n            \"2022-02-03T14:40:00-06:00\",\n            \"2022-02-03T14:50:00-06:00\",\n            \"2022-02-03T15:00:00-06:00\",\n            \"2022-02-03T15:10:00-06:00\",\n            \"2022-02-03T15:20:00-06:00\",\n            \"2022-02-03T15:30:00-06:00\",\n            \"2022-02-07T08:00:00-06:00\",\n            \"2022-02-07T08:10:00-06:00\",\n            \"2022-02-07T08:20:00-06:00\",\n            \"2022-02-07T08:30:00-06:00\",\n            \"2022-02-07T08:40:00-06:00\",\n            \"2022-02-07T08:50:00-06:00\",\n            \"2022-02-07T09:00:00-06:00\",\n            \"2022-02-07T09:10:00-06:00\",\n            \"2022-02-07T09:20:00-06:00\",\n            \"2022-02-07T09:30:00-06:00\",\n            \"2022-02-07T10:10:00-06:00\",\n            \"2022-02-07T10:20:00-06:00\",\n            \"2022-02-07T10:30:00-06:00\",\n            \"2022-02-07T10:40:00-06:00\",\n            \"2022-02-07T13:00:00-06:00\"\n        ],\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/physicians/vijay-thangamani-md\",\n        \"rating\": 4.8,\n        \"distance\": 0,\n        \"service_id\": 3727\n    },\n    {\n        \"address\": {\n            \"number\": \"430\",\n            \"street\": \"Pennsylvania Ave.\",\n            \"city\": \"Glen Ellyn\",\n            \"postcode\": \"60137\",\n            \"county\": \"United States\",\n            \"state\": \"Illinois\",\n            \"suite\": \"Suite 240\",\n            \"lat\": 41.87718226208711,\n            \"lng\": -88.07131469249727\n        },\n        \"id\": 157632,\n        \"title\": \"Julio C. Gonzalez, MD\",\n        \"appointment_slots\": [\n            \"2022-02-03T08:00:00-06:00\",\n            \"2022-02-03T08:15:00-06:00\",\n            \"2022-02-03T08:30:00-06:00\",\n            \"2022-02-03T08:45:00-06:00\",\n            \"2022-02-03T09:00:00-06:00\",\n            \"2022-02-03T09:15:00-06:00\",\n            \"2022-02-03T10:00:00-06:00\",\n            \"2022-02-03T10:15:00-06:00\",\n            \"2022-02-03T10:30:00-06:00\",\n            \"2022-02-03T10:45:00-06:00\",\n            \"2022-02-03T11:00:00-06:00\",\n            \"2022-02-03T13:00:00-06:00\",\n            \"2022-02-03T13:15:00-06:00\",\n            \"2022-02-03T13:30:00-06:00\",\n            \"2022-02-03T13:45:00-06:00\",\n            \"2022-02-03T14:00:00-06:00\",\n            \"2022-02-03T14:15:00-06:00\",\n            \"2022-02-03T15:00:00-06:00\",\n            \"2022-02-03T15:45:00-06:00\",\n            \"2022-02-03T16:00:00-06:00\",\n            \"2022-02-03T16:15:00-06:00\",\n            \"2022-02-04T08:00:00-06:00\",\n            \"2022-02-04T08:15:00-06:00\",\n            \"2022-02-04T08:30:00-06:00\",\n            \"2022-02-04T08:45:00-06:00\",\n            \"2022-02-04T09:00:00-06:00\",\n            \"2022-02-04T09:15:00-06:00\",\n            \"2022-02-04T10:00:00-06:00\"\n        ],\n        \"url\": \"https://npd.dupagemedicalgroup.com:8444/physicians/julio-c-gonzalez-md\",\n        \"rating\": 4.7,\n        \"distance\": 0,\n        \"service_id\": 3727\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Scheduling Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://npd.dupagemedicalgroup.com:448/api/v1/schedule/token?location_id&physician_id&telemedicine_id&service_id&is_new_patient&conversation_id",
+					"protocol": "https",
+					"host": [
+						"npd",
+						"dupagemedicalgroup",
+						"com"
+					],
+					"port": "448",
+					"path": [
+						"api",
+						"v1",
+						"schedule",
+						"token"
+					],
+					"query": [
+						{
+							"key": "location_id",
+							"value": null,
+							"description": "Only one of the “location_id”, “physician_id” or “telemedicine_id”parameters should be provided.If “location_id” is provided, the generated token will deeplink the userto the scheduling flow for this specific location."
+						},
+						{
+							"key": "physician_id",
+							"value": null,
+							"description": "Only one of the “location_id”, “physician_id” or “telemedicine_id”parameters should be provided"
+						},
+						{
+							"key": "telemedicine_id",
+							"value": null,
+							"description": "Only one of the “location_id”, “physician_id” or “telemedicine_id”parameters should be provided"
+						},
+						{
+							"key": "service_id",
+							"value": null
+						},
+						{
+							"key": "is_new_patient",
+							"value": null
+						},
+						{
+							"key": "conversation_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule Deeplink",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.dulyhealthandcare.com/schedule/deeplink?token=<token>",
+					"protocol": "https",
+					"host": [
+						"www",
+						"dulyhealthandcare",
+						"com"
+					],
+					"path": [
+						"schedule",
+						"deeplink"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "<token>"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

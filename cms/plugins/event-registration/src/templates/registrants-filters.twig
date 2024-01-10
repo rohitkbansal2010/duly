@@ -1,0 +1,45 @@
+<?= Html::csrfMetaTags() ?>
+{# Filter events based on event dates and/or event times #}
+{% import "_includes/forms" as forms %}
+<ul class="filters horizontal">
+	<li>
+		<div class="field first">
+			<div class="heading">
+				<label>{{ "Begin Date" | t}}</label>
+			</div>
+			{{ forms.date({
+				class: "event-registrations-filter",
+				id: "min-date"
+			   })
+			}}
+		</div>
+	</li>
+	<li>
+		<div class="field first">
+			<div class="heading">
+				<label>{{ "End Date" | t}}</label>
+			</div>
+			{{ forms.date({
+				class: "event-registrations-filter",
+				id: "max-date"
+			   })
+			}}
+		</div>
+	</li>
+	<li class="action"></li>
+</ul>
+
+<template id="filter-action-loading">
+	<div class="spinner"></div>
+</template>
+
+<template id="filter-action-download">
+	<form class="csv-download" action="/admin/event-registration/registrations-by-location/participants-list" method="POST">
+		<input type="hidden" name="eventId" value="{{ event.id }}">
+		<input type="hidden" name="locationId" value="{{ location.id }}">
+		<input type="hidden" name="minDate" value="">
+		<input type="hidden" name="maxDate" value="">
+		{{ csrfInput() }}
+		<button type="submit" class="download" data-icon="download"></button>
+	</form>
+</template>

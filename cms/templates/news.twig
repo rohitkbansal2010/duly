@@ -1,0 +1,43 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title "Recent News"|t %}
+
+{% block bodyClass "news-page" %}
+
+{% set query = craft.entries({
+  section: "blog",
+  type: "newsAndPress",
+  limit: 10,
+  orderBy: "postDate desc"
+}) %}
+
+{% paginate query as pageInfo, pageEntries %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	<section class="news-section">
+        <h1>{{ "News"|t }}</h1>
+        {% if query is not null %}
+            {% for article in pageEntries %}
+                <a href="{{ article.getUrl() }}">
+                    <div class="article">
+                        <div class="content">
+                            <p class="title">{{ article.title }}</p>
+                            <p class="date">{{ article.postDate | date('mm d, Y') }}</p>
+                            <p class="summary">{{ article.contentSummary | truncate(150) }}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        {% else %}
+            <p class="no-results">{{ "There are no recent news articles"|t }}</p>
+        {% endif %}
+    </section>
+
+    {% include '_paginatePageInfo.twig' with {
+        pageInfo: pageInfo,
+    } %} 
+
+{% endblock %}

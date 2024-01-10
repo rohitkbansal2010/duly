@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 5aee8925-b56d-4fb5-b087-351dd8200f10
+handle: planProvider
+instructions: 'The provider this plan is provided by.'
+name: 'Insurance Provider'
+searchable: true
+settings:
+    allowSelfRelations: false
+    limit: '1'
+    localizeRelations: false
+    selectionLabel: 'Select an insurance provider.'
+    showSiteMenu: true
+    source: null
+    sources: ['section:814af26c-9ee6-423b-baaf-6ec26b5399dc']
+    targetSiteId: null
+    validateRelatedElements: true
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

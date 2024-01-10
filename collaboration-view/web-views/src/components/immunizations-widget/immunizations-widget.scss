@@ -1,0 +1,65 @@
+@import "~@styles/typography.scss";
+@import "~@styles/themes.scss";
+@import "~@styles/main.scss";
+@import "~@styles/spacing-constants.scss";
+
+.immunizations {
+  &WidgetContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: $widget-height;
+  }
+
+  &WidgetContent {
+    flex-grow: 1;
+    min-height: 0;
+  }
+
+  &Plates {
+    height: 37.96rem;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+
+    &Wrapper {
+      height: 38rem;
+    }
+  }
+}
+
+.noImmunizations {
+  &Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    max-height: $widget-height;
+    padding-bottom: 7.5rem;
+    background: $white;
+    border-radius: 0.5rem;
+  }
+
+  &IconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14.5rem;
+    height: 14.5rem;
+    background: rgba($dupage-light-blue, 0.3);
+    border-radius: 50%;
+
+    img {
+      height: 9rem;
+    }
+  }
+
+  &Title {
+    @include nexa-heavy-highlight;
+
+    margin-top: 2rem;
+    color: $dupage-light-blue;
+    font-size: var(--font-size-40px-4px);
+    text-transform: capitalize;
+  }
+}

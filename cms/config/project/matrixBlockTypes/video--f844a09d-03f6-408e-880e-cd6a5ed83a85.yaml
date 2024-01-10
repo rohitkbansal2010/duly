@@ -1,0 +1,9 @@
+field: cdbebaf2-1b43-43c5-9a4b-635e30cf9126
+fieldLayouts:
+    2dce37d2-216c-4433-9a95-94bb7afb32a7: { tabs: [{ elements: [{ fieldUid: a443f33b-2bdb-4ae8-9fe9-7c95e79e2e70, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 60cf6639-171e-42c4-a3e8-6bdf07e58393, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    60cf6639-171e-42c4-a3e8-6bdf07e58393: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: clientId, instructions: 'Enter in the ''client'' value in this field (<script type="text/javascript">client="{This value here}";)', name: 'Client Id', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: '3060', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    a443f33b-2bdb-4ae8-9fe9-7c95e79e2e70: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: divId, instructions: "ViewMedica should provide code that resembles: \r\n\r\n<!-- ViewMedica Embed Start -->\r\n<div id=\"L_377fd569\"></div>\r\n<script type=\"text/javascript\">client=\"3060\"; openthis=\"L_377fd569\"; width=720; vm_open()</script>\r\n<!-- ViewMedica Embed End --> \r\n\r\nEnter the div id value in this field (<div id=\"{This value here}\">)", name: Id, searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: L_377fd569, uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: video
+name: 'Add interactive video'
+sortOrder: 1

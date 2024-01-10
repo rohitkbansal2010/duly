@@ -1,0 +1,79 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.wrapper {
+  @include nexa-heavy-highlight;
+  width: 100%;
+  max-height: 30rem;
+  margin: 1.25rem 0 0 0;
+  padding: 0 1.875rem;
+
+  &noSlot {
+    &Container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      max-height: $widget-height;
+      background: $white;
+      border-radius: 0.5rem;
+    }
+
+    &IconWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &Message {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2rem;
+      &Title {
+        @include nexa-extra-bold-highlight;
+        max-width: 18rem;
+        color: $dupage-magenta;
+        font-weight: 400;
+        font-size: var(--font-size-18px-4px);
+        line-height: 1.625rem;
+        text-align: center;
+      }
+      &TitlePrescription {
+        @include nexa-extra-bold-highlight;
+        max-width: 38rem;
+        color: $dupage-magenta;
+        font-weight: 400;
+        font-size: var(--font-size-40px-4px);
+        line-height: 1.625rem;
+        text-align: center;
+      }
+      &Detail {
+        @include nexa-regular-highlight;
+        padding: 0 3.25rem;
+        color: $dark-gray;
+        font-weight: 400;
+        font-size: var(--font-size-24px-4px);
+        line-height: 2.25rem;
+        text-align: center;
+      }
+      &ActionButton {
+        @include nexa-extra-bold-highlight;
+        display: flex;
+        align-items: center;
+        margin-top: 1.875rem;
+        padding: 0.56rem 3.25rem;
+        color: $white;
+        font-weight: 800;
+        font-size: var(--font-size-20px-4px);
+        line-height: 1.5rem;
+        text-align: center;
+        background: $dupage-dark-blue;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+}

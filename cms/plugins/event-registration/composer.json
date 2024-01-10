@@ -1,0 +1,43 @@
+{
+    "name": "punchkick/event-registration",
+    "description": "This plugin provides way to easily view event locations and export event registrants to a CSV file.",
+    "type": "craft-plugin",
+    "version": "0.0.1",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "event-registration"
+    ],
+    "support": {
+        "docs": "https://wiki.punchkick.com",
+        "issues": "https://jira.punchkickinteractive.com"
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Punchkick Interactive",
+            "homepage": "https://www.punchkick.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+          "punchkick\\eventregistration\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Event Registration",
+        "handle": "event-registration",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "???",
+        "components": {
+            "eventRegistrationService": "punchkick\\eventregistration\\services\\EventRegistrationService"
+        },
+        "class": "punchkick\\eventregistration\\EventRegistration"
+    }
+}

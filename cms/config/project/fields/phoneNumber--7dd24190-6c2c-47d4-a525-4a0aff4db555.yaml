@@ -1,0 +1,12 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: eca27ab5-4de8-41d9-85c4-b3c60701f59d
+handle: phoneNumber
+instructions: 'Provide a phone number.'
+name: 'Phone Number'
+searchable: false
+settings:
+    defaultRegion: US
+translationKeyFormat: null
+translationMethod: none
+type: rynpsc\phonenumber\fields\PhoneNumberField

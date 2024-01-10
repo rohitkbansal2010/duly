@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: eca27ab5-4de8-41d9-85c4-b3c60701f59d
+handle: parentFieldRef
+instructions: ''
+name: Parent
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    mode: hidden
+    modeOverride: ''
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: mmikkel\incognitofield\fields\IncognitoFieldType

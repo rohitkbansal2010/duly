@@ -1,0 +1,50 @@
+# Resource repository where pipeline templates located.
+# This is mandatory for linking to templates in other repository.
+resources:
+  repositories:
+  - repository: duly-yaml-templates
+    type: git
+    name: 'duly.digital.devops/duly-yaml-templates'
+
+  - repository: terraform-scripts
+    type: git
+    name: 'duly.app.v1.collaboration-view/terraform-scripts'
+
+pool: OnAKS
+
+
+trigger: none
+
+
+stages:
+- template: ./child.terraform/stages/full-iac-deployment-stage.yml@duly-yaml-templates
+  parameters:
+    infraSolutionRepo: terraform-scripts
+    configurationRepo: terraform-scripts
+    
+    ### The array of environments for deployment.
+    envList:
+    # - qat
+    # - aut
+    # - uat
+    - prd
+
+    ### The array of Terraform solutions which are grouped to be deployed simultaneously. After the first array's item, 'dependsOnIndex' property is required.
+    ### 'dependsOnIndex' property detremines Terraform solutions group as an array item number, after which current solutions group shoud be deployed.
+    infraSolutionSequence:
+      - solutions:
+        - managed_identities
+        - apim_enterprise_security
+      - dependsOnIndex: 0
+        solutions:
+        - keyVault
+      - dependsOnIndex: 1
+        solutions:
+        - apim_products
+        - db
+        - appInsight
+        - app_registration
+      # - dependsOnIndex: 2
+      #   solutions:
+        # - 005_vnetpeering
+        # - 007_AKS

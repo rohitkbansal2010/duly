@@ -1,0 +1,10 @@
+fieldLayouts:
+    5d5f77ce-a34e-4686-9eaf-49979d3e47ec: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: a8edaf01-2f37-49d4-8af0-8dbd1ada1191, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 1e148583-4fa4-4edc-a8ca-767e80c01f8c, instructions: '', label: '', required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: a10b9e2f-20d8-494e-92c3-f6e963e28297, instructions: '', label: '', required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: f751204e-1dd9-4c38-9bd7-d391e6f0f751, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: specials
+hasTitleField: true
+name: Specials
+section: 99f22154-881f-4f24-bcc5-f4dd1f567e20
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

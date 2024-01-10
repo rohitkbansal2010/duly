@@ -1,0 +1,18 @@
+<div class="search-results-container">
+    <div class="search-content">
+        <form class="site-wide-search">
+            {{ csrfInput() }}
+            {% include "_input/_input.twig" with {
+                type: 'text',
+                name: 'searchResults',
+                id: 'search-results',
+                label: "Search"|t,
+            } only %}
+            <div tabindex="0" class="search-icon"></div>
+        </form>
+
+        <button class="search-results-btn dmgButton primary1">{{ "Search"|t }}</button>
+    </div>
+</div>
+
+<p class="fetch-error hidden"></p>

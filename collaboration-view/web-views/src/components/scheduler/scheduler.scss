@@ -1,0 +1,28 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/typography.scss";
+
+.scheduler {
+  position: relative;
+
+  &Translucent {
+    opacity: 0.2;
+  }
+
+  &GroupAppointments {
+    position: absolute !important;
+    left: 7.06rem;
+    width: calc(100% - 7.06rem);
+    margin: 0 !important;
+
+    & > div {
+      position: relative;
+      margin: 0 !important;
+      padding: 0 !important;
+
+      &:not(:last-child) {
+        margin-right: 0.31rem !important;
+      }
+    }
+  }
+}

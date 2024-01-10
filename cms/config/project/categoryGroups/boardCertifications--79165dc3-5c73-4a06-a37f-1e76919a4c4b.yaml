@@ -1,0 +1,10 @@
+defaultPlacement: end
+fieldLayouts:
+    f179a1cc-5021-4fca-8da1-934fdc2f0867: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: boardCertifications
+name: 'Board Certifications'
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { hasUrls: false, template: null, uriFormat: null }
+structure:
+    maxLevels: null
+    uid: 30554992-33b6-45d0-9fce-3e92ee16f794

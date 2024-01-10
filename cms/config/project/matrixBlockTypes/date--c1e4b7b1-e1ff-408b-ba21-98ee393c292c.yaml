@@ -1,0 +1,9 @@
+field: 825b25d5-cdca-4063-89ae-ca1aa07ff95b
+fieldLayouts:
+    3a1cdeec-e3d8-454c-976c-a2857ca66324: { tabs: [{ elements: [{ fieldUid: 4e12f569-267b-4a04-a106-694d2c04d97f, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 64c13728-c5de-4fb9-8742-bf8673b7420c, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    4e12f569-267b-4a04-a106-694d2c04d97f: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: month, instructions: '', name: Month, searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: March, uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    64c13728-c5de-4fb9-8742-bf8673b7420c: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: year, instructions: '', name: Year, searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: '1985', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: date
+name: Date
+sortOrder: 1

@@ -1,0 +1,13 @@
+defaultPlacement: end
+enableVersioning: true
+handle: treatmentStyles
+name: 'Treatment Styles'
+previewTargets:
+    - { __assoc__: [[label, 'Primary entry page'], [urlFormat, '{url}'], [refresh, '1']] }
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: true, hasUrls: true, template: _services/_single-treatment-style, uriFormat: 'treatment-styles/{slug}' }
+structure:
+    maxLevels: null
+    uid: 450ef1a9-ecae-47ba-ac68-220da029bcf2
+type: structure

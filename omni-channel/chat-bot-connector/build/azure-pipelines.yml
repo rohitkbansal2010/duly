@@ -1,0 +1,383 @@
+parameters:
+  - name: FORCE_RUN_SONAR_CHECK
+    type: boolean
+    default: false
+    displayName: 'Force a launch of SonarQube analysis.'
+  - name: PUBLISH_FROM_FEATURE_BRANCH
+    type: boolean
+    default: false
+    displayName: 'Deploy from feature branch'
+  - name: imageRepository
+    default: $(Build.Repository.Name)-appointment-management
+  - name: imageTag
+    default: $(Build.BuildNumber)
+  - name: aksServiceConnection
+    default: 'duly-d-app-aks'
+
+trigger:
+  branches:
+    include:
+      - dev
+  paths:
+    include:
+      - src/*
+    exclude:
+      - build/*
+
+variables:
+  - name: ACR_SUBSCRIPTION
+    value: 'prd'
+  - name: ACR_NAME
+    value: 'dulydigitalcr.azurecr.io'
+  - name: BUILD_POOL
+    value: OnAKS
+  - name: VM_IMAGE
+    value: 'ubuntu-latest'
+  - name: FORCE_RUN_SONAR_CHECK
+    value: ${{ parameters.FORCE_RUN_SONAR_CHECK }}
+  - name: PUBLISH_FROM_FEATURE_BRANCH
+    value: ${{ parameters.PUBLISH_FROM_FEATURE_BRANCH }}
+  - name: infraSolutionFolder
+    value: chat-bot-connector
+  - name: aksServiceConnection
+    value: ${{ parameters.aksServiceConnection }}
+  - name: imageRepository
+    value: ${{ parameters.imageRepository }}
+  - name: imageTag
+    value: ${{ parameters.imageTag }}
+
+resources:
+  repositories:
+    - repository: yamltemplates
+      type: git
+      name: 'duly.digital.devops/duly-yaml-templates'
+
+    - repository: scripts
+      type: git
+      name: duly.digital.devops/duly-scripts
+
+    - repository: terraform-scripts
+      type: git
+      name: 'terraform-scripts'
+
+    - repository: charts
+      type: git
+      name: 'duly.digital.devops/duly-aks-helmcharts'
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: CI
+  jobs:
+   - job: Analyse
+     displayName: Continuous Integration
+     pool:
+       name: $(BUILD_POOL)
+     workspace:
+       clean: outputs
+     steps:
+       - checkout: self
+
+       # Template: Execute CI process for particular project
+       - template: child.build/ci-node-cli.yml@yamltemplates
+         parameters:
+           runUnitTests: false
+           createCoverageReport: false
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        eq(variables['Build.Reason'], 'PullRequest'),
+        eq(variables['FORCE_RUN_SONAR_CHECK'], 'true')
+      )
+    )
+
+- stage: Build
+  dependsOn: []
+  jobs:
+   - job: Build
+     displayName: Build Artifacts
+     pool:
+       # Explicitly run this job on Azure Pipelines pool due to npm issues on agents from OnAKS pool
+       vmImage: $(VM_IMAGE)
+     workspace:
+       clean: outputs
+     steps:
+     - checkout: self
+
+    #  Template: Prepare and publish Npm package
+     - template: child.build/build-node.yml@yamltemplates
+       parameters:
+         setBuildVersion: true
+         runUnitTests: false
+         createCoverageReport: false
+         publishBuildArtifacts: false
+         vstsFeed: 'duly.digital'
+
+     - task: PublishPipelineArtifact@1
+       displayName: Publish swagger.json
+       inputs:
+         targetPath: '$(Build.SourcesDirectory)/$(Build.Repository.Name)/src/swagger.json'
+         artifact: 'swagger.json'
+         publishLocation: 'pipeline'
+
+     - task: AzureCLI@2
+       displayName: Build and push a docker image
+       inputs:
+         azureSubscription: $(ACR_SUBSCRIPTION)
+         scriptType: pscore
+         scriptLocation: inlineScript
+         inlineScript: |
+            az acr build -t "$(ACR_NAME)/$(imageRepository):$(imageTag)" -r "$(ACR_NAME)" . 
+         workingDirectory: '$(Build.SourcesDirectory)/$(Build.Repository.Name)/src'
+
+     - task: PowerShell@2
+       displayName: 'PowerShell: Set commit tag'
+       inputs:
+         targetType: filePath
+         filePath: '$(Build.SourcesDirectory)/duly-scripts/PowerShell/Add-TagToAdoCommit.ps1'
+         arguments: >
+           -PAT $(System.AccessToken)
+           -organizationUri $(System.CollectionUri)
+           -projectName $(System.TeamProject)
+           -repositoryID $(Build.Repository.ID)
+           -commitID $(Build.SourceVersion)
+           -tagName $(Build.BuildNumber)
+           -tagMessage $(Build.BuildNumber)
+       continueOnError: true
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['PUBLISH_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# DEPLOY ON DEV ##############
+- stage: dev
+  displayName: Deploy on DEV
+  dependsOn: Build
+  variables:
+  - group: env.dev.terraform
+  - group: terraform.modules_rsa_key
+  jobs:
+    - template: child.jobs/terraform-update-apim-operations.yml@yamltemplates
+      parameters:
+        env: dev
+        infraSolutionFolder: ${{ variables.infraSolutionFolder }}
+
+    # Deliberately use IP address instead of FQDN (npd.dupagemedicalgroup.com) as a value for
+    # EPIC_BASEURL parameter because the target server instance is inside intrazone network
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'chat-bot-connector'
+        aadPodIdCustomName: 'duly-d-component-pod-id'
+        env: 'dev'
+        chartArgs: >
+          --set healthcheck.enabled=false
+          --set env.APP_INSIGHTS_INSTRUMENTATION_KEY="bca0709d-9788-4314-a065-20199c3b3de2"
+          --set env.RUNTIME_ENVIRONMENT="dev"
+          --set env.EPIC_BASEURL="https://epicproxy-np.et1296.epichosted.com/WIPFLI/api"
+          --set env.EPIC_TOKEN_TYPE="Basic"
+          --set env.EPIC_TOKEN="ZW1wJDI4MjgxOnRlc3Rpbmcx"
+          --set env.EPIC_TOKEN_2="ZW1wJDMwNjcwOnRlc3Rpbmcx"
+          --set env.EPIC_CLIENT_ID="ef6de80d-1de6-4e75-acbf-46abd721ce6b"
+          --set env.EPIC_CLIENT_ID_2="b8cf1cf5-164a-4db8-96d2-3d87dccc45ba"
+          --set env.EPIC_USER_ID=28281
+          --set env.EPIC_USER_ID_TYPE="External"
+          --set env.EPIC_USER_ID_2=33100
+          --set env.EPIC_USER_ID_TYPE_2="External"
+          --set env.KEY_VAULT_URL="https://duly-d-certs-kv.vault.azure.net/"
+          --set env.CERTIFICATE_NAME="digital-d-epic-bridge-v1-cert"
+          --set env.APPLICATION_NAME="Duly.Integration.ChatbotConnector"
+          --set env.MOCK_RESPONSES="true"
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['PUBLISH_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# DEPLOY ON QAT ##############
+- stage: qat
+  displayName: Deploy on QAT
+  dependsOn: dev
+  variables:
+  - group: env.qat.terraform
+  - group: terraform.modules_rsa_key
+  jobs:
+    - template: child.jobs/terraform-update-apim-operations.yml@yamltemplates
+      parameters:
+        env: qat
+        infraSolutionFolder: ${{ variables.infraSolutionFolder }}
+
+    # Deliberately use IP address instead of FQDN (npd.dupagemedicalgroup.com) as a value for
+    # EPIC_BASEURL parameter because the target server instance is inside intrazone network
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'chat-bot-connector'
+        aadPodIdCustomName: 'duly-q-component-pod-id'
+        env: 'qat'
+        chartArgs: >
+          --set healthcheck.enabled=false
+          --set env.APP_INSIGHTS_INSTRUMENTATION_KEY="bca0709d-9788-4314-a065-20199c3b3de2"
+          --set env.RUNTIME_ENVIRONMENT="qat"
+          --set env.EPIC_BASEURL="https://172.26.49.4:447/epic/nppunchkick/api"
+          --set env.EPIC_TOKEN_TYPE="Basic"
+          --set env.EPIC_TOKEN="ZW1wJDI4MjgxOnRlc3Rpbmcx"
+          --set env.EPIC_CLIENT_ID="ef6de80d-1de6-4e75-acbf-46abd721ce6b"
+          --set env.EPIC_USER_ID=28281
+          --set env.EPIC_USER_ID_TYPE="External"
+          --set env.KEY_VAULT_URL="https://duly-d-certs-kv.vault.azure.net/"
+          --set env.CERTIFICATE_NAME="digital-np-epic-bridge-cert"
+          --set env.APPLICATION_NAME="Duly.Integration.ChatbotConnector"
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# DEPLOY ON AUT ##############
+- stage: aut
+  displayName: Deploy on AUT
+  dependsOn: dev
+  variables:
+  - group: env.aut.terraform
+  - group: terraform.modules_rsa_key
+  jobs:
+    - template: child.jobs/terraform-update-apim-operations.yml@yamltemplates
+      parameters:
+        env: aut
+        infraSolutionFolder: ${{ variables.infraSolutionFolder }}
+
+    # Deliberately use IP address instead of FQDN (npd.dupagemedicalgroup.com) as a value for
+    # EPIC_BASEURL parameter because the target server instance is inside intrazone network
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'chat-bot-connector'
+        aadPodIdCustomName: 'duly-a-component-pod-id'
+        env: 'aut'
+        chartArgs: >
+          --set healthcheck.enabled=false
+          --set env.APP_INSIGHTS_INSTRUMENTATION_KEY="bca0709d-9788-4314-a065-20199c3b3de2"
+          --set env.RUNTIME_ENVIRONMENT="aut"
+          --set env.EPIC_BASEURL="https://172.26.49.4:447/epic/nppunchkick/api"
+          --set env.EPIC_TOKEN_TYPE="Basic"
+          --set env.EPIC_TOKEN="ZW1wJDI4MjgxOnRlc3Rpbmcx"
+          --set env.EPIC_CLIENT_ID="ef6de80d-1de6-4e75-acbf-46abd721ce6b"
+          --set env.EPIC_USER_ID=28281
+          --set env.EPIC_USER_ID_TYPE="External"
+          --set env.KEY_VAULT_URL="https://duly-d-certs-kv.vault.azure.net/"
+          --set env.CERTIFICATE_NAME="digital-np-epic-bridge-cert"
+          --set env.APPLICATION_NAME="Duly.Integration.ChatbotConnector"
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# DEPLOY ON UAT ##############
+- stage: uat
+  displayName: Deploy on UAT
+  dependsOn: qat
+  variables:
+  - group: env.uat.terraform
+  - group: terraform.modules_rsa_key
+  jobs:
+    - template: child.jobs/terraform-update-apim-operations.yml@yamltemplates
+      parameters:
+        env: uat
+        infraSolutionFolder: ${{ variables.infraSolutionFolder }}
+
+    # Deliberately use IP address instead of FQDN (npd.dupagemedicalgroup.com) as a value for
+    # EPIC_BASEURL parameter because the target server instance is inside intrazone network
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'chat-bot-connector'
+        aadPodIdCustomName: 'duly-u-component-pod-id'
+        env: 'uat'
+        chartArgs: >
+          --set healthcheck.enabled=false
+          --set env.APP_INSIGHTS_INSTRUMENTATION_KEY="bca0709d-9788-4314-a065-20199c3b3de2"
+          --set env.RUNTIME_ENVIRONMENT="uat"
+          --set env.EPIC_BASEURL="https://172.26.49.4:447/epic/nppunchkick/api"
+          --set env.EPIC_TOKEN_TYPE="Basic"
+          --set env.EPIC_TOKEN="ZW1wJDI4MjgxOnRlc3Rpbmcx"
+          --set env.EPIC_CLIENT_ID="ef6de80d-1de6-4e75-acbf-46abd721ce6b"
+          --set env.EPIC_USER_ID=28281
+          --set env.EPIC_USER_ID_TYPE="External"
+          --set env.KEY_VAULT_URL="https://duly-d-certs-kv.vault.azure.net/"
+          --set env.CERTIFICATE_NAME="digital-np-epic-bridge-cert"
+          --set env.APPLICATION_NAME="Duly.Integration.ChatbotConnector"
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )

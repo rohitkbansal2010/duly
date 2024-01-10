@@ -1,0 +1,148 @@
+trigger: none
+
+parameters:
+  - name: majorVersion
+    type: number
+    displayName: 'Major version of the new release branch'
+  - name: minorVersion
+    type: number
+    displayName: 'Minor version of the new release branch'
+  - name: apiSystemNgdp
+    type: boolean
+    default: false
+    displayName: 'api-system-ngdp'
+  - name: apiSystemNgdpCommitId
+    type: string
+    default: 'latest'
+    displayName: 'api-system-ngdp commit id (full SHA or first 8 characters)'
+  - name: apiSystemClinic
+    type: boolean
+    default: false
+    displayName: 'api-system-clinic'
+  - name: apiSystemClinicCommitId
+    type: string
+    default: 'latest'
+    displayName: 'api-system-clinic commit id (full SHA or first 8 characters)'
+  - name: apiEncounter
+    type: boolean
+    default: false
+    displayName: 'api-encounter'
+  - name: apiEncounterCommitId
+    type: string
+    default: 'latest'
+    displayName: 'api-encounter commit id (full SHA or first 8 characters)'
+  - name: apiResource
+    type: boolean
+    default: false
+    displayName: 'api-resource'
+  - name: apiResourceCommitId
+    type: string
+    default: 'latest'
+    displayName: 'api-resource commit id (full SHA or first 8 characters)'
+  - name: webViews
+    type: boolean
+    default: false
+    displayName: 'web-views'
+  - name: webViewsCommitId
+    type: string
+    default: 'latest'
+    displayName: 'web-views commit id (full SHA or first 8 characters)'
+
+variables: 
+  - name: BUILD_POOL
+    value: OnAKS
+
+resources:
+  repositories:
+    - repository: scripts
+      type: git
+      name: 'duly.digital.devops/duly-scripts'
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+- stage: ngdp
+  dependsOn: []
+  displayName: 'api-system-ngdp: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: ngdp
+    displayName: 'api-system-ngdp: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.api.v1.integration'
+          repositoryName: 'api-system-ngdp'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.apiSystemNgdpCommitId }}
+  condition: eq('${{ parameters.apiSystemNgdp }}', 'true')
+
+- stage: clinic
+  dependsOn: []
+  displayName: 'api-system-clinic: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: clinic
+    displayName: 'api-system-clinic: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.api.v1.integration'
+          repositoryName: 'api-system-clinic'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.apiSystemClinicCommitId }}
+  condition: eq('${{ parameters.apiSystemClinic }}', 'true')
+
+- stage: encounter
+  dependsOn: []
+  displayName: 'api-encounter: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: encounter
+    displayName: 'api-encounter: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.collaboration-view'
+          repositoryName: 'api-encounter'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.apiEncounterCommitId }}
+  condition: eq('${{ parameters.apiEncounter }}', 'true')
+
+- stage: resource
+  dependsOn: []
+  displayName: 'api-resource: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: resource
+    displayName: 'api-resource: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.collaboration-view'
+          repositoryName: 'api-resource'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.apiResourceCommitId }}
+  condition: eq('${{ parameters.apiResource }}', 'true')
+
+- stage: webviews
+  dependsOn: []
+  displayName: 'web-views: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: webviews
+    displayName: 'web-views: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.collaboration-view'
+          repositoryName: 'web-views'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.webViewsCommitId }}
+  condition: eq('${{ parameters.webViews }}', 'true')

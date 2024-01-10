@@ -1,0 +1,36 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% set entry = craft.entries()
+    .section('treatmentStyles')
+    .slug(craft.app.request.getSegment(2))
+    .one()
+%}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title entry.title %}
+{% block bodyClass "treatment-style-detail-page" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    <section class="treatment-style-container">
+        {% if entry.treatmentHeroImage.one() is not null %}
+            <div class="image-container">
+                {{ getOptimizedImage(entry.treatmentHeroImage.one(), 'webp', false, [{'settings': ['resize:fill:970:520:1:1'],'css': '(max-width:1200px)'}])|raw }}
+            </div>
+        {% endif %}
+
+        <div class="headline">
+            <h1>{{ entry.title }}</h1>
+        </div>
+
+        <hr>
+
+        {% if entry.treatmentDescription is not null %}
+            <div class="content">
+                {{ entryWithOptimizedImages(entry, 'treatmentDescription')|typogrify|raw }}
+            </div>
+        {% endif %}
+        <div class="pattern-container-left"></div>
+    </section>
+{% endblock %}

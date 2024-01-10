@@ -1,0 +1,10 @@
+fieldLayouts:
+    8e178623-934c-49c6-b338-9c11c23cd46b: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: 'Plan Name', max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: e5654811-e7fa-46e4-b72a-01877e10fb10, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: bba5e651-d05f-467b-8494-9e6d48dfc55c, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 9e549e61-16ed-452d-a298-27624b94d888, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 122c24b5-4fb7-4edf-be05-a3a9695f9098, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: a5ea8fe4-3e25-4761-91cc-612d55a9fd7f, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: 'Insurance Plan', sortOrder: 1 }] }
+handle: insurancePlans
+hasTitleField: true
+name: 'Insurance Plans'
+section: 0cb638cf-4ccc-4a3d-a396-9a0ad705d575
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

@@ -1,0 +1,288 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppointmentItem should render correctly 1`] = `
+<AppointmentItem
+  id="1"
+  isProtectedByBtg={false}
+  patient={
+    Object {
+      "isNewPatient": true,
+      "patientGeneralInfo": Object {
+        "humanName": Object {
+          "familyName": "second name",
+          "givenNames": Array [],
+        },
+        "id": "1",
+      },
+    }
+  }
+  practitioner={
+    Object {
+      "humanName": Object {
+        "familyName": "practioner name",
+        "givenNames": Array [],
+      },
+      "id": "1",
+      "role": "Doctor",
+    }
+  }
+  startTimeGroups={1}
+  status="Scheduled"
+  timeSlot={
+    Object {
+      "endTime": "2022-01-13T01:00:00",
+      "startTime": "2022-01-13T00:00:00",
+    }
+  }
+  title="test appointment"
+  type="Telehealth"
+>
+  <Col
+    className="appointmentContainer"
+  >
+    <div
+      className="appointmentContainer col"
+    >
+      <Card
+        body={false}
+        className="appointmentCard"
+        style={
+          Object {
+            "height": "0rem",
+            "top": "0rem",
+          }
+        }
+      >
+        <div
+          className="appointmentCard card"
+          style={
+            Object {
+              "height": "0rem",
+              "top": "0rem",
+            }
+          }
+        >
+          <span
+            className="appointmentCardNewPatient"
+          >
+            <img
+              alt="White add user"
+              data-testid="appointment-item__new-patient-icon"
+              src="add-user-white.svg"
+            />
+          </span>
+          <div
+            className="appointmentCardBarLeft"
+          />
+          <CardBody
+            className="appointmentCardBody"
+            onClick={[Function]}
+          >
+            <div
+              className="appointmentCardBody card-body"
+              onClick={[Function]}
+            >
+              <div
+                className="appointmentCardBodyContent"
+              >
+                <CardTitle
+                  className="appointmentCardBodyContentTitle"
+                >
+                  <ForwardRef
+                    className="appointmentCardBodyContentTitle card-title"
+                  >
+                    <div
+                      className="appointmentCardBodyContentTitle card-title h5"
+                    >
+                      <span
+                        className="ellipsis"
+                      >
+                        <span
+                          className="appointmentCardBodyContentHumanName"
+                          data-testid="appointment-item__patient-name"
+                        >
+                           second name
+                        </span>
+                        <span
+                          className="appointmentCardBodyContentHumanName"
+                        >
+                          , 
+                        </span>
+                        <span
+                          className="appointmentCardBodyContentServiceType"
+                        >
+                          test appointment
+                        </span>
+                        <img
+                          alt="Filled dark blue videocam"
+                          data-testid="appointment-item__telehealth-icon"
+                          src="video-camera-fill-dark-blue.svg"
+                        />
+                      </span>
+                    </div>
+                  </ForwardRef>
+                </CardTitle>
+                <div
+                  className="d-flex flex-column"
+                >
+                  <span
+                    className="appointmentCardBodyContentPractitioner ellipsis"
+                    data-testid="appointment-item__practitioner-card"
+                  >
+                    practioner name
+                  </span>
+                  <span
+                    className="appointmentCardBodyContentTime ellipsis"
+                  >
+                    0:00 - 0:00 pm
+                  </span>
+                </div>
+              </div>
+            </div>
+          </CardBody>
+        </div>
+      </Card>
+    </div>
+  </Col>
+</AppointmentItem>
+`;
+
+exports[`AppointmentItem should render correctly appointment with empty data 1`] = `
+<AppointmentItem
+  id="1"
+  isProtectedByBtg={false}
+  location={
+    Object {
+      "title": "",
+    }
+  }
+  patient={
+    Object {
+      "isNewPatient": true,
+      "patientGeneralInfo": Object {
+        "humanName": Object {
+          "familyName": "",
+          "givenNames": Array [],
+        },
+        "id": "1",
+      },
+    }
+  }
+  practitioner={
+    Object {
+      "humanName": Object {
+        "familyName": "",
+        "givenNames": Array [],
+      },
+      "id": "1",
+      "role": "Doctor",
+    }
+  }
+  startTimeGroups={1}
+  status="Scheduled"
+  timeSlot={
+    Object {
+      "endTime": "",
+      "startTime": "",
+    }
+  }
+  title=""
+  type="Telehealth"
+>
+  <Col
+    className="appointmentContainer"
+  >
+    <div
+      className="appointmentContainer col"
+    >
+      <Card
+        body={false}
+        className="appointmentCard"
+        style={
+          Object {
+            "height": "0rem",
+            "top": "0rem",
+          }
+        }
+      >
+        <div
+          className="appointmentCard card"
+          style={
+            Object {
+              "height": "0rem",
+              "top": "0rem",
+            }
+          }
+        >
+          <span
+            className="appointmentCardNewPatient"
+          >
+            <img
+              alt="White add user"
+              data-testid="appointment-item__new-patient-icon"
+              src="add-user-white.svg"
+            />
+          </span>
+          <div
+            className="appointmentCardBarLeft"
+          />
+          <CardBody
+            className="appointmentCardBody"
+            onClick={[Function]}
+          >
+            <div
+              className="appointmentCardBody card-body"
+              onClick={[Function]}
+            >
+              <div
+                className="appointmentCardBodyContent"
+              >
+                <CardTitle
+                  className="appointmentCardBodyContentTitle"
+                >
+                  <ForwardRef
+                    className="appointmentCardBodyContentTitle card-title"
+                  >
+                    <div
+                      className="appointmentCardBodyContentTitle card-title h5"
+                    >
+                      <span
+                        className="ellipsis"
+                      >
+                        <span
+                          className="appointmentCardBodyContentHumanName"
+                          data-testid="appointment-item__patient-name"
+                        >
+                           
+                        </span>
+                        <img
+                          alt="Filled dark blue videocam"
+                          data-testid="appointment-item__telehealth-icon"
+                          src="video-camera-fill-dark-blue.svg"
+                        />
+                      </span>
+                    </div>
+                  </ForwardRef>
+                </CardTitle>
+                <div
+                  className="d-flex flex-column"
+                >
+                  <span
+                    className="appointmentCardBodyContentPractitioner ellipsis"
+                    data-testid="appointment-item__practitioner-card"
+                  />
+                  <span
+                    className="appointmentCardBodyContentTime ellipsis"
+                  >
+                    0:00 - 0:00 pm
+                  </span>
+                </div>
+              </div>
+            </div>
+          </CardBody>
+        </div>
+      </Card>
+    </div>
+  </Col>
+</AppointmentItem>
+`;

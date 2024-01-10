@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: bb45064c-bdd5-4ee4-9e20-4f4265207b6c
+handle: singleLocation
+instructions: 'Please select a top-level location, and not a suite.'
+name: 'Single Location'
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: '1'
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:17cba234-5703-403b-a9e3-d029df2d1745']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

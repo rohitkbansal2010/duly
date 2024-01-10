@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: string(440)
+fieldGroup: 99b92802-afee-4578-b959-de37dfc60066
+handle: description
+instructions: ''
+name: Description
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: 110
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

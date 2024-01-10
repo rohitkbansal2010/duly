@@ -1,0 +1,115 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1rem;
+  column-gap: 2.4375rem;
+}
+
+.contentLeft {
+  // width: 18.625rem;
+  width: 20%;
+}
+
+.contentRight {
+  // width: 67.25rem;
+  width: 80%;
+  height: 54.18rem;
+  padding: 1.5rem 1.875rem;
+  background-color: $white;
+  border-radius: 0.625rem;
+}
+.contentRightAfterVisit {
+  width: 80%;
+  height: 54.18rem;
+  padding: 1.5rem 1.875rem;
+  border-radius: 0.625rem;
+}
+
+.navbar {
+  &Item {
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &Link {
+      padding: 0 !important;
+    }
+
+    &Active {
+      position: relative;
+      padding: 0 !important;
+    }
+  }
+}
+
+.stepsContainer {
+  position: relative;
+  margin-top: 2rem;
+
+  &Steps {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2.5rem;
+    &LastStepIcon {
+      width: 4.7rem;
+      height: 3.125rem;
+    }
+    &Step {
+      display: flex;
+      color: $default-text;
+      font-weight: 600;
+      font-size: var(--font-size-18px-4px);
+      font-family: "Inter", sans-serif;
+      line-height: 120%;
+      letter-spacing: 0.046875rem;
+      column-gap: 1.75rem;
+      &Div {
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        width: 4.7rem;
+      }
+      &Icon {
+        width: 4.7rem;
+        height: 4.7rem;
+      }
+      &Text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        &Last {
+          font-size: var(--font-size-14px-4px);
+        }
+      }
+      &Detail {
+        margin-top: 0.25rem;
+        color: $default-text;
+        font-weight: 400;
+        font-size: var(--font-size-16px-4px);
+        font-family: "Inter", sans-serif;
+        line-height: var(--line-height-20px-4px);
+        text-transform: none;
+      }
+    }
+  }
+}
+
+.stepsContainer::before {
+  position: absolute;
+  top: 1rem;
+  left: 2.2875rem;
+  height: calc(100% - 2rem);
+  border-left: 0.125rem solid $dupage-blue;
+  content: "";
+}
+
+.activeTab {
+  color: $dupage-magenta;
+  font-weight: 800;
+}

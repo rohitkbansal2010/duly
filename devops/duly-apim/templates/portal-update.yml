@@ -1,0 +1,70 @@
+parameters:
+  - name: environment
+    type: string
+    default: ''
+  - name: subscriptionName
+    type: string
+    default: ''
+  - name: apimManagementUri
+    type: string
+    default: ''
+  - name: targetPortalUri
+    type: string
+    default: ''
+  - name: apimName
+    type: string
+    default: ''
+  - name: apimRgName
+    type: string
+    default: ''
+  - name: mediaFolder
+    type: string
+    default: './portal/content'
+  - name: vmImage
+    type: string
+    default: 'ubuntu-latest'
+
+jobs:
+  - deployment: Deploy_APIM_Developer_Portal
+    pool:
+      vmImage: '${{ parameters.vmImage }}'
+    displayName: 'Deployment of APIM Developer Portal: ${{ parameters.apimName }}'
+    environment: '${{ parameters.environment }}'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+            - template: ./generate-token.yml
+              parameters:
+                subscriptionName: ${{ parameters.subscriptionName }}
+                apimName: ${{ parameters.apimName }}
+                apimRgName: ${{ parameters.apimRgName }}
+
+            - task: PowerShell@2
+              displayName: 'Cleanup Portal Content'
+              inputs:
+                targetType: 'inline'
+                script: |
+                  Write-Output "Install NPM JS Azure storage-blob library"
+                  npm install @azure/storage-blob
+                  Write-Output "Reset configuration and remove content of the target portal"
+                  node ./cleanup '${{ parameters.apimManagementUri }}' '$(sasAccessKey)'
+                workingDirectory: '$(Pipeline.Workspace)/drop/'
+
+            - task: PowerShell@2
+              displayName: 'Upload Portal Content'
+              inputs:
+                targetType: 'inline'
+                script: |
+                  Write-Output "Upload the content and configuration of the source portal"
+                  node ./generate '${{ parameters.apimManagementUri }}' '$(sasAccessKey)' '${{ parameters.mediaFolder }}'
+                workingDirectory: '$(Pipeline.Workspace)/drop/'
+
+            - task: PowerShell@2
+              displayName: 'Publish Portal'
+              inputs:
+                targetType: 'inline'
+                script: |
+                  $header = @{ 'Authorization' = '$(sasAccessKey)'}
+                  Invoke-RestMethod -Method Post -Uri '${{ parameters.targetPortalUri }}' -Headers $header -ContentType 'application/json'

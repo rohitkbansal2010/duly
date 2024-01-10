@@ -1,0 +1,26 @@
+<div tabindex="0" class="specialty-custom-picker-container">
+	<span class="default-state-text">{{ "Select Specialty"|t }}</span>
+	<i class="search-icon"></i>
+	<div class="active-list">
+		<div class="search-containier">
+			<input tabindex="0" class="search-input" type="text" placeholder="{{ "Search Specialties"|t }}">
+		</div>
+		<div class="list-of-specialties">
+			{% if specialties|length %}
+				{# new design feature involves hardcoding an option to allow user to switch back to view walk-in details #}
+				<div class="specialty">
+					<div class="main-name" id="show-all-services" >{{ "All Services"|t }}</div>
+				</div>
+			{% endif %}
+
+			{% for parent, attrs in specialties %}
+				<div class="specialty {% if attrs["children"]|length != 0 %} has-subspecialties {% endif %}">
+					<div class="main-name" data-attr-services="{{ attrs["_ids"]|join(',') }}">{{ parent }}</div>
+					{% for child, ids in attrs["children"] %}
+						<div class="subspecialty" data-attr-services="{{ ids['_ids']|join(' ') }}">{{ child }}</div>
+					{% endfor %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

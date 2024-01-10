@@ -1,0 +1,32 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 84effa33-535f-4fb6-9548-b1093dc01858
+handle: treatmentHeroImage
+instructions: 'Upload an image related to this treatment style.'
+name: 'Treatment Hero Image'
+searchable: false
+settings:
+    allowSelfRelations: false
+    allowUploads: true
+    allowedKinds: null
+    defaultUploadLocationSource: 'volume:2b01430a-33e9-44a6-87d1-5381ad9be60d'
+    defaultUploadLocationSubpath: ''
+    limit: ''
+    localizeRelations: false
+    previewMode: full
+    restrictFiles: ''
+    selectionLabel: ''
+    showSiteMenu: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    singleUploadLocationSource: 'volume:2b01430a-33e9-44a6-87d1-5381ad9be60d'
+    singleUploadLocationSubpath: ''
+    source: null
+    sources: ['volume:3c219dc4-6cb7-4662-8598-3e9a9cb80037']
+    targetSiteId: null
+    useSingleFolder: false
+    validateRelatedElements: false
+    viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Assets

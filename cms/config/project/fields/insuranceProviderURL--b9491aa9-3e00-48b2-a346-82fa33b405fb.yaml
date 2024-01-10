@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 3bea3112-5fd4-4beb-9d1f-a9a6af85c550
+handle: insuranceProviderURL
+instructions: 'A URL to the insurance provider''s website.'
+name: URL
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: text
+    initialRows: '4'
+    multiline: ''
+    placeholder: 'https://www.examplehealthcare.com'
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

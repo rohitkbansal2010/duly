@@ -1,0 +1,9 @@
+field: 1a86fd60-af39-4094-906e-1d32b95ad9f5
+fieldLayouts:
+    de52189a-2bf0-4277-b035-8275d131b548: { tabs: [{ elements: [{ fieldUid: 1cbedb4f-1d5b-4c97-bd5d-ccea0d40f66a, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 43163239-e5be-4040-8781-98df9f0090a5, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    1cbedb4f-1d5b-4c97-bd5d-ccea0d40f66a: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: internshipSchoolName, instructions: '', name: 'Internship School Name', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: 'Northwestern University ', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    43163239-e5be-4040-8781-98df9f0090a5: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: internshipSpeciality, instructions: '', name: 'Internship Speciality ', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: 'Pediatrics ', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: internship
+name: Internship
+sortOrder: 1

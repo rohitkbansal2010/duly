@@ -1,0 +1,162 @@
+.find-right-care-container {
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+
+  .find-right-care {
+    width: 850px;
+    margin: 80px auto 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 2rem 0;
+
+    @include responsive(x-large) {
+      width: 730px;
+    }
+
+    @include responsive(medium) {
+      width: 90%;
+      margin-top: 1rem;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: normal;
+      line-height: 38px;
+      margin: 0 auto;
+    }
+
+    .description {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 24px;
+      margin: 20px auto;
+    }
+
+    .input-and-cta {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      @include responsive(medium) {
+        flex-direction: column;
+      }
+
+      .input-and-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 0 0 545px;
+        position: relative;
+
+        @include responsive(x-large) {
+          flex: 0 0 450px;
+        }
+
+        @include responsive(medium) {
+          flex: 0 0 auto;
+          width: 100%;
+        }
+
+        .mdc-text-field {
+          width: 100%;
+        }
+
+        .copy {
+          position: absolute;
+          bottom: -20px;
+          left: 20px;
+          font-size: 10px;
+          font-weight: normal;
+          line-height: 16px;
+          color: $oxford;
+        }
+      }
+
+      button {
+        flex: 0 0 273px;
+        padding: 15px;
+        font-size: 22px;
+        font-weight: 800;
+        line-height: 24px;
+
+        @include responsive(x-large) {
+          flex: 0 0 253px;
+        }
+
+        @include responsive(medium) {
+          flex: 0 0 auto;
+          width: 100%;
+          margin-top: 40px;
+        }
+      }
+    }
+
+    .checkbox-and-copy {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-top: 35px;
+
+      .mdc-form-field {
+        outline: none;
+      }
+
+      label {
+        color: $oxford;
+        font-size: 16px;
+        font-weight: normal;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+
+  .pattern-container {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    width: 210px;
+    top: 50%;
+    height: unset;
+    transform: translateY(-50%);
+    bottom: 0;
+    z-index: -1;
+    margin: 0;
+    opacity: 1;
+    left: unset;
+    &.left{
+      background-image: url(/dist/img/immediate-care-pattern-left.svg);
+      left: 0;
+    }
+    &.right {
+      background-image: url(/dist/img/immediate-care-pattern-right.svg);
+      right:0;
+    }
+    @include responsive(large) {
+      display: initial;
+      width: 175px;
+      height: 100px;
+      top: calc(100% - 60px);
+		}
+    @include responsive(bs-large) {
+      width: 180px;
+      height: 80px;
+      top: calc(100% - 55px);
+		}
+    @include responsive(medium) {
+      top: calc(100% - 60px);  
+      width: 120px;
+      height: 200px;
+		}
+    @include responsive(small) {
+      top: calc(100% + 15px);
+      width: 150px;
+      height: 100px;
+		}
+  }
+}

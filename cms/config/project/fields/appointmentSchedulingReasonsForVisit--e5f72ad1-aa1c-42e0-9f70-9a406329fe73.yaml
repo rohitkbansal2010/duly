@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 188a7201-acbb-4843-a517-affbd2d8231f
+handle: appointmentSchedulingReasonsForVisit
+instructions: 'When a patient attempts to schedule an appointment for a service that has a list of reasons for visit (optional), the patient must select one reason. Only physicians associated with this service and this reason for visit may be eligible for this patient''s appointment selections.'
+name: 'Appointment Scheduling Reasons for Visit'
+searchable: true
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: 'Add a reason'
+    showSiteMenu: true
+    source: null
+    sources: ['section:0d1f6651-c186-4f3d-8a81-54fa9729260d']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

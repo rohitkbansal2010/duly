@@ -1,0 +1,35 @@
+{% set hasSubSpecialties = subspecialties is not null and subspecialties is not empty %}
+
+<div class="{{ hasSubSpecialties ? 'specialties-container' : 'specialties-container hidden' }}">
+    <div class="header">
+        {% if hasSubSpecialties %}
+            <div class="category active">
+                <h3>{{ "Sub-Specialties"|t }}</h3>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="categories-container">
+        {% if hasSubSpecialties %}
+            <div class="container subspecialties active">
+                {% for subspecialty in subspecialties %}  
+                    <div class="type">
+                        {% set image = subspecialty.serviceHeroImage[0] ?? null %}
+                        {% set serviceLink = subspecialty.linkUrl ? subspecialty.linkUrl : subspecialty.getUrl() %}
+
+                        {% if image is not null %}
+                            <a href="{{ serviceLink }}" tabindex="0">
+                                {{ getOptimizedImage(image, 'webp')|raw }}
+                                <span>{{ subspecialty.title }}<span>
+                            </a>
+                        {% else %}
+                            <a href="{{ serviceLink }}" tabindex="0">
+                                <span>{{ subspecialty.title }}<span>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>

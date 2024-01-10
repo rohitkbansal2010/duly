@@ -1,0 +1,237 @@
+﻿parameters:
+  - name: projectPath
+    type: string
+    default: '$(Build.SourcesDirectory)/$(Build.Repository.Name)'
+  - name: setBuildVersion
+    type: boolean
+    default: false
+  - name: setHtmlBuildVersion
+    type: boolean
+    default: false
+  - name: executeBuild
+    type: boolean
+    default: true
+  - name: vstsFeed
+    type: string
+    default: 'duly.digital'
+  - name: runUnitTests
+    type: boolean
+    default: false
+  - name: createCoverageReport
+    type: boolean
+    default: false
+  - name: runLint
+    type: boolean
+    default: true
+  - name: publishBuildArtifacts
+    type: boolean
+    default: false
+  - name: publishNpmPackage
+    type: boolean
+    default: false
+  - name: nodeVersion
+    type: string
+    default: '14.16.1'
+  - name: buildCommand
+    type: string
+    default: 'run-script build'
+
+  - name: preBuildSteps
+    type: stepList
+    default: [] # default value of buildSteps
+
+  # SonarQube ADO service connection name
+  - name: sonarCloudServiceConnection
+    type: string
+    default: 'sonar-qube-$(System.TeamProject)'
+  - name: enableSonarCloudScan
+    type: boolean
+    default: false
+  # Sonar project name
+  - name: sonarCloudProjectName
+    type: string
+    default: '$(System.TeamProject)-$(Build.Repository.Name)'
+  # Optional location of code artefacts for analysis
+  - name: sonarCloudScanningPath
+    type: string
+    default: '$(Build.Repository.Name)'
+  # Provide solution name value if project and repository names are not enough
+  - name: sonarCloudProjectSuffix
+    type: string
+    default: ''
+
+steps:
+  - checkout: scripts
+
+  # Set ADO build version
+  - task: PowerShell@2
+    displayName: 'PowerShell: Set ADO build version'
+    inputs:
+      targetType: filePath
+      filePath: 'duly-scripts/PowerShell/Set-AdoPsBuildVersion.ps1'
+    continueOnError: true
+    enabled: ${{ parameters.setBuildVersion }}
+    condition: |
+      and
+      (
+        succeeded(), or
+        (
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+          startsWith(variables['Build.SourceBranchName'], 'main'),
+          in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+        ),
+        ne(variables['Build.Reason'], 'PullRequest')
+      )
+
+  # Set build version tag inside index.html
+  - task: PowerShell@2
+    displayName: 'PowerShell: Set HTML tags build version'
+    inputs:
+      targetType: filePath
+      filePath: 'duly-scripts/PowerShell/Set-VersionTagsReact.ps1'
+      arguments: -Path ${{ parameters.projectPath }}
+    continueOnError: true
+    enabled: ${{ parameters.setHtmlBuildVersion }}
+    condition: |
+      and
+      (
+        succeeded(), or
+        (
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+          startsWith(variables['Build.SourceBranchName'], 'main'),
+          in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+        ),
+        ne(variables['Build.Reason'], 'PullRequest')
+      )
+
+  # Template: Install SonarQube for solution
+  - ${{ if eq(parameters.enableSonarCloudScan, true) }}:
+    - template: ../child.steps/sonarqube-prepare.yml
+      parameters:
+        sonarCloudServiceConnection: ${{ parameters.sonarCloudServiceConnection }}
+        sonarCloudProjectName: ${{ parameters.sonarCloudProjectName }}
+        sonarCloudScanningPath: ${{ parameters.projectPath }}
+        sonarCloudProjectSuffix: ${{ parameters.sonarCloudProjectSuffix }}
+        sonarCloudScannerMode: 'CLI'
+
+  - task: NodeTool@0
+    displayName: 'Node: Install ${{ parameters.nodeVersion }}'
+    inputs:
+      versionSpec: ${{ parameters.nodeVersion }}
+
+  - ${{ each step in parameters.preBuildSteps }}:
+    - ${{ each pair in step }}:
+        ${{ pair.key }}: ${{ pair.value }}
+
+  # Npm CI
+  - task: Npm@1
+    displayName: 'Npm: Install'
+    inputs:
+      workingDir: ${{ parameters.projectPath }}
+      verbose: false
+      command: install
+      customRegistry: useFeed
+      customFeed: ${{ parameters.vstsFeed }}
+
+  # Npm Lint
+  - task: Npm@1
+    displayName: 'Npm: Run lint'
+    inputs:
+      command: custom
+      workingDir: ${{ parameters.projectPath }}
+      verbose: false
+      customCommand: 'run lint'
+    continueOnError: true
+    enabled: ${{ parameters.runLint }}
+
+  # Temporary commented by Development team request
+  # Npm Lint HTML
+  #- task: Npm@1
+  #  displayName: 'Npm: Run lint-html'
+  #  inputs:
+  #    command: custom
+  #    verbose: false
+  #    customCommand: 'run lint-html'
+  #    workingDir: ${{ parameters.projectPath }}
+  #  continueOnError: true
+  #  enabled: ${{ parameters.runLint }}
+
+  # Npm Lint CSS
+  #- task: Npm@1
+  #  displayName: 'Npm: Run lint-css'
+  #  inputs:
+  #    command: custom
+  #    verbose: false
+  #    customCommand: 'run lint-css'
+  #    workingDir: ${{ parameters.projectPath }}
+  #  continueOnError: true
+  #  enabled: ${{ parameters.runLint }}
+
+  # Npm Unit Tests
+  - task: Npm@1
+    displayName: 'Npm: Run unit tests'
+    inputs:
+      command: custom
+      workingDir: ${{ parameters.projectPath }}
+      verbose: false
+      customCommand: 'run-script test:ci'
+    continueOnError: false
+    enabled: ${{ parameters.runUnitTests }}
+
+  # Publish Tests Results
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFiles: "**/junit.xml"
+      testRunTitle: '$(System.TeamProject)-$(Build.Repository.Name)'
+    continueOnError: false
+    enabled: ${{ parameters.runUnitTests }}
+    condition: succeededOrFailed()
+
+  # Create Code Coverage Report
+  - task: Npm@1
+    displayName: 'Npm: Create code coverage report'
+    inputs:
+      command: custom
+      workingDir: ${{ parameters.projectPath }}
+      verbose: false
+      customCommand: 'run-script test:coverage'
+    enabled: ${{ parameters.createCoverageReport }}
+
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish Code Coverage Report'
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '${{ parameters.projectPath }}/coverage/cobertura-coverage.xml'
+    continueOnError: false
+    enabled: ${{ parameters.createCoverageReport }}
+
+  # Npm Build
+  - task: Npm@1
+    displayName: 'Npm: Run build'
+    inputs:
+      command: custom
+      workingDir: ${{ parameters.projectPath }}
+      verbose: true
+      customCommand: ${{ parameters.buildCommand }}
+    continueOnError: false
+    enabled: ${{ parameters.executeBuild }}
+
+  # Template: Publish build artifacts
+  # Can be disables by publishBuildArtifacts: false
+  - ${{ if eq(parameters.publishBuildArtifacts, true) }}:
+    - template: ../child.steps/template-react-publish.yml
+      parameters:
+        sourceFolder: ${{ parameters.projectPath }}
+
+  # Template: Publish Npm package
+  # Can be disables by publishNpmPackage: false
+  - ${{ if eq(parameters.publishNpmPackage, true) }}:
+    - template: ../child.steps/template-react-npm-push.yml
+      parameters:
+        projectPath: ${{ parameters.projectPath }}
+        vstsFeed: ${{ parameters.vstsFeed }}
+
+  # Template: Run Sonar analyze and publish results
+  - ${{ if eq(parameters.enableSonarCloudScan, true) }}:
+    - template: ../child.steps/sonarqube-analyze-and-publish.yml

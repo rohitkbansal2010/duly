@@ -1,0 +1,11 @@
+defaultPlacement: end
+enableVersioning: true
+handle: hospitals
+name: Hospitals
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: false, hasUrls: false, template: null, uriFormat: null }
+structure:
+    maxLevels: null
+    uid: 13025e36-8b67-4c59-8f0d-c97ba5da3cbe
+type: structure

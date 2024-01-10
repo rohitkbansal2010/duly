@@ -1,0 +1,54 @@
+@import "~@styles/typography.scss";
+@import "~@styles/themes.scss";
+
+@mixin border-right {
+  border-right: 0.0625rem solid $gray;
+}
+
+@mixin medicine {
+  @include border-right;
+
+  width: 40%;
+}
+
+@mixin instructions {
+  width: 60%;
+}
+
+.medicationsPlate {
+  &Container {
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
+    background: $white;
+    border-radius: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &Main {
+    display: flex;
+    flex-direction: column;
+    background: $light-gray;
+    border: 0.0625rem solid $gray;
+    border-top: none;
+    border-radius: 0 0 0.625rem 0.625rem;
+
+    :last-child {
+      border-bottom: none;
+    }
+  }
+
+  &Skeleton {
+    position: relative;
+    flex-grow: 1;
+    margin-bottom: 1.25rem;
+    background: $white;
+    border-radius: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

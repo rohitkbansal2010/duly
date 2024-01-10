@@ -1,0 +1,1 @@
+vnet_peerings = []

@@ -1,0 +1,28 @@
+<div class="hero">
+	<div class="hero-image">
+		{{ getOptimizedImage(entry.heroImage.one(), 'webp', false, [{'settings': ['resize:fill:992:560:1:1'],'css': '(max-width:992px)'},{'settings': ['resize:fill:1600:530:1:1'],'css': '(min-width:992px)'}])|raw }}
+	</div>
+	<div class="walk-in-care">
+		<h2 class="title">{{entry.heroSectionHeroTitle}}</h2>
+		<h1 class="header">{{entry.heroSectionHeroSubTitle}}</h1>
+
+		<div class="spinner-container hidden">
+			<hr>
+			<div class="loading-spinner">
+				<div class="lottie"></div>
+			</div>
+		</div>
+
+		<div class="locations-cta">
+			<div class="find-locations">
+				<button tabindex="0" class="cta dmgButton primary1" id="trigger-location">{{ "Find Locations" |  t }}</button>
+				<span class="error hidden">{{ "Geolocation is not supported by your browser."|t }}</span>
+			</div>
+		</div>
+		{% include "_immediate-care/locations/_locations-container.twig" %}
+	</div>
+	<div class="hero-bottom-effect">
+		<div class="hero-bottom-effect-left"></div>
+		<div class="hero-bottom-effect-right"></div>
+	</div>
+</div>

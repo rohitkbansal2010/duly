@@ -1,0 +1,1173 @@
+.select-physician-page {
+	@import "./_select-appointment/recommended-physicians";
+	width: 100%;
+	display: block;
+	.display-error {
+		text-align: center;
+		padding: 20px;
+
+		h3 {
+			font-weight: 600;
+		}
+	}
+	.content {
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 1200px;
+		padding: 0 1rem;
+	}
+
+	.pagination {
+		text-align: center;
+		flex: 0 0 100%;
+
+		ul {
+			li {
+				a {
+					&.pagination-link {
+						color: $oxford;
+						font-weight: bold;
+						&.is-current {
+							color: $white !important;
+							background-color: $magenta;
+						}
+					}
+
+					&.pagination-text-link {
+						color: $oxford;
+					}
+				}
+			}
+		}
+	}
+
+	.events-listing-container {
+		min-height: 300px;
+	}
+
+	.event-search-container {
+		border-bottom: none !important;
+		box-shadow: none !important;
+
+		@include responsive(large) {
+			padding-bottom: 0;
+		}
+
+		.search-content {
+			.filter-btn-mobile {
+				padding: 14px 15px 13px 15px;
+				margin-top: 0;
+			}
+		}
+	}
+
+	.content-header {
+		display: none !important;
+		box-sizing: border-box;
+		@include responsive(large) {
+			display: block !important;
+			padding-left: 10px;
+			margin-top: 0;
+		}
+	}
+
+	.listings,
+	.content-header {
+		margin: 0 auto;
+		max-width: 1250px;
+		min-width: 1250px;
+		width: 100%;
+
+		@include responsive(x-large) {
+			max-width: 100%;
+			min-width: 100%;
+			width: 100%;
+		}
+
+		h2 {
+			padding-left: 20px;
+			font-size: 28px;
+			font-weight: 800;
+
+			@include responsive(medium) {
+				margin: 5px 0px;
+				padding-left: 0px;
+			}
+		}
+
+		.container {
+			background: $white;
+			border-radius: 4px;
+			margin: 15px;
+
+			a {
+				text-decoration: none;
+			}
+
+			@include responsive(medium) {
+				margin: 5px 0px;
+			}
+
+			.header {
+				display: flex;
+				align-items: center;
+				border-bottom: 1px solid $sky;
+				padding: 1rem 0px;
+				margin: 0px 1rem;
+
+				@include responsive(medium) {
+					display: none;
+				}
+
+				span {
+					font-weight: 900;
+					font-size: 20px;
+					width: 30%;
+
+					&:first-child {
+						padding-left: 25px;
+						width: 40%;
+
+						@include responsive(x-large) {
+							width: 50%;
+						}
+					}
+
+					@include responsive(x-large) {
+						width: 20%;
+					}
+
+					@include responsive(medium) {
+						width: 95%;
+					}
+				}
+			}
+
+			.event-divider {
+				width: calc(100% - 3rem);
+				height: 1px;
+				background-color: $sky-20;
+				margin: 0 auto;
+			}
+
+			.event {
+				padding: 20px 24px;
+				display: flex;
+				border-radius: 1rem;
+
+				&:hover {
+					background: $off-blue;
+					cursor: pointer;
+				}
+
+				@include responsive(medium) {
+					flex-direction: column;
+					padding: 0;
+					margin: 10px;
+				}
+
+				.semi-bold {
+					font-weight: 900;
+				}
+
+				.name {
+					display: flex;
+					width: 40%;
+
+					@include responsive(x-large) {
+						width: 50%;
+					}
+
+					@include responsive(medium) {
+						width: 100%;
+					}
+
+					.image-container {
+						img {
+							border-radius: 22px 0px;
+						}
+
+						@include responsive(medium) {
+							width: 100%;
+							img {
+								width: 100%;
+							}
+						}
+					}
+
+					.text-container {
+						padding-left: 10px;
+
+						p {
+							color: $oxford;
+							margin: 5px 0px;
+							font-size: 18px;
+							line-height: 20px;
+						}
+
+						span {
+							&:after {
+								content: ", ";
+							}
+
+							&:last-child {
+								&:after {
+									content: "";
+								}
+							}
+						}
+
+						@include responsive(medium) {
+							display: none;
+						}
+					}
+				}
+
+				.text-container-mobile {
+					display: none;
+
+					p {
+						margin: 5px 0px;
+						font-size: 18px;
+						color: $oxford;
+					}
+
+					span {
+						&:after {
+							content: ", ";
+						}
+
+						&:last-child {
+							&:after {
+								content: "";
+							}
+						}
+					}
+
+					@include responsive(medium) {
+						display: block;
+					}
+				}
+
+				.date,
+				.location {
+					width: 30%;
+					padding-left: 30px;
+
+					@include responsive(x-large) {
+						width: 20%;
+					}
+
+					@include responsive(medium) {
+						width: 95%;
+						padding-left: 0px;
+						margin: 5px 0px;
+					}
+
+					p {
+						margin: 0px;
+						font-size: 16px;
+						color: $oxford;
+
+						&:first-child {
+							margin: 0px 0px 5px 0px;
+
+							@include responsive(medium) {
+								margin: 0px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.no-search-results {
+		margin: 0 auto;
+		text-align: center;
+		box-sizing: border-box;
+		padding: 1rem;
+
+		img {
+			width: 80px;
+		}
+
+		h2 {
+			margin: 5px 0px 0px 0px;
+
+			@include responsive(medium) {
+				font-size: 22px;
+			}
+		}
+
+		p {
+			margin: 0px;
+		}
+
+		@include responsive(medium) {
+			margin-bottom: 50px;
+		}
+	}
+
+	.event-filter-modal {
+		display: none;
+		height: 100vh;
+		position: fixed;
+		top: 0px;
+		background: $white;
+		width: 100%;
+		z-index: 100000;
+		overflow: auto;
+
+		label {
+			cursor: pointer;
+		}
+
+		.dropdown {
+			margin-left: -10px;
+		}
+
+		.mdc-form-field {
+			width: 100%;
+		}
+
+		.mdc-checkbox--touch {
+			margin: 0px;
+		}
+
+		.mdc-checkbox {
+			flex: 0 0 4px;
+			width: 12px;
+			height: 7px;
+			padding: 16px;
+		}
+
+		.count {
+			font-size: 16px;
+			font-weight: 600;
+		}
+
+		.mdc-text-field {
+			width: 100% !important;
+		}
+
+		.date-picker {
+			margin: 15px 0px;
+
+			.pika-single {
+				display: none;
+				margin-top: 10px;
+				border-radius: 4px;
+
+				.pika-lendar {
+					width: 95% !important;
+				}
+
+				.pika-button {
+					padding: 10px !important;
+				}
+			}
+
+			&.display-calendar {
+				.pika-single {
+					display: block;
+				}
+			}
+
+			.inline-text-field-container {
+				margin-bottom: 10px;
+			}
+		}
+
+		@include responsive(bs-large) {
+			display: block;
+		}
+
+		.header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin: 16px;
+
+			h2 {
+				color: $oxford;
+				font-size: 24px;
+				font-weight: 700;
+			}
+
+			i {
+				cursor: pointer;
+			}
+		}
+
+		.filter-container {
+			background: $white;
+			border-radius: 4px;
+			padding: 8px 0px;
+			margin: 8px 15px 100px 15px;
+
+			.filter-entry {
+				cursor: pointer;
+				padding: 16px;
+
+				.filter-label {
+					.label-text {
+						color: $oxford;
+						outline: none;
+					}
+
+					.mdc-radio {
+						padding: 5px 0px !important;
+					}
+				}
+
+				p,
+				label {
+					width: 100%;
+					margin: 0px;
+					font-size: 16px;
+					font-weight: 700;
+				}
+
+				@include responsive(bs-large) {
+					border: unset;
+				}
+
+				&:hover {
+					background: $dark-green;
+
+					.filter-label p {
+						color: $white;
+					}
+
+					@include responsive(bs-large) {
+						background: $white;
+
+						.filter-label p {
+							color: $oxford;
+						}
+					}
+				}
+
+				.type {
+					font-weight: 600;
+				}
+
+				.dropdown {
+					display: none;
+				}
+
+				&.selected {
+					.dropdown {
+						display: block;
+					}
+
+					.keyboard_arrow_down {
+						transform: rotate(180deg);
+					}
+				}
+
+				.filter-label {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+
+					.close {
+						display: none;
+					}
+				}
+
+				.radio,
+				.mdc-form-field {
+					outline: none;
+				}
+			}
+
+			hr {
+				border: none;
+				border-bottom: 1px solid $sky;
+				opacity: 0.3;
+			}
+		}
+
+		.footer {
+			width: 100%;
+			background: $white;
+			height: 80px;
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+			position: fixed;
+			bottom: 0;
+			z-index: 10000;
+			box-shadow: 0px -1px 8px 0px rgba(0, 0, 0, 0.24);
+			button {
+				margin: 0 0.5rem;
+				@include responsive(medium) {
+					font-size: 1rem;
+				}
+			}
+		}
+
+		.date-picker-container {
+			@include responsive(medium) {
+				padding-bottom: 100px;
+			}
+		}
+
+		.city-checkbox {
+			&:last-child {
+				padding-bottom: 25px;
+			}
+		}
+	}
+
+	.pagination {
+		text-align: center;
+		width: 100%;
+
+		.pagination-list {
+			padding: 0px;
+		}
+	}
+
+	.schedule-search-physicians-container {
+		min-height: 0px !important;
+		box-shadow: none;
+		border: 0;
+		padding: 0;
+		background: none;
+		.filters {
+			box-sizing: border-box;
+			padding: 1rem;
+			max-width: 100%;
+			width: 100%;
+			.filter-entry:not(:hover):not(.active):not(.selected) {
+				background: $white;
+			}
+		}
+	}
+
+	.white-background {
+		width: 100%;
+		background: $white;
+		border-bottom: 2px solid #e9e9e9;
+
+		.filters {
+			width: 100% !important;
+			padding: 0px !important;
+		}
+	}
+
+	.schedule-search-physicians-container {
+		.star-container {
+			.star-rate {
+				border: 0;
+			}
+		}
+		.search-content {
+			display: flex;
+			align-items: center;
+			@include responsive(bs-large) {
+				flex-wrap: wrap;
+			}
+			.form {
+				background: $white;
+				border-radius: 4px;
+				.mdc-text-field {
+					width: 100%;
+					overflow: hidden;
+				}
+				@include responsive(bs-large) {
+					margin: 0 0 1rem 0;
+				}
+			}
+
+			.filter_list {
+				display: none;
+				cursor: pointer;
+				margin-left: 10px;
+
+				@include responsive(bs-large) {
+					display: block;
+					width: 100%;
+					margin: 0;
+				}
+			}
+			.search-results-btn {
+				@include responsive(bs-large) {
+					width: 100%;
+					margin: 0 0 1rem 0;
+				}
+			}
+			button {
+				padding: 1rem 2rem;
+				font-size: 1rem;
+			}
+		}
+
+		@include responsive(bs-large) {
+			margin: 0 0 1rem 0;
+		}
+	}
+
+	.helper-text {
+		h2 {
+			margin: 0px;
+			font-size: 20px;
+			font-weight: 700;
+			text-align: center;
+
+			@include responsive(bs-large) {
+				line-height: 24px;
+			}
+		}
+	}
+
+	.zipcode-container {
+		.loading-spinner {
+			position: absolute;
+			top: 0;
+			right: 1rem;
+			height: 100%;
+			padding: 1rem;
+			box-sizing: border-box;
+			@include responsive(medium) {
+				right: 0;
+			}
+			.spinner {
+				height: 100%;
+				width: 100%;
+			}
+		}
+		.material-icons.near_me {
+			position: absolute;
+			top: 0;
+			right: 1rem;
+			padding: 1rem;
+			height: 100%;
+			box-sizing: border-box;
+			cursor: pointer;
+			color: $oxford;
+			@include responsive(medium) {
+				right: 0;
+			}
+		}
+		@include responsive(bs-large) {
+			right: 40px;
+		}
+		#search-zip-code {
+			padding-right: 3.5rem;
+		}
+		.lottie {
+			width: 40px;
+			height: 40px;
+			padding: 0;
+			margin-right: -9px;
+		}
+	}
+
+	.input-container {
+		width: 100%;
+		position: relative;
+	}
+
+	.zipcode-container {
+		max-width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		background: $white;
+		border-radius: 4px;
+		margin: 0.5rem auto 1rem auto;
+
+		.inline-text-field-container {
+			margin: 0 1rem 0 0;
+			.mdc-text-field,
+			input {
+				width: 100%;
+			}
+		}
+
+		button {
+			font-size: 1rem;
+			white-space: nowrap;
+		}
+
+		@include responsive(medium) {
+			flex-wrap: wrap;
+
+			.inline-text-field-container {
+				width: 100%;
+			}
+
+			button {
+				width: 100%;
+				margin: 1rem 0 0 0;
+			}
+		}
+	}
+
+	.filter_list {
+		display: none;
+
+		@include responsive(bs-large) {
+			display: flex;
+		}
+	}
+
+	.map-list-switcher {
+		display: none;
+		font-size: 14px;
+		font-weight: 700;
+		background: #f2f2f2;
+		border-radius: 4px;
+		padding: 9px 12px;
+		margin-left: 10px;
+		cursor: pointer;
+
+		@include responsive(bs-large) {
+			display: block;
+		}
+	}
+
+	.physician-content {
+		margin-bottom: 180px;
+		@include responsive(bs-large) {
+			margin-bottom: 25px;
+		}
+		@include responsive(small) {
+			.body-container {
+				flex-wrap: wrap;
+				.left-container {
+					.helper-text {
+						margin: 0 0 2rem 0;
+					}
+				}
+			}
+		}
+		.tile {
+			.details {
+				h2 {
+					color: $violet;
+					font-weight: 900 !important;
+				}
+				.locations {
+					p {
+						font-weight: 400;
+					}
+					.location-name {
+						color: $oxford;
+					}
+				}
+			}
+			.appointment-time {
+				p {
+					font-size: 14px;
+					font-weight: normal;
+					span {
+						color: $violet !important;
+						font-weight: 900 !important;
+						font-size: 1rem;
+					}
+				}
+			}
+			.specialties {
+				color: $dark-2;
+				font-weight: 400;
+				.speciality-name {
+					color: $dark-2;
+					font-weight: 400 !important;
+				}
+			}
+		}
+	}
+
+	.content {
+		.header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			.text {
+				display: flex;
+				align-items: center;
+
+				h2 {
+					font-size: 20px;
+					font-weight: 700;
+					margin: 0px;
+				}
+
+				span {
+					font-size: 14px;
+					font-weight: 600;
+					margin-left: 5px;
+				}
+			}
+		}
+
+		.search-content {
+			padding: 0;
+		}
+
+		.types {
+			display: flex;
+			align-items: center;
+
+			.type {
+				border-bottom: 2px solid;
+				border-color: $light-gray;
+				color: $light-gray;
+				font-weight: bold;
+				padding: 1rem 2rem;
+				cursor: pointer;
+				&:hover:not(.active) {
+					border-color: #ece6ef;
+					background-color: #ece6ef;
+					color: $violet;
+				}
+				&.active {
+					border-color: $magenta;
+					color: $violet;
+					cursor: default;
+				}
+				p {
+					color: inherit;
+					font-weight: inherit;
+					line-height: 1;
+					margin: 0;
+				}
+			}
+		}
+
+		.body-container {
+			margin: 0;
+			display: flex;
+			justify-content: space-between;
+
+			@include responsive(bs-large) {
+				flex-wrap: wrap;
+			}
+
+			.tile-container {
+				box-sizing: border-box;
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+
+				form,
+				button {
+					cursor: pointer;
+
+					&:focus,
+					&:active {
+						border: none !important;
+						outline: 0 !important;
+					}
+				}
+
+				button {
+					width: 100%;
+				}
+
+				.tile {
+					box-sizing: border-box;
+					background: $white;
+					border-radius: 4px;
+					width: calc(50% - 1rem);
+					margin: 0.5rem;
+					min-height: 160px;
+					position: relative;
+					overflow: hidden;
+					button {
+						padding: 8px;
+						background: $white;
+						border: none;
+						text-align: left;
+						border-radius: 4px;
+					}
+
+					@include responsive(bs-large) {
+						width: 100%;
+					}
+
+					&:hover {
+						box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+						.details {
+							h2 {
+								color: $magenta;
+							}
+						}
+						@include responsive(medium) {
+							filter: inherit;
+						}
+						&:after {
+							background-color: $violet;
+						}
+						.appointment-time {
+							span {
+								color: $magenta !important;
+								text-decoration: underline;
+							}
+						}
+					}
+
+					.biography-content {
+						display: flex;
+
+						img {
+							border-radius: 2px;
+						}
+
+						.specialties,
+						.speciality-name {
+							line-height: 1;
+						}
+					}
+
+					span.location-name {
+						padding-right: 0px;
+						&:not(:last-of-type):after {
+							content: ", ";
+							margin-left: -2px;
+							color: $dark-blue-text;
+						}
+					}
+
+					.details {
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						margin-left: 10px;
+
+						h2 {
+							margin: 0px;
+							font-size: 16px;
+							font-weight: 600;
+							line-height: 1;
+						}
+
+						.stars {
+							margin: 1rem 0;
+							display: flex;
+							align-items: center;
+							.rating-number {
+								color: $dark-2;
+								margin: 0 0.25rem 0 0;
+								font-weight: bold;
+							}
+							i.star,
+							i.star_half {
+								color: $marigold;
+							}
+						}
+
+						.speciality-name {
+							font-size: 14px;
+							font-weight: 600;
+
+							&:after {
+								content: ", ";
+							}
+
+							&:last-child {
+								&:after {
+									content: "";
+								}
+							}
+						}
+
+						.locations {
+							p,
+							span {
+								margin: 0px;
+								font-size: 14px;
+								font-weight: 400;
+								line-height: 1;
+							}
+						}
+					}
+
+					.appointment-time {
+						p {
+							font-size: 16px;
+							font-weight: 400;
+							margin: 0px;
+							padding-top: 12px;
+							span {
+								font-weight: 900 !important;
+								color: $violet !important;
+								font-size: 1rem;
+							}
+						}
+					}
+
+					&.show-recommended-providers {
+						display: flex;
+						align-items: center;
+
+						&::after {
+							background-color: unset !important;
+						}
+
+						#single-provider-show-other-providers-cta {
+							width: 80%;
+							margin: auto;
+							box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+							-webkit-appearance: unset;
+
+							.cta {
+								text-align: center;
+							}
+
+							span {
+								color: $violet;
+								font-weight: 900;
+								line-height: 20px;
+							}
+
+							&.active {
+								border: none;
+								cursor: default;
+								pointer-events: none;
+								box-shadow: none;
+
+								span {
+									color: $dark-2;
+									font-size: 18px;
+									font-weight: 900;
+									line-height: 20px;
+									text-align: center;
+								}
+
+								&:hover {
+									color: #c5299b !important;
+									background-color: unset;
+									box-shadow: unset;
+								}
+							}
+						}
+
+						&:hover {
+							box-shadow: none;
+
+							&:after {
+								background-color: $violet;
+							}
+						}
+					}
+				}
+
+				&:not(.one-result) {
+					.tile::after {
+						content: "";
+						width: 100%;
+						height: 1px;
+						background-color: $magenta;
+						position: absolute;
+						top: calc(100% - 1px);
+						left: 0;
+					}
+				}
+			}
+			.left-container {
+				width: calc(100% - 382px);
+				margin: 0.5rem 0 0 0;
+				@include responsive(bs-large) {
+					width: 100%;
+				}
+			}
+
+			.map {
+				width: 350px;
+				height: 500px;
+				background: antiquewhite;
+				margin-left: 2rem;
+				position: sticky;
+				top: 160px;
+				box-sizing: border-box;
+				@include responsive(bs-large) {
+					width: 100%;
+					margin: 1rem 0 0 0;
+				}
+				.mapboxgl-canvas {
+					width: 100% !important;
+					height: auto !important;
+				}
+			}
+		}
+	}
+
+	.event-filter-modal {
+		left: 0px;
+
+		.header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin: 16px;
+		}
+
+		.star-container {
+			margin-left: 10px;
+			justify-content: inherit !important;
+
+			.star {
+				font-size: 30px !important;
+				padding: 10px !important;
+			}
+		}
+	}
+	.select-physician-container {
+		width: 100%;
+	}
+	#search-physician-appointments {
+		font-family: nexa, sans-serif;
+		color: $oxford;
+	}
+	.lgbtqia-container {
+		#lgbtqiaCheckboxContainer {
+			transform: translate(0.5rem, 0);
+			.mdc-checkbox {
+				flex: unset;
+				width: unset;
+				height: unset;
+				padding: 1.25rem;
+			}
+		}
+	}
+	.filter-entry {
+		@include responsive(bs-large) {
+			&.selected {
+				border: unset;
+			}
+		}
+	}
+
+	.recommended-providers-sidebar {
+		width: 350px;
+
+		@include responsive(bs-large) {
+			width: 100%;
+			margin-right: 0;
+		}
+
+		.recommended-physicians {
+			margin: 0;
+			width: 350px;
+			padding-right: 0;
+			@include responsive(bs-large) {
+				width: 100%;
+			}
+		}
+	}
+
+	.form-actions.cta-form button {
+		width: 500px !important;
+
+		@include responsive(bs-large) {
+			width: 100% !important;
+		}
+	}
+}

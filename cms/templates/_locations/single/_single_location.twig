@@ -1,0 +1,395 @@
+{% extends "_layouts/_main.twig" %}
+
+{% block bodyClass "single-location" %}
+
+{% set location = craft.entries.slug(craft.app.request.getSegment(2)).one() %}
+{% set suite = craft.entries.slug(craft.app.request.getSegment(3)).one() %}
+
+{% if location is not defined or location is null or entry is not defined or entry is null%}
+    {% exit 404 %}
+{% endif %}
+
+{% set walkInServices = getWalkInsForLocation(location) %}
+{% set locationServices = getServicesForLocation(location) %}
+
+{# @var schema \Spatie\SchemaOrg\Schema #}
+{% set schema = craft.schema %}
+{% set schemaDepartments = [] %}
+
+{% block headmeta %}
+	{% if suite is not null %}
+		<link rel="canonical" href="{{ location.getUrl() }}">
+	{% endif %}
+{% endblock %}
+
+{% if location.address.parts.city is not null %}
+	{% set metaCity = location.address.parts.city %}
+{% else %}
+	{% set metaCity = "DuPage"|t %}
+{% endif %}
+
+{% set contentTitle = null %}
+{% set contentSummary = "{siteName} provides expert and convenient care for the {city} community, specializing in {specialties}. Schedule an appointment online today."|t(params = { 
+	city: metaCity, 
+	specialties: locationServices | keys | join(', '),
+	siteName: siteName
+})|raw %}
+
+{% set contentTitle = null %}
+{% if entry.customSeoMetaTitle is not null %}
+    {% set contentTitle = entry.customSeoMetaTitle %}
+{% else %}
+    {% set contentTitle = location.title %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% if entry.customSeoMetaDescription is not null %}
+	{% set contentSummary = entry.customSeoMetaDescription %}
+{% endif %}
+
+{% block og %}
+	{% include "_layouts/_og.twig" with {
+        entry: location,
+		heroImage: location.locationHeroImage.one,
+        cacheKey: 'location-details-' ~ location,
+		contentTitle: contentTitle,
+		contentSummary: contentSummary,
+		skipTagStrip: true
+    } only %}
+{% endblock %}
+
+{% set disallowedServiceNames = [
+	"COVID-19 Vaccine",
+	"Immediate Care Centers",
+	"Express Care",
+	"COVID-19 Vaccine Booster - Moderna",
+	"COVID-19 Vaccine Second Dose - Moderna",
+	"COVID-19 Vaccine Booster - Pfizer",
+	"COVID-19 Vaccine Second Dose - Pfizer",
+	"COVID-19 Vaccine Third Dose - Moderna",
+	"COVID-19 Pediatric Vaccine",
+] %}
+
+{% set heroImage = location.locationHeroImage.one() %}
+{% block main %}
+	<section class="single-location-entry">
+		<div class="content">
+			<article>
+				{% if heroImage is not null %}
+					<div class="hero-image">
+						{{ getOptimizedImage(heroImage, 'webp', false, [{'settings': ['resize:fill:635:355:1:1'],'css': '(max-width:1092px)'},{'settings': ['resize:fill:735:383:1:1'],'css': '(min-width:1092px) and (max-width:1200px)'},{'settings': ['resize:fill:900:500:1:1'],'css': '(max-width:1200px)'}])|raw }}
+					</div>
+				{% endif %}
+				<div class="location-details-container" id="{{ location.id }}">
+					{% set office = location.address.parts %}
+					<div class="address" data-latitude="{{location.address.lat}}" data-longitude="{{location.address.lng}}">
+						<h1 class="street-address">{{ office.number }}
+							{{ office.address }}</h1>
+						<h2 class="city-state-zip">{{ office.city ~ ", " ~ office.state ~ " " ~ office.postcode }}</h2>
+						<div class="directions">
+							<span class="get-directions-icon"></span>
+							<a href="https://www.google.com/maps/search/?api=1&query={{ office.number }} {{ office.address }} {{ office.city ~ " , " ~ office.state ~ " " ~ office.postcode }}" target="_blank" rel="noopener noreferrer" class="get-directions">{{ "Get Directions"|t }}</a>
+						</div>
+					</div>
+					{% include "_locations/single/_specialty-picker.twig" with {
+						specialties: locationServices
+					} only %}
+					<span class="description">{{ location.locationDescription }}</span>
+					{% if walkInServices|length %}
+						<div class="walk-in-services">
+							<span class="title">{{ "Walk-In Services"|t }}</span>
+							<ul>
+								{% for walkInService in walkInServices %}
+									<li>{{ walkInService }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					{% endif %}
+
+					{# Flatten the input array so we're only dealing with top level items #}
+					{% set allLocationServices = [] %}
+					{% for service in locationServices %}
+						{% set allLocationServices = allLocationServices|merge([service]) %}
+						{% for children in service["children"] %}
+							{% set allLocationServices = allLocationServices|merge([children]) %}
+						{% endfor %}
+					{% endfor %}
+
+					{% for service in allLocationServices %}
+						{% set activeService = craft.entries({
+							section: 'services',
+							id: service['_ids']|first
+						}).one() %}
+
+						{% if activeService %}
+							{% if locationServices[activeService.title] is defined and locationServices[activeService.title]['children'] is not null %}
+								{% set children = locationServices[activeService.title]['children'] %}
+
+								{% if children|length %}
+									<div class="radio-container hidden" data-attr-service-id="{{ activeService.id }}">
+										<p class="header">{{ "Sub-Specialties of " ~ activeService.title }}<span>
+												{{ "(Please select one)" }}
+											</span>
+										</p>
+										<div class="services">
+											{% for service, attrs in children %}
+												{% set id = null %}
+
+												{% if attrs['_ids'] is defined %}
+													{% set id = attrs['_ids']|first %}
+												{% endif %}
+
+												<div class='radio-btn' data-attr-services="{{ id }}">
+													{% include "_input/_radio.twig" with {
+														type: 'radio',
+														name: 'service',
+														id: 'serivce-' ~ titleize(service),
+														label: service,
+													} only %}
+												</div>
+											{% endfor %}
+										</div>
+									</div>
+								{% endif %}
+							{% endif %}
+
+							<div class="suite-details">
+								<div class="service-offered hidden" data-attr-service-id="{{ activeService.id }}">
+									{% for suiteId in service["_suiteIds"] %}
+										{% set activeSuite = craft.entries({
+											section: 'locations',
+											type: 'suite',
+											id: suiteId
+										}).one() %}
+
+										{% set activeSuiteServiceInfo = activeSuite.suiteServices
+											.relatedTo(activeService)
+											.one()
+										%}
+
+										{% if activeSuiteServiceInfo != null %}
+											<div class="suite-location-and-phone-container">
+												{% if not activeSuite.hiddenSuite %}
+													<div class="suite-location">
+														<span class="title">{{ "Location"|t }}:</span>
+														<span class="value">
+															<span class="suite-number">{{ activeSuite.title }}</span>
+														</span>
+													</div>
+												{% endif %}
+												<div class="phone">
+													{% if activeSuiteServiceInfo.phoneNumber %}
+														<span class="title">{{ "Phone"|t }}:</span>
+														{{ tag('a', {
+															href: activeSuiteServiceInfo.phoneNumber.format('rfc3966'),
+															'data-attr-number': activeSuiteServiceInfo.phoneNumber.format('e164'),
+															rel: 'noopener noreferrer',
+															target: "_blank",
+															class: 'phone-number link-effect',
+															text: activeSuiteServiceInfo.phoneNumber.number
+														})|raw }}
+													{% endif %}
+												</div>
+											</div>
+											<div class="hours-container">
+												{% if activeSuiteServiceInfo.temporarilyClosed %}
+													<span class="title">{{ "Hours"|t }}:</span>
+													<div class="list-of-hours">
+														<span class="closed">{{ "Temporarily Closed"|t }}</span>
+													</div>
+												{% else %}
+													{% if activeSuiteServiceInfo.officeHours|length and activeSuiteServiceInfo.officeHours[0].daysOfWeek != "" %}
+														<span class="title">{{ "Hours"|t }}:</span>
+														<div class="list-of-hours">
+															{% for time in activeSuiteServiceInfo.officeHours %}
+																<div class="single-hours-element">
+																	{% set hasClosedDateWithinNextWeek = false %}
+
+																	{% if activeSuiteServiceInfo.closedDates|length %}
+																		{% set hasClosedDateWithinNextWeek = determineClosedDateWithinNextWeek(activeSuiteServiceInfo.closedDates, time.daysOfWeek) %}
+																	{% endif %}
+
+																	<span class="days value">{{ time.daysOfWeek|capitalize }}</span>
+																	<div class="times">
+																		{% if hasClosedDateWithinNextWeek %}
+																			<span class="hours value">{{ "Closed Today"|t }}</span>
+																		{% elseif time.closed %}
+																			<span class="hours value">{{ "Closed"|t }}</span>
+																		{% else %}
+																			<span class="hours value">{{ time.openingHours|date("g:i A") }}
+																				-
+																				{{ time.closingHours|date("g:i A") }}</span>
+																		{% endif %}
+																	</div>
+																</div>
+															{% endfor %}
+														</div>
+													{% endif %}
+												{% endif %}
+
+												{% if activeSuiteServiceInfo.additionalInformation %}
+													<span class="value">{{ activeSuiteServiceInfo.additionalInformation }}</span>
+												{% endif %}
+											</div>
+
+											{% set department = schema
+												.localbusiness
+												.name(location.title ~ " " ~ activeSuite.title ~ " " ~ activeService.title)
+												.setProperty('@type', 'MedicalBusiness')
+												.address(
+													schema.postaladdress
+														.streetAddress(location.address.parts.number ~ " " ~ location.address.parts.streetAddress ~ " " ~ activeSuite.title)
+														.addressLocality(location.address.parts.city)
+														.addressRegion(location.address.parts.state)
+														.addressCountry(location.address.parts.country)
+														.postalCode(location.address.parts.postcode)
+												)
+												.geo(
+													schema.geocoordinates
+														.latitude(location.address.lat)
+														.longitude(location.address.lng)
+												)
+												.url(craft.app.request.absoluteUrl)
+											%}
+
+											{% if heroImage != null %}
+												{% set department = department.image(getOptimizedImage(heroImage, 'jpeg', true)[0]) %}
+											{% endif %}
+
+											{% if activeSuiteServiceInfo.phoneNumber %}
+												{% set department = department.telephone(activeSuiteServiceInfo.phoneNumber.number) %}
+											{% endif %}
+
+											{# schema will show closed hours for 3+ months until flag is changed in CMS #}
+											{% if activeSuiteServiceInfo.temporarilyClosed %}
+												{% set hours = schema.openingHoursSpecification
+														.opens("00:00")
+														.closes("00:00")
+														.validFrom('now'|date('Y-m-d'))
+														.validThrough('+3 month'|date('Y-m-d'))
+													%}
+												{% set department = department.openingHoursSpecification(hours) %}
+												{% set schemaDepartments = schemaDepartments|merge([department]) %}
+											{% else %}
+												{% if activeSuiteServiceInfo.officeHours|length and activeSuiteServiceInfo.officeHours[0].daysOfWeek != "" %}
+													{% set openingHours = [] %}
+													{% for time in activeSuiteServiceInfo.officeHours %}
+														{% set hours = schema.openingHoursSpecification
+															.dayOfWeek(time.daysOfWeek|capitalize)
+															.opens(time.openingHours|date("g:i A"))
+															.closes(time.closingHours|date("g:i A"))
+														%}
+
+														{% set openingHours = openingHours|merge([hours]) %}
+													{% endfor %}
+
+													{% set department = department.openingHoursSpecification(openingHours) %}
+												{% endif %}
+
+												{% set schemaDepartments = schemaDepartments|merge([department]) %}
+											{% endif %}
+
+											{# the location being temporarily closed will override any assigned closed dates #}
+											{% if activeSuiteServiceInfo.closedDates and not activeSuiteServiceInfo.temporarilyClosed %}
+												{% set closedTimes = [] %}
+
+												{% for dates in activeSuiteServiceInfo.closedDates %}
+													{% set date = dates.datesClosed %}
+
+													{% set hours = schema.openingHoursSpecification
+														.opens("00:00")
+														.closes("00:00")
+														.validFrom(date|date('Y-m-d'))
+														.validThrough(date|date('Y-m-d'))
+													%}
+
+													{% set closedTimes = closedTimes|merge([hours]) %}
+												{% endfor %}
+
+												{% set department = department.openingHoursSpecification(closedTimes) %}
+											{% endif %}
+										{% endif %}
+									{% endfor %}
+
+									{% if activeService.type.name != "External Service" and activeService.title not in disallowedServiceNames %}
+										{% if not activeService.allowOnlineScheduling %}
+											{% if activeService.type == 'cosmetic' %}
+												<div class="schedule cosmetic">
+													<a href="/schedule/cosmetic-dermatology">
+														<button class="button">{{ "Request an Appointment"|t }}</button>
+													</a>
+												</div>
+											{% endif %}
+											{# Don't show scheduling options if the existing attributes indicate there aren't scheduling options available #}
+										{% else %}
+											{{ html.beginForm('/schedule/services', 'POST', {
+												class: 'servicesForm',
+												enctype: 'multipart/form-data'
+											})|raw }}
+											{{ html.hiddenInput('appointmentServiceIds[]', activeService.id)|raw }}
+											{{ html.hiddenInput('location_selected_outside_of_scheduling', true)|raw }}
+											{{ html.hiddenInput('location_id', entry.id)|raw }}
+											{{ html.submitButton("Schedule an Appointment"|t, {
+													class: 'cta schedule'
+												})|raw }}
+											{{ html.endForm()|raw }}
+										{% endif %}
+									{% endif %}
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+
+				<div class="map-container">
+					<div id="map-container"></div>
+					<div class="distance-to-user">
+						{% include "_locations/single/dynamic/_distance" %}
+					</div>
+					<div class="directions">
+						<span class="get-directions-icon"></span>
+						<a href="https://www.google.com/maps/search/?api=1&query={{ office.number }} {{ office.address }} {{ office.city ~ " , " ~ office.state ~ " " ~ office.postcode }}" target="_blank" rel="noopener noreferrer" class="get-directions">{{ "Get Directions"|t }}</a>
+					</div>
+				</div>
+			</article>
+
+			<div class="dynamic-content">
+				{% include "_locations/single/_single_location_details.twig" with {
+					physicians: [],
+					locations: [],
+					service: null
+				}%}
+			</div>
+		</section>
+		<div class="pattern-container"></div>
+	</div>
+
+	{% set generatedSchema = schema
+		.localbusiness
+		.name(location.title)
+		.setProperty('@type', 'MedicalBusiness')
+		.address(
+			schema.postaladdress
+				.streetAddress(location.address.parts.number ~ " " ~ location.address.parts.streetAddress)
+				.addressLocality(location.address.parts.city)
+				.addressRegion(location.address.parts.state)
+				.addressCountry(location.address.parts.country)
+				.postalCode(location.address.parts.postcode)
+		)
+		.geo(
+			schema.geocoordinates
+				.latitude(location.address.lat)
+				.longitude(location.address.lng)
+		)
+		.url(craft.app.request.absoluteUrl)
+	%}
+
+	{% if heroImage != null %}
+		{% set generatedSchema = generatedSchema.image(getOptimizedImage(heroImage, 'jpeg', true)[0]) %}
+	{% endif %}
+
+	{% set generatedSchema = generatedSchema.department(schemaDepartments) %}
+	{{ generatedSchema | raw }}
+{% endblock %}

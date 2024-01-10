@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: c36a717d-daaf-4fa8-82e7-c1e4dbd8ba3b
+handle: emergencyRoomDescription
+instructions: ''
+name: 'Emergency Room Description'
+searchable: true
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: text
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

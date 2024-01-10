@@ -1,0 +1,49 @@
+{% if ratings is not defined %}
+	{% set ratings = getProviderRatingAndComments(entry) %}
+{% endif %}
+
+{% if ratings %}
+	{% set ratings = ratings.overallRating %}
+	{% set ratingsAreDefined = ratings.value is defined or ratings.questionRatings is defined %}
+	{% if ratingsAreDefined %}
+		<div class="ratings-container">
+			<h2>{{ "Ratings"|t }}</h2>
+			<hr>
+			<h3>{{ "Ratings Category"|t }}</h3>
+			<div class="ratings-disclaimers">
+				<span>
+					{{ "The Patient Satisfaction Rating score is an average of all responses to care provider related questions on our independent rating system, the Press Ganey Patient Satisfaction Survey."|t }}
+				</span>
+				<span>
+					{{ "Responses are measured on a scale of 1 to 5, with 5 being the best score."|t }}
+					<a href="/patient-experience" class="bold link-effect">{{ "Learn more about our patient satisfaction survey."|t }}</a>
+				</span>
+			</div>
+			<div class="ratings">
+				{% if ratings.value is defined %}
+					<div class="satisfaction-rating">
+						<h3 classs="label">{{ "Patient Satisfaction Rating"|t }}</h3>
+						{% include "_physician-stars.twig" with {
+							physician: entry,
+							responseCount: ratings.categoryResponseCount
+						} %}
+					</div>
+				{% endif %}
+				{% if ratings.questionRatings is defined %}
+					<div class="other-ratings">
+						{% for questionRating in ratings.questionRatings %}
+							<div class="other-rating">
+								<h3 classs="label">{{questionRating.name}}</h3>
+								{% include "_physician-stars.twig" with {
+									physician: entry,
+									value: questionRating.value,
+									responseCount: questionRating.responseCount
+								} %}
+							</div>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+{% endif %}

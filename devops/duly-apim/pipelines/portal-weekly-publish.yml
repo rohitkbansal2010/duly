@@ -1,0 +1,84 @@
+schedules:
+- cron: "0 6 * * Sun"
+  displayName: 1:00 AM (UTC) weekly publish of API Management Developer Portal
+  branches:
+    include:
+    - main
+  always: true
+
+variables:
+  - name: NON_PRODUCTION_SUBSCRIPTION_NAME
+    value: 'azure_cloud_np'
+  - name: PRODUCTION_SUBSCRIPTION_NAME
+    value: 'azure_cloud_prod'
+  - name: BUILD_POOL
+    value: OnAKS
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: dev
+  dependsOn: []
+  jobs:
+    - job:
+      pool:
+        name: $(BUILD_POOL)
+      displayName: 'Publish APIM Developer Portal in DEV environment'
+      steps:
+        - checkout: self
+        - template: ../templates/portal-publish.yml
+          parameters:
+            subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+            portalUri: 'https://api-portal-dev.duly-np.digital/publish'
+            apimName: 'duly-d-apim'
+            apimRgName: 'duly-d-apim-rg'
+
+# - stage: qat
+#   dependsOn: []
+#   jobs:
+#     - job:
+#       pool:
+#         name: $(BUILD_POOL)
+#       displayName: 'Publish APIM Developer Portal in QAT environment'
+#       steps:
+#         - checkout: self
+#         - template: ../templates/portal-publish.yml
+#           parameters:
+#             subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+#             portalUri: 'https://api-portal-qat.duly-np.digital/publish'
+#             apimName: 'duly-q-apim'
+#             apimRgName: 'duly-q-apim-rg'
+
+# - stage: uat
+#   dependsOn: []
+#   jobs:
+#     - job:
+#       pool:
+#         name: $(BUILD_POOL)
+#       displayName: 'Publish APIM Developer Portal in UAT environment'
+#       steps:
+#         - checkout: self
+#         - template: ../templates/portal-publish.yml
+#           parameters:
+#             subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+#             portalUri: 'https://api-portal-uat.duly-np.digital/publish'
+#             apimName: 'duly-u-apim'
+#             apimRgName: 'duly-u-apim-rg'
+
+# - stage: prd
+#   dependsOn: []
+#   jobs:
+#     - job:
+#       pool:
+#         name: $(BUILD_POOL)
+#       displayName: 'Publish APIM Developer Portal in PRD environment'
+#       steps:
+#         - checkout: self
+#         - template: ../templates/portal-publish.yml
+#           parameters:
+#             subscriptionName: $(PRODUCTION_SUBSCRIPTION_NAME)
+#             portalUri: 'https://api-portal.duly.digital/publish'
+#             apimName: 'duly-p-apim'
+#             apimRgName: 'duly-p-apim-rg'

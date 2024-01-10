@@ -1,0 +1,59 @@
+<div class="result physician">
+    <a href="{{ physician.url }}">
+        <div class="physician-content">
+            <div class="image">
+                {% if physician.img %}
+                    {{ getOptimizedImage(physician.img, 'webp', false, [
+                        { 'settings': ['gravity:sm', 'resize:fill:500:500:1:1'], 'css': '(min-width: 200px)' }
+                    ])|raw }}
+                {% else %}
+                    <div class='image default-headshot thumbnail'></div>
+                {% endif %}
+            </div>
+            
+            <div class="text">
+                <h2>{{ physician.title }}</h2>
+                <p class="specialities">
+                    {% for speciality in physician.physicianSpeciality | filter (v => v.type != "ancillaryServices") | sort((a, b) => a.title > b.title) %}
+                        <span class="speciality-name">{{ speciality.title }}</span>
+                    {% endfor %}
+                </p>
+                {% if physician.rating.overallRating is defined and physician.rating.overallRating is not null %}
+                    {% set rating = physician.rating.overallRating %}
+                    <div class="stars">
+                        <div class="rating-number">{{ rating|round(2) }}</div>
+                        <div class="star-rating">
+                            {% spaceless %}
+                                {% set wholeStars = rating|round(0, 'floor') %}
+                                {% set halfStars = 0 %}
+                                {% if rating - wholeStars >= 0.5 %}
+                                    {% set halfStars = 1 %}
+                                {% endif %}
+
+                                {% if wholeStars != 0 %}
+                                    {% for i in 1..wholeStars %}
+                                        <i class="material-icons">star</i>
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% if halfStars == 1 %}
+                                    <i class="material-icons">star_half</i>
+                                {% endif %}
+
+                                {% set remainingStars = 5 - (wholeStars + halfStars) %}
+                                {% if remainingStars != 0 %}
+                                    {% for i in 1..remainingStars %}
+                                        <i class="material-icons">star_border</i>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endspaceless %}
+                        </div>
+                        {% if physician.rating.commentsCount is defined and physician.rating.commentsCount is not null %}
+                            <div class="count">{{physician.rating.commentsCount}} Ratings</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </a>
+</div>

@@ -1,0 +1,100 @@
+parameters:
+  - name: buildPool
+    type: string
+    default: 'Default'
+
+  - name: vstsFeed
+    default: 'duly.digital'
+
+  - name: solution
+    default: '**/*.sln'
+
+  - name: buildConfiguration
+    type: string
+    default: 'Release'
+    values:
+    - 'Release'
+    - 'Debug'
+
+  - name: setBuildVersion
+    type: boolean
+    default: true
+
+stages:
+- stage: Build
+  jobs:
+    - job: Build
+      displayName: Build
+      pool:
+        name: ${{ parameters.buildPool }}
+        vmImage: 'windows-2019'
+        demands:
+        - DotNetFramework
+        - sqlpackage
+      steps:
+        - checkout: scripts
+        - checkout: self
+
+        # Set ADO build version
+        - task: PowerShell@2
+          displayName: 'PowerShell: Set ADO build version'
+          inputs:
+            targetType: filePath
+            filePath: 'duly-scripts/PowerShell/Set-AdoPsBuildVersion.ps1'
+          continueOnError: false
+          enabled: ${{ parameters.setBuildVersion }}
+          condition: |
+            and
+            (
+              succeeded(), or
+              (
+                startsWith(variables['Build.SourceBranchName'], 'release'),
+                startsWith(variables['Build.SourceBranchName'], 'main'),
+                in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+              ),
+              ne(variables['Build.Reason'], 'PullRequest')
+            )
+
+        - task: UseDotNet@2
+          displayName: 'Use .NET Core sdk '
+        - task: NuGetToolInstaller@1
+          displayName: 'Use NuGet '
+        - task: NuGetCommand@2
+          displayName: 'NuGet restore ${{ parameters.solution }}'
+          inputs:
+            restoreSolution: ${{ parameters.solution }}
+            vstsFeed: ${{ parameters.vstsFeed }}
+        - task: VSBuild@1     
+          displayName: 'Build solution ${{ parameters.solution }}'
+          inputs:
+            solution: ${{ parameters.solution }}
+            vsVersion: 16.0
+            configuration: '${{ parameters.buildConfiguration }}'
+        - task: PowerShell@2
+          displayName: 'PowerShell: Set commit tag'
+          inputs:
+            targetType: filePath
+            filePath: 'duly-scripts/PowerShell/Add-TagToAdoCommit.ps1'
+            arguments: >
+              -PAT $(System.AccessToken)
+              -organizationUri $(System.CollectionUri)
+              -projectName $(System.TeamProject)
+              -repositoryID $(Build.Repository.ID)
+              -commitID $(Build.SourceVersion)
+              -tagName $(Build.BuildNumber)
+              -tagMessage $(Build.BuildNumber)
+          continueOnError: true
+        - task: CopyFiles@2    
+          displayName: 'Copy Dacpac and publish profiles to: $(build.artifactstagingdirectory)\'
+          inputs:
+            SourceFolder: '$(build.sourcesdirectory)'
+            Contents: |
+              **\bin\${{ parameters.buildConfiguration }}\**
+              **\Publish\*
+              **\Deployment\*
+            TargetFolder: '$(build.artifactstagingdirectory)'
+            flattenFolders: true
+        - task: PublishBuildArtifacts@1
+          displayName: 'Publish Artifact: $(Build.Repository.Name)'
+          inputs:
+            ArtifactName: '$(Build.Repository.Name)'

@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Authors>Duly Health and Care</Authors>
+    <Company>Duly Health and Care</Company>
+    <Product>Duly Health and Care Collaboration View UI Configuration Adapter</Product>
+    <Copyright>Copyright (c) Duly Health and Care</Copyright>
+
+    <AssemblyName>Duly.UiConfig.Adapter</AssemblyName>
+    <RootNamespace>Duly.UiConfig.Adapter</RootNamespace>
+
+    <Version>1.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+
+    <LangVersion>9</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Duly.Common.CodeAnalysis" Version="21.11.110.1-dev">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Duly.Common.DataAccess" Version="21.12.129.1-dev" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Make assembly visible to test assembly -->
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(MSBuildProjectName).Tests</_Parameter1>
+    </AssemblyAttribute>
+
+    <!-- Make assembly usable for Moq, so Moq is able to instanciate objects of 'internal' classes -->
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+</Project>

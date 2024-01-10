@@ -1,0 +1,56 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.vitalsWidgetContainerChart {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  height: 100%;
+  padding: 1.875rem 2.5rem 0.625rem;
+  background-color: $white;
+  border-radius: 0.5rem;
+
+  &Title {
+    margin-bottom: 2.5rem;
+    color: $dupage-magenta;
+    font-size: var(--font-size-40px-4px);
+    line-height: 3.25rem;
+    @include nexa-heavy-highlight;
+
+    &GivenName {
+      color: $dupage-violet;
+    }
+  }
+
+  &Wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1.875rem;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &ToggleSwitch input {
+    width: 2.625rem !important;
+
+    height: 1.5rem;
+  }
+
+  &ToggleSwitch input:checked {
+    background-color: #345aa3;
+  }
+
+  &ToggleSwitchText {
+    @include nexa-regular-highlight;
+    width: 4rem;
+    margin-top: 1rem;
+
+    color: $dupage-dark-blue;
+    font-weight: 900 !important;
+    font-size: var(--font-size-16px-4px);
+    line-height: 1.625rem;
+
+    text-transform: uppercase;
+  }
+}

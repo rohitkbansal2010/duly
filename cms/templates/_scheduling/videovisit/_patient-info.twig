@@ -1,0 +1,34 @@
+{% extends "_layouts/_main.twig" %}
+
+{% block title "Schedule Video Visit"|t %}
+
+{% set contentTitle = "Schedule Video Visit"|t %}
+{% set contentSummary = "Schedule Video Visit"|t %}
+
+{% block bodyClass "patient-information-page video-visit" %}
+
+{% block main %}
+
+{% include '_scheduling/videovisit/_steps.twig' with {
+	backUrl: '/schedule/video-visit'
+} %}
+
+	{% set entry = craft.entries.section('videoVisits').one() %}
+
+	<section
+		class="videoVisitContainer step-2">
+		<div id="contentContainer">
+			<div class="content video-visit-selected">
+				{% include "_scheduling/select-appointment/_physician-info" with {
+					modalMap: false
+				} %}
+				{% include "_scheduling/book/_form.twig" with {
+					registrationInformationCopy: "Please provide your insurance below to reduce the registration time required at your appointment."|t,
+					physician: null
+				} %}
+			</div>
+    		<div id="backgroundPattern"></div>
+		</div>
+	</section>
+	<input id="csrf-token" type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">
+{% endblock %}

@@ -1,0 +1,19 @@
+columnSuffix: apjgwhga
+contentColumnType: text
+fieldGroup: 2100fbc6-d68d-4185-8504-3ff4680dee28
+handle: schedulingLoginRedirectUrl
+instructions: 'If a value is entered for this field, all scheduling and login functionality will be disabled site-wide, and all requests to scheduling/login URLs will be 302 redirected to the value entered.'
+name: 'Scheduling & Login Redirect URL'
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

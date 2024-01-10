@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: physicianEducation
+instructions: ''
+name: Education
+searchable: false
+settings:
+    contentTable: '{{%matrixcontent_physicianeducation}}'
+    maxBlocks: ''
+    minBlocks: ''
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

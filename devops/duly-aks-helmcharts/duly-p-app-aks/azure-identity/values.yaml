@@ -1,0 +1,4 @@
+pod_identity: 
+  IDENTITY_RESOURCE_ID: {}
+  IDENTITY_CLIENT_ID: {}
+  name: {}

@@ -1,0 +1,13 @@
+{
+    "service": {
+        "name": "web",
+        "tags": [
+            "lxc"
+        ],
+        "port": 443,
+        "check": {
+            "args": ["curl", "-k", "https://127.0.0.1"],
+            "interval": "3s"
+        }
+    }
+}

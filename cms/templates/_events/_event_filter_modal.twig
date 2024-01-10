@@ -1,0 +1,17 @@
+<div class="event-filter-modal">
+    <div class="header">
+        <h2>{{ "Filter"|t }}</h2>
+        <i class="material-icons close close-modal" tabIndex="0"></i>
+    </div>
+    <div class="filter-container">
+        {% include "_events/filters/_mobile.twig" %}
+    </div>
+	<div class="footer">
+		<button class="dmgButton tertiary1 clear-all">
+			<div class="cta">{{ "Clear All"|t }}</div>
+		</button>
+		<button class="dmgButton secondary1 view-results">
+			<div class="cta">{{ "View Results"|t }}</div>
+		</button>
+	</div>
+</div>

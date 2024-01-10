@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"vnet","Source":"registry.terraform.io/kumarvna/vnet/azurerm","Version":"2.2.0","Dir":".terraform/modules/vnet"}]}

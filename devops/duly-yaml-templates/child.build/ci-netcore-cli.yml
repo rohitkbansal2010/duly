@@ -1,0 +1,75 @@
+parameters:
+  # Soluton file location
+  - name: solution
+    type: string
+    default: '**/*.sln'
+  # Location of unit test solution file
+  - name: unitTestsProject
+    type: string
+    default: '**/*.sln'
+  # Unit tests switcher
+  - name: runUnitTests
+    type: boolean
+    default: true
+  # Coverage report switcher
+  - name: createCoverageReport
+    type: boolean
+    default: true
+  # NuGet feed name
+  - name: vstsFeed
+    type: string
+    default: 'duly.digital'
+  # .Net SDK version to use
+  - name: dotNetSdkVersion
+    type: string
+    default: 5.x
+  # .NET Core 3.1.x is required for Azure Functions
+  - name: includeDotNetSdkVersionForAzureFunctions
+    type: boolean
+    default: false
+  # Build configuration
+  - name: dotNetBuildConfiguration
+    type: string
+    default: 'Release'
+    values:
+    - 'Release'
+    - 'Debug'
+  # Sonar scan switcher
+  - name: enableSonarCloudScan
+    type: boolean
+    default: true
+  # Sonar project name
+  - name: sonarCloudProjectName
+    type: string
+    default: '$(System.TeamProject)-$(Build.Repository.Name)'
+  # Optional location of code artefacts for analysis
+  - name: sonarCloudScanningPath
+    type: string
+    default: ''
+  # Provide solution name value if project and repository names are not enough
+  - name: sonarCloudProjectSuffix
+    type: string
+    default: ''
+
+steps:
+
+  # Template: Build the source code of particular project with CI specific configuration
+  - template: build-netcore.yml
+    parameters:
+      solution: ${{ parameters.solution }}
+      unitTestsProject: ${{ parameters.unitTestsProject }}
+      publishNuget: false
+      dotnetBuild: true
+      dotnetPublish: false
+      runUnitTests: ${{ parameters.runUnitTests }}
+      createCoverageReport: ${{ parameters.createCoverageReport }}
+      setBuildVersion: false
+      setCsprojBuildVersion: false
+      vstsFeed: ${{ parameters.vstsFeed }}
+      dotNetSdkVersion: ${{ parameters.dotNetSdkVersion }}
+      dotNetBuildConfiguration: ${{ parameters.dotNetBuildConfiguration }}
+      includeDotNetSdkVersionForAzureFunctions: ${{ parameters.includeDotNetSdkVersionForAzureFunctions }}
+      enableSonarCloudScan: ${{ parameters.enableSonarCloudScan }}
+      sonarCloudProjectName: ${{ parameters.sonarCloudProjectName }}
+      sonarCloudScanningPath: ${{ parameters.sonarCloudScanningPath }}
+      sonarCloudProjectSuffix: ${{ parameters.sonarCloudProjectSuffix }}

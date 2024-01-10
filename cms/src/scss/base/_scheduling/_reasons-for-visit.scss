@@ -1,0 +1,217 @@
+.schedule-an-appointment-reasons-for-visit-page {
+  // @import "base/_scheduling/modal";
+  // @import "base/_scheduling/_select-appointment/_physician-info";
+
+  h2 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: normal;
+    margin: 0px auto 16px auto;
+    width: 100%;
+
+    @include responsive(bs-large) {
+      line-height: 24px;
+    }
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 20px;
+  }
+
+  .schedule-an-appointment-reasons-for-visit-container {
+    margin: auto auto 500px;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    max-width: 1120px;
+    width: 100%;
+
+    @include responsive(x-large) {
+      margin: 0px 25px 500px 25px;
+    }
+
+    @include responsive(medium) {
+      margin: 0px 16px 200px 16px;
+    }
+
+    @include responsive(small) {
+      margin: 0px 8px 200px 8px;
+    }
+
+    form {
+      padding: 25px;
+      background: $white;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+
+      .reasons {
+        display: flex;
+
+        @include responsive(medium) {
+          flex-direction: column;
+        }
+
+        .col {
+          flex: 0 0 50%;
+          box-sizing: border-box;
+
+          &.left {
+            padding-right: 40px;
+
+            @include responsive(medium) {
+              padding-right: 0;
+            }
+          }
+
+          &.right {
+            padding-left: 40px;
+
+            @include responsive(medium) {
+              padding-left: 0;
+            }
+          }
+        }
+
+        .divider {
+          flex: 0 0 1px;
+          background: #cccccc;
+
+          @include responsive(medium) {
+            display: none;
+          }
+        }
+
+        .radio {
+          padding: 15px 0;
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          border-bottom: 1px solid #e6e6e6;
+
+          .row {
+            display: flex;
+            width: 100%;
+            align-items: center;
+          }
+
+          .mdc-form-field {
+            flex-grow: 1;
+            max-width: calc(100% - 44px);
+          }
+
+          label {
+            line-height: inherit !important;
+            height: auto !important;
+          }
+
+          .explanation {
+            flex: 0 0 100%;
+            padding-left: 10px;
+            box-sizing: border-box;
+          }
+
+          .caret {
+            padding: 10px;
+            cursor: pointer;
+          }
+        }
+      }
+
+      @include responsive(medium) {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+      }
+    }
+
+    &.appointment-time-selected-outside-of-scheduling {
+      background: none;
+      flex-direction: row-reverse;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      .appointment-time,
+      .map-container {
+        display: flex !important;
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .reasons-for-visit {
+        flex: 1 1 auto;
+        margin-right: 40px;
+        background: $white;
+        width: calc(100% - 490px);
+        border-radius: 4px;
+        height: fit-content;
+      }
+
+      @include responsive(bs-large) {
+        .physician-info-container {
+          flex: 0 0 100%;
+          margin-bottom: 20px;
+        }
+
+        .reasons-for-visit {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .form-actions {
+    margin: 30px auto 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    font-weight: 400;
+    align-items: center;
+
+    button {
+      width: calc(50% - 20px);
+
+      @include responsive(small) {
+        width: 95%;
+      }
+
+      &:disabled {
+        background-color: $gray !important;
+        cursor: default !important;
+        color: $white !important;
+        border: none !important;
+      }
+    }
+
+    .action-button {
+      width: calc(48%);
+      border: 2px solid $dark-mute-blue;
+      border-radius: 4px;
+      height: 56px;
+      margin-right: 15px;
+      cursor: pointer;
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+
+      @include responsive(small) {
+        width: 90%;
+      }
+
+      &.light {
+        background-color: $white;
+        color: $dark-blue;
+      }
+
+      &.dark {
+        background: $dark-mute-blue;
+        color: $white;
+      }
+    }
+  }
+}

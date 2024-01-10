@@ -1,0 +1,232 @@
+{% set patientUser = craft.app.patient_user.identity %}
+{% set isVideoFlow = patientUser.is_video_visit_flow %}
+
+<div class="right-container">
+	<div class="header">
+		<span class="material-icons check_circle"></span>
+		<h2>{{ "Your appointment is confirmed!"|t }}</h2>
+	</div>
+	{% if isVideoFlow %}
+		<p class="error">{{ "You’re on your way to a healthier, happier you!"|t }}<br>{{ "Your unique video visit link will be sent to you via email or text when the provider is ready to begin your visit. If you don’t receive your video visit link within ten minutes of your appointment start time, please call"|t }}&nbsp;<a href="tel:+1-630-967-6147">1-630-967-6147</a>.</p>
+	{% else %}
+		<p class="error">{{ "Please do not use your browser's back button to go back and schedule another appointment. Please "|t }}
+			<a href="/schedule" class="error">{{ "Click Here"|t }}</a>
+			{{" to start the scheduling process for your next appointment."|t }}
+		</p>
+	{% endif %}
+	<div class="detail-content">
+		<div class="physician">
+			<div>
+				{% if physician %}
+					{% set hasHeadShot = physician.physicianHeadshot.one() is not null %}
+					<div class="{{ hasHeadShot == false ? 'image default-headshot small' : 'image' }}">
+						{% if hasHeadShot %}
+							{{ getOptimizedImage(physician.physicianHeadshot.one(), 'webp', false, [
+                                { 'settings': ['gravity:sm', 'resize:fill:50:50:1:1'], 'css': '(min-width: 200px)' }
+                            ])|raw }}
+						{% endif %}
+					</div>
+				{% endif %}
+			</div>
+
+			<div class="details">
+				<h5 class="physician-name">
+					{% if isVideoFlow and not (physician or service) %}
+						{{ "Video Visits"|t }}
+					{% else %}
+						{{ physician.title ?? service.title }}</h5>
+					{% endif %}
+				{% if physician %}
+					<div class="specialities">
+						{% for speciality in physician.physicianSpeciality | filter (v => v.type != "ancillaryServices") | sort((a, b) => a.title > b.title) %}
+							<span class="speciality-name">{{ speciality.title }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="appointment-date-time">
+			{% set date = appointmentDate | date("D, F j, Y") %}
+			{% set time = appointmentTime | date('g:ia') %}
+			<div class="date-and-time-holder">
+				{# appointment date #}
+				<div class="appointment-date">
+					<span class="material-icons">insert_invitation</span>
+					<p class="scheduled-appointment-date">{{ date }}</p>
+				</div>
+				{# appointment time #}
+				<div class="appointment-time">
+					<span class="material-icons">schedule</span>
+					<p class="scheduled-appointment-time">{{ time }}</p>
+				</div>
+			</div>
+			{# cancel/edit #}
+			{% if isVideoFlow %}
+				<p class="cancel edit">{{ "Cancel" }}</p>
+			{% else %}
+				<p class="edit" tabindex="0">
+					<span class="material-icons">edit</span>
+					{{ "Edit"|t }}
+				</p>
+			{% endif %}
+		</div>
+
+		{# hidden data to be used in js #}
+		<p class="physician-visit-only hidden">{{ "Provider Visit"|t }}</p>
+		{% if physician or service %}
+			<p class="physician-share-field hidden">{{ "Appointment with {physician}"|t(params = {physician: physician.title ?? service.title})}}</p>
+			{% if suite is defined and suite is not null %}
+				{% set locationData = suite.parent.address.parts %}
+				<p class="location-share-field hidden">{{ "Location: {number} {address}, {city}, {state} {postcode} "|t(params =
+					{
+						number: locationData.number,
+						address: locationData.address,
+						city: locationData.city,
+						state: locationData.state,
+						postcode: locationData.postcode
+					})
+				}}</p>
+			{% endif %}
+		{% endif %}
+
+		{% if isVideoVisit and not isVideoFlow %}
+			<div class="video-visit">
+				<div class="time">
+					<p class="video-visit-only">{{ "Video Visit"|t }}</p>
+				</div>
+
+				<p class="video-visit-share-field hidden">{{ "Video Visit with {physician}"|t(params = {physician: physician.title ?? service.title})}}</p>
+
+				<a href="{{ mychart.linkUrl }}" class="edit" target="_blank">{{ "Launch Now"|t }}</a>
+				<p class="address-line hidden"></p>
+				<p class="city-state-zip hidden"></p>
+			</div>
+		{% elseif isVideoFlow %}
+			<div class="data">
+				<div>
+					<p class="address-line"></p>
+					<p class="city-state-zip"></p>
+				</div>
+
+				<a href="" class="directions hidden link-effect" target="_blank" rel="noopener noreferrer">{{ "Get Directions"|t }}</a>
+			</div>
+
+			<a class="phone link-effect"></a>
+		{% else %}
+			<div class="location-details">
+				{% set physicalLocation = suite.parent %}
+				{% set location = physicalLocation.address.parts %}
+
+				{% set activeSuiteService = suite.suiteServices.all() | filter(ss => ss.externalDepartmentId == patientUser.appointment_department_id) %}
+				{% set activeSuiteService = activeSuiteService | length >= 1 ? (activeSuiteService | first) : null %}
+				<div class="location-details">
+					{% if physicalLocation is defined and physicalLocation is not null %}
+						<div class="data">
+							<a href="{{physicalLocation.url}}">
+								<p class="address-line populate-marker" data-address="{{ location.number }} {{ location.address }}, {{ location.city }}, {{ location.state }} {{ location.postcode }}" data-latitude="{{ physicalLocation.address.lat }}" data-longitude="{{ physicalLocation.address.lng }}">{{ location.number }}
+									{{ location.address }}</p>
+								{% if suite is not null and suite.hiddenSuite == false %}
+									<p class="suite-name">{{ suite.title }}</p>
+								{% endif %}
+								<p class="city-state-zip">{{ location.city }},
+									{{ location.state }}
+									{{ location.postcode }}</p>
+							</a>
+							<div id="directions">
+								<span class="material-icons">
+									directions_car
+								</span>
+								<a href="https://www.google.com/maps/search/?api=1&query={{ location.number }} {{ location.address }}, {{ location.city }}, {{ location.state }} {{ location.postcode }}" class="directions link-effect" target="_blank" rel="noopener noreferrer">{{ "Get Directions"|t }}</a>
+							</div>
+						</div>
+
+						<div class="contact-details">
+							{% if activeSuiteService is not null and activeSuiteService.phoneNumber is defined and activeSuiteService.phoneNumber is not null %}
+								<a href="{{ activeSuiteService.phoneNumber.format('rfc3966') }}" class="phone link-effect">{{ activeSuiteService.phoneNumber.format('national') }}</a>
+							{% endif %}
+						</div>
+					{% else %}
+						<div class="data">
+							<div>
+								<p class="address-line"></p>
+								<p class="city-state-zip"></p>
+							</div>
+
+							<a href="" class="directions hidden link-effect" target="_blank" rel="noopener noreferrer">{{ "Get Directions"|t }}</a>
+						</div>
+
+						<a class="phone link-effect"></a>
+					{% endif %}
+				</div>
+			{% endif %}
+
+			{% set cancelAppointmentFailed = craft.app.session.getFlash('cancel-appointment-failed') %}
+
+			<span class="error {{cancelAppointmentFailed ? '' : 'hidden'}}">{{
+                "We were unable to cancel your appointment. Please call {phone} to cancel or edit."|t (params = {
+                    phone: tag('a', {
+                        href: 'tel:' ~ globalPhoneNumber,
+                        rel: 'noopener noreferrer',
+                        class: 'link-effect',
+                        text: globalPhoneNumber
+                    })
+                })|raw
+            }}</span>
+
+			{% if cancelAppointmentFailed %}
+				<input type="hidden" name="cancel-appointment-failed">
+			{% endif %}
+
+			<div class="calendar-share form-actions">
+				<a href="{{ mychart.linkUrl }}" class="my-chart-link" style="display:none;"></a>
+				{% if isVideoFlow %}
+				<button class="dmgButton secondary3">
+					<a href="{{ mychart.linkUrl }}" target="_blank" rel="noopener noreferrer">
+						{{ "MyChart"|t }}
+					</a>
+				</button>
+				{% endif %}
+				<button class="dmgButton secondary3" id="add-to-calendar-btn">
+					<div class="cta">{{ "Add To Calendar"|t }}</div>
+				</button>
+				<button class="dmgButton secondary3" id="share-appointment-btn">
+					<div class="cta">{{ "Share Appointment"|t }}</div>
+				</button>
+			</div>
+			{% if isVideoFlow %}
+				<div id="instructions">
+					<p>{{ "Check your email to set up your MyChart account. After creating your account, you'll be able to launch your video visit."}}</p>
+				</div>
+			{% elseif patientUser is null or patientUser.anonymous %}
+				<div id="createNewAccount">
+					<h5>Schedule faster next time!</h5>
+					<h6>Creating your My DMGHealth account is quick, easy, and will save you time in the future.</h6>
+					<div>
+						<div>
+							<p>
+								<span class="material-icons">
+									insert_chart
+								</span>
+							</p>
+							<p>Access your test results</p>
+						</div>
+						<div>
+							<p>
+								<span class="material-icons">
+									event
+								</span>
+							</p>
+							<p>Manage your appointments</p>
+						</div>
+						<div>
+							<p>
+								<img src="/dist/img/videovisit.svg" alt="video visit icon"/>
+							</p>
+							<p>See providers virtually</p>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>

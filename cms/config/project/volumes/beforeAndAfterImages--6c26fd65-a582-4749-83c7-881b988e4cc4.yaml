@@ -1,0 +1,17 @@
+fieldLayouts:
+    5d7f7794-7f39-4b47-9a0b-93bea8c89511: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\AssetTitleField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: beforeAndAfterImages
+hasUrls: true
+name: 'Before & After Images'
+settings:
+    accountKey: $AZURE_STORAGE_ACCOUNT_KEY
+    accountName: $AZURE_STORAGE_ACCOUNT_NAME
+    azureStorageType: blob
+    blobEndpoint: ''
+    containerName: $AZURE_STORAGE_CONTAINER_NAME
+    subfolder: before-and-after-images
+sortOrder: 15
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+type: shennyg\azureblobremotevolume\AzureVolume
+url: '@assetBaseUrl'

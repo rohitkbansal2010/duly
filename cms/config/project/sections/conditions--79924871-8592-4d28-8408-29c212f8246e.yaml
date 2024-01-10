@@ -1,0 +1,13 @@
+defaultPlacement: end
+enableVersioning: true
+handle: conditions
+name: Conditions
+previewTargets:
+    - { __assoc__: [[label, 'Primary entry page'], [urlFormat, '{url}']] }
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: true, hasUrls: true, template: _services/_single-condition, uriFormat: 'conditions/{slug}' }
+structure:
+    maxLevels: null
+    uid: 7131e5e5-a390-4406-bfb2-7e2c3f9b8eab
+type: structure

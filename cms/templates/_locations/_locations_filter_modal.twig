@@ -1,0 +1,13 @@
+<div class="locations-filter-modal">
+    <div class="header">
+        <h2>{{ "Filter"|t }}</h2>
+        <i class="material-icons close close-modal" tabIndex="0"></i>
+    </div>
+    <div class="filter-container">
+        {% include "_locations/filters/_mobile.twig" %}
+    </div>
+    <div class="footer">
+        <button class="button white clear-all">{{ "Clear All"|t }}</button>
+        <button class="button blue view-results">{{ "View Results"|t }}</button>
+    </div>
+</div>

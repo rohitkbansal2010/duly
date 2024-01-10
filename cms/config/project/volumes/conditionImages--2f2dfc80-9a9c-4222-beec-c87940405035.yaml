@@ -1,0 +1,17 @@
+fieldLayouts:
+    80a06c9a-2cb4-498a-80c9-12bbed706241: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: conditionImages
+hasUrls: true
+name: 'Condition Images'
+settings:
+    accountKey: $AZURE_STORAGE_ACCOUNT_KEY
+    accountName: $AZURE_STORAGE_ACCOUNT_NAME
+    azureStorageType: blob
+    blobEndpoint: ''
+    containerName: $AZURE_STORAGE_CONTAINER_NAME
+    subfolder: condition-images
+sortOrder: 2
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+type: shennyg\azureblobremotevolume\AzureVolume
+url: '@assetBaseUrl'

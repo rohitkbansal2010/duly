@@ -1,0 +1,20 @@
+columnSuffix: null
+contentColumnType: integer(10)
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: epicProviderId
+instructions: ''
+name: 'Epic Provider ID'
+searchable: true
+settings:
+    decimals: 0
+    defaultValue: null
+    max: null
+    min: 0
+    prefix: null
+    previewCurrency: ''
+    previewFormat: none
+    size: null
+    suffix: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Number

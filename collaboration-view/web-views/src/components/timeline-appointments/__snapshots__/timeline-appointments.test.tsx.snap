@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineAppointments should render the TimelineAppointments component 1`] = `
+<div
+  className="timelineAppointmentsContainer"
+>
+  <h4
+    className="timelineAppointmentsContainerTitle timelineAppointmentsContainerTitleLightBlue"
+  >
+    Recent Appointments
+  </h4>
+  <div
+    className="timelineAppointmentsContainerContent"
+  >
+    <TimelineApppointmentsGroups
+      alias="recentAppointments"
+      backgroundCount="DarkBlue"
+      backgroundIcon="Blue"
+      groups={
+        Array [
+          Object {
+            "appointments": Array [
+              Object {
+                "isTelehealth": true,
+                "minutesDuration": 30,
+                "practitioner": Object {
+                  "humanName": Object {
+                    "familyName": "Reyes",
+                    "givenNames": Array [
+                      "Ana",
+                      "Maria",
+                    ],
+                    "prefixes": Array [
+                      "Dr.",
+                    ],
+                  },
+                  "id": "qwerty1",
+                  "role": "PCP",
+                },
+                "reason": "Patient fell - Hip problims",
+                "startTime": "2021-11-02T14:45:00Z",
+                "status": "Completed",
+              },
+            ],
+            "farthestAppointmentDate": "2021-07-15",
+            "nearestAppointmentDate": "2021-11-02",
+            "nearestAppointmentPractitioner": Object {
+              "humanName": Object {
+                "familyName": "Reyes",
+                "givenNames": Array [
+                  "Ana",
+                  "Maria",
+                ],
+                "prefixes": Array [
+                  "Dr.",
+                ],
+              },
+              "id": "qwerty1",
+              "role": "PCP",
+            },
+            "title": "Physical Therapy",
+          },
+        ]
+      }
+      icon="calendar-two-blue.svg"
+      showNoShowCancelledCount={true}
+      showNoShowStatusCount={true}
+      skeletonCount={6}
+    />
+  </div>
+</div>
+`;
+
+exports[`TimelineAppointments should render the TimelineAppointmentsSkeleton component while dispatch array of appointments 1`] = `
+<TimelineAppointmentsSkeleton
+  alias="recentAppointments"
+/>
+`;
+
+exports[`TimelineAppointments should render the TimelineApppointmentsGroupsNoData component if no patientAppointments by alias 1`] = `
+<div
+  className="timelineAppointmentsContainer"
+>
+  <h4
+    className="timelineAppointmentsContainerTitle timelineAppointmentsContainerTitleLightBlue"
+  >
+    Recent Appointments
+  </h4>
+  <TimelineApppointmentsGroupsNoData
+    backgroundIcon="Blue"
+    colorTitle="LightBlue"
+    icon="calendar-two-blue.svg"
+    title="Recent Appointments"
+  />
+</div>
+`;

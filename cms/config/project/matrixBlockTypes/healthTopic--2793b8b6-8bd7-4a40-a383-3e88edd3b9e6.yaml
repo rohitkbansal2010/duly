@@ -1,0 +1,8 @@
+field: 43270aa1-de57-42a1-9609-e552353bbeb6
+fieldLayouts:
+    9da1cdd5-611f-4230-8840-891d584299ef: { tabs: [{ elements: [{ fieldUid: 7df92798-2c54-4605-bb5c-3137052c81eb, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    7df92798-2c54-4605-bb5c-3137052c81eb: { columnSuffix: null, contentColumnType: string, fieldGroup: null, handle: category, instructions: 'Only a single health topic may be added in this section.', name: 'Health Topic', searchable: false, settings: { allowLimit: false, allowMultipleSources: false, allowSelfRelations: false, branchLimit: '1', limit: null, localizeRelations: false, selectionLabel: 'Add a health topic category', showSiteMenu: true, source: 'group:7c130854-ce01-44d8-beaf-a6d52e37ccd3', sources: '*', targetSiteId: null, validateRelatedElements: true, viewMode: null }, translationKeyFormat: null, translationMethod: site, type: craft\fields\Categories }
+handle: healthTopic
+name: 'Health Topic'
+sortOrder: 1

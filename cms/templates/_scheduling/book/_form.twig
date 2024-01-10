@@ -1,0 +1,354 @@
+<form method="POST" id="patient-information-booking-form">
+	{{ csrfInput() }}
+
+	{# skip this for the Duly Now (video visit) flow #}
+	{% if patientObject is defined and patientObject is not null and not patientUser.is_video_visit_flow %}
+		{% include "_scheduling/book/_confirm-details.twig" %}
+	{% endif %}
+
+	<div class="{{ patientObject is not null and not patientUser.is_video_visit_flow ? 'container edit-input-container hidden' : 'container edit-input-container' }}">
+		{% if patientObject is defined and patientObject is not null  %}
+			<h2>{{ "Edit your patient information"|t }}</h2>
+		{% elseif patientUser.is_video_visit_flow %}
+			<h2>{{ "Who's coming to the video visit?"|t }}</h2>
+			<span>{{ "Please complete the below fields for the video visit. Ensure the information is correct prior to scheduling this appointment." |t }}
+			</span>
+		{% elseif not patientUser.isSchedulingFlowWithoutPhysicians() and service is defined %}
+			<h2>{{ "Who's coming to see {physician}?"|t (params = { physician: physician.title ?? service.title }) }}</h2>
+			<span>{{ "Please complete the below fields for the patient to be seen at this appointment. Ensure this information is correct prior to scheduling this appointment." |t }}
+			</span>
+		{% endif %}
+		<div class="row">
+			<h2>{{ "Patient Information" }}</h2>
+			<div class="row two-fields">
+				<div class="field">
+					{% set value = '' %}
+
+					{% if patientObject.firstName is defined and patientObject.firstName is not null %}
+						{% set value = patientObject.firstName %}
+					{% endif %}
+
+					{% include "_input/_input.twig" with {
+						type: 'text',
+						name: 'firstName',
+						id: 'patient-first-name',
+						extraOptions: {
+							required: "required"
+						},
+						value: value,
+						label: "First Name"|t,
+						class: value ? 'mdc-text-field-success'
+					} only %}
+				</div>
+
+				<div class="field">
+					{% set value = '' %}
+
+					{% if patientObject.lastName is defined and patientObject.lastName is not null %}
+						{% set value = patientObject.lastName %}
+					{% endif %}
+
+					{% include "_input/_input.twig" with {
+						type: 'text',
+						name: 'lastName',
+						id: 'patient-last-name',
+						extraOptions: {
+							required: "required"
+						},
+						value: value,
+						label: "Last Name"|t,
+						class: value ? 'mdc-text-field-success'
+					} only %}
+				</div>
+			</div>
+
+			<div class="row">
+				{% set value = '' %}
+
+				{% if patientObject.gender is defined and patientObject.gender is not null %}
+					{% set value = patientObject.gender|lower %}
+				{% endif %}
+				{% set legalSexOptions = [
+					{
+						content: "Male"|t,
+						data: {
+							value: 'male'
+						}
+					}, {
+						content: "Female"|t,
+						data: {
+							value: 'female'
+						}
+					}] 
+				%}
+				{% include '_input/_select.twig' with {
+					label: "Legal Sex"|t,
+					name: 'gender',
+					required: true,
+					id: 'patient-gender',
+					options: legalSexOptions,
+					value: value
+				} %}
+			</div>
+
+			{% if patientUser.deeplinked_session or patientUser.is_video_visit_flow %}
+				<h2 class="dob">{{ "Patient Birthday"|t }}</h2>
+				{% if patientUser.getDob() %}
+					{% include "_scheduling/insurance/_dob.twig" with {
+						month: patientUser.getDob()|date('m'),
+						day: patientUser.getDob()|date('d'),
+						year: patientUser.getDob()|date('Y')
+					} %}
+				{% else %}
+					{% include "_scheduling/insurance/_dob.twig" %}
+				{% endif %}
+			{% endif %}
+		</div>
+		<div class="row">
+			<h2>{{ "Patient Contact Information" }}</h2>
+			<div class="row two-fields">
+				<div class="field">
+					{% set value = '' %}
+
+					{% if patientObject.phone is defined and patientObject.phone is not null %}
+						{% set value = patientObject.phone %}
+					{% endif %}
+
+					{% include "_input/_input.twig" with {
+						type: 'tel',
+						name: 'phoneNumber',
+						id: 'patient-phone',
+						label: "Primary Phone Number"|t,
+						value: value,
+						extraOptions: {
+							required: "required",
+							pattern: '(1)?[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}'
+						},
+						class: value ? 'mdc-text-field-success'
+					} only %}
+				</div>
+
+				<div class="field">
+					{% set value = '' %}
+
+					{% if patientObject.email is defined and patientObject.email is not null %}
+						{% set value = patientObject.email %}
+					{% endif %}
+
+					{% include "_input/_input.twig" with {
+						type: 'email',
+						name: 'emailAddress',
+						id: 'patient-email-address',
+						value: value,
+						extraOptions: {
+							required: "required"
+						},
+						label: "Email Address"|t,
+						class: value ? 'mdc-text-field-success'
+					} only %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="field">
+					{% set value = '' %}
+
+					{% if patientObject.address is defined and patientObject.address is not null %}
+						{% set value = patientObject.address %}
+					{% endif %}
+
+					{% include "_input/_input.twig" with {
+						type: 'text',
+						name: 'primaryAddress',
+						id: 'patient-address-one',
+						extraOptions: {
+							required: true
+						},
+						value: value,
+						label: "Address"|t,
+						class: value ? 'mdc-text-field-success'
+					} only %}
+				</div>
+			</div>
+
+			<div class="row two-fields">
+				<div class="field">
+					{% include "_input/_input.twig" with {
+						type: 'text',
+						name: 'secondaryAddress',
+						id: 'patient-address-two',
+						label: "Apt, Suite, Etc."|t,
+					} only %}
+				</div>
+			</div>
+
+			<div class="row three-fields">
+				<div class="field">
+					{% set value = '' %}
+
+					{% if patientObject.city is defined and patientObject.city is not null %}
+						{% set value = patientObject.city %}
+					{% endif %}
+
+					{% include "_input/_input.twig" with {
+						type: 'text',
+						name: 'city',
+						id: 'patient-city',
+						extraOptions: {
+							required: true
+						},
+						value: value,
+						label: "City"|t,
+						class: value ? 'mdc-text-field-success'
+					} only %}
+				</div>
+
+				{% set value = '' %}
+				{% if patientObject.state is defined and patientObject.state is not null %}
+					{% set value = patientObject.state %}
+				{% endif %}
+				{% set states = ['AK', 'AL', 'AR', 'AS', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'GU', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MP', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UM', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY'] %}
+				{% set stateOptions = [] %}
+				{% for state in states %}
+					{% set stateOptions = stateOptions|merge([{
+						content: state,
+						data: {
+							value: state
+						}
+					}]) %}
+				{% endfor %}
+
+				{% include '_input/_select.twig' with {
+					id: "patient-state",
+					label: "State"|t,
+					options: stateOptions,
+					name: 'state',
+					value: value,
+					required: true
+				} %}
+
+				<div class="field">
+					{% set value = '' %}
+
+					{% if patientObject.zipcode is defined and patientObject.zipcode is not null %}
+						{% set value = patientObject.zipcode|split('-')[0] %}
+					{% endif %}
+
+					{% include "_input/_input.twig" with {
+						type: 'text',
+						name: 'zipcode',
+						extraOptions: {
+							pattern: '\\d*',
+							maxlength: "5",
+							required: true
+						},
+						value: value,
+						id: 'patient-zipcode',
+						label: "Zip"|t,
+						class: value ? 'mdc-text-field-success'
+					} only %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container column">
+		<div class="insurance-information">
+			<div class="description">
+				<h2>{{ "Registration Information"|t }}</h2>
+				<span>{{ registrationInformationCopy ?? "Please provide your insurance below to reduce the registration time required at your appointment. If you do not have insurance or will self-pay, please mark the fields as N/A."|t }}</span>
+			</div>
+
+			{% set value = '' %}
+			{% if patientUser.deeplinked_session or patientUser.is_video_visit_flow %}
+				<div class="row">
+					{% include "_scheduling/insurance/_insurance_pickers.twig" with {
+						insuranceProviderRequired: false,
+						insurancePlanRequired: false
+					} %}
+				</div>
+			{% endif %}
+
+			<div class="row two-fields">
+				<div class="field">
+					{% include "_input/_input.twig" with {
+						type: 'text',
+						name: 'insurance_member_id',
+						id: 'member-id',
+						label: "Insurance Member ID"|t,
+					} only %}
+				</div>
+
+				<div class="field">
+					{% include "_input/_input.twig" with {
+						type: 'text',
+						name: 'insurance_group_id',
+						id: 'group-id',
+						label: "Insurance Group ID"|t
+					} only %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% if service is defined and service is not null and service.servicePatientReasonsForVisit|length and not patientUser.is_video_visit_flow %}
+		<div class="container column">
+			<h2 class="required-text">{{ "What's your reason for visit?"|t }}</h2>
+			<div class="reasons">
+				{% for reason in service.servicePatientReasonsForVisit.all() %}
+					{% include "_input/_radio.twig" with {
+                        type: 'radio',
+                        name: 'patientReasonForVisit',
+                        id: 'patient-reason-for-visit-' ~ reason.id,
+                        label: reason.title,
+                        value: reason.title,
+                    } only %}
+				{% endfor %}
+
+				{% include "_input/_radio.twig" with {
+                    type: 'radio',
+                    name: 'patientReasonForVisit',
+                    id: 'patient-reason-for-visit-other',
+                    label: "Other"|t,
+                    value: "Other",
+                } only %}
+			</div>
+			{% include '_input/_textarea.twig' with {
+				name: 'additionalReasonComment',
+				id: 'additional-details-provided-text',
+				label: "Provide Additional Details (optional)"|t,
+				class: 'hidden'
+			} %}
+			<span class="hidden" id="character-count-container" data-limit="400">
+				<span id="characters-left">400</span>
+				<span>/400 {{ "characters left"|t }}</span>
+			</span>
+		</div>
+	{% endif %}
+
+	{% if patientUser.is_video_visit_flow %}
+		<div class="container column">
+			<h2>{{ "What's your reason for visit?"|t }}</h2>
+			{% include '_input/_textarea.twig' with {
+				name: 'additionalReasonComment',
+				id: 'additional-details-provided-text',
+				label: "Provide Additional Details (optional)"|t,
+			} %}
+			<span id="character-count-container" data-limit="400">
+				<span id="characters-left">400</span>
+				<span>/400 {{ "characters left"|t }}</span>
+			</span>
+		</div>
+	{% endif %}
+
+	<div class="form-actions cta-form">
+		<button disabled class="dmgButton primary1" type="submit" id="patient-schedule-appointment">
+			<div class="cta">
+				<i class="fa fa-spinner fa-spin hidden"></i>
+				<span>{{ "Schedule Appointment"|t }}</span>
+			</div>
+		</button>
+	</div>
+
+	{% if error is defined %}
+		<p class="error">{{error}}</p>
+	{% endif %}
+</form>

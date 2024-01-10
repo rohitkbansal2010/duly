@@ -1,0 +1,68 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Select Appointment Time'|t %}
+{% block bodyClass "select-appointment-page" %}
+
+{% set patientUser = craft.app.patient_user.identity %}
+{% set session = craft.app.session %}
+
+{% set isSchedulingFlowWithoutPhysicians = patientUser.isSchedulingFlowWithoutPhysicians() %}
+{% set service = craft.entries.id(patientUser.getAppointmentServiceIds()).one() %}
+
+{# 2990 is the video visit ID that comes back from Epic #}
+{% set isVideoVisit = patientUser.appointment_visit_type_id == 2990 %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	<div id="backgroundPattern"></div>
+	{% set backUrl = "/schedule/select-physician" %}
+
+	{% if isSchedulingFlowWithoutPhysicians %}
+		{% set backUrl = "/schedule/select-location" %}
+	{% endif %}
+
+	{% include "_scheduling/alerts/_exit-alert.twig" %}
+	{% include "_scheduling/navigation/_steps.twig" with {
+		backUrl: backUrl,
+		deeplinked_session: patientUser.deeplinked_session
+	} %}
+
+	<section class="{{ isVideoVisit ? 'content select-appointment-content cta-form-container video-visit-selected' : 'content select-appointment-content cta-form-container' }}">
+		{% include "_scheduling/select-appointment/_physician-info.twig" with {
+			modalMap: true
+		} %}
+		{% include "_scheduling/select-appointment/_date-and-time-picker.twig" with {
+			fixedCta: true
+		} %}
+		{% include "_scheduling/select-appointment/_recommended-physicians.twig" %}
+	</section>
+	<input id="csrf-token" type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">
+	
+	{# this is needed because if the criteria is met, this value will be found via JS and this date will be used to generate available times #}
+	{% if session is defined and session is not null and session.get('last_menstrual_cycle_day') is not null and session.get('last_menstrual_cycle_month') is not null and session.get('last_menstrual_cycle_year') is not null %}
+		{% set modifiedDate = determineStartDate() %}
+
+		{% if modifiedDate is not null %}
+			<span id="last-menstrual-date-for-patient" data-start-date="{{ modifiedDate|date('Y-m-d') }}" class="hidden"></span>
+		{% endif %}
+	{% endif %}
+
+	<div class='modal map-modal hidden'>
+		<div class="content">
+			<i class="material-icons close" tabindex="0"></i>
+			<div class="text">
+				<div class="address">
+					<span class="title"></span>
+					<span class="address-line"></span>
+					<span class="city-state-zip"></span>
+				</div>
+
+				<a href="" target="_blank" rel="noopener noreferrer" class="get-directions link-effect back-link">{{ "Get Directions"|t }}</a>
+			</div>
+			<a class="phone-number link-effect"></a>
+			
+			<div id="map"></div>
+		</div>
+	</div>
+{% endblock %}

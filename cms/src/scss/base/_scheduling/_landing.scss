@@ -1,0 +1,648 @@
+.schedule-an-appointment-page,
+.schedule-services-page,
+.select-physician-page {
+	@import "../_search-results/_listings";
+
+	.content {
+		width: calc(100% - 32px);
+		max-width: 1120px;
+		margin: 0 auto;
+		padding: 0px 16px;
+	}
+
+	.search-content {
+		width: 100%;
+		padding: 25px 0px;
+		max-width: 100%;
+
+		span.search {
+			display: block;
+			font-size: 30px;
+			position: absolute;
+			top: 3px;
+			right: 2px;
+			padding: 10px;
+			cursor: pointer;
+		}
+	}
+
+	.search-results-container {
+		background: transparent;
+		min-height: 0px;
+		margin: 0px;
+		box-shadow: initial;
+		border-bottom: none;
+
+		@include responsive(medium) {
+			padding: 0px;
+		}
+
+		.dmgButton.primary3 {
+			padding: 14px 15px 13px 15px;
+			width: 205px;
+
+			@include responsive(bs-large) {
+				width: 100%;
+				margin-top: 20px;
+			}
+		}
+
+		.search-results-btn {
+			padding: 14px 15px 13px 15px;
+			font-size: 22px;
+			font-weight: 600;
+			width: 200px;
+			border-radius: 4px;
+			margin-right: 20px;
+
+			@include responsive(bs-large) {
+				width: calc(100% - 5px);
+				margin: 10px 0px;
+			}
+		}
+	}
+
+	.featured {
+		h1 {
+			color: $oxford;
+			text-align: center;
+			margin: 40px auto;
+		}
+
+		.services {
+			display: flex;
+			align-items: stretch;
+			justify-content: space-between;
+
+			.service {
+				max-width: 550px;
+				border-radius: 4px;
+				padding: 25px;
+				text-align: center;
+				display: flex;
+				flex-direction: column;
+				flex: 0 0 calc(50% - 51px);
+
+				@include responsive(medium) {
+					max-width: 100%;
+					flex: 0 0 calc(100% - 50px);
+
+					&:first-child {
+						margin-right: 0px;
+					}
+
+					&:last-child {
+						display: none;
+					}
+				}
+
+				h2 {
+					color: $oxford;
+					font-size: 28px;
+					font-weight: 800;
+					line-height: 30px;
+					text-align: center;
+				}
+
+				p {
+					color: $dark-2;
+					font-size: 16px;
+					text-align: center;
+					flex: 1 1 auto;
+
+					@include responsive(medium) {
+						width: 100%;
+					}
+				}
+
+				button,
+				a {
+					padding: 16px 24px;
+
+					@include responsive(medium) {
+						font-size: 16px;
+					}
+
+					&:hover {
+						background: $magenta;
+					}
+				}
+			}
+
+			.divider {
+				background: $violet;
+				flex: 0 0 1px;
+				height: 200px;
+				margin: auto;
+
+				@include responsive(medium) {
+					display: none;
+				}
+			}
+		}
+	}
+
+	.tiles {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+
+		&.results {
+			justify-content: inherit;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		.service {
+			width: 32%;
+			margin: 12.5px auto;
+			background: $white;
+
+			@include responsive(medium) {
+				width: 100%;
+				margin: 0px 0px 10px 0px;
+			}
+
+			button {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 15px;
+				cursor: pointer;
+				width: 100%;
+				border: 1px solid;
+
+				span {
+					font-size: 16px;
+					font-weight: 600;
+					flex: 1 0;
+					text-align: left;
+					color: inherit;
+
+					&.material-icons {
+						flex: 0 0;
+					}
+				}
+			}
+		}
+
+		.tile-link {
+			flex-grow: 0;
+			flex-basis: 19%;
+			margin: 0px 0px 16px 0px;
+			background: none;
+			border-radius: 4px;
+			border: 1px solid $violet;
+			box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0);
+
+			@include responsive(bs-large) {
+				flex-basis: 32%;
+			}
+
+			@include responsive(small) {
+				flex-basis: 48%;
+			}
+
+			@include responsive(x-small) {
+				flex-basis: 100%;
+			}
+
+			button {
+				width: 100%;
+				border: none;
+				padding: 0;
+				background: $white;
+				border-radius: 4px;
+			}
+
+			.tile {
+				width: 100%;
+				height: 164px;
+				padding: 50px 0px 10px;
+				text-align: center;
+				display: flex;
+				align-items: center;
+				flex-direction: column;
+				cursor: pointer;
+				transition: 0.2s all;
+
+				@include responsive(medium) {
+					height: 155px;
+					width: calc(100% - 10px);
+					padding: 35px 5px 5px 5px;
+				}
+
+				h3 {
+					color: $violet;
+					font-size: 18px;
+					font-weight: 800;
+					text-align: center;
+					margin: 20px auto 0;
+					line-height: 22px;
+
+					@include responsive(medium) {
+						font-size: 16px;
+						line-height: 18px;
+					}
+				}
+
+				p {
+					color: $dark-2;
+					font-size: 14px;
+					text-align: center;
+					margin: 0 auto;
+					line-height: 22px;
+				}
+
+				img {
+					width: 38px;
+					height: 38px;
+				}
+			}
+
+			&:hover {
+				box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+				border: 1px solid $magenta;
+				color: $white;
+				.tile {
+					background-color: $magenta;
+				}
+				img {
+					filter: brightness(0) invert(1);
+				}
+				h3, p {
+					color: $white;
+				}
+			}
+		}
+	}
+
+	.view-all {
+		background: $white;
+		padding: 0px 16px;
+		margin-bottom: 75px;
+		border: 1px solid $violet;
+		border-radius: 4px;
+		color: $violet;
+		box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0);
+
+		&:hover {
+			border: 1px solid $magenta;
+			box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+			background-color: $magenta;
+			p,
+			span {
+				color: $white;
+			}
+		}
+
+		a {
+			text-decoration: none;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+			color: $violet;
+
+			p,
+			span {
+				font-size: 16px;
+				font-weight: 600;
+				color: $violet;
+			}
+		}
+	}
+
+	.no-search-results {
+		margin: 50px auto 25px auto;
+		text-align: center;
+
+		img {
+			width: 80px;
+		}
+
+		h2 {
+			margin: 5px 0px 0px 0px;
+		}
+
+		p {
+			margin: 0px;
+		}
+	}
+
+	.pattern-container {
+		background: url(/dist/img/pattern.svg);
+		opacity: 1;
+	}
+}
+
+.schedule-navigation {
+	display: flex;
+	flex-direction: column;
+	min-height: 55px;
+	width: 100%;
+	max-width: 1120px;
+	margin: 0 auto;
+	justify-content: center;
+
+	&.desktop {
+		display: flex;
+		@include responsive(bs-large) {
+			display: none;
+		}
+	}
+
+	&.mobile {
+		display: none;
+		border-bottom: 1px solid $magenta;
+
+		span {
+			line-height: 18px;
+		}
+
+		@include responsive(bs-large) {
+			display: flex;
+			justify-content: space-between;
+			align-items: stretch;
+			flex-direction: row;
+		}
+
+		.details-container {
+			display: flex;
+			flex-direction: row;
+			flex: 0 0 calc(80% - 1px);
+
+			.person-picker {
+				position: relative;
+				flex: 0 0 30%;
+
+				.overlay {
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					align-items: center;
+					box-sizing: content-box;
+					background: $magenta;
+					padding: 12px 6px;
+
+					span.title {
+						font-size: 12px;
+						font-weight: normal;
+						flex: 0 0 100%;
+						color: $white;
+						line-height: 14px;
+						margin-bottom: 5px;
+					}
+
+					.name-container {
+						display: flex;
+						flex-direction: row;
+
+						span.name {
+							color: $violet;
+							font-size: 12px;
+							font-weight: 700;
+							color: $white;
+							flex: 1 1 auto;
+							line-height: 14px;
+						}
+
+						.material-icons.keyboard_arrow_down {
+							flex: 0 0 24px;
+							color: $white;
+						}
+					}
+				}
+				select {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					opacity: 0;
+				}
+			}
+		}
+
+		.next-appointment {
+			display: flex;
+			flex-direction: column;
+			flex: 0 0 calc(70% - 20px);
+			justify-content: center;
+			padding: 0 10px;
+
+			span.title {
+				font-size: 12px;
+				font-weight: 600;
+				color: $oxford;
+			}
+
+			span.appointment-details {
+				font-size: 12px;
+				font-weight: 600;
+				color: $magenta;
+			}
+		}
+
+		.vertical-divider {
+			width: 1px;
+			background: $magenta;
+			height: 80%;
+			margin: auto;
+		}
+
+		a.log-out {
+			font-size: 14px;
+			margin: 0;
+			display: flex;
+			flex: 0 0 20%;
+			padding: 0;
+			justify-content: center;
+			align-items: center;
+			color: $oxford;
+		}
+	}
+
+	.content.patients {
+		display: flex;
+		align-items: center;
+		height: 100%;
+		border-bottom: 2px solid $magenta;
+		margin: 0 0 20px 0;
+		padding: 0;
+
+		form.select-patient {
+			height: 66px;
+			width: 150px;
+			position: relative;
+
+			button.patient {
+				margin: 0;
+				height: 100%;
+				border-top: none;
+				border-right: none;
+				border-left: none;
+				border-bottom: none;
+				background: none;
+				cursor: pointer;
+				color: $violet;
+				font-size: 18px;
+				font-weight: normal;
+				width: 100%;
+			}
+
+			.scalene-triangle-bottom {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: calc(100% + 19px);
+				width: 100%;
+				z-index: -1;
+				display: none;
+				background: url(/dist/img/schedule_icons/container.svg);
+				background-repeat: no-repeat;
+				background-size: 100% 100%;
+				background-position: center;
+			}
+
+			&.active {
+				button.patient {
+					color: $white;
+					font-size: 18px;
+					font-weight: 800;
+				}
+
+				.scalene-triangle-bottom {
+					display: block;
+				}
+			}
+		}
+
+		.divider {
+			flex: 1 1 auto;
+		}
+	}
+
+	.text {
+		display: flex;
+		align-items: center;
+		padding: 0;
+		margin: 0;
+
+		@include responsive(bs-large) {
+			margin: 0px;
+			padding: 0px 16px;
+		}
+	}
+
+	h2 {
+		color: $dark-2;
+		font-size: 18px;
+		font-weight: normal;
+		line-height: 20px;
+		margin: 23px 0;
+	}
+
+	a {
+		font-size: 14px;
+		font-weight: 700;
+		line-height: 20px;
+		padding-left: 8px;
+	}
+
+	&.back {
+		a {
+			display: flex;
+			align-items: center;
+			color: $blackish;
+			text-decoration: none;
+			font-size: 16px;
+			margin-left: 0px;
+
+			span {
+				margin-right: 10px;
+			}
+		}
+
+		@include responsive(bs-large) {
+			display: none;
+		}
+	}
+
+	> .divider {
+		height: 2px;
+		width: 100%;
+		max-width: 840px;
+		background: $magenta;
+		margin: 0;
+	}
+}
+
+.schedule-services-page {
+	.search-appointment-services {
+		@include responsive(x-large) {
+			margin-bottom: 10px;
+		}
+	}
+
+	.services-back-arrow-container {
+		display: flex;
+		align-items: center;
+		width: 100%;
+
+		@include responsive(x-large) {
+			display: none;
+		}
+
+		.text {
+			display: flex;
+			align-items: center;
+			width: 100%;
+			padding: 35px 0;
+			margin: 0 auto 0 85px;
+		}
+
+		a {
+			display: flex;
+			align-items: center;
+			color: #191919;
+			text-decoration: none;
+			font-size: 16px;
+			margin-left: 0;
+			font-weight: 600;
+
+			span {
+				margin-right: 10px;
+				color: $oxford;
+
+				&:not(.material-icons) {
+					color: $dark-2;
+				}
+			}
+		}
+	}
+
+	> .content {
+		min-height: 400px;
+
+		.service button {
+			&:hover {
+				border-color: $magenta;
+				background-color: $magenta;
+				color: $white !important;
+			}
+		}
+	}
+
+	.search-content {
+		padding: 24px 0px 0px 0px;
+
+		.search-results-btn {
+			margin-right: 0;
+		}
+	}
+}

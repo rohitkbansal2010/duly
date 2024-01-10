@@ -1,0 +1,43 @@
+@import "~@styles/themes.scss";
+@import "~@styles/typography.scss";
+
+.patientHeader {
+  &Container {
+    display: flex;
+    align-items: center;
+    min-height: 6.375rem;
+  }
+
+  &Greeting {
+    @include nexa-h2-bold;
+    @include nexa-extra-bold-highlight;
+
+    margin-right: 1rem;
+    color: $dupage-dark-blue;
+
+    .patientName {
+      color: $dupage-light-blue;
+    }
+  }
+
+  &Avatar {
+    padding: 0;
+    background: $white;
+    border: none;
+    border-radius: 50%;
+  }
+}
+
+.verticalLine {
+  top: 10px;
+  left: 50%;
+  display: block;
+  width: 0.2rem;
+  height: 4.375rem;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-color: #b2becc;
+}
+.fontSettingContainer {
+  margin-bottom: 0.8rem;
+}

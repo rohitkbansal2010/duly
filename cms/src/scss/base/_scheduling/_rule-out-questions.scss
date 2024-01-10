@@ -1,0 +1,129 @@
+main.schedule-an-appointment-rule-out-questions-page {
+	min-height: unset;
+	display: block;
+	box-sizing: border-box;
+	padding: 0 1rem;
+	.scheduling-navigation-container {
+		width: calc(100% + 2rem);
+		margin: 0 -1rem;
+	}
+	> h2 {
+		color: $oxford;
+		font-size: 1.25rem;
+		font-weight: 900;
+		text-align: center;
+		line-height: 22px;
+		display: block;
+		margin: 0 auto;
+		padding: 2rem 4rem;
+		border-bottom: 1px solid $magenta;
+		max-width: 800px;
+		@include responsive(small) {
+			font-size: 18px;
+			line-height: 20px;
+			padding: 1rem 0;
+		}
+	}
+
+	.schedule-an-appointment-rule-out-questions-container {
+		margin: auto auto 80px;
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+		max-width: 1120px;
+		align-items: center;
+		text-align: left;
+		min-height: 300px;
+		width: 100%;
+		box-sizing: border-box;
+
+		@include responsive(small) {
+			padding: 1rem 0;
+		}
+
+		form {
+			width: 100%;
+			background: $white;
+			border-radius: 4px;
+			box-sizing: border-box;
+
+			h3 {
+				color: $violet;
+				font-size: 20px;
+				line-height: 22px;
+				font-weight: normal;
+				line-height: 1;
+				text-align: center;
+				margin: 1.25rem 0;
+			}
+
+			.image {
+				max-width: 640px;
+				margin: 0.5rem auto;
+				display: block;
+				box-sizing: border-box;
+				padding: 0.5rem;
+				img {
+					display: block;
+					width: 100%;
+				}
+			}
+
+			.error {
+				text-align: center;
+				color: $red;
+			}
+		}
+
+		&.appointment-time-selected-outside-of-scheduling {
+			background: none;
+			flex-direction: row-reverse;
+			align-items: flex-start;
+			justify-content: space-between;
+			align-items: flex-start;
+			flex-wrap: wrap;
+
+			.appointment-time,
+			.map-container {
+				display: flex !important;
+				visibility: visible;
+				opacity: 1;
+			}
+
+			.rule-out-question {
+				flex: 1 1 auto;
+				margin-right: 40px;
+				background: $white;
+				width: calc(100% - 490px);
+				border-radius: 4px;
+				height: fit-content;
+			}
+
+			@include responsive(bs-large) {
+				.physician-info-container {
+					flex: 0 0 100%;
+					margin-bottom: 20px;
+				}
+
+				.rule-out-question {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+	.form-actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-width: 640px;
+		margin: 0 auto;
+		button {
+			width: 50%;
+			display: block;
+			padding: 1rem;
+			margin: 0 0.5rem;
+			border: 1px solid;
+		}
+	}
+}

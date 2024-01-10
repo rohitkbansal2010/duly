@@ -1,0 +1,145 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.Title {
+  @include nexa-heavy-highlight;
+  color: $dupage-dark-blue;
+  font-weight: 900;
+  font-size: var(--font-size-24px-4px);
+  line-height: var(--line-height-36px-6px);
+  // line-height: 150%;
+
+  &Inner {
+    color: $dupage-blue;
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  background-color: $white;
+  border-radius: 2rem;
+}
+
+.inProgress {
+  @include nexa-heavy-highlight;
+  height: 41rem;
+  color: $dupage-dark-blue;
+  font-size: 3rem;
+}
+
+.appointmentsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.nextBtnContainer {
+  margin-top: 2.8125rem;
+}
+
+.nextBtn {
+  padding: 0.5rem 3.25rem;
+  color: white;
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  background: none;
+  background-color: $dupage-dark-blue;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.ImagingWrapper {
+  display: flex;
+  margin-top: 0.5rem;
+  column-gap: 1.875rem;
+
+  &Data {
+    // width: 31.125rem;
+    // width: 40%;
+    flex: 1;
+  }
+
+  &Location {
+    width: var(--map-container-size);
+
+    &Map {
+      // width: 30.5rem;
+      width: 100%;
+      height: 27.75rem;
+      background-color: $light-gray;
+    }
+
+    &Data {
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+.imagingError {
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // width: 63.5rem;
+    height: 43.25rem;
+  }
+  &IconWrapper {
+    width: 9rem;
+    height: 9rem;
+    img {
+      width: 9rem;
+      height: 9rem;
+    }
+  }
+  &Title {
+    @include nexa-heavy-highlight;
+
+    margin-top: 1.5rem;
+    color: $dupage-light-blue;
+    font-size: var(--font-size-32px-4px);
+    text-transform: capitalize;
+  }
+  &SubTitle {
+    @include nexa-regular-highlight;
+    padding: 0 3.25rem;
+    color: $dark-gray;
+    font-weight: 400;
+    font-size: var(--font-size-24px-4px);
+    line-height: 2.25rem;
+    text-align: center;
+  }
+  &TryButton {
+    @include nexa-extra-bold-highlight;
+    display: flex;
+    align-items: center;
+    margin-top: 1.875rem;
+    padding: 0.56rem 3.25rem;
+    color: $white;
+    font-weight: 800;
+    font-size: var(--font-size-20px-4px);
+    line-height: 1.5rem;
+    text-align: center;
+    background: $dupage-dark-blue;
+    border-radius: 0.5rem;
+  }
+}
+
+.ScrollBar {
+  height: 38rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.ScrollBar::-webkit-scrollbar {
+  display: none !important;
+}

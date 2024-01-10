@@ -1,0 +1,56 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.otherPractitioners {
+  @include ios-scrollbar;
+  display: flex;
+  flex-direction: column;
+  min-width: 12rem;
+  max-height: 20.5rem;
+  padding: 1.6rem 1rem 0;
+
+  &Wrapper {
+    border: none !important;
+    border-radius: 0.5rem !important;
+    box-shadow: 0 0.25rem 0.375rem -0.125rem rgb(102 110 125 / 5%),
+      0 0.625rem 0.94rem -0.2rem rgb(102 110 125 / 10%), 0 0 0.06rem 0 rgb(102 110 125 / 6%);
+    inset: auto auto 1rem -1rem !important;
+
+    &Vertical {
+      inset: -2.1rem auto auto 0 !important;
+    }
+  }
+
+  &Button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 4rem;
+    margin: 0 2.25rem;
+    background: none;
+    border: none;
+  }
+
+  &Icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background: $dupage-light-blue;
+    border-radius: 50%;
+
+    img {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  &Text {
+    @include nexa-extra-bold-highlight;
+    color: $dupage-violet;
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+  }
+}

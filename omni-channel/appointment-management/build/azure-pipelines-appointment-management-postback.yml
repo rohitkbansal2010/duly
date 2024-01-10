@@ -1,0 +1,378 @@
+parameters:
+  - name: FORCE_RUN_SONAR_CHECK
+    type: boolean
+    default: false
+    displayName: 'Force a launch of SonarCloud analysis.'
+  - name: DEPLOY_FROM_FEATURE_BRANCH
+    type: boolean
+    default: false
+    displayName: 'Deploy from feature branch'
+  - name: imageRepository
+    default: '$(Build.Repository.Name)-postback'
+  - name: imageTag
+    default: $(Build.BuildNumber)
+  - name: aksServiceConnection
+    default: 'duly-d-app-aks'
+
+trigger:
+  branches:
+    include:
+      - dev
+      - feature/*
+  paths:
+    include:
+      - src/orchestrator/*
+    exclude:
+      - build/*
+      - src/orchestrator/Workflow/*
+      - src/orchestrator/Database/*
+
+variables:
+  - name: FORCE_RUN_SONAR_CHECK
+    value: ${{ parameters.FORCE_RUN_SONAR_CHECK }}
+  - name: DEPLOY_FROM_FEATURE_BRANCH
+    value: ${{ parameters.DEPLOY_FROM_FEATURE_BRANCH }}
+  - name: PROJECT_NAME
+    value: '**/Postback.csproj'
+  - name: UNIT_TESTS_PROJECT_NAME
+    value: '**/Tests.csproj'
+  - name: ACR_SUBSCRIPTION
+    value: 'prd'
+  - name: ACR_NAME
+    value: 'dulydigitalcr.azurecr.io'
+  - name: BUILD_POOL
+    value: OnAKS
+  - name: aksServiceConnection
+    value: ${{ parameters.aksServiceConnection }}
+  - name: imageRepository
+    value: ${{ parameters.imageRepository }}
+  - name: imageTag
+    value: ${{ parameters.imageTag }}
+
+resources:
+  repositories:
+    - repository: yamltemplates
+      type: git
+      name: 'duly.digital.devops/duly-yaml-templates'
+
+    - repository: scripts
+      type: git
+      name: 'duly.digital.devops/duly-scripts'
+
+    - repository: terraform-scripts
+      type: git
+      name: 'terraform-scripts'
+
+    - repository: charts
+      type: git
+      name: 'duly.digital.devops/duly-aks-helmcharts'
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: CI
+  jobs:
+  - job: Analyse
+    displayName: Continuous Integration
+    pool:
+      name: $(BUILD_POOL)
+    workspace:
+      clean: outputs
+    steps:
+      - checkout: self
+
+      # Template: Execute CI process for particular project
+      - template: child.build/ci-netcore-cli.yml@yamltemplates
+        parameters:
+          solution: $(PROJECT_NAME)
+          unitTestsProject: $(UNIT_TESTS_PROJECT_NAME)
+          sonarCloudScanningPath: 'Postback'
+          sonarCloudProjectSuffix: 'postback'
+          runUnitTests: false
+          createCoverageReport: false
+          includeDotNetSdkVersionForAzureFunctions: true
+          vstsFeed: 'duly.digital'
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        eq(variables['Build.Reason'], 'PullRequest'),
+        eq(variables['FORCE_RUN_SONAR_CHECK'], 'true'),
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/feature')
+      )
+    )
+
+- stage: Build
+  dependsOn: []
+  jobs:
+   - job: Build
+     displayName: Build Artifacts
+     pool:
+       name: $(BUILD_POOL)
+     workspace:
+       clean: outputs
+     steps:
+     - checkout: self
+
+     - template: child.build/build-netcore.yml@yamltemplates
+       parameters:
+         solution: $(PROJECT_NAME)
+         unitTestsProject: $(UNIT_TESTS_PROJECT_NAME)
+         enableSonarCloudScan: true
+         sonarCloudScanningPath: 'Postback'
+         sonarCloudProjectSuffix: 'postback'
+         runUnitTests: false
+         createCoverageReport: false
+         dotnetBuild: true
+         includeDotNetSdkVersionForAzureFunctions: true
+         vstsFeed: 'duly.digital'
+
+     - task: AzureCLI@2
+       displayName: Build a Docker image
+       inputs:
+         azureSubscription: $(ACR_SUBSCRIPTION)
+         scriptType: pscore
+         scriptLocation: inlineScript
+         inlineScript: |
+            az acr build -t "$(ACR_NAME)/$(imageRepository):$(imageTag)" -r "$(ACR_NAME)" -f "$(Build.SourcesDirectory)/$(Build.Repository.Name)/src/orchestrator/Postback/Dockerfile" . 
+         workingDirectory: '$(Build.ArtifactStagingDirectory)'
+
+    # Explicitly add '-postback' into tag name and tag message to differentiate tags which will be set by appointment-management pipelines
+     - task: PowerShell@2
+       displayName: 'PowerShell: Set commit tag'
+       inputs:
+         targetType: filePath
+         filePath: '$(Build.SourcesDirectory)/duly-scripts/PowerShell/Add-TagToAdoCommit.ps1'
+         arguments: > 
+           -PAT $(System.AccessToken)
+           -organizationUri $(System.CollectionUri)
+           -projectName $(System.TeamProject)
+           -repositoryID $(Build.Repository.ID)
+           -commitID $(Build.SourceVersion)
+           -tagName $(Build.BuildNumber)-postback
+           -tagMessage $(Build.BuildNumber)-postback
+       continueOnError: true
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['DEPLOY_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: dev
+  displayName: Deploy on DEV
+  dependsOn: Build
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'azure-function'
+        helmReleaseName: 'oc-appointment-management-postback'
+        aadPodIdCustomName: 'duly-d-component-pod-id'
+        env: dev
+        chartArgs: >
+          --set env.FUNCTIONS_WORKER_RUNTIME="dotnet-isolated"
+          --set env.APPINSIGHTS_INSTRUMENTATIONKEY="af4123b2-29a8-4c99-ba30-ea1586024b5a"
+          --set env.ApplicationName="Duly.OmniChannel.Orchestrator.Appointment.Postback"
+          --set-string env.ServiceBusConnection="Endpoint=sb://duly-d-app-ns.servicebus.windows.net/;Authentication=ManagedIdentity"
+          --set env.SourceQueue="d-appt-mngm-notification-sbq"
+          --set env.KeyVaultHostUrl="https://duly-d-oc-apmg-orc-kv.vault.azure.net/"
+          --set keda.triggerType="azure-servicebus"
+          --set keda.metadata.namespace="duly-d-app-ns"
+          --set keda.metadata.queueName="d-appt-mngm-notification-sbq"
+          --set-string keda.metadata.messageCount="5"
+          --set ingress=null
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['DEPLOY_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: qat
+  displayName: Deploy on QAT
+  dependsOn: dev
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'azure-function'
+        helmReleaseName: 'oc-appointment-management-postback'
+        aadPodIdCustomName: 'duly-q-component-pod-id'
+        env: qat
+        chartArgs: >
+          --set env.FUNCTIONS_WORKER_RUNTIME="dotnet-isolated"
+          --set env.APPINSIGHTS_INSTRUMENTATIONKEY="10a771c8-d7cd-48b1-9f2b-9b8c61dd6394"
+          --set env.ApplicationName="Duly.OmniChannel.Orchestrator.Appointment.Postback"
+          --set-string env.ServiceBusConnection="Endpoint=sb://duly-d-app-ns.servicebus.windows.net/;Authentication=ManagedIdentity"
+          --set env.SourceQueue="q-appt-mngm-notification-sbq"
+          --set env.KeyVaultHostUrl="https://duly-q-oc-apmg-orc-kv.vault.azure.net/"
+          --set keda.triggerType="azure-servicebus"
+          --set keda.metadata.namespace="duly-d-app-ns"
+          --set keda.metadata.queueName="q-appt-mngm-notification-sbq"
+          --set-string keda.metadata.messageCount="5"
+          --set ingress=null
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+# - stage: aut
+#   displayName: Deploy on AUT
+#   dependsOn: dev
+#   jobs:
+#     - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+#       parameters:
+#         aksServiceConnection: $(aksServiceConnection)
+#         imageACRName: $(ACR_NAME)
+#         imageRepository: $(imageRepository)
+#         imageTag: $(imageTag)
+#         helmChartsRepo: 'charts'
+#         helmChartName: 'azure-function'
+#         helmReleaseName: 'oc-appointment-management-postback'
+#         aadPodIdCustomName: 'duly-a-component-pod-id'
+#         env: aut
+#         chartArgs: >
+#           --set env.FUNCTIONS_WORKER_RUNTIME="dotnet-isolated"
+#           --set env.APPINSIGHTS_INSTRUMENTATIONKEY="f8bb3797-ac96-401f-a6f6-48d44ef26627"
+#           --set env.ApplicationName="Duly.OmniChannel.Orchestrator.Appointment.Postback"
+#           --set-string env.ServiceBusConnection="Endpoint=sb://duly-d-app-ns.servicebus.windows.net/;Authentication=ManagedIdentity"
+#           --set env.SourceQueue="a-appt-mngm-notification-sbq"
+#           --set env.KeyVaultHostUrl="https://duly-a-oc-apmg-orc-kv.vault.azure.net/"
+#           --set keda.triggerType="azure-servicebus"
+#           --set keda.metadata.namespace="duly-d-app-ns"
+#           --set keda.metadata.queueName="a-appt-mngm-notification-sbq"
+#           --set-string keda.metadata.messageCount="5"
+#           --set ingress=null
+
+#   condition: |
+#     and
+#     (
+#       succeeded(),
+#       or
+#       (
+#         startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+#         startsWith(variables['Build.SourceBranchName'], 'main'),
+#         in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+#       ),
+#       ne(variables['Build.Reason'], 'PullRequest')
+#     )
+
+- stage: uat
+  displayName: Deploy on UAT
+  dependsOn: qat
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'azure-function'
+        helmReleaseName: 'oc-appointment-management-postback'
+        aadPodIdCustomName: 'duly-u-component-pod-id'
+        env: uat
+        chartArgs: >
+          --set env.FUNCTIONS_WORKER_RUNTIME="dotnet-isolated"
+          --set env.APPINSIGHTS_INSTRUMENTATIONKEY="ed4a6642-1882-48ad-9279-6f7799ad1c64"
+          --set env.ApplicationName="Duly.OmniChannel.Orchestrator.Appointment.Postback"
+          --set-string env.ServiceBusConnection="Endpoint=sb://duly-d-app-ns.servicebus.windows.net/;Authentication=ManagedIdentity"
+          --set env.SourceQueue="u-appt-mngm-notification-sbq"
+          --set env.KeyVaultHostUrl="https://duly-u-oc-apmg-orc-kv.vault.azure.net/"
+          --set keda.triggerType="azure-servicebus"
+          --set keda.metadata.namespace="duly-d-app-ns"
+          --set keda.metadata.queueName="u-appt-mngm-notification-sbq"
+          --set-string keda.metadata.messageCount="5"
+          --set ingress=null
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: prd
+  displayName: Deploy on PRD
+  dependsOn: uat
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: 'duly-p-app-aks'
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'azure-function'
+        helmReleaseName: 'oc-appointment-management-postback'
+        aadPodIdCustomName: 'duly-p-component-pod-id'
+        env: prd
+        chartArgs: >
+          --set env.FUNCTIONS_WORKER_RUNTIME="dotnet-isolated"
+          --set env.APPINSIGHTS_INSTRUMENTATIONKEY="7553bf3f-b9ee-4822-8250-4c5377028be7"
+          --set env.ApplicationName="Duly.OmniChannel.Orchestrator.Appointment.Postback"
+          --set-string env.ServiceBusConnection="Endpoint=sb://duly-p-app-ns.servicebus.windows.net/;Authentication=ManagedIdentity"
+          --set env.SourceQueue="p-appt-mngm-notification-sbq"
+          --set env.KeyVaultHostUrl="https://duly-p-oc-apmg-orc-kv.vault.azure.net/"
+          --set keda.triggerType="azure-servicebus"
+          --set keda.metadata.namespace="duly-p-app-ns"
+          --set keda.metadata.queueName="p-appt-mngm-notification-sbq"
+          --set-string keda.metadata.messageCount="5"
+          --set ingress=null
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )

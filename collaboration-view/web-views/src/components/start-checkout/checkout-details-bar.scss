@@ -1,0 +1,114 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.mainDiv {
+  margin-top: 1.5rem;
+  padding: 1rem 1.5rem;
+  background-color: $ghost-gray;
+  border-radius: 0.5rem;
+}
+
+.doctorInfo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.doctorInfo img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.doctorDetails {
+  display: flex;
+  justify-content: space-between;
+
+  &Imaging {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 5.875rem 0 0.75rem;
+  }
+}
+
+.doctorStream,
+.locationTitle,
+.appointmentTitle,
+.formatTitle {
+  color: rgba(102, 110, 125, 1);
+  font-weight: 700;
+  font-size: var(--font-size-14px-4px);
+  //line-height: 1.0625rem;
+  text-transform: uppercase;
+}
+
+.doctorName,
+.address {
+  color: rgba(0, 40, 85, 1);
+  font-weight: 700;
+  font-size: var(--font-size-18px-4px);
+  //line-height: 1.625rem;
+}
+
+.changeLocation {
+  color: $dupage-magenta;
+  font-weight: 700;
+  font-size: var(--font-size-18px-4px);
+  text-decoration: underline;
+  //line-height: 1.625rem;
+}
+
+.pincode,
+.data {
+  color: rgba(0, 40, 85, 1);
+  font-size: var(--font-size-14px-4px);
+  //line-height: 1.0625rem;
+}
+
+.btn-primary {
+  color: black !important;
+}
+
+.referralappointment .data,
+.referralappointmentFormat .data {
+  margin-top: 0.25rem;
+  font-weight: 700;
+  font-size: var(--font-size-18px-4px);
+}
+
+.appointment .data select,
+.appointmentFormat .data select {
+  position: relative;
+  width: 13.75rem;
+  height: 2.5rem;
+  margin-top: 0.4375rem;
+  color: rgb(96, 124, 156);
+  font-weight: 700;
+  font-size: var(--font-size-14px-4px);
+  background-color: white;
+  border: 1px solid rgba(102, 110, 125, 1);
+  border-radius: 5px;
+}
+
+.dropdownDiv {
+  width: 100%;
+  padding: 0.25rem 1rem;
+  //line-height: 1.5rem;
+  font-size: var(--font-size-16px-4px);
+}
+
+.dropdown {
+  padding: 0.5rem 0.75rem;
+}
+
+.changeProvider {
+  font-style: underline;
+}
+
+.chooseProviderLink {
+  color: rgba(197, 41, 155, 1);
+  font-weight: 700;
+  font-size: var(--font-size-14px-4px);
+  text-decoration: underline;
+  cursor: pointer;
+}

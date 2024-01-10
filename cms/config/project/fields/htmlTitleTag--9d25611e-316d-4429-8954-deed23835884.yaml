@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 2100fbc6-d68d-4185-8504-3ff4680dee28
+handle: htmlTitleTag
+instructions: 'This is the site name that is added to the HTML page title, and is visible in a browser tab title.'
+name: 'HTML Title Tag'
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

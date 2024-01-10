@@ -1,0 +1,37 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% set contentTitle = null %}
+{% if generalSiteConfig.customSeoMetaTitleLocationsListPage is not null %}
+    {% set contentTitle = generalSiteConfig.customSeoMetaTitleLocationsListPage %}
+{% else %}
+    {% set contentTitle = "Locations"|t %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% set contentSummary = null %}
+{% if generalSiteConfig.customSeoMetaDescriptionLocationsListPage is not null %}
+    {% set contentSummary = generalSiteConfig.customSeoMetaDescriptionLocationsListPage %}
+{% endif %}
+
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        category: null,
+		heroImage: null,
+		contentTitle: contentTitle,
+        contentSummary: contentSummary,
+        cacheKey: 'locations-page'
+} only %}
+{% endblock %}  
+
+{% block bodyClass "locations-list-page" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    <section class="location-listings-page">
+        {% include '_locations/_listings.twig' %}
+        <div class="pattern-container"></div>
+    </section>
+{% endblock %}

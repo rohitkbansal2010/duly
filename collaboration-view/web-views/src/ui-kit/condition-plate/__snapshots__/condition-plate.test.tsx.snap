@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HealthConditionsPlate component should match to snapshot 1`] = `
+<div
+  className="conditionPlate"
+>
+  <div
+    className="conditionPlateIcon"
+  >
+    <img
+      alt="conditions icon"
+      src="conditions-icon.svg"
+    />
+  </div>
+  <div
+    className="conditionPlateData"
+  >
+    <h2
+      className="conditionPlateDataName"
+    >
+      Pneumonia
+    </h2>
+    <span
+      className="conditionPlateDataDate"
+    >
+      2/16/2022
+    </span>
+  </div>
+</div>
+`;

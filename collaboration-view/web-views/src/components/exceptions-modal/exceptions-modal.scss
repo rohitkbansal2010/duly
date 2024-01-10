@@ -1,0 +1,64 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.customWidthModal {
+  width: 36.0625rem !important;
+  max-width: 40rem !important;
+}
+
+.customBackDropModal {
+  z-index: 1056 !important;
+  background-color: #0f172a !important;
+  opacity: 0.15 !important;
+}
+
+.exceptionsModal {
+  z-index: 1056 !important;
+
+  &ErrorIcon {
+    display: block;
+    width: 10rem;
+    height: 10rem;
+    margin: 2.5rem auto;
+  }
+
+  &Header {
+    @include nexa-heavy-highlight;
+
+    height: 2.625rem !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    color: $default-text;
+    font-size: 2.5rem !important;
+    border-bottom: none !important;
+  }
+
+  &Subtitle {
+    @include inter-text-default;
+
+    height: 1.6875rem !important;
+    margin: 1.25rem auto 0 auto;
+    color: $default-text;
+    font-size: 1.125rem;
+    line-height: 1.6875rem;
+  }
+
+  &Footer {
+    margin: 2.5rem auto 0 auto;
+    padding-top: 0 !important;
+    padding-bottom: 2rem !important;
+    border-top: none !important;
+
+    &Close {
+      @include nexa-extra-bold-highlight;
+
+      width: 12.625rem !important;
+      height: 2.625rem !important;
+      margin: 0 !important;
+      color: $white !important;
+      background-color: $dupage-dark-blue !important;
+      border-color: $dupage-dark-blue !important;
+      border-radius: 0.5rem !important;
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title "Health Topics"|t %}
+{% block bodyClass "health-topics topics-container" %}
+{% block itemScope "http://schema.org/CollectionPage" %}
+
+{# Find the Craft 3 Entry for the "Health Topics Overview Page #}
+{% set thisEntry = craft.entries()
+    .section('healthTopics')
+    .one()
+%}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    {% include "_health-topics/_nav.twig" %}
+    <div class="inner-container">
+        <h1 class="category-label"><a class="dp-home-icon" href="{{ siteUrl("health-topics") }}" alt="{{ "Health Topics Homepage"|t }}" aria-label="{{ "Health Topics Homepage"|t }}"></a>{{ "Health Topics"|t }}</h1>
+        {% if thisEntry.healthTopicsShowRecent == true %}
+                {% include '_health-topics/_section.twig' with {
+                    title: 'Recent'|t,
+                    pageInfo: null,
+                    showCategoryBanner: true,
+                    data: craft.entries({
+                        section: 'blog',
+                        limit: 3,
+                        orderBy: {
+                            postDate: SORT_DESC
+                        },
+                        type: 'healthTopic'
+                    }).all()
+                } %}
+        {% endif %}
+
+        {% for entry in thisEntry.promotedCategories.all() %}
+            {% set category = entry.category.one() %}
+            {% cache using key "promited-health-topic-" ~ category.title %}
+
+                {% include '_health-topics/_section.twig' with {
+                    title: category.title|t,
+                    category: category,
+                    pageInfo: null,
+                    showCategoryBanner: true,
+                    data: craft.entries({
+                        section: 'blog',
+                        limit: 3,
+                        orderBy: {
+                            featuredInCategory: SORT_DESC,
+                            postDate: SORT_DESC
+                        },
+                        type: 'healthTopic',
+                        relatedTo: [
+                            'and',
+                            { targetElement: category, field: 'healthTopics.category' }
+                        ]
+                    }).all()
+                } %}
+            {% endcache %}
+        {% endfor %}
+    </div>
+    <div class="footer-effect">
+        <div class="footer-effect-left"></div>
+        <div class="footer-effect-right"></div>
+    </div>
+{% endblock %}

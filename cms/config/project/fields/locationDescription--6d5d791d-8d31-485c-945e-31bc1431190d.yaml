@@ -1,0 +1,27 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: f1257321-1f7a-4dc1-8228-331ef587eba6
+handle: locationDescription
+instructions: 'Provide a description of the location. If one is not provided a default description will automatically be generated using the template outlined in the placeholder text.'
+name: 'Location Description'
+searchable: true
+settings:
+    availableTransforms: '*'
+    availableVolumes: ''
+    columnType: text
+    configSelectionMode: choose
+    defaultTransform: ''
+    manualConfig: ''
+    purifierConfig: ''
+    purifyHtml: ''
+    redactorConfig: Simple.json
+    removeEmptyTags: '1'
+    removeInlineStyles: '1'
+    removeNbsp: '1'
+    showHtmlButtonForNonAdmins: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    uiMode: enlarged
+translationKeyFormat: null
+translationMethod: none
+type: craft\redactor\Field

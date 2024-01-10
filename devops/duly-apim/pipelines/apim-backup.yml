@@ -1,0 +1,92 @@
+schedules:
+- cron: "0 7 * * *"
+  displayName: 7:00 AM (UTC) daily backup of API Management configuration
+  branches:
+    include:
+    - main
+  always: true
+
+variables:
+  - name: NON_PRODUCTION_SUBSCRIPTION_NAME
+    value: 'azure_cloud_np'
+  - name: PRODUCTION_SUBSCRIPTION_NAME
+    value: 'azure_cloud_prod'
+  - name: BUILD_POOL
+    value: OnAKS
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: dev
+  dependsOn: []
+  jobs:
+    - job:
+      pool:
+        name: $(BUILD_POOL)
+      displayName: 'Backup APIM Configuration from DEV environment'
+      steps:
+        - checkout: self
+        - template: ../templates/configuration-backup.yml
+          parameters:
+            subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+            apimName: 'duly-d-apim'
+            apimRgName: 'duly-d-apim-rg'
+            saName: 'dulydapimsa'
+            saRgName: 'duly-d-sharedsvc-rg'
+            backupContainerName: 'backup-container-dev'
+
+- stage: qat
+  dependsOn: []
+  jobs:
+    - job:
+      pool:
+        name: $(BUILD_POOL)
+      displayName: 'Backup APIM Configuration from QAT environment'
+      steps:
+        - checkout: self
+        - template: ../templates/configuration-backup.yml
+          parameters:
+            subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+            apimName: 'duly-q-apim'
+            apimRgName: 'duly-q-apim-rg'
+            saName: 'dulydapimsa'
+            saRgName: 'duly-d-sharedsvc-rg'
+            backupContainerName: 'backup-container-qat'
+
+- stage: uat
+  dependsOn: []
+  jobs:
+    - job:
+      pool:
+        name: $(BUILD_POOL)
+      displayName: 'Backup APIM Configuration from UAT environment'
+      steps:
+        - checkout: self
+        - template: ../templates/configuration-backup.yml
+          parameters:
+            subscriptionName: $(NON_PRODUCTION_SUBSCRIPTION_NAME)
+            apimName: 'duly-u-apim'
+            apimRgName: 'duly-u-apim-rg'
+            saName: 'dulydapimsa'
+            saRgName: 'duly-d-sharedsvc-rg'
+            backupContainerName: 'backup-container-uat'
+
+- stage: prd
+  dependsOn: []
+  jobs:
+    - job:
+      pool:
+        name: $(BUILD_POOL)
+      displayName: 'Backup APIM Configuration from PRD environment'
+      steps:
+        - checkout: self
+        - template: ../templates/configuration-backup.yml
+          parameters:
+            subscriptionName: $(PRODUCTION_SUBSCRIPTION_NAME)
+            apimName: 'duly-p-apim'
+            apimRgName: 'duly-p-apim-rg'
+            saName: 'dulypapimsa'
+            saRgName: 'duly-p-sharedsvc-rg'
+            backupContainerName: 'backup-container-prd'

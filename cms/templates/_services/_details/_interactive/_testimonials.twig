@@ -1,0 +1,22 @@
+{% set col1 = [] %}
+{% set col2 = [] %}
+<div id="testimonials">
+    <p id="disclaimer"><sup>*</sup>individual results may vary</p>
+    {% for testimonial in testimonials %}
+        {% if (loop.index - 1) % 2 == 0 %}
+            {% set col1 = col1|push(testimonial) %}
+        {% else %}
+            {% set col2 = col2|push(testimonial) %}
+        {% endif %}
+    {% endfor %}
+    <div id="col1">
+        {% for testimonial in col1 %}
+            {% include '_services/_details/_interactive/_testimonial.twig' %}
+        {% endfor %}
+    </div>
+    <div id="col2">
+        {% for testimonial in col2 %}
+            {% include '_services/_details/_interactive/_testimonial.twig' %}
+        {% endfor %}
+    </div>
+</div>

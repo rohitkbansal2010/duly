@@ -1,0 +1,67 @@
+.newsletter-page {
+    min-height: 500px;
+
+    .container {
+        margin: 50px auto;
+        background: $white;
+        border-radius: 4px;
+        padding: 40px;
+
+        @include responsive(medium) {
+            width: calc(100% - 16px);
+            margin: 25px 8px;
+            padding: 15px;
+        }
+
+        .mdc-text-field__input:required~.mdc-floating-label:after, .mdc-text-field__input:required~.mdc-notched-outline .mdc-floating-label:after {
+            margin-left: 1px;
+            content: "*" !important;
+        }
+
+        #mc_embed_signup {
+            width: 500px;
+            margin: 0 auto;
+
+            @include responsive(medium) {
+                width: 100%;
+            }
+
+            h2 {
+                font-size: 32px;
+                line-height: 36px;
+                font-weight: 400;
+                margin: 0px 0px 24px 0px;
+            }
+
+            h4 {
+                font-size: 18px;
+                font-weight: 600;
+                margin: 25px 0px 10px 0px;
+            }
+
+            .mc-field-group {
+                margin: 12px 0px;
+            }
+
+            .mdc-form-field {
+                width: calc(100% - 10px);
+                margin-left: -10px;
+            }
+
+            .mdc-form-field>label {
+                padding-left: 0px !important;
+            }
+        }
+
+        .submit-button {
+            font-size: 22px;
+            background: $dark-mute-blue;
+            border-radius: 4px;
+            color: $white;
+            width: 100%;
+            border: transparent;
+            padding: 15px;
+            font-weight: 600;
+        }
+    }
+}

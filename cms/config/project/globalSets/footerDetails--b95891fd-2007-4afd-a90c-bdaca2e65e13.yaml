@@ -1,0 +1,5 @@
+fieldLayouts:
+    25d31585-cfc8-4f98-a39e-51d22ef2a14b: { tabs: [{ elements: [{ fieldUid: a150c1f6-730a-42df-aa77-c1ea6d1cb45a, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 900bca7f-5353-4876-8762-b732fbc9947b, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Common, sortOrder: 1 }] }
+handle: footerDetails
+name: 'Footer Details'
+sortOrder: 0

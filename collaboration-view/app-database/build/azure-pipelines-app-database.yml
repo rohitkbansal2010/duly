@@ -1,0 +1,108 @@
+parameters:
+  - name: vstsFeed
+    default: 'duly.digital'
+  - name: buildPool
+    default: 'Azure Pipelines'
+  - name: solution
+    default: '$(Build.SourcesDirectory)/$(Build.Repository.Name)/**/Duly.CollaborationView.Database.sln'
+  - name: buildConfiguration
+    default: 'Release'
+  - name: deployPool
+    type: string
+    default: 'Azure Pipelines'
+  - name: additionalDacpacArguments
+    type: string
+    default: ' '
+  - name: dacpacName
+    type: string
+    default: 'Database.dacpac'
+  - name: deployEnvironments
+    type: string
+    default: 'dev, qat, aut, uat, prd'
+  - name: authenticationType
+    type: string
+    default: 'connectionString'
+    values:
+    - 'server'
+    - 'connectionString'
+
+trigger: none
+
+resources:
+  repositories:
+    - repository: yamltemplates
+      type: git
+      name: 'duly.digital.devops/duly-yaml-templates'
+      
+    - repository: scripts
+      type: git
+      name: duly.digital.devops/duly-scripts
+    
+stages:
+
+# Build stage
+- template: child.stages/sqldb-build-stage.yaml@yamltemplates
+  parameters:
+    vstsFeed: ${{ parameters.vstsFeed }}
+    buildPool: ${{ parameters.buildPool }}
+    solution: ${{ parameters.solution }}
+    buildConfiguration: ${{ parameters.buildConfiguration }}
+
+# dev deploy stage
+- ${{ if contains(parameters.deployEnvironments, 'dev') }}:
+  - template: child.stages/sqldb-deploy-stage.yaml@yamltemplates
+    parameters: 
+      environment: dev
+      deployPool: ${{ parameters.deployPool }}
+      additionalDacpacArguments: >
+        /Variables:EnvironmentType=$(EnvironmentType)
+      dacpacName: ${{ parameters.dacpacName }}
+      authenticationType: ${{ parameters.authenticationType }}
+
+# qat deploy stage
+- ${{ if contains(parameters.deployEnvironments, 'qat') }}:
+  - template: child.stages/sqldb-deploy-stage.yaml@yamltemplates
+    parameters: 
+      environment: qat
+      deployPool: ${{ parameters.deployPool }}
+      additionalDacpacArguments: >
+        /Variables:EnvironmentType=$(EnvironmentType)
+      dacpacName: ${{ parameters.dacpacName }}
+      authenticationType: ${{ parameters.authenticationType }}
+      dependsOn: dev
+
+# aut deploy stage
+- ${{ if contains(parameters.deployEnvironments, 'aut') }}:
+  - template: child.stages/sqldb-deploy-stage.yaml@yamltemplates
+    parameters: 
+      environment: aut
+      deployPool: ${{ parameters.deployPool }}
+      additionalDacpacArguments: >
+        /Variables:EnvironmentType=$(EnvironmentType)
+      dacpacName: ${{ parameters.dacpacName }}
+      authenticationType: ${{ parameters.authenticationType }}
+      dependsOn: dev
+
+# uat deploy stage
+- ${{ if contains(parameters.deployEnvironments, 'uat') }}:
+  - template: child.stages/sqldb-deploy-stage.yaml@yamltemplates
+    parameters: 
+      environment: uat
+      deployPool: ${{ parameters.deployPool }}
+      additionalDacpacArguments: >
+        /Variables:EnvironmentType=$(EnvironmentType)
+      dacpacName: ${{ parameters.dacpacName }}
+      authenticationType: ${{ parameters.authenticationType }}
+      dependsOn: qat
+
+# prod deploy stage
+- ${{ if contains(parameters.deployEnvironments, 'prd') }}:
+  - template: child.stages/sqldb-deploy-stage.yaml@yamltemplates
+    parameters: 
+      environment: prd
+      deployPool: ${{ parameters.deployPool }}
+      additionalDacpacArguments: >
+        /Variables:EnvironmentType=$(EnvironmentType)
+      dacpacName: ${{ parameters.dacpacName }}
+      authenticationType: ${{ parameters.authenticationType }}
+      dependsOn: uat

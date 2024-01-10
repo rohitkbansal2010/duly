@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: f1257321-1f7a-4dc1-8228-331ef587eba6
+handle: hiddenSuite
+instructions: 'Mark this suite as hidden to prevent it from appearing in the suite list.'
+name: 'Hidden Suite'
+searchable: true
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

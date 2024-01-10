@@ -1,0 +1,26 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.vitalPanelGeneralAdviceContainer {
+  padding: 1.25rem 1.25rem 1.125rem;
+  border-left: 0.06rem solid $iron;
+
+  &Title {
+    margin: 0;
+    margin-bottom: 0.25rem;
+    padding: 0;
+    color: $medium-gray;
+    font-size: var(--font-size-16px-4px);
+    line-height: 1.625rem;
+    @include nexa-heavy-highlight;
+  }
+
+  &Text {
+    margin: 0;
+    padding: 0;
+    color: $abbey;
+    font-size: var(--font-size-14px-4px);
+    line-height: var(--line-height-16px-4px);
+    @include nexa-regular-highlight;
+  }
+}

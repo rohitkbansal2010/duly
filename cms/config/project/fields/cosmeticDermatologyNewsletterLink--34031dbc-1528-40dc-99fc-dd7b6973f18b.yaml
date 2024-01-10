@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: string(255)
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: cosmeticDermatologyNewsletterLink
+instructions: 'The link that opens when a user signs up for the newsletter.'
+name: 'Cosmetic Dermatology Newsletter Link'
+searchable: false
+settings:
+    maxLength: '255'
+    placeholder: null
+    types: [url]
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Url

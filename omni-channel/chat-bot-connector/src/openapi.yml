@@ -1,0 +1,608 @@
+openapi: 3.0.1
+info:
+  title: Chatbot Epic Connector
+  description: Epic connector for Freshworks chat bot
+  version: 0.0.1
+servers:
+- url: /
+paths:
+  /CancelAppointment:
+    get:
+      tags: []
+      summary: Epic Private CancelAppointment
+      description: Cancel Appointment
+      parameters:
+      - name: PatientID
+        in: query
+        description: patient identifier
+        schema:
+          type: string
+      - name: PatientIDType
+        in: query
+        description: patient identifier type
+        schema:
+          type: string
+      - name: ContactID
+        in: query
+        description: contact id for appointment to be cancelled
+        schema:
+          type: string
+      - name: ContactIDType
+        in: query
+        description: contact identifier type
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                description: Successful response
+        404:
+          description: None found
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: None found
+        500:
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: Internal server error
+  /GetAppointments:
+    get:
+      tags: []
+      summary: Epic Private GetFutureAppointments
+      description: Get future appointments
+      parameters:
+      - name: PatientID
+        in: query
+        description: patient identifier
+        schema:
+          type: string
+      - name: PatientIDType
+        in: query
+        description: patient identifier type
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      appointments:
+                        type: array
+                        items:
+                          type: object
+                description: Successful response
+        404:
+          description: None found
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: None found
+        500:
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: Internal server error
+  /GetIdentifiers:
+    get:
+      tags: []
+      summary: Epic Private GetPatientIdentifiers
+      description: Get patient identifiers
+      parameters:
+      - name: PatientID
+        in: query
+        description: patient identifier
+        schema:
+          type: string
+      - name: PatientIDType
+        in: query
+        description: patient identifier type
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      identifiers:
+                        type: array
+                        items:
+                          type: object
+                description: Successful response
+        404:
+          description: None found
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: None found
+        500:
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: Internal server error
+  /GetScheduleDaysForProvider:
+    post:
+      tags: []
+      summary: Epic Private GetScheduleDaysForProvider2
+      description: Get schedule days for provider
+      responses:
+        200:
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      Departments:
+                        type: array
+                        items:
+                          type: object
+                      Provider:
+                        type: object
+                        properties:
+                          DisplayName:
+                            type: string
+                          IDs:
+                            type: array
+                            items:
+                              type: object
+                      VisitTypes:
+                        type: array
+                        items:
+                          type: object
+                      ScheduleDays:
+                        type: array
+                        items:
+                          type: object
+                description: Successful response
+        404:
+          description: None found
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: None found
+        500:
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: Internal server error
+  /PatientLookup:
+    get:
+      tags: []
+      summary: Epic Private PatientLookup
+      description: Find a patient in Epic given certain demographic information
+      parameters:
+      - name: Name
+        in: query
+        description: patient full name
+        schema:
+          type: string
+      - name: DOB
+        in: query
+        description: patient date of birth
+        schema:
+          type: string
+      - name: Phone
+        in: query
+        description: patient phone number
+        schema:
+          type: string
+      - name: Last4SSN
+        in: query
+        description: patient last 4 digits of SSN
+        schema:
+          type: string
+      - name: MRN
+        in: query
+        description: patient medical record number
+        schema:
+          type: string
+      - name: GEC
+        in: query
+        description: patient GEC chart id
+        schema:
+          type: string
+      - name: EPI
+        in: query
+        description: patient EPI id
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      epiId:
+                        type: string
+                      fhirId:
+                        type: string
+                      name:
+                        type: string
+                      mrn:
+                        type: string
+                      address:
+                        type: string
+                description: Successful response
+        404:
+          description: None found
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: None found
+        500:
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: Internal server error
+  /PatientSearch:
+    get:
+      tags: []
+      summary: Epic Patient.Search
+      description: Find a patient in Epic given certain demographic information
+      parameters:
+      - name: given
+        in: query
+        description: patient given/first name
+        schema:
+          type: string
+      - name: family
+        in: query
+        description: patient family/last name
+        schema:
+          type: string
+      - name: birthdate
+        in: query
+        description: patient date of birth
+        schema:
+          type: string
+      - name: telecom
+        in: query
+        description: patient phone number
+        schema:
+          type: string
+      - name: mrn
+        in: query
+        description: patient medical record number
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      fhirId:
+                        type: string
+                      name:
+                        type: string
+                      mrn:
+                        type: string
+                      address:
+                        type: string
+                description: Successful response
+        404:
+          description: No patient found
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: No patient found
+        500:
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: Internal server error
+  /ScheduleAppointment:
+    post:
+      tags: []
+      summary: Epic Private ScheduleAppointmentWithInsurance
+      description: Schedule appointment
+      parameters:
+      - name: DepartmentID
+        in: query
+        description: Department identifier
+        schema:
+          type: string
+      - name: DepartmentIDType
+        in: query
+        description: Department identifier type
+        schema:
+          type: string
+      - name: VisitTypeID
+        in: query
+        description: Visit type identifier
+        schema:
+          type: string
+      - name: VisitTypeIDType
+        in: query
+        description: Visit type identifier type
+        schema:
+          type: string
+      - name: Date
+        in: query
+        description: Date of appointment
+        schema:
+          type: string
+      - name: Time
+        in: query
+        description: Start time of appointment
+        schema:
+          type: string
+      - name: ProviderID
+        in: query
+        description: Provider identifier
+        schema:
+          type: string
+      - name: ProviderIDType
+        in: query
+        description: Provider identifier type
+        schema:
+          type: string
+      - name: isReviewOnly
+        in: query
+        description: Must to be set to false to actually book the appointment
+        schema:
+          type: boolean
+      responses:
+        200:
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      Departments:
+                        type: array
+                        items:
+                          type: object
+                      Provider:
+                        type: object
+                        properties:
+                          DisplayName:
+                            type: string
+                          IDs:
+                            type: array
+                            items:
+                              type: object
+                      VisitTypes:
+                        type: array
+                        items:
+                          type: object
+                      ScheduleDays:
+                        type: array
+                        items:
+                          type: object
+                description: Successful response
+        404:
+          description: None found
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: None found
+        500:
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                  body:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      message:
+                        type: string
+                description: Internal server error
+components: {}

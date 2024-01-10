@@ -1,0 +1,676 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineAppointmentsGroupItems should render the TimelineAppointmentsGroupItems component 1`] = `
+<TimelineAppointmentsGroupItems
+  appointments={
+    Array [
+      Object {
+        "minutesDuration": 30,
+        "practitioner": Object {
+          "humanName": Object {
+            "familyName": "Ling",
+            "givenNames": Array [],
+            "prefixes": Array [
+              "Dr.",
+            ],
+          },
+          "id": "1",
+          "role": "MA",
+        },
+        "reason": "Patient fell - Hip problems",
+        "startTime": "2021-01-05T14:30:00Z",
+        "status": "Completed",
+      },
+      Object {
+        "minutesDuration": 60,
+        "practitioner": Object {
+          "humanName": Object {
+            "familyName": "Ling",
+            "givenNames": Array [],
+            "prefixes": Array [
+              "Dr.",
+            ],
+          },
+          "id": "1",
+          "role": "MA",
+        },
+        "reason": "Hip check - Physical Therapy",
+        "startTime": "2021-01-05T14:30:00Z",
+        "status": "NoShow",
+      },
+    ]
+  }
+  groupId="recentAppointments-0"
+>
+  <TimelineAppointmentsGroupItem
+    activeKey="0"
+    eventKey="0"
+    handleClickAppointment={[Function]}
+    key="0"
+    minutesDuration={30}
+    practitioner={
+      Object {
+        "humanName": Object {
+          "familyName": "Ling",
+          "givenNames": Array [],
+          "prefixes": Array [
+            "Dr.",
+          ],
+        },
+        "id": "1",
+        "role": "MA",
+      }
+    }
+    reason="Patient fell - Hip problems"
+    startTime="2021-01-05T14:30:00Z"
+    status="Completed"
+  >
+    <Accordion
+      activeKey="0"
+      className="timelineAppointmentsGroupItem"
+    >
+      <div
+        className="timelineAppointmentsGroupItem accordion"
+      >
+        <Card
+          body={false}
+          className="timelineAppointmentsGroupItemCard"
+        >
+          <div
+            className="timelineAppointmentsGroupItemCard card"
+          >
+            <CustomAccordionToggle
+              callback={[Function]}
+              eventKey="0"
+            >
+              <CardHeader
+                className="timelineAppointmentsGroupItemCardHeader"
+                onClick={[Function]}
+              >
+                <div
+                  className="timelineAppointmentsGroupItemCardHeader card-header"
+                  onClick={[Function]}
+                >
+                  <div
+                    className="timelineAppointmentsGroupItemInfo"
+                  >
+                    <div
+                      className="timelineAppointmentsGroupItemInfoDateTime"
+                    >
+                      <span
+                        className="timelineAppointmentsGroupItemInfoDate"
+                        data-test="appointment-date"
+                      >
+                        Tue, Jan 5, 2021 - 
+                      </span>
+                      <span
+                        className="timelineAppointmentsGroupItemInfoTime"
+                        data-test="appointment-time"
+                      >
+                        2:30 PM
+                      </span>
+                      <div
+                        className="timelineAppointmentsGroupItemInfoStatus"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="timelineAppointmentsGroupRightBlock"
+                  >
+                    <div
+                      className="timelineAppointmentsGroupItemInfoPractitioner"
+                    >
+                      <Avatar
+                        alt="Ling"
+                        role="MedicalDoctor"
+                        src=""
+                        width={2.125}
+                      >
+                        <div
+                          className=" avatar"
+                          style={
+                            Object {
+                              "borderWidth": "0.0425rem",
+                              "fontSize": "0.7083333333333334rem",
+                              "height": "2.125rem",
+                              "outlineWidth": "0.06375rem",
+                              "position": "relative",
+                              "width": "2.125rem",
+                            }
+                          }
+                        >
+                          <div
+                            className="avatarLettered avatarLetteredMedicalDoctor"
+                          >
+                            L
+                          </div>
+                        </div>
+                      </Avatar>
+                      <div>
+                        <CardText
+                          className="timelineAppointmentsGroupItemInfoPractitionerName"
+                          data-test="appointment-practitioner-name"
+                        >
+                          <p
+                            className="timelineAppointmentsGroupItemInfoPractitionerName card-text"
+                            data-test="appointment-practitioner-name"
+                          >
+                            Dr. 
+                            Ling
+                          </p>
+                        </CardText>
+                        <CardText
+                          className="timelineAppointmentsGroupItemInfoPractitionerSpeciality"
+                        >
+                          <p
+                            className="timelineAppointmentsGroupItemInfoPractitionerSpeciality card-text"
+                          />
+                        </CardText>
+                      </div>
+                    </div>
+                    <button
+                      className="timelineAppointmentsGroupItemAccordionToggle"
+                      data-test="button-toggle-accordion"
+                    >
+                      <img
+                        alt="minus icon"
+                        src="minus.svg"
+                      />
+                    </button>
+                  </div>
+                </div>
+              </CardHeader>
+            </CustomAccordionToggle>
+            <AccordionCollapse
+              eventKey="0"
+            >
+              <ForwardRef
+                appear={false}
+                className="accordion-collapse"
+                getDimensionValue={[Function]}
+                in={true}
+                mountOnEnter={false}
+                timeout={300}
+                unmountOnExit={false}
+              >
+                <ForwardRef
+                  addEndListener={[Function]}
+                  appear={false}
+                  aria-expanded={null}
+                  childRef={null}
+                  in={true}
+                  mountOnEnter={false}
+                  onEnter={[Function]}
+                  onEntered={[Function]}
+                  onEntering={[Function]}
+                  onExit={[Function]}
+                  onExiting={[Function]}
+                  timeout={300}
+                  unmountOnExit={false}
+                >
+                  <Transition
+                    addEndListener={[Function]}
+                    appear={false}
+                    aria-expanded={null}
+                    enter={true}
+                    exit={true}
+                    in={true}
+                    mountOnEnter={false}
+                    nodeRef={
+                      Object {
+                        "current": <div
+                          class="accordion-collapse collapse show"
+                        >
+                          <div
+                            class="timelineAppointmentsGroupItemCardBody card-body"
+                          >
+                            <div
+                              class="timelineAppointmentsGroupItemCardBodyTable"
+                            >
+                              <div
+                                class="timelineAppointmentsGroupItemCardBodyTableHead"
+                              >
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableHeadReason"
+                                >
+                                  Reason For Visit
+                                </div>
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableHeadDuration"
+                                >
+                                  Duration
+                                </div>
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableHeadStatus"
+                                >
+                                  Status
+                                </div>
+                              </div>
+                              <div
+                                class="timelineAppointmentsGroupItemCardBodyTableBody"
+                              >
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableBodyReason"
+                                  data-test="appointment-reason-visit"
+                                >
+                                  Patient fell - Hip problems
+                                </div>
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableBodyDuration"
+                                  data-test="appointment-duration"
+                                >
+                                  30 Minutes
+                                </div>
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableBodyStatus"
+                                  data-test="appointment-status"
+                                >
+                                  Completed
+                                  <div
+                                    class="timelineAppointmentsGroupItemCardBodyTableBodyStatusIndicatorCompleted"
+                                    data-test="appointment-status-indicator"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>,
+                      }
+                    }
+                    onEnter={[Function]}
+                    onEntered={[Function]}
+                    onEntering={[Function]}
+                    onExit={[Function]}
+                    onExited={[Function]}
+                    onExiting={[Function]}
+                    timeout={300}
+                    unmountOnExit={false}
+                  >
+                    <div
+                      aria-expanded={null}
+                      className="accordion-collapse collapse show"
+                    >
+                      <CardBody
+                        className="timelineAppointmentsGroupItemCardBody"
+                      >
+                        <div
+                          className="timelineAppointmentsGroupItemCardBody card-body"
+                        >
+                          <div
+                            className="timelineAppointmentsGroupItemCardBodyTable"
+                          >
+                            <div
+                              className="timelineAppointmentsGroupItemCardBodyTableHead"
+                            >
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableHeadReason"
+                              >
+                                Reason For Visit
+                              </div>
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableHeadDuration"
+                              >
+                                Duration
+                              </div>
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableHeadStatus"
+                              >
+                                Status
+                              </div>
+                            </div>
+                            <div
+                              className="timelineAppointmentsGroupItemCardBodyTableBody"
+                            >
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableBodyReason"
+                                data-test="appointment-reason-visit"
+                              >
+                                Patient fell - Hip problems
+                              </div>
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableBodyDuration"
+                                data-test="appointment-duration"
+                              >
+                                30 Minutes
+                              </div>
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableBodyStatus"
+                                data-test="appointment-status"
+                              >
+                                Completed
+                                <div
+                                  className="timelineAppointmentsGroupItemCardBodyTableBodyStatusIndicatorCompleted"
+                                  data-test="appointment-status-indicator"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </CardBody>
+                    </div>
+                  </Transition>
+                </ForwardRef>
+              </ForwardRef>
+            </AccordionCollapse>
+          </div>
+        </Card>
+      </div>
+    </Accordion>
+  </TimelineAppointmentsGroupItem>
+  <TimelineAppointmentsGroupItem
+    activeKey="1"
+    eventKey="1"
+    handleClickAppointment={[Function]}
+    key="1"
+    minutesDuration={60}
+    practitioner={
+      Object {
+        "humanName": Object {
+          "familyName": "Ling",
+          "givenNames": Array [],
+          "prefixes": Array [
+            "Dr.",
+          ],
+        },
+        "id": "1",
+        "role": "MA",
+      }
+    }
+    reason="Hip check - Physical Therapy"
+    startTime="2021-01-05T14:30:00Z"
+    status="NoShow"
+  >
+    <Accordion
+      activeKey="1"
+      className="timelineAppointmentsGroupItem"
+    >
+      <div
+        className="timelineAppointmentsGroupItem accordion"
+      >
+        <Card
+          body={false}
+          className="timelineAppointmentsGroupItemCard"
+        >
+          <div
+            className="timelineAppointmentsGroupItemCard card"
+          >
+            <CustomAccordionToggle
+              callback={[Function]}
+              eventKey="1"
+            >
+              <CardHeader
+                className="timelineAppointmentsGroupItemCardHeader"
+                onClick={[Function]}
+              >
+                <div
+                  className="timelineAppointmentsGroupItemCardHeader card-header"
+                  onClick={[Function]}
+                >
+                  <div
+                    className="timelineAppointmentsGroupItemInfo"
+                  >
+                    <div
+                      className="timelineAppointmentsGroupItemInfoDateTime"
+                    >
+                      <span
+                        className="timelineAppointmentsGroupItemInfoDate"
+                        data-test="appointment-date"
+                      >
+                        Tue, Jan 5, 2021 - 
+                      </span>
+                      <span
+                        className="timelineAppointmentsGroupItemInfoTime"
+                        data-test="appointment-time"
+                      >
+                        2:30 PM
+                      </span>
+                      <div
+                        className="timelineAppointmentsGroupItemInfoStatus"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="timelineAppointmentsGroupRightBlock"
+                  >
+                    <div
+                      className="timelineAppointmentsGroupItemInfoPractitioner"
+                    >
+                      <Avatar
+                        alt="Ling"
+                        role="MedicalDoctor"
+                        src=""
+                        width={2.125}
+                      >
+                        <div
+                          className=" avatar"
+                          style={
+                            Object {
+                              "borderWidth": "0.0425rem",
+                              "fontSize": "0.7083333333333334rem",
+                              "height": "2.125rem",
+                              "outlineWidth": "0.06375rem",
+                              "position": "relative",
+                              "width": "2.125rem",
+                            }
+                          }
+                        >
+                          <div
+                            className="avatarLettered avatarLetteredMedicalDoctor"
+                          >
+                            L
+                          </div>
+                        </div>
+                      </Avatar>
+                      <div>
+                        <CardText
+                          className="timelineAppointmentsGroupItemInfoPractitionerName"
+                          data-test="appointment-practitioner-name"
+                        >
+                          <p
+                            className="timelineAppointmentsGroupItemInfoPractitionerName card-text"
+                            data-test="appointment-practitioner-name"
+                          >
+                            Dr. 
+                            Ling
+                          </p>
+                        </CardText>
+                        <CardText
+                          className="timelineAppointmentsGroupItemInfoPractitionerSpeciality"
+                        >
+                          <p
+                            className="timelineAppointmentsGroupItemInfoPractitionerSpeciality card-text"
+                          />
+                        </CardText>
+                      </div>
+                    </div>
+                    <button
+                      className="timelineAppointmentsGroupItemAccordionToggle"
+                      data-test="button-toggle-accordion"
+                    >
+                      <img
+                        alt="minus icon"
+                        src="minus.svg"
+                      />
+                    </button>
+                  </div>
+                </div>
+              </CardHeader>
+            </CustomAccordionToggle>
+            <AccordionCollapse
+              eventKey="1"
+            >
+              <ForwardRef
+                appear={false}
+                className="accordion-collapse"
+                getDimensionValue={[Function]}
+                in={true}
+                mountOnEnter={false}
+                timeout={300}
+                unmountOnExit={false}
+              >
+                <ForwardRef
+                  addEndListener={[Function]}
+                  appear={false}
+                  aria-expanded={null}
+                  childRef={null}
+                  in={true}
+                  mountOnEnter={false}
+                  onEnter={[Function]}
+                  onEntered={[Function]}
+                  onEntering={[Function]}
+                  onExit={[Function]}
+                  onExiting={[Function]}
+                  timeout={300}
+                  unmountOnExit={false}
+                >
+                  <Transition
+                    addEndListener={[Function]}
+                    appear={false}
+                    aria-expanded={null}
+                    enter={true}
+                    exit={true}
+                    in={true}
+                    mountOnEnter={false}
+                    nodeRef={
+                      Object {
+                        "current": <div
+                          class="accordion-collapse collapse show"
+                        >
+                          <div
+                            class="timelineAppointmentsGroupItemCardBody card-body"
+                          >
+                            <div
+                              class="timelineAppointmentsGroupItemCardBodyTable"
+                            >
+                              <div
+                                class="timelineAppointmentsGroupItemCardBodyTableHead"
+                              >
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableHeadReason"
+                                >
+                                  Reason For Visit
+                                </div>
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableHeadDuration"
+                                >
+                                  Duration
+                                </div>
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableHeadStatus"
+                                >
+                                  Status
+                                </div>
+                              </div>
+                              <div
+                                class="timelineAppointmentsGroupItemCardBodyTableBody"
+                              >
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableBodyReason"
+                                  data-test="appointment-reason-visit"
+                                >
+                                  Hip check - Physical Therapy
+                                </div>
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableBodyDuration"
+                                  data-test="appointment-duration"
+                                >
+                                  60 Minutes
+                                </div>
+                                <div
+                                  class="timelineAppointmentsGroupItemCardBodyTableBodyStatus"
+                                  data-test="appointment-status"
+                                >
+                                  NoShow
+                                  <div
+                                    class="timelineAppointmentsGroupItemCardBodyTableBodyStatusIndicatorNoShow"
+                                    data-test="appointment-status-indicator"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>,
+                      }
+                    }
+                    onEnter={[Function]}
+                    onEntered={[Function]}
+                    onEntering={[Function]}
+                    onExit={[Function]}
+                    onExited={[Function]}
+                    onExiting={[Function]}
+                    timeout={300}
+                    unmountOnExit={false}
+                  >
+                    <div
+                      aria-expanded={null}
+                      className="accordion-collapse collapse show"
+                    >
+                      <CardBody
+                        className="timelineAppointmentsGroupItemCardBody"
+                      >
+                        <div
+                          className="timelineAppointmentsGroupItemCardBody card-body"
+                        >
+                          <div
+                            className="timelineAppointmentsGroupItemCardBodyTable"
+                          >
+                            <div
+                              className="timelineAppointmentsGroupItemCardBodyTableHead"
+                            >
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableHeadReason"
+                              >
+                                Reason For Visit
+                              </div>
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableHeadDuration"
+                              >
+                                Duration
+                              </div>
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableHeadStatus"
+                              >
+                                Status
+                              </div>
+                            </div>
+                            <div
+                              className="timelineAppointmentsGroupItemCardBodyTableBody"
+                            >
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableBodyReason"
+                                data-test="appointment-reason-visit"
+                              >
+                                Hip check - Physical Therapy
+                              </div>
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableBodyDuration"
+                                data-test="appointment-duration"
+                              >
+                                60 Minutes
+                              </div>
+                              <div
+                                className="timelineAppointmentsGroupItemCardBodyTableBodyStatus"
+                                data-test="appointment-status"
+                              >
+                                NoShow
+                                <div
+                                  className="timelineAppointmentsGroupItemCardBodyTableBodyStatusIndicatorNoShow"
+                                  data-test="appointment-status-indicator"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </CardBody>
+                    </div>
+                  </Transition>
+                </ForwardRef>
+              </ForwardRef>
+            </AccordionCollapse>
+          </div>
+        </Card>
+      </div>
+    </Accordion>
+  </TimelineAppointmentsGroupItem>
+</TimelineAppointmentsGroupItems>
+`;

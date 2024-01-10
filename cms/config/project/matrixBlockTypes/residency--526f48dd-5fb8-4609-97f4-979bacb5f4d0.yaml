@@ -1,0 +1,10 @@
+field: 93a4e386-27b1-4d98-b52a-f6c3848b13e8
+fieldLayouts:
+    afb8db46-c6ca-450d-b5c9-a7847b35094a: { tabs: [{ elements: [{ fieldUid: 32e523f5-b5ff-4f6a-8cac-46df31b89243, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 1173863e-64bc-4486-9827-3baf9595adda, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: ddcc2fba-3096-450a-a77a-165fa867564f, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    32e523f5-b5ff-4f6a-8cac-46df31b89243: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: residencyLocation, instructions: '', name: Location, searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: 'MacNeal Family Practice', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    1173863e-64bc-4486-9827-3baf9595adda: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: residencyDetails, instructions: '', name: Details, searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: 'Resident in Family Practice', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    ddcc2fba-3096-450a-a77a-165fa867564f: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: completionYear, instructions: '', name: 'Completion Year', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: '2015', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: residency
+name: Residency
+sortOrder: 1

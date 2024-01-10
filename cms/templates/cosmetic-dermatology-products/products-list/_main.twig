@@ -1,0 +1,43 @@
+{% extends "_layouts/_main.twig" %}
+
+{% block title "Products"|t %}
+{% block bodyClass "product-list-page" %}
+
+{% set productPage = craft.entries.section('productsPage').one() %}
+
+{% block main %}
+	{% if brands|length or conditions|length %}
+		<div id="filters-desktop">
+			{% include "cosmetic-dermatology-products/products-list/_filters.twig" %}
+		</div>
+	{% endif %}
+	<div class="products-list-container">
+		{% if productPage.productsIntroductionText %}
+			<div id="introText">{{ productPage.productsIntroductionText }}</div>
+		{% endif %}
+		<div id="search">
+			<form id="searchProductsForm">
+				{{ csrfInput() }}
+				{% include "_input/_input.twig" with {
+					type: 'text',
+					name: 'searchPhysicians',
+					id: 'searchProducts',
+					label: "Search Products"|t,
+					class: 'mdc-text-field--with-trailing-icon',
+					trailingIcon: 'search',
+					value: craft.app.request.getParam('query')
+				} only %}
+				<button class="dmgButton secondary1" type="submit">{{ "Search"|t }}</button>
+			</form>
+		</div>
+		{% if brands|length or conditions|length %}
+			{% include "cosmetic-dermatology-products/products-list/_mobile-search-and-filters.twig" %}
+		{% endif %}
+		<div class="loading-spinner hidden">
+			<div class="lottie"></div>
+		</div>
+		<section class="product-list">
+			{% include "cosmetic-dermatology-products/products-list/_products-list.twig" %}
+		</section>
+	</div>
+{% endblock %}

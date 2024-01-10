@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: ac484169-52dc-4733-8512-87651a3265d5
+handle: landingPagePosts
+instructions: ''
+name: 'Landing Page Posts'
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_landingpageposts}}'
+    maxBlocks: ''
+    minBlocks: '0'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

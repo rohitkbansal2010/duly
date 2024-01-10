@@ -1,0 +1,5 @@
+fieldLayouts:
+    d34de410-0f0a-4486-90b8-6f06de8d4aae: { tabs: [{ elements: [{ fieldUid: 0123880f-71f9-4712-b3df-a95a4f166e68, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: MyChart, sortOrder: 1 }] }
+handle: mychartUrl
+name: 'MyChart URL'
+sortOrder: 0

@@ -1,0 +1,26 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.pieChart {
+  position: relative;
+
+  &Content {
+    @include inter-h3-bold;
+
+    &Percent {
+      color: $light-violet;
+      vertical-align: middle;
+    }
+
+    &Container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

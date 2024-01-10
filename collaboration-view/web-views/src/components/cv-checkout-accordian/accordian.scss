@@ -1,0 +1,130 @@
+@import "~@styles/main.scss";
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.mainDiv::-webkit-scrollbar {
+  display: none !important;
+}
+
+.topDiv {
+  margin-bottom: 1.25rem;
+}
+
+.accordianOuterDiv {
+  padding: 0 1rem 1rem 1rem;
+  background-color: white;
+  border-radius: 0.5rem;
+}
+
+.mainDiv {
+  width: 100%;
+  height: 45.25rem;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.accordianHeader {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+
+  &Image {
+    width: 3.75rem;
+    padding: 0.5rem;
+    background-color: rgba(0, 178, 240, 0.3);
+    border-radius: 50%;
+  }
+
+  &FollowUpImage {
+    width: 3.75rem;
+  }
+}
+
+.headerData {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 20rem;
+}
+
+.pageHeading {
+  @include nexa-heavy-highlight;
+  display: flex;
+  font-size: var(--font-size-24px-4px);
+  line-height: var(--line-height-26px-4px);
+}
+
+.date {
+  @include inter-text-default;
+  font-size: var(--font-size-14px-4px);
+  line-height: var(--line-height-20px-4px);
+}
+
+.scheduleLength {
+  margin-left: 0.25rem;
+}
+
+.detailsBar {
+  color: rgba(15, 23, 42, 1);
+  font-weight: 700;
+  font-size: 1rem;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  font-family: "Inter", sans-serif;
+  line-height: 1.5rem;
+  // gap: 8.4375rem;
+
+  &Doctor {
+    display: flex;
+    gap: 0.625rem;
+    align-items: center;
+  }
+}
+
+.labsDetailsHeading {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.card {
+  &Header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  &Body {
+    padding: 1rem;
+    background-color: rgba(244, 247, 250, 1);
+  }
+}
+
+.detailsHeading {
+  display: flex;
+  gap: 14.9375rem;
+
+  // justify-content:space-between;
+  &Key {
+    color: rgba(102, 110, 125, 1);
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    line-height: 1rem;
+    text-transform: uppercase;
+  }
+
+  &Data {
+    margin-top: 0.25rem;
+    color: rgba(15, 23, 42, 1);
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    line-height: 1.5rem;
+  }
+}
+
+.cardBorder {
+  margin-bottom: 0.75rem;
+  border: 1px solid $gray;
+  border-radius: 0.5rem;
+}

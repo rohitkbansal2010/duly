@@ -1,0 +1,112 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Authors>Duly Health and Care</Authors>
+    <Company>Duly Health and Care</Company>
+    <Product>Duly Health and Care Clinic Integration Api</Product>
+    <Copyright>Copyright (c) Duly Health and Care</Copyright>
+
+    <AssemblyName>Duly.Clinic.Api</AssemblyName>
+    <RootNamespace>Duly.Clinic.Api</RootNamespace>
+
+    <Version>1.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+
+    <LangVersion>9</LangVersion>
+
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+
+    <UserSecretsId>0f48593b-2022-41e8-923d-b52f59d5ea3b</UserSecretsId>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+
+    <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+
+    <StartupObject>Duly.Clinic.Api.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectCapability Include="DynamicDependentFile" />
+    <ProjectCapability Include="DynamicFileNesting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Duly.Common.Annotations" Version="22.2.117.2-dev" />
+    <PackageReference Include="Duly.Common.ApiExtensions" Version="22.3.101.2-dev" />
+    <PackageReference Include="Duly.Common.CodeAnalysis" Version="21.11.110.1-dev">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Duly.Common.Infrastructure" Version="22.3.101.2-dev" />
+    <PackageReference Include="Duly.Common.Security" Version="21.12.107.1-dev" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+    <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.2.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.2.2" />
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+    <PackageReference Include="Unchase.Swashbuckle.AspNetCore.Extensions" Version="2.6.11" />
+  </ItemGroup>
+
+  <Target Name="AddPackageAliases" BeforeTargets="ResolveReferences" Outputs="%(PackageReference.Identity)">
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)'=='Hl7.Fhir.STU3.Core'">
+        <Aliases>stu3</Aliases>
+      </ReferencePath>
+      <ReferencePath Condition="'%(FileName)'=='Hl7.Fhir.R4.Core'">
+        <Aliases>r4</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Make assembly visible to test assembly -->
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Duly.Clinic.Api.Tests</_Parameter1>
+    </AssemblyAttribute>
+
+    <!-- Make assembly usable for Moq, so Moq is able to instanciate objects of 'internal' classes -->
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\Fhir\Adapter\Fhir.Adapter.csproj" />
+    <ProjectReference Include="..\PrivateApi\Wipfli.Adapter\Wipfli.Adapter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SonarQubeSetting Include="sonar.coverage.exclusions">
+      <Value>**/ExampleProviders/**/*, **/Configurations/**/*, **/Program.cs, **/Startup.cs</Value>
+    </SonarQubeSetting>
+  </ItemGroup>
+  
+</Project>

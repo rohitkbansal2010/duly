@@ -1,0 +1,37 @@
+{% set disallowedServiceNames = [
+	"COVID-19 Vaccine",
+	"Immediate Care Centers",
+	"Express Care",
+	"COVID-19 Vaccine Booster - Moderna",
+	"COVID-19 Vaccine Second Dose - Moderna",
+	"COVID-19 Vaccine Booster - Pfizer",
+	"COVID-19 Vaccine Second Dose - Pfizer",
+	"COVID-19 Vaccine Third Dose - Moderna",
+	"COVID-19 Pediatric Vaccine",
+] %}
+
+{% if entry.type.name != "External Service" and entry.title not in disallowedServiceNames %}
+	{% if not entry.allowOnlineScheduling %}
+		{# Don't show scheduling options if the existing attributes indicate there aren't scheduling options available #}
+	{% else %}
+		<div class="schedule">
+			{% set serviceDoctorName = getServiceDoctorName([entry.id]) %}
+
+			<span>{{ "Schedule an appointment with a {siteNameShort} {serviceDoctorName}."|t(params={
+					serviceDoctorName: serviceDoctorName,
+					siteNameShort: siteNameShort
+				}) 
+				}}
+			</span>
+			{{ html.beginForm('/schedule/services', 'POST', {
+				class: 'servicesForm',
+				enctype: 'multipart/form-data'
+			})|raw }}
+			{{ html.hiddenInput('appointmentServiceIds[]', entry.id)|raw }}
+			{{ html.submitButton("Schedule an Appointment"|t, {
+					class: 'button'
+				})|raw }}
+			{{ html.endForm()|raw }}
+		</div>
+	{% endif %}
+{% endif %}

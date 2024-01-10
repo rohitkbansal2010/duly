@@ -1,0 +1,9 @@
+handle: IAMNavigation
+instructions: 'Navigation items for the I AM block on the homepage'
+maxNodes: ''
+name: 'I Am Navigation'
+propagateNodes: false
+sortOrder: 6
+structure:
+    maxLevels: null
+    uid: 9484a8d5-46b1-45f9-83af-ae4984dd977e

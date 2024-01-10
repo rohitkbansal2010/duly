@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="{{ craft.app.language }}">
+    <head>
+    {% block head %}
+        <meta charset="{{ craft.app.charset }}"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="apple-touch-icon" sizes="128x128" href="/dist/img/icons/web-app_icon.png">
+        <link rel="icon" sizes="192x192" href="/dist/img/icons/web-app_icon.png">
+        {% if craft.app.request.fullUri is same as('physicians')  or  craft.app.request.fullUri is same as('locations' ) %}
+            <link rel="canonical" href="{{craft.app.request.hostInfo}}/{{craft.app.request.fullUri}}">
+        {% endif %}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ craft.app.config.general.ga_id|raw }}" nonce="__CSP_NONCE__"></script>
+        <script nonce="__CSP_NONCE__">
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+        </script>
+        <meta property="ga:id" content="{{ craft.app.config.general.ga_id|raw }}"/>
+        <meta property="bugfender:appkey" content="{{ getenv('BUGFENDER_APP_KEY')|raw }}"/>
+        {% set patientUser = craft.app.patient_user.identity %}
+
+        {% if patientUser and not patientUser.anonymous %}
+            {% if patientUser.appointment_current_epi and patientUser.appointment_current_epi != "-1" %}
+		        <meta property="patient:epi" content="{{ patientUser.appointment_current_epi|raw }}"/>
+            {% endif %}
+        {% endif %}
+         
+        <script nonce="__CSP_NONCE__">
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','{{ craft.app.config.general.gtm_id|raw }}');
+        </script>
+
+        {% block og %}{% endblock %}
+        {% block headmeta %}{% endblock %}
+        {% block brightedgeheader %}{% endblock %}
+
+        <title>{% block title %}{% endblock %} | {{ "{siteName}"|t(params = {
+            siteName: generalSiteConfig.htmlTitleTag
+        }) }}</title>
+
+        {% if pageInfo is defined %}
+            {% if pageInfo.prevUrl %}<link rel="prev" href="{{ pageInfo.prevUrl }}">{% endif %}
+            {% if pageInfo.nextUrl %}<link rel="next" href="{{ pageInfo.nextUrl }}">{% endif %}
+        {% endif %}
+        
+        {{ craft.twigpack.includeCssModule("main.css", false, {
+            "nonce":  "__CSP_NONCE__"
+        }) }}
+        {{ craft.twigpack.includeCssModule(craft.app.request.getSegment(1) ?? 'home' ~ ".css", false, {
+            "nonce":  "__CSP_NONCE__"
+        }) }}
+
+        {{ head() }}
+        
+        {% block extra_css %}
+        {% endblock %}
+
+        {# render only in local dev and t74 (disabled for now) #}
+        {% if craft.app.sites.primarySite.baseUrl in ["https://4f8167aefe3c26abbbdc4a278fc2a81c.t74.pkiapps.com:8443/", "https://192.168.64.8/"]  %}
+            {% include "fresh-chat-bot.twig" %}
+        {% endif %}
+
+        {# render in NPD #}
+        {% if "npd.dupagemedicalgroup.com:8444" in craft.app.sites.primarySite.baseUrl %}
+            {% include "fresh-chat-bot.twig" %}
+        {% endif %}
+    {% endblock %}
+    </head>
+
+    <body {% if block('itemScope') is defined %} itemscope itemType="{% block itemScope %}{% endblock %}"{% endif %}>
+        {# reCAPTCHA #}
+        <div id="recaptcha" data-site-key="{{ craft.app.config.general.reCAPTCHASiteKey|raw }}"></div>
+
+        {% block brightedgebody %}{% endblock %}
+        {% block body %}
+            {{ content | raw }}
+        {% endblock %}
+
+        {% if getenv('DIST_CDN_URL') %}
+            {% set distCdnUrl = craft.app.request.hostInfo | replace(craft.app.request.hostName, getenv('DIST_CDN_URL')) %}
+            {% set distCdnUrl = distCdnUrl|replace("https://https://", "https://") %}
+            {% set distMountPoint = getenv('DIST_MOUNT_POINT') %}
+        {% endif %}
+        {{ craft.twigpack.includeJsModule("main.js", false, {
+            "nonce":  "__CSP_NONCE__",
+            "data-dist-cdn-url": distCdnUrl|default(null),
+            "data-dist-mount-point": distMountPoint|default(null),
+            "id": "main-js-bundle"
+        }) }}
+        {{ craft.twigpack.includeJsModule(craft.app.request.getSegment(1) ?? 'home' ~ ".js", false, {
+            "nonce":  "__CSP_NONCE__"
+        }) }}
+        {% block extra_js %}
+        {% endblock %}
+    </body>
+</html>

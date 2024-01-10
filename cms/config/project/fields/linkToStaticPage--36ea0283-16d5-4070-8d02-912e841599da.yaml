@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0aca97b8-c6f8-413e-964e-84d096f5dc4f
+handle: linkToStaticPage
+instructions: 'If an alert should direct a user to an existing static page, assign that static page here. '
+name: 'Link To Static Page'
+searchable: true
+settings:
+    allowSelfRelations: false
+    limit: '1'
+    localizeRelations: false
+    selectionLabel: 'Link to a static page'
+    showSiteMenu: true
+    source: null
+    sources: ['section:78f9a57d-50e8-472c-9fe5-23664de6ee0a', 'section:f4302687-b145-4c49-a50b-1c31f6d838d4']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

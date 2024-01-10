@@ -1,0 +1,65 @@
+.resources {
+	* {
+		box-sizing: border-box;
+	}
+	position: relative;
+	.resource-group {
+		margin: 1rem 3rem;
+		width: 50%;
+		max-width: 500px;
+		overflow: hidden;
+		@include responsive(medium) {
+			padding: 0;
+			width: 100%;
+			margin: 0 0 2rem 0;
+			&:last-of-type {
+				margin: 0;
+			}
+		}
+		.title {
+			border-left: 5px solid $lime;
+			padding: 1rem;
+			background-color: $forest;
+			font-weight: 800;
+			color: #ffffff;
+			font-size: 18px;
+			border-radius: 4px 0px;
+		}
+		.links {
+			display: flex;
+			flex-direction: column;
+			.link {
+				color: $dark-blue;
+				font-size: 16px;
+				padding: 13px 15px;
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				border-bottom: 1px solid $lime;
+				.label {
+					flex: 1 1 auto;
+					color: $forest;
+					font-weight: 600;
+				}
+				.material-icons {
+					color: $forest;
+				}
+				&:hover {
+					background-color: rgba(120, 190, 33, 0.15);
+					.label {
+						font-weight: 800;
+					}
+				}
+			}
+		}
+	}
+	.innerContent {
+		display: flex;
+		justify-content: center;
+		padding: 2rem 1rem;
+		@include responsive(medium) {
+			flex-wrap: wrap;
+			padding: 2rem 1rem;
+		}
+	}
+}

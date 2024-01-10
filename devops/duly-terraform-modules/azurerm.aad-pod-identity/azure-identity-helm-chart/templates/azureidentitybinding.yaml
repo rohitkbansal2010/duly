@@ -1,0 +1,9 @@
+apiVersion: aadpodidentity.k8s.io/v1
+kind: AzureIdentityBinding
+metadata:
+  name: {{ .Values.pod_identity.name }}-binding
+  labels:
+    {{- include "identity.labels" . | nindent 4 }}
+spec:
+  azureIdentity: {{ .Values.pod_identity.name }}
+  selector: {{ .Values.pod_identity.name }}

@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: e5d3aa09-204b-468b-b892-d98e74c3c819
+handle: serviceRuleOutQuestionWarningText
+instructions: 'Provide header text that will be displayed to the user if they select "Yes" to a question.'
+name: 'Modal Header Text'
+searchable: true
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: 'This condition may require additional information.'
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

@@ -1,0 +1,9 @@
+<div class="details-navigation">
+	<div tabindex="0" class="nav-item general-info active">{{ "General Info"|t }}</div>
+	{% if mainVideo %}
+		<div tabindex="0" class="nav-item video">{{ "Video"|t }}</div>
+	{% endif %}
+	{% if hospitalAffiliations | length > 0 %}
+		<div tabindex="0" class="nav-item hospital-affiliations">{{ "Hospital Affiliations"|t }}</div>
+	{% endif %}
+</div>

@@ -1,0 +1,337 @@
+parameters:
+  - name: FORCE_RUN_SONAR_CHECK
+    type: boolean
+    default: false
+    displayName: 'Force a launch of SonarCloud analysis.'
+  - name: DEPLOY_FROM_FEATURE_BRANCH
+    type: boolean
+    default: false
+    displayName: 'Deploy from feature branch'
+  - name: imageRepository
+    default: $(Build.Repository.Name)-workflow
+  - name: imageTag
+    default: $(Build.BuildNumber)  
+  - name: aksServiceConnection
+    default: 'duly-d-app-aks'
+
+trigger:
+  branches:
+    include:
+      - dev
+      - feature/*
+  paths:
+    include:
+      - src/orchestrator/*
+    exclude:
+      - build/*
+      - src/orchestrator/Postback/*
+      - src/orchestrator/Database/*
+
+variables:
+  - name: FORCE_RUN_SONAR_CHECK
+    value: ${{ parameters.FORCE_RUN_SONAR_CHECK }}
+  - name: DEPLOY_FROM_FEATURE_BRANCH
+    value: ${{ parameters.DEPLOY_FROM_FEATURE_BRANCH }}
+  - name: PROJECT_NAME
+    value: '**/Workflow.csproj'
+  - name: UNIT_TESTS_PROJECT_NAME
+    value: '**/Tests.csproj'
+  - name: ACR_SUBSCRIPTION
+    value: 'prd'
+  - name: ACR_NAME
+    value: 'dulydigitalcr.azurecr.io'  
+  - name: BUILD_POOL
+    value: OnAKS
+  - name: aksServiceConnection
+    value: ${{ parameters.aksServiceConnection }}
+  - name: imageRepository
+    value: ${{ parameters.imageRepository }}
+  - name: imageTag
+    value: ${{ parameters.imageTag }}
+
+resources:
+  repositories:
+    - repository: yamltemplates
+      type: git
+      name: 'duly.digital.devops/duly-yaml-templates'
+
+    - repository: scripts
+      type: git
+      name: 'duly.digital.devops/duly-scripts'
+
+    - repository: terraform-scripts
+      type: git
+      name: 'terraform-scripts'
+
+    - repository: charts
+      type: git
+      name: 'duly.digital.devops/duly-aks-helmcharts'      
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: CI
+  jobs:
+  - job: Analyse
+    displayName: Continuous Integration
+    pool:
+      name: $(BUILD_POOL)
+    workspace:
+      clean: outputs
+    steps:
+      - checkout: self
+
+      # Template: Execute CI process for particular project
+      - template: child.build/ci-netcore-cli.yml@yamltemplates
+        parameters:
+          solution: $(PROJECT_NAME)
+          unitTestsProject: $(UNIT_TESTS_PROJECT_NAME)
+          sonarCloudScanningPath: 'Workflow'
+          sonarCloudProjectSuffix: 'workflow'
+          runUnitTests: false
+          createCoverageReport: false
+          vstsFeed: 'duly.digital'
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        eq(variables['Build.Reason'], 'PullRequest'),
+        eq(variables['FORCE_RUN_SONAR_CHECK'], 'true'),
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/feature')
+      )
+    ) 
+
+- stage: Build
+  dependsOn: []
+  jobs:
+   - job: Build
+     displayName: Build Artifacts
+     pool:
+       name: $(BUILD_POOL)
+     workspace:
+       clean: outputs
+     steps:
+     - checkout: self
+
+     - template: child.build/build-netcore.yml@yamltemplates
+       parameters:
+         solution: $(PROJECT_NAME)
+         # Explicitly use two test projects for unit test run
+         unitTestsProject: $(UNIT_TESTS_PROJECT_NAME)
+         dotnetBuild: true
+         vstsFeed: 'duly.digital'
+         enableSonarCloudScan: true
+         sonarCloudScanningPath: 'Workflow'
+         sonarCloudProjectSuffix: 'workflow'
+         runUnitTests: false
+         createCoverageReport: false
+
+     - task: AzureCLI@2
+       displayName: Build a docker image
+       inputs:
+         azureSubscription: $(ACR_SUBSCRIPTION)
+         scriptType: pscore
+         scriptLocation: inlineScript
+         inlineScript: |
+            az acr build -t "$(ACR_NAME)/$(imageRepository):$(imageTag)" -r "$(ACR_NAME)" -f "$(Build.SourcesDirectory)/$(Build.Repository.Name)/src/orchestrator/Workflow/Dockerfile" . 
+         workingDirectory: '$(Build.ArtifactStagingDirectory)'
+
+     # Explicitly add '-workflow' into tag name and tag message to differentiate tags which will be set by appointment-management pipelines
+     - task: PowerShell@2
+       displayName: 'PowerShell: Set commit tag'
+       inputs:
+         targetType: filePath
+         filePath: '$(Build.SourcesDirectory)/duly-scripts/PowerShell/Add-TagToAdoCommit.ps1'
+         arguments: > 
+           -PAT $(System.AccessToken)
+           -organizationUri $(System.CollectionUri)
+           -projectName $(System.TeamProject)
+           -repositoryID $(Build.Repository.ID)
+           -commitID $(Build.SourceVersion)
+           -tagName $(Build.BuildNumber)-workflow
+           -tagMessage $(Build.BuildNumber)-workflow
+       continueOnError: true         
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['DEPLOY_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: dev
+  displayName: Deploy on DEV
+  dependsOn: Build
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters: 
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'oc-appointment-management-workflow'
+        aadPodIdCustomName: 'duly-d-component-pod-id'
+        env: dev
+        chartArgs: >
+          --set env.ApplicationSettings__KeyVaultHostUrl="https://duly-d-oc-apmg-orc-kv.vault.azure.net/"
+          --set env.ApplicationSettings__ScheduleExpression="* * * * *"
+          --set autoscaling.enabled=false
+  
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['DEPLOY_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: qat
+  displayName: Deploy on QAT
+  dependsOn: dev
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters: 
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'oc-appointment-management-workflow'
+        aadPodIdCustomName: 'duly-q-component-pod-id'
+        env: qat
+        chartArgs: >
+          --set env.ApplicationSettings__KeyVaultHostUrl="https://duly-q-oc-apmg-orc-kv.vault.azure.net/"
+          --set env.ApplicationSettings__ScheduleExpression="* * * * *"
+          --set autoscaling.enabled=false
+  
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+# - stage: aut
+#   displayName: Deploy on AUT
+#   dependsOn: dev
+#   jobs:
+#     - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+#       parameters: 
+#         aksServiceConnection: $(aksServiceConnection)
+#         imageACRName: $(ACR_NAME)
+#         imageRepository: $(imageRepository)
+#         imageTag: $(imageTag)
+#         helmChartsRepo: 'charts'
+#         helmChartName: 'webapi'
+#         helmReleaseName: 'oc-appointment-management-workflow'
+#         aadPodIdCustomName: 'duly-a-component-pod-id'
+#         env: aut
+#         chartArgs: >
+#           --set env.ApplicationSettings__KeyVaultHostUrl="https://duly-a-oc-apmg-orc-kv.vault.azure.net/"
+#           --set env.ApplicationSettings__ScheduleExpression="* * * * *"
+  
+#   condition: |
+#     and
+#     (
+#       succeeded(),
+#       or
+#       (
+#         startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+#         startsWith(variables['Build.SourceBranchName'], 'main'),
+#         in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+#       ),
+#       ne(variables['Build.Reason'], 'PullRequest')
+#     )
+
+- stage: uat
+  displayName: Deploy on UAT
+  dependsOn: qat
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters: 
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'oc-appointment-management-workflow'
+        aadPodIdCustomName: 'duly-u-component-pod-id'
+        env: uat
+        chartArgs: >
+          --set env.ApplicationSettings__KeyVaultHostUrl="https://duly-u-oc-apmg-orc-kv.vault.azure.net/"
+          --set env.ApplicationSettings__ScheduleExpression="* * * * *"
+          --set autoscaling.enabled=false
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: prd
+  displayName: Deploy on PRD
+  dependsOn: uat
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters: 
+        aksServiceConnection: 'duly-p-app-aks'
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'oc-appointment-management-workflow'
+        aadPodIdCustomName: 'duly-p-component-pod-id'
+        dnsZone: 'prd.privatelink.northcentralus.azmk8s.io'
+        addHostnameSuffix: false
+        env: prd
+        chartArgs: >
+          --set env.ApplicationSettings__KeyVaultHostUrl="https://duly-p-oc-apmg-orc-kv.vault.azure.net/"
+          --set env.ApplicationSettings__ScheduleExpression="*/30 15 * * *"
+          --set autoscaling.enabled=false
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )

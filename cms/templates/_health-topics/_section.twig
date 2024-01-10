@@ -1,0 +1,56 @@
+<section class="health-topic-category {% if pageInfo != null %}paged{% endif %}">
+    {% if pageInfo == null %}
+        <h2 {% if pageInfo != null %} class="hidden" {% endif %}><a href="{{ siteUrl }}/health-topics/{% if category is defined %}{{ category.slug }}{% else %}recent{% endif %}">{{ title|raw }}</a></h2>
+    {% endif %}
+    {% if data|length != 0 %}
+        {% for key, entry in data %}
+            <article class="article-summary {{ pageInfo != null ? 'paged' : '' }}">
+                {% include '_health-topics/_picture.twig' with {
+                    url: entry.heroImage.one(),
+                    key: 1,
+                    category: category ?? entry.healthTopics[0].category.one(),
+                    articleUrl: entry.getUrl(),
+                    pageInfo: pageInfo ?? null,
+                    showCategoryBanner: showCategoryBanner
+                } %}
+
+                <h3><a href="{{ entry.getUrl() }}" class="link-effect">{{ entry.title }}</a></h3>
+                {% set department = entry.specialityDepartmentAuthor.one() %}
+                    {% if department is not null %}
+                        {{ tag('h4', { 'html': "By {author}"|t(params = {
+                            author: tag('a', {
+                                text: department.title,
+                                href: department.linkUrl ?? department.getUrl(),
+                                rel: "author",
+                                itemprop: "author"
+                            })
+                        })})|raw }}
+                    {% else %}
+                        {% for key, author in entry.physicianAuthors.all() %}
+                            {% if key == 0 %}
+                                {% set physician = author.physicianAuthor.one() %}
+                                {% if physician is not null %}
+                                    {{ tag('h4', { 'html': "By {author}"|t(params = {
+                                        count: entry.physicianAuthors.all|length,
+                                        author: tag('a', {
+                                            text: physician.title,
+                                            href: physician.getUrl(),
+                                            rel: "author",
+                                            itemprop: "author"
+                                        })
+                                    })})|raw }}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                <a href="{{ entry.getUrl() }}" class="hover-link">{{ entry.contentSummary|typogrify }}</a>
+            </article>
+        {% endfor %}
+    {% else %}
+        <div class="no-results">
+            <h1>{{ "There's nothing here!"|t }}</h1>
+            <p>{{ "In the meantime, please check out our other health topics."|t }}</p>
+        </div>
+    {% endif %}
+</section>

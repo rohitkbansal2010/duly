@@ -1,0 +1,74 @@
+{% cache globally using key "global-iam-container" %}
+<div class="iam-container">
+    {% set iamtype = craft.navigation.nodes()
+        .handle("IAMNAvigation")
+        .all()
+    %}
+    <div id="iam-type" class="iam-row">
+        {{ tag('span', {
+            text: 'I am a'|t
+        }) }}
+        
+        <div class="mdc-select mdc-select--outlined mdc-select--no-label" id="iam-type">
+            <div class="mdc-select__anchor">
+                <i class="mdc-select__dropdown-icon"></i>
+                <div class="mdc-select__selected-text"></div>
+                <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                </div>
+            </div>
+
+            <div class="mdc-select__menu mdc-menu mdc-menu-surface">
+                <ul class="mdc-list">
+                    {% for i, node in iamtype %}
+                        {% if node.getParent() is null %}
+                            <li class="mdc-list-item {% if i == 0 %}mdc-list-item--selected{% endif %}"
+                                {% if i == 0 %}aria-selected="true"{% endif %}
+                                data-value="{{ node.id }}">{{ node.title }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        {{ tag('span', { text: ",", class:"iam-comma" })}}
+    </div>
+
+    <div id="iam-type-options" class="iam-row">
+        {{ tag('span', {
+            text: 'and I am looking'|t
+        }) }}
+
+        <div class="mdc-select mdc-select--outlined mdc-select--no-label" id="iam-looking">
+            <div class="mdc-select__anchor">
+                <i class="mdc-select__dropdown-icon"></i>
+                <div class="mdc-select__selected-text"></div>
+                <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                </div>
+            </div>
+
+            <div class="mdc-select__menu mdc-menu mdc-menu-surface">
+                <ul class="mdc-list">
+                    {% for i, node in iamtype %}
+                        {% if node.getParent() is not null %}
+                            <li class="mdc-list-item {% if i == 1 %}mdc-list-item--selected{% endif %} {% if node.getParent().title == "new patient" %}hidden{% endif %}"
+                                {% if i == 1 %}aria-selected="true"{% endif %}
+                                data-parent-id={{ node.getParent().id }}
+                                data-url="{{ node.url }}"
+                                data-newwindow="{{ node.target }}"
+                                data-value="{{ node.id }}">{{ node.title }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="option" class="iam-row">
+        <a href="#" class="button blue" id="iam-button-action">{{ "Search"|t }}</a>
+    </div>
+</div>
+{% endcache %}

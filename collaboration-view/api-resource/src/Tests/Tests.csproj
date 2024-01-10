@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <AssemblyName>Duly.Resource.Api.Tests</AssemblyName>
+
+    <RootNamespace>Duly.Resource.Api.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Duly.Common.Testing" Version="21.11.126.1-dev" />
+    <PackageReference Include="FluentAssertions" Version="6.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+    <PackageReference Include="Duly.Common.CodeAnalysis" Version="21.11.110.1-dev">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebApi\WebApi.csproj" />
+  </ItemGroup>
+
+</Project>

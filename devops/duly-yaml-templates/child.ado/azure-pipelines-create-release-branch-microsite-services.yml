@@ -1,0 +1,101 @@
+trigger: none
+
+parameters:
+  - name: majorVersion
+    type: number
+    displayName: 'Major version of the new release branch'
+  - name: minorVersion
+    type: number
+    displayName: 'Minor version of the new release branch'
+
+  - name: apiChannel
+    type: boolean
+    default: false
+    displayName: 'api-channel'
+  - name: apiChannelCommitId
+    type: string
+    default: 'latest'
+    displayName: 'api-channel commit id (full SHA or first 8 characters)'
+
+  - name: apiPayload
+    type: boolean
+    default: false
+    displayName: 'api-payload'
+  - name: apiPayloadCommitId
+    type: string
+    default: 'latest'
+    displayName: 'api-payload commit id (full SHA or first 8 characters)'
+
+  - name: webViews
+    type: boolean
+    default: false
+    displayName: 'web-views'
+  - name: webViewsCommitId
+    type: string
+    default: 'latest'
+    displayName: 'web-views commit id (full SHA or first 8 characters)'
+
+variables: 
+  - name: BUILD_POOL
+    value: OnAKS
+
+resources:
+  repositories:
+    - repository: scripts
+      type: git
+      name: 'duly.digital.devops/duly-scripts'
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+- stage: apiChannel
+  dependsOn: []
+  displayName: 'api-channel: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: apiChannel
+    displayName: 'api-channel: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.microsite-services'
+          repositoryName: 'api-channel'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.apiChannelCommitId }}
+  condition: eq('${{ parameters.apiChannel }}', 'true')
+
+- stage: apiPayload
+  dependsOn: []
+  displayName: 'api-payload: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: apiPayload
+    displayName: 'api-payload: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.microsite-services'
+          repositoryName: 'api-payload'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.apiPayloadCommitId }}
+  condition: eq('${{ parameters.apiPayload }}', 'true')
+
+- stage: webViews
+  dependsOn: []
+  displayName: 'web-views: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: webViews
+    displayName: 'web-views: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.microsite-services'
+          repositoryName: 'web-views'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.webViewsCommitId }}
+  condition: eq('${{ parameters.webViews }}', 'true')

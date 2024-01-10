@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Authors>Duly Health and Care</Authors>
+    <Company>Duly Health and Care</Company>
+    <Product>Duly Health and Care Appointment Managemet Common Library</Product>
+    <Copyright>Copyright (c) Duly Health and Care</Copyright>
+
+    <AssemblyName>Duly.OmniChannel.Orchestrator.Appointment.Common</AssemblyName>
+    <RootNamespace>Duly.OmniChannel.Orchestrator.Appointment.Common</RootNamespace>
+
+    <Version>1.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+
+    <LangVersion>9</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.6" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.43.0" />
+    <PackageReference Include="Duly.Common.Annotations" Version="22.2.117.2-dev" />
+    <PackageReference Include="Duly.Common.CodeAnalysis" Version="21.11.110.1-dev">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Duly.Common.DataAccess" Version="22.3.105.1-dev" />
+    <PackageReference Include="Duly.Common.Infrastructure" Version="22.3.101.2-dev" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+</Project>

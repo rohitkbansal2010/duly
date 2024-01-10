@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: videoVisitsNewPatients
+instructions: 'Allow video visits for new patients.'
+name: 'Video Visits (new patients)'
+searchable: false
+settings:
+    default: true
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

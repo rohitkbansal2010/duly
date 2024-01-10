@@ -1,0 +1,24 @@
+{
+  "App": {
+    "title": "Página de inicio de COTF",
+    "loginButtonText": "Iniciar sesión",
+    "logoutButtonText": "Cerrar sesión"
+  },
+  "careAllyHomePage": {
+    "header": "¡Bienvenidos a la Página Hogar para proveedores de cuidado!",
+    "linkToPatientList": "Ver la lista de pacientes"
+  },
+  "patientHomePage": {
+    "header": "¡Bienvenidos a la Página Hogar de Clinic of the Future!",
+    "linkToSchedule": "Pedir una cita"
+  },
+  "loginPage": {
+    "modalTitle": "¿Tienes una cuenta en DHC?",
+    "modalLabel": "Inicia sesión con su cuenta en MyDHC.",
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "patient": "Paciente",
+    "careAlly": "Proveedor de cuidado",
+    "loginButtonText": "Acceder al Portal de DHC"
+  }
+}

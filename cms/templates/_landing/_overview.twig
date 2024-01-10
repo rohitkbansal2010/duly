@@ -1,0 +1,25 @@
+{% set title = overview.text %}
+{% set description = overview.description %}
+{% set quickLinks = overview.quickLinks.all() %}
+
+<div class="overview">
+	<div class="innerContent">
+		<div class="text">
+			<h2 class="title">{{title}}</h2>
+			<span class="description">{{description}}</span>
+		</div>
+		{% if quickLinks|length %}
+			<div class="quick-links">
+				<div class="title">{{"Quick Links"|t}}</div>
+				<div class="links">
+					{% for quickLink in quickLinks %}
+						<a href="{{quickLink.url ?? quickLink.linkUrl}}" class="link">
+							<span class="label">{{quickLink}}</span>
+							<span class="material-icons">keyboard_arrow_right</span>
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</div>

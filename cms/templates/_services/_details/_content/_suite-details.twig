@@ -1,0 +1,15 @@
+{% if serviceSuiteDetails %}
+    {% if serviceSuiteDetails.temporarilyClosed %}
+        <p class="closed">{{ "Temporarily Closed"|t }}</p>
+    {% else %}
+        {% if serviceSuiteDetails.closedToday %}
+            <p class="day">{{ "Closed Today"|t }}</p>
+        {% else %}
+            {% if serviceSuiteDetails.todayStartTime is not null and serviceSuiteDetails.todayEndTime is not null %}
+                <p>{{ "Open until {end} today"|t({
+                    end: serviceSuiteDetails.todayEndTime|date("g:i A")
+                }) }}</p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endif %}

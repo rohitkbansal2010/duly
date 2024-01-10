@@ -1,0 +1,57 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block bodyClass "physicians-list-page only-list" %}
+
+{% set contentTitle = null %}
+{% if generalSiteConfig.customSeoMetaTitlePhysiciansListPage is not null %}
+    {% set contentTitle = generalSiteConfig.customSeoMetaTitlePhysiciansListPage %}
+{% else %}
+    {% set contentTitle = "Providers"|t %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% set contentSummary = null %}
+{% if generalSiteConfig.customSeoMetaDescriptionPhysiciansListPage is not null %}
+    {% set contentSummary = generalSiteConfig.customSeoMetaDescriptionPhysiciansListPage %}
+{% endif %}
+
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        category: null,
+		heroImage: null,
+		contentTitle: contentTitle,
+        contentSummary: contentSummary,
+        cacheKey: 'providers-page-'
+} only %}
+{% endblock %}  
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	{% include "_physicians/filters/filters.twig" %}
+	<div class="body-container">
+		<div class="header-bar">
+			<div class="map-list-switcher">{{ "Map"|t }}</div>
+		</div>
+
+		<div class="content">
+			<div class="left-container">
+				<div class="loading-spinner hidden">
+					<div class="lottie"></div>
+				</div>
+
+				{% include "_physicians/_physicians-list-container.twig" %}
+			</div>
+			
+			<div class="map map-container"></div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_css %}
+	{{ craft.twigpack.includeCssModule("mapbox.css", false, {
+		"nonce":  "__CSP_NONCE__"
+	}) }}
+{% endblock %}

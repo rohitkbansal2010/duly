@@ -1,0 +1,19 @@
+<div class="dynamic-content">
+  <div class="show-locations">
+    {% if expressCareLocation is defined and expressCareLocation is not null %}
+      {% include "_immediate-care/locations/_express-care-location.twig" with {
+        expressCareLocation: expressCareLocation,
+      }%}     
+    {% endif %}
+
+    {% if immediateCareLocation is defined and immediateCareLocation is not null %} 
+      {% include "_immediate-care/locations/_immediate-care-location.twig" with {
+        immediateCareLocation: immediateCareLocation,
+      }%}
+    {% endif %}
+  </div>
+ 
+  <hr>
+  <p class="fetch-error hidden"></p>
+  <a tabindex="0" href="/locations?care[]=Immediate Care&care[]=Express Care" class="browse-all link-effect">{{ "Browse All Locations"|t }}</a>
+</div>

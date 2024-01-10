@@ -1,0 +1,13 @@
+defaultPlacement: end
+enableVersioning: true
+handle: physicians
+name: Physicians
+previewTargets:
+    - { __assoc__: [[label, 'Primary entry page'], [urlFormat, '{url}'], [refresh, '1']] }
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: false, hasUrls: true, template: physician, uriFormat: 'physicians/{slug}' }
+structure:
+    maxLevels: null
+    uid: 42630ccb-e3eb-45c0-bb15-d6cdbc36eaaf
+type: structure

@@ -1,0 +1,59 @@
+<div class="body-container">
+	<div class="left-container">
+		<div class="form zipcode-container hidden">
+			<div class="input-container">
+				{% include "_input/_input.twig" with {
+                    type: 'text',
+                    name: 'searchZipcode',
+                    id: 'search-zip-code',
+					extraOptions: {
+                                pattern: "\\d*",
+								inputmode: "numeric",
+								maxlength: "5",
+                            },
+                    label: "Search by zip code"|t,
+                } only %}
+				<span class="material-icons near_me"></span>
+				<span class="near-me-clicked hidden">{{ "My Current Location"|t  }}</span>
+				<div class="loading-spinner hidden">
+					<svg class="spinner" width="65px" height="65px" viewbox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+						<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+					</svg>
+				</div>
+			</div>
+			<button class="search-results-btn-zip-code dmgButton primary1">
+				<div class="cta">
+					{{ "Find Providers"|t }}
+				</div>
+			</button>
+		</div>
+
+		<div class="helper-text hidden">
+			<h2>{{ "Enter your zip code to see providers near you."|t }}</h2>
+		</div>
+
+		<div class="loading-spinner main hidden">
+			<div class="lottie"></div>
+		</div>
+
+		{% include "_scheduling/physicians/_tiles.twig" with {
+            physicians: physicians
+        } %}
+	</div>
+
+	<div class="map map-container"></div>
+	<div class="recommended-providers-sidebar hidden">
+		<div class="loading-spinner">
+			<div class="lottie"></div>
+		</div>
+		<div id="no-recommended-providers-error" class="hidden">
+			<span class="title">
+				{{ "Sorry, there are no providers with sooner availability." }}
+			</span>
+		</div>
+		{% include "_scheduling/select-appointment/_recommended-physicians.twig" with {
+			title: serviceDoctorName ~ " with soonest availabilty (may not correlate with your search)",
+            collapsed: true
+        } %}
+	</div>
+</div>

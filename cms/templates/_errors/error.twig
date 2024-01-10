@@ -1,0 +1,27 @@
+{% extends "_layouts/_main.twig" %}
+
+{% block title "Uh oh! - {code}"|t(params = {
+    'code': craft.app.response.statusCode
+}) %}
+{% block bodyClass "error-container" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    <div class="inner-container">
+        <div class="error-code">{{ craft.app.response.statusCode }}</div>
+        <div class="separator"></div>
+        <div class="error-title-container">
+            <i class="material-icons error-icon">error_outline</i>
+            {% if craft.app.response.statusCode == 404 %}
+                <div class="error-title">{{ "Page Not Found"|t }}</div>
+            {% else %}
+                <div class="error-title">{{ "Uh Oh!"|t }}</div>
+            {% endif %}
+        </div>
+        {% if craft.app.response.statusCode == 404 %}
+            <div class="error-description">{{ "Sorry, we cannot find the page you are looking. Click {here} to get back to the home page."|t(params = { 'here': tag('a', { text: "here"|t, href: '/', class: "link-effect" })})|raw }}</div>
+        {% else %}
+            <div class="error-description">{{ "Sorry, we something went wrong. Click {here} to get back to the home page."|t(params = { 'here': tag('a', { text: "here"|t, href: '/', class: "link-effect" })})|raw }}</div>
+        {% endif %}
+    </div>
+{% endblock %}

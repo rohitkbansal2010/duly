@@ -1,0 +1,11 @@
+<div class="description-container">
+{% if entry.serviceDescription %}
+    <div class="text">
+        {{ entryWithOptimizedImages(entry, 'serviceDescription')|typogrify|raw }}
+    </div>
+{% endif %}
+    
+    <div class="accreditations-mobile">
+        {% include '_services/_details/_navigation/_accreditations.twig' %}
+    </div>
+</div>

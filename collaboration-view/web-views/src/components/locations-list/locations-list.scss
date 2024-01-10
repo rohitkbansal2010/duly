@@ -1,0 +1,156 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.LocationsList {
+  margin: 1rem 0;
+  &Heading {
+    @include nexa-heavy-highlight;
+    color: $dupage-dark-blue;
+    font-weight: 900;
+    font-size: var(--font-size-24px-4px);
+    line-height: var(--line-height-36px-6px);
+    // line-height: 150%;
+  }
+  &Subheading {
+    margin-top: 0.5rem;
+    color: $dupage-dark-blue;
+    font-weight: 400;
+    font-size: var(--font-size-20px-4px);
+    font-family: "Inter", sans-serif;
+    line-height: var(--line-height-36px-6px);
+    // line-height: 150%;
+  }
+  &Radio > div:not(:last-child) {
+    border-bottom: 1px solid $gray;
+  }
+  &Radio {
+    max-height: var(--location-container);
+    margin: 0.5rem 0;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &Item {
+      display: flex;
+      align-items: center;
+      padding: 1rem 0;
+      column-gap: 1.5rem;
+      // border-bottom: 1px solid $gray;
+      &Input {
+        position: relative;
+        width: 1.5rem;
+        height: 1.5rem;
+        visibility: hidden;
+        cursor: pointer;
+        -moz-appearance: initial !important;
+      }
+      &Input:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: transparent;
+        border: 0.125rem solid $medium-gray;
+        border-radius: 1.5rem;
+        visibility: visible;
+        content: "";
+      }
+      &InputSelected:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: transparent;
+        border: 0.125rem solid $dupage-light-blue;
+        border-radius: 1.5rem;
+        visibility: visible;
+        content: "";
+      }
+      &InputSelected:after {
+        position: absolute;
+        top: 0.375rem;
+        left: 0.375rem;
+        display: inline-block;
+        width: 0.75rem;
+        height: 0.75rem;
+        background-color: $dupage-light-blue;
+        border-radius: 0.75rem;
+        visibility: visible;
+        content: "";
+      }
+      &Label {
+        cursor: pointer;
+        &Location {
+          font-size: 0;
+          &Name {
+            display: inline;
+            margin-right: 0.5rem;
+            color: $default-text;
+            font-weight: 800;
+            font-size: var(--font-size-18px-4px);
+            font-family: "Inter", sans-serif;
+          }
+          &Loc {
+            display: inline;
+            color: $default-text;
+            font-weight: 400;
+            font-size: var(--font-size-18px-4px);
+            font-family: "Inter", sans-serif;
+          }
+        }
+        &Distance {
+          color: $dupage-magenta;
+          font-weight: 400;
+          font-size: var(--font-size-16px-4px);
+          font-family: "Inter", sans-serif;
+        }
+      }
+      &LabelSelected {
+        cursor: pointer !important;
+      }
+    }
+  }
+  &Radio::-webkit-scrollbar {
+    display: none;
+  }
+  &MoreLocation {
+    display: flex;
+    align-items: center;
+    height: 1.5rem;
+    color: $dupage-dark-blue;
+    column-gap: 0.5rem;
+    &Text {
+      font-weight: 700;
+      font-size: var(--font-size-14px-4px);
+      font-family: "Inter", sans-serif;
+      // line-height: 1.5rem;
+      border-bottom: 1px solid $dupage-dark-blue;
+    }
+    &Icon {
+      font-size: 0.75rem;
+    }
+  }
+  &MoreLocationDisabled {
+    color: $medium-gray;
+    cursor: default !important;
+    &Text {
+      border-bottom: 1px solid $medium-gray;
+    }
+  }
+}
+
+.locationsContainerLoading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25rem;
+  color: $dupage-dark-blue;
+  font-size: 3rem;
+}

@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: c36a717d-daaf-4fa8-82e7-c1e4dbd8ba3b
+handle: immediateCareCheckSymptomsTextUnderInput
+instructions: ''
+name: 'Check Symptoms - Text Under Input'
+searchable: true
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: 'Examples include: Fever, lower back pain'
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

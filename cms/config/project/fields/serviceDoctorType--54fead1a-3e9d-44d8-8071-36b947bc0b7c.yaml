@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceDoctorType
+instructions: 'Type of a doctor who performs this service, e.g. surgeon, or ophthalmologist.'
+name: 'Service Doctor Type'
+searchable: true
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: text
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

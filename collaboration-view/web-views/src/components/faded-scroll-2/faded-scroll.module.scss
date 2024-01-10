@@ -1,0 +1,81 @@
+@import "~@styles/main.scss";
+@import "~@styles/colors.scss";
+
+.scrollWrapper {
+  position: relative;
+
+  .scrollContent {
+    @include invisible-scroll;
+    height: 100%;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+  }
+
+  &.oversize {
+    .topScrollFade {
+      top: -1px;
+      right: -1px;
+      left: -1px;
+    }
+
+    .bottomScrollFade {
+      right: -1px;
+      bottom: -1px;
+      left: -1px;
+    }
+  }
+}
+
+.topScrollFade {
+  @include invisible-scroll-top-fade;
+  max-height: 25%;
+}
+
+.top0 {
+  opacity: 0;
+}
+
+.top25 {
+  opacity: 0.25;
+}
+
+.top50 {
+  opacity: 0.5;
+}
+
+.top75 {
+  opacity: 0.75;
+}
+
+.top100 {
+  opacity: 1;
+}
+
+.bottomScrollFade {
+  @include invisible-scroll-bottom-fade;
+  max-height: 25%;
+
+  &.bottom-white {
+    background-image: linear-gradient(transparent, $white);
+  }
+}
+
+.bottom0 {
+  opacity: 0;
+}
+
+.bottom25 {
+  opacity: 0.25;
+}
+
+.bottom50 {
+  opacity: 0.5;
+}
+
+.bottom75 {
+  opacity: 0.75;
+}
+
+.botom100 {
+  opacity: 1;
+}

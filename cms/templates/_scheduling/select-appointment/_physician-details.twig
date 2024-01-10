@@ -1,0 +1,35 @@
+<a href="{{ physician.url ?? '' }}">
+    <div class="physician-info">
+        {% if physician %}
+            {% set hasHeadShot = physician.physicianHeadshot.one() is not null %}
+            <div class="{{ hasHeadShot == false ? 'image default-headshot small no-margin' : 'image' }}">
+                {% if hasHeadShot %}
+                    {{ getOptimizedImage(physician.physicianHeadshot.one(), 'webp', false, [
+                        { 'settings': ['gravity:sm', 'resize:fill:50:50:1:1'], 'css': '(min-width: 200px)' }
+                    ])|raw }}
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        {% if patientUser.is_video_visit_flow and not physician %}
+            {% set videoVisitsEntry = craft.entries.section('videoVisits').one() %}
+            {% set serviceTiles = videoVisitsEntry.videoVisitServiceTiles %}
+            {% for tile in serviceTiles.all() %}
+                {% if tile.id == patientUser.chosen_video_visit_group %}
+                    <div class="details">
+                        <span class="name">{{ tile.serviceTitle }}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% elseif isSchedulingFlowWithoutPhysicians and not patientUser.is_video_visit_flow %}
+            <div class="details">
+                <span class="name">{{ service.title }}</span>
+            </div>
+        {% else %}
+            <div class="details">
+                <span class="name">{{ physician.title }}</span>
+                <span class="service">{{ physician.physicianSpeciality.all() | filter (v => v.type != "ancillaryServices") | sort((a, b) => a.title > b.title) | join(', ') }}</span>
+            </div>
+        {% endif %}
+    </div>
+</a>

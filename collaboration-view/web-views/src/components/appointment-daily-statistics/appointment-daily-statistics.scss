@@ -1,0 +1,67 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/main.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/devices.scss";
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 0.0625rem solid rgba($medium-gray, 0.5);
+}
+
+.dateRow {
+  line-height: 4rem;
+
+  &Day {
+    color: $dupage-violet;
+    font-size: 3.1rem;
+  }
+
+  &Month {
+    @include nexa-heavy-highlight;
+    color: $dupage-magenta;
+    font-size: 4.5rem;
+  }
+
+  &Year {
+    color: $medium-gray;
+    font-size: 2.15rem;
+    line-height: 3.5rem;
+  }
+}
+
+.addressRow {
+  color: $medium-gray;
+  line-height: 1.8rem;
+  cursor: pointer;
+
+  &TopPart {
+    position: relative;
+    padding-left: 3.2rem !important;
+    font-size: 1.5rem;
+    @include nexa-heavy-highlight;
+
+    & img {
+      position: absolute;
+      left: 0.5rem;
+      width: 2rem;
+    }
+
+    &SpacingSpan {
+      padding-right: 0.2rem;
+    }
+  }
+
+  &BottomPart {
+    padding-left: 3.2rem !important;
+    font-size: 1.15rem;
+  }
+}
+
+.bottomSection {
+  padding-top: 0.75rem;
+}

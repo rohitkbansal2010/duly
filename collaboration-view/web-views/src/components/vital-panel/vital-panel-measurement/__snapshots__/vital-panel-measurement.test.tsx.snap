@@ -1,0 +1,452 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VitalPanelMeasurement should not render the VitalPanelMeasurement component, if the isVisible flag be falsy 1`] = `""`;
+
+exports[`VitalPanelMeasurement should not render the additionalValue, if the additionalValue does not exist 1`] = `
+<div
+  className="vitalPanelMeasurementContainer"
+  style={
+    Object {
+      "width": "44%",
+    }
+  }
+>
+  <div
+    className="vitalPanelMeasurementContainerIcon"
+  >
+    <img
+      alt="vital icon"
+      className="vitalPanelMeasurementContainerIconBloodPressure"
+      date-test="vital-panel-measurement-icon"
+      src="condition-magenta.svg"
+    />
+  </div>
+  <div
+    className="vitalPanelMeasurementContainerAdditionalInfo"
+  >
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoTopBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoText"
+        date-test="vital-panel-measurement-text"
+      >
+        MOST RECENTLY
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoDate"
+        date-test="vital-panel-measurement-date"
+      >
+        12/1/2021
+      </div>
+    </div>
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoBottomBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoValue"
+        date-test="vital-panel-measurement-value"
+      >
+        130
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoUnit"
+        date-test="vital-panel-measurement-unit"
+      >
+        mmHg
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoMaxScaleValue"
+        date-test="vital-panel-measurement-max-scale-value"
+      >
+        / 10
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VitalPanelMeasurement should not render the date, if the date does not exist 1`] = `
+<div
+  className="vitalPanelMeasurementContainer"
+  style={
+    Object {
+      "width": "44%",
+    }
+  }
+>
+  <div
+    className="vitalPanelMeasurementContainerIcon"
+  >
+    <img
+      alt="vital icon"
+      className="vitalPanelMeasurementContainerIconBloodPressure"
+      date-test="vital-panel-measurement-icon"
+      src="condition-magenta.svg"
+    />
+  </div>
+  <div
+    className="vitalPanelMeasurementContainerAdditionalInfo"
+  >
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoTopBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoText"
+        date-test="vital-panel-measurement-text"
+      >
+        MOST RECENTLY
+      </div>
+    </div>
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoBottomBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoValue"
+        date-test="vital-panel-measurement-value"
+      >
+        130
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoMaxScaleValue"
+        date-test="vital-panel-measurement-max-scale-value"
+      >
+        / 10
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoAdditionalValue"
+        date-test="vital-panel-measurement-additional-value"
+      >
+        / 80
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoUnit"
+      >
+        mmHg
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VitalPanelMeasurement should not render the icon, if the icon does not exist 1`] = `
+<div
+  className="vitalPanelMeasurementContainer"
+  style={
+    Object {
+      "width": "44%",
+    }
+  }
+>
+  <div
+    className="vitalPanelMeasurementContainerAdditionalInfo"
+  >
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoTopBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoText"
+        date-test="vital-panel-measurement-text"
+      >
+        MOST RECENTLY
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoDate"
+        date-test="vital-panel-measurement-date"
+      >
+        12/1/2021
+      </div>
+    </div>
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoBottomBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoValue"
+        date-test="vital-panel-measurement-value"
+      >
+        130
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoMaxScaleValue"
+        date-test="vital-panel-measurement-max-scale-value"
+      >
+        / 10
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoAdditionalValue"
+        date-test="vital-panel-measurement-additional-value"
+      >
+        / 80
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoUnit"
+      >
+        mmHg
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VitalPanelMeasurement should not render the maxScaleValue, if the maxScaleValue does not exist 1`] = `
+<div
+  className="vitalPanelMeasurementContainer"
+  style={
+    Object {
+      "width": "44%",
+    }
+  }
+>
+  <div
+    className="vitalPanelMeasurementContainerIcon"
+  >
+    <img
+      alt="vital icon"
+      className="vitalPanelMeasurementContainerIconBloodPressure"
+      date-test="vital-panel-measurement-icon"
+      src="condition-magenta.svg"
+    />
+  </div>
+  <div
+    className="vitalPanelMeasurementContainerAdditionalInfo"
+  >
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoTopBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoText"
+        date-test="vital-panel-measurement-text"
+      >
+        MOST RECENTLY
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoDate"
+        date-test="vital-panel-measurement-date"
+      >
+        12/1/2021
+      </div>
+    </div>
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoBottomBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoValue"
+        date-test="vital-panel-measurement-value"
+      >
+        130
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoAdditionalValue"
+        date-test="vital-panel-measurement-additional-value"
+      >
+        / 80
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoUnit"
+      >
+        mmHg
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VitalPanelMeasurement should not render the unit, if the unit does not exist 1`] = `
+<div
+  className="vitalPanelMeasurementContainer"
+  style={
+    Object {
+      "width": "44%",
+    }
+  }
+>
+  <div
+    className="vitalPanelMeasurementContainerIcon"
+  >
+    <img
+      alt="vital icon"
+      className="vitalPanelMeasurementContainerIconBloodPressure"
+      date-test="vital-panel-measurement-icon"
+      src="condition-magenta.svg"
+    />
+  </div>
+  <div
+    className="vitalPanelMeasurementContainerAdditionalInfo"
+  >
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoTopBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoText"
+        date-test="vital-panel-measurement-text"
+      >
+        MOST RECENTLY
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoDate"
+        date-test="vital-panel-measurement-date"
+      >
+        12/1/2021
+      </div>
+    </div>
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoBottomBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoValue"
+        date-test="vital-panel-measurement-value"
+      >
+        130
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoMaxScaleValue"
+        date-test="vital-panel-measurement-max-scale-value"
+      >
+        / 10
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoAdditionalValue"
+        date-test="vital-panel-measurement-additional-value"
+      >
+        / 80
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoUnit"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VitalPanelMeasurement should render correctly 1`] = `
+<div
+  className="vitalPanelMeasurementContainer"
+  style={
+    Object {
+      "width": "44%",
+    }
+  }
+>
+  <div
+    className="vitalPanelMeasurementContainerIcon"
+  >
+    <img
+      alt="vital icon"
+      className="vitalPanelMeasurementContainerIconBloodPressure"
+      date-test="vital-panel-measurement-icon"
+      src="condition-magenta.svg"
+    />
+  </div>
+  <div
+    className="vitalPanelMeasurementContainerAdditionalInfo"
+  >
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoTopBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoText"
+        date-test="vital-panel-measurement-text"
+      >
+        MOST RECENTLY
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoDate"
+        date-test="vital-panel-measurement-date"
+      >
+        12/1/2021
+      </div>
+    </div>
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoBottomBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoValue"
+        date-test="vital-panel-measurement-value"
+      >
+        130
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoMaxScaleValue"
+        date-test="vital-panel-measurement-max-scale-value"
+      >
+        / 10
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoAdditionalValue"
+        date-test="vital-panel-measurement-additional-value"
+      >
+        / 80
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoUnit"
+      >
+        mmHg
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VitalPanelMeasurement should render the unit 1`] = `
+<div
+  className="vitalPanelMeasurementContainer"
+  style={
+    Object {
+      "width": "44%",
+    }
+  }
+>
+  <div
+    className="vitalPanelMeasurementContainerIcon"
+  >
+    <img
+      alt="vital icon"
+      className="vitalPanelMeasurementContainerIconBloodPressure"
+      date-test="vital-panel-measurement-icon"
+      src="condition-magenta.svg"
+    />
+  </div>
+  <div
+    className="vitalPanelMeasurementContainerAdditionalInfo"
+  >
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoTopBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoText"
+        date-test="vital-panel-measurement-text"
+      >
+        MOST RECENTLY
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoDate"
+        date-test="vital-panel-measurement-date"
+      >
+        12/1/2021
+      </div>
+    </div>
+    <div
+      className="vitalPanelMeasurementContainerAdditionalInfoBottomBlock"
+    >
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoValue"
+        date-test="vital-panel-measurement-value"
+      >
+        130
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoUnit"
+        date-test="vital-panel-measurement-unit"
+      >
+        mmHg
+      </div>
+      <div
+        className="vitalPanelMeasurementContainerAdditionalInfoMaxScaleValue"
+        date-test="vital-panel-measurement-max-scale-value"
+      >
+        / 10
+      </div>
+    </div>
+  </div>
+</div>
+`;

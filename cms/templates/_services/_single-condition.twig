@@ -1,0 +1,60 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% set entry = craft.entries()
+    .section('conditions')
+    .slug(craft.app.request.getSegment(2))
+    .one()
+%}
+
+{% set contentSummary = null %}
+
+{% set contentTitle = null %}
+{% if entry.customSeoMetaTitle is not null %}
+    {% set contentTitle = entry.customSeoMetaTitle %}
+{% else %}
+    {% set contentTitle = entry.title %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% if entry.customSeoMetaDescription is not null %}
+    {% set contentSummary = entry.customSeoMetaDescription %}
+{% endif %}
+
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        entry: entry,
+		heroImage: null,
+        contentTitle: contentTitle,
+		contentSummary: contentSummary,
+        cacheKey: 'condition-og-' ~ entry.id
+    } only %}
+{% endblock %}
+
+{% block bodyClass "condition-detail-page" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    <section class="condition-container">
+        {% if entry.conditionHeroImage.one() is not null %}
+            <div class="image-container">
+                {{ getOptimizedImage(entry.conditionHeroImage.one(), 'webp', false, [{'settings': ['resize:fill:970:520:1:1'],'css': '(max-width:1200px)'}])|raw }}
+            </div>
+        {% endif %}
+
+        <div class="headline">
+            <h1>{{ entry.title }}</h1>
+        </div>
+
+        <hr>
+
+        {% if entry.conditionDescription is not null %}
+            <div class="content">
+                {{ entryWithOptimizedImages(entry, 'conditionDescription')|typogrify|raw }}
+            </div>
+        {% endif %}
+        <div class="pattern-container-left"></div>
+    </section>
+{% endblock %}

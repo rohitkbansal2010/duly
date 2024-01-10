@@ -1,0 +1,68 @@
+@import "~@styles/typography.scss";
+
+.mainCompoBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  // width: 63.5rem;
+  height: 37rem;
+  margin-top: 1.75rem;
+  background: rgba(0, 165, 223, 0.02);
+  border: 0.0625rem solid #00a5df;
+  border-radius: 0.5rem;
+}
+
+.headerTextDiv {
+  // padding-top: 13.315rem;
+
+  // padding-left: 26rem;
+  .MainText {
+    @include nexa-heavy-highlight;
+    color: #002855;
+    font-weight: 900;
+    font-size: var(--font-size-24px-2px-4px);
+    line-height: 1.625rem;
+    font-feature-settings: "tnum" on, "lnum" on;
+  }
+}
+
+.mainParaDiv {
+  // width: 23.56rem;
+  // height: 3rem;
+  // margin-left: 20rem;
+  .mainParaText {
+    color: #002855;
+    font-weight: 400;
+    font-size: var(--font-size-16px-4px);
+
+    font-family: "Inter", sans-serif;
+    // line-height: var(--font-size-24px-4px-7px);
+    text-align: center;
+    font-feature-settings: "tnum" on, "lnum" on;
+  }
+}
+
+.MainButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24rem;
+  height: 3.75rem;
+  margin-top: 1.5rem;
+  // margin-left: 19.75rem;
+  background: #002855;
+  border: 0.0625rem solid #002855;
+  border-radius: 0.5rem;
+
+  .buttonText {
+    margin-bottom: 0 !important;
+
+    color: white;
+    font-size: var(--font-size-16px-4px);
+    line-height: 1.5rem;
+    @include nexa-extra-bold-highlight;
+  }
+}

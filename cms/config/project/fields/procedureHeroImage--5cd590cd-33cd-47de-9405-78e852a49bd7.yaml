@@ -1,0 +1,32 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 8f91d2f6-9099-4724-b20b-19061d73de58
+handle: procedureHeroImage
+instructions: 'Upload an image related to this procedure.'
+name: 'Procedure Hero Image'
+searchable: true
+settings:
+    allowSelfRelations: false
+    allowUploads: true
+    allowedKinds: null
+    defaultUploadLocationSource: 'volume:2b01430a-33e9-44a6-87d1-5381ad9be60d'
+    defaultUploadLocationSubpath: ''
+    limit: ''
+    localizeRelations: false
+    previewMode: full
+    restrictFiles: ''
+    selectionLabel: ''
+    showSiteMenu: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    singleUploadLocationSource: 'volume:a2a300f6-d8c0-4604-a2a0-74f14ebd7316'
+    singleUploadLocationSubpath: ''
+    source: null
+    sources: '*'
+    targetSiteId: null
+    useSingleFolder: true
+    validateRelatedElements: false
+    viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Assets

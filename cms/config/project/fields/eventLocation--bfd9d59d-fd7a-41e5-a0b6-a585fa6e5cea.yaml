@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 49194be8-0adc-41cb-894d-e3e98a5441c0
+handle: eventLocation
+instructions: 'List all the locations an event will be held at. You may list a single location, or multiple location for events that occur at the same time at multiple locations. '
+name: Location
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_eventlocation}}'
+    maxBlocks: ''
+    minBlocks: '1'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

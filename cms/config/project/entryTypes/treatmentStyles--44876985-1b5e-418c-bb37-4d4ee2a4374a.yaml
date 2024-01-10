@@ -1,0 +1,10 @@
+fieldLayouts:
+    90dff56b-bae3-4e00-85bb-a5adcfdb965a: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 61269672-e27e-4955-9913-efd56091f652, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 7b6ca7c3-dcd0-4129-a611-98a57c162deb, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: treatmentStyles
+hasTitleField: true
+name: 'Treatment Styles'
+section: a1ba9312-e5fe-4aa8-b68c-8f98b8b89226
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

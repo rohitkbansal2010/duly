@@ -1,0 +1,34 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: eca27ab5-4de8-41d9-85c4-b3c60701f59d
+handle: address
+instructions: ''
+name: Address
+searchable: true
+settings:
+    boundary: '""'
+    boundaryRestrictionNELat: null
+    boundaryRestrictionNELng: null
+    boundaryRestrictionSWLat: null
+    boundaryRestrictionSWLng: null
+    country: US
+    countryRestriction: null
+    height: null
+    hideAddress: ''
+    hideLatLng: null
+    hideMap: ''
+    hideSearch: ''
+    lat: 41.831138507587
+    lng: -88.013156339628
+    maxZoom: '18'
+    minZoom: '3'
+    showCurrentLocation: '1'
+    showLatLng: ''
+    showW3WField: false
+    showW3WGrid: false
+    size: normal
+    typeRestriction: null
+    zoom: 15
+translationKeyFormat: null
+translationMethod: none
+type: ether\simplemap\fields\MapField

@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: schedulingWithoutPhysicians
+instructions: 'Enable if this service is scheduled without explicitly selecting a physician within the scheduling flow.'
+name: 'Scheduling Without Physicians'
+searchable: false
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

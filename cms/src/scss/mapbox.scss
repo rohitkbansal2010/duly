@@ -1,0 +1,41 @@
+@import "~mapbox-gl/dist/mapbox-gl.css";
+@import 'variables';
+
+.map {
+  border-radius: 4px;
+}
+
+.mapboxgl-canvas-container .mapboxgl-user-location-dot {
+  background-color: $oxford;
+
+  &::before {
+    background-color: $oxford;
+  }
+}
+
+.mapboxgl-canvas-container .marker {
+  background-image: url(../img/icons/location-new.svg);
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.mapboxgl-popup-content {
+  .mapboxgl-popup-close-button {
+    font-size: 16px;
+  }
+  .name {
+    font-size: 22px;
+    line-height: 24px;
+    margin: 0;
+  }
+  .address {
+    font-size: 16px;
+    line-height: 22px;
+    margin: 0;
+  }
+}

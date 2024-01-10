@@ -1,0 +1,66 @@
+.error-container {
+    max-width: 1280px;
+    margin: 0 auto !important;
+
+    div.inner-container {
+        width: 900px;
+        min-height: 400px;
+        margin: 30px auto;
+        padding: 40px 130px;
+        background-color: $white;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+
+        @include responsive(medium) {
+            width: 100%;
+            padding: 15px;
+            margin: 0px auto;
+        }
+
+        .error-code {
+            margin-top: 50px;
+            color: $oxford;
+            font-size: 90px;
+            font-weight: 800;
+        }
+
+        .separator {
+            border-top: 1px solid $sky;
+            width: 100%;
+            margin: 10px 0 25px;
+        }
+
+        .error-title-container {
+            display: flex;
+            flex-direction: row;
+
+            .error-icon {
+                font-size: 44px;
+                margin-right: 10px;
+                position: relative;
+                top: 2px;
+                color: $sky;
+            }
+
+            .error-title {
+                font-size: 44px;
+                font-weight: bold;
+                color: $oxford;
+            }
+        }
+
+        .error-description {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 18px 0;
+            color: $dark-2;
+
+            @include responsive(small) {
+                font-size: 18px;
+                line-height: 28px;
+            }
+        }
+    }
+}

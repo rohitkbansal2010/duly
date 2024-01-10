@@ -1,0 +1,24 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title "Primary & Specialty Care Services"|t %}
+{% block bodyClass "services-list-page" %}
+
+{% set serviceGroups = craft.categories({
+    group: "serviceGroups"
+}).all() %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	<section class="services-list-container">
+		<div class="list">
+            {% for k, group in serviceGroups %}
+                {% include '_services/_list_service_card.twig' with {
+					k: k,
+                    group: group
+                } %}
+            {% endfor %}
+		</div>
+	</section>
+{% endblock %}

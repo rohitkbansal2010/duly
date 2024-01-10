@@ -1,0 +1,1056 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Chatbot Epic Connector",
+    "description": "Epic connector for Freshworks chat bot",
+    "version": "0.0.1"
+  },
+  "definitions": {},
+  "paths": {
+    "/CancelAppointment": {
+      "get": {
+        "summary": "Epic Private CancelAppointment",
+        "description": "Cancel Appointment",
+        "tags": [],
+        "parameters": [
+          {
+            "type": "string",
+            "description": "patient identifier",
+            "required": false,
+            "in": "query",
+            "name": "PatientID"
+          },
+          {
+            "type": "string",
+            "description": "patient identifier type",
+            "required": false,
+            "in": "query",
+            "name": "PatientIDType"
+          },
+          {
+            "type": "string",
+            "description": "contact id for appointment to be cancelled",
+            "required": false,
+            "in": "query",
+            "name": "ContactID"
+          },
+          {
+            "type": "string",
+            "description": "contact identifier type",
+            "required": false,
+            "in": "query",
+            "name": "ContactIDType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "description": "Successful response",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "None found",
+            "schema": {
+              "description": "None found",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "description": "Internal server error",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetAppointments": {
+      "get": {
+        "summary": "Epic Private GetFutureAppointments",
+        "description": "Get future appointments",
+        "tags": [],
+        "parameters": [
+          {
+            "type": "string",
+            "description": "patient identifier",
+            "required": false,
+            "in": "query",
+            "name": "PatientID"
+          },
+          {
+            "type": "string",
+            "description": "patient identifier type",
+            "required": false,
+            "in": "query",
+            "name": "PatientIDType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "description": "Successful response",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "appointments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "None found",
+            "schema": {
+              "description": "None found",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "description": "Internal server error",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetIdentifiers": {
+      "get": {
+        "summary": "Epic Private GetPatientIdentifiers",
+        "description": "Get patient identifiers",
+        "tags": [],
+        "parameters": [
+          {
+            "type": "string",
+            "description": "patient identifier",
+            "required": false,
+            "in": "query",
+            "name": "PatientID"
+          },
+          {
+            "type": "string",
+            "description": "patient identifier type",
+            "required": false,
+            "in": "query",
+            "name": "PatientIDType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "description": "Successful response",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "identifiers": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "None found",
+            "schema": {
+              "description": "None found",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "description": "Internal server error",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetPatientReferrals": {
+      "get": {
+        "summary": "Epic Private GetPatientReferrals",
+        "description": "Get referrals for a patient",
+        "tags": [],
+        "parameters": [
+          {
+            "type": "string",
+            "description": "patient identifier",
+            "required": false,
+            "in": "query",
+            "name": "PatientID"
+          },
+          {
+            "type": "string",
+            "description": "patient identifier type",
+            "required": false,
+            "in": "query",
+            "name": "PatientIDType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "description": "Successful response",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "Referrals": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "Status": {
+                            "type": "string"
+                          },
+                          "Type": {
+                            "type": "string"
+                          },
+                          "ExternalReferralNumber": {
+                            "type": "string"
+                          },
+                          "AuthorizationStartDate": {
+                            "type": "string"
+                          },
+                          "AuthorizationEndDate": {
+                            "type": "string"
+                          },
+                          "ReferredByProviderName": {
+                            "type": "string"
+                          },
+                          "ReferredToProviderName": {
+                            "type": "string"
+                          },
+                          "ReferredToFacilityName": {
+                            "type": "string"
+                          },
+                          "PCPFirstName": {
+                            "type": "string"
+                          },
+                          "PCPLastName": {
+                            "type": "string"
+                          },
+                          "ReferralID": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "ID": {
+                                  "type": "string",
+                                  "enum": [
+                                    "1148"
+                                  ]
+                                },
+                                "Type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "ID",
+                                "Type"
+                              ]
+                            }
+                          },
+                          "ReferredByProviderIDs": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "ID": {
+                                  "type": "string"
+                                },
+                                "Type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "ID",
+                                "Type"
+                              ]
+                            }
+                          },
+                          "ReferredToProviderIDs": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {}
+                          },
+                          "ReferredToFacilityIDs": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {}
+                          },
+                          "ReferredToDepartmentIDs": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {}
+                          },
+                          "PCPIDs": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {}
+                          },
+                          "Diagnoses": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {}
+                          },
+                          "Procedures": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {}
+                          },
+                          "PatientName": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {}
+                          },
+                          "PatientAddress": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {}
+                          },
+                          "ReferredtoFacilityAddress": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {}
+                          },
+                          "ReferredToProviderAddress": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {}
+                          },
+                          "PatientIDs": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {}
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "None found",
+            "schema": {
+              "description": "None found",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "description": "Internal server error",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetScheduleDaysForProvider": {
+      "post": {
+        "summary": "Epic Private GetScheduleDaysForProvider2",
+        "description": "Get schedule days for provider",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "description": "Successful response",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "Departments": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "Provider": {
+                      "type": "object",
+                      "properties": {
+                        "DisplayName": {
+                          "type": "string"
+                        },
+                        "IDs": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      }
+                    },
+                    "VisitTypes": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "ScheduleDays": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "None found",
+            "schema": {
+              "description": "None found",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "description": "Internal server error",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PatientLookup": {
+      "get": {
+        "summary": "Epic Private PatientLookup",
+        "description": "Find a patient in Epic given certain demographic information",
+        "tags": [],
+        "parameters": [
+          {
+            "type": "string",
+            "description": "patient full name",
+            "required": false,
+            "in": "query",
+            "name": "Name"
+          },
+          {
+            "type": "string",
+            "description": "patient date of birth",
+            "required": false,
+            "in": "query",
+            "name": "DOB"
+          },
+          {
+            "type": "string",
+            "description": "patient gender/sex",
+            "required": false,
+            "in": "query",
+            "name": "Gender"
+          },
+          {
+            "type": "string",
+            "description": "patient phone number",
+            "required": false,
+            "in": "query",
+            "name": "Phone"
+          },
+          {
+            "type": "string",
+            "description": "patient last 4 digits of SSN",
+            "required": false,
+            "in": "query",
+            "name": "Last4SSN"
+          },
+          {
+            "type": "string",
+            "description": "patient medical record number",
+            "required": false,
+            "in": "query",
+            "name": "MRN"
+          },
+          {
+            "type": "string",
+            "description": "patient GEC chart id",
+            "required": false,
+            "in": "query",
+            "name": "GEC"
+          },
+          {
+            "type": "string",
+            "description": "patient EPI id",
+            "required": false,
+            "in": "query",
+            "name": "EPI"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "description": "Successful response",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "epiId": {
+                      "type": "string"
+                    },
+                    "fhirId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "mrn": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "None found",
+            "schema": {
+              "description": "None found",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "description": "Internal server error",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PatientSearch": {
+      "get": {
+        "summary": "Epic Patient.Search",
+        "description": "Find a patient in Epic given certain demographic information",
+        "tags": [],
+        "parameters": [
+          {
+            "type": "string",
+            "description": "patient given/first name",
+            "required": false,
+            "in": "query",
+            "name": "given"
+          },
+          {
+            "type": "string",
+            "description": "patient family/last name",
+            "required": false,
+            "in": "query",
+            "name": "family"
+          },
+          {
+            "type": "string",
+            "description": "patient date of birth",
+            "required": false,
+            "in": "query",
+            "name": "birthdate"
+          },
+          {
+            "type": "string",
+            "description": "patient phone number",
+            "required": false,
+            "in": "query",
+            "name": "telecom"
+          },
+          {
+            "type": "string",
+            "description": "patient medical record number",
+            "required": false,
+            "in": "query",
+            "name": "mrn"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "description": "Successful response",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "fhirId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "mrn": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No patient found",
+            "schema": {
+              "description": "No patient found",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "description": "Internal server error",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ScheduleAppointment": {
+      "post": {
+        "summary": "Epic Private ScheduleAppointmentWithInsurance",
+        "description": "Schedule appointment",
+        "tags": [],
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Department identifier",
+            "required": false,
+            "in": "query",
+            "name": "DepartmentID"
+          },
+          {
+            "type": "string",
+            "description": "Department identifier type",
+            "required": false,
+            "in": "query",
+            "name": "DepartmentIDType"
+          },
+          {
+            "type": "string",
+            "description": "Visit type identifier",
+            "required": false,
+            "in": "query",
+            "name": "VisitTypeID"
+          },
+          {
+            "type": "string",
+            "description": "Visit type identifier type",
+            "required": false,
+            "in": "query",
+            "name": "VisitTypeIDType"
+          },
+          {
+            "type": "string",
+            "description": "Date of appointment",
+            "required": false,
+            "in": "query",
+            "name": "Date"
+          },
+          {
+            "type": "string",
+            "description": "Start time of appointment",
+            "required": false,
+            "in": "query",
+            "name": "Time"
+          },
+          {
+            "type": "string",
+            "description": "Provider identifier",
+            "required": false,
+            "in": "query",
+            "name": "ProviderID"
+          },
+          {
+            "type": "string",
+            "description": "Provider identifier type",
+            "required": false,
+            "in": "query",
+            "name": "ProviderIDType"
+          },
+          {
+            "type": "boolean",
+            "description": "Must to be set to false to actually book the appointment",
+            "required": false,
+            "in": "query",
+            "name": "isReviewOnly"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "description": "Successful response",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "Departments": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "Provider": {
+                      "type": "object",
+                      "properties": {
+                        "DisplayName": {
+                          "type": "string"
+                        },
+                        "IDs": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      }
+                    },
+                    "VisitTypes": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "ScheduleDays": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "None found",
+            "schema": {
+              "description": "None found",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "description": "Internal server error",
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

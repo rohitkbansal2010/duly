@@ -1,0 +1,151 @@
+{% set stepOne = ['insurance', 'preliminary', 'visit-reason', 'select-physician'] %}
+{% set stepTwo = ['select-appointment'] %}
+{% set stepThree = ['book'] %}
+{% set currentPage = craft.app.request.getSegment(2) %}
+{% set patientUser = craft.app.patient_user.identity %}
+{% set arrivedFromOutsideOfScheduling = patientUser.physician_selected_outside_of_scheduling == '1' %}
+{% set is_deeplinked = deeplinked_session is defined and deeplinked_session %}
+{% set backUrlPresent = backUrl is not empty and not is_deeplinked %}
+{# schedule/book/share #}
+{% set lastPage = craft.app.request.getSegment(3) %}
+
+<div class="scheduling-navigation-container">
+	<div class="{{ backUrlPresent ? 'steps-container' : 'steps-container full-width' }}">
+		<ul id="breadcrumb">
+			{% if backUrlPresent %}
+				{% set showExitWarning = backUrl == '/schedule' %}
+				<div class="back-arrow-container">
+					<a href="{{ backUrl }}" class="{{ showExitWarning ? '' : 'back-link' }}">
+						<span class="material-icons chevron_left"></span>
+					</a>
+				</div>
+			{% endif %}
+			{# step 1 #}
+			<li>
+				<svg id="step1Icon" class="active" viewbox="0 0 1000 250">
+					<path stroke-width="5" d="M25,5
+                                                L900,5
+                                                L995, 125
+                                                L900, 245
+                                                L25,245
+                                                Q5,245 5, 225
+                                                L5,25
+                                                Q5,5 25,5
+                                                Z"/>
+					<text x="100" y="100" class="stepNumber" style="font-size:50px;">Step 1</text>
+					<text x="100" y="175" class="stepDesc" style="font-size:65px;">
+						{% if patientUser and patientUser.isSchedulingFlowWithoutPhysicians() %}
+							Find A Location
+						{% else %}
+							Find A Provider
+						{% endif %}
+					</text>
+				</svg>
+			</li>
+			{# step 2 #}
+			<li>
+				<svg id="step2Icon" class="{{ currentPage in stepTwo or currentPage in stepThree or arrivedFromOutsideOfScheduling ? 'active' : '' }}" viewbox="0 0 1000 250">
+					<path stroke-width="5" d="M5,5
+                                                L900,5
+                                                L995,125
+                                                L900,245
+                                                L5,245
+                                                L100,125
+                                                L5,5"/>
+					<text x="150" y="100" class="stepNumber" style="font-size:50px;">Step 2</text>
+					<text x="150" y="175" class="stepDesc" style="font-size:65px;">Select Appointment</text>
+				</svg>
+			</li>
+			{# step 3 #}
+			<li>
+				<svg id="step3Icon" class="{{ currentPage in stepThree or arrivedFromOutsideOfScheduling ? 'active' : '' }}" viewbox="0 0 1000 250">
+					<path stroke-width="5" d="M5,5
+                                                L900,5
+                                                L995,125
+                                                L900,245
+                                                L5,245
+                                                L100,125
+                                                L5,5"/>
+					<text x="150" y="100" class="stepNumber" style="font-size:50px;">Step 3</text>
+					<text x="150" y="175" class="stepDesc" style="font-size:65px;">Provide Patient Info</text>
+				</svg>
+			</li>
+			{# done #}
+			<li>
+				<svg id="step4Icon" class="{{ lastPage is defined and lastPage is not null ? 'active' : '' }}" viewbox="0 0 1000 250">
+					<path stroke-width="5" d="M5,5
+                                                L975,5
+                                                Q995,5 995,25
+                                                L995,225
+                                                Q995,245 975,245
+                                                L5,245
+                                                L100,125
+                                                L5,5
+                                                Z"/>
+					<text x="425" y="150" style="font-size:65px;">Done!</text>
+				</svg>
+			</li>
+		</ul>
+		<ul
+			id="breadcrumb-mobile">
+			{# step 1 #}
+			<li>
+				<svg id="step1Icon" class="active" viewbox="0 0 900 400">
+					<path stroke-width="10" d="M25,10
+                                                L800,10
+                                                L890,200
+                                                L800,390
+                                                L25,390
+                                                Q10,390 10,375
+                                                L10,25
+                                                Q10,10 25,10
+                                                Z"/>
+					<text x="220" y="250" class="stepNumber" style="font-size:125px;">Step 1</text>
+				</svg>
+			</li>
+			{# step 2 #}
+			<li>
+				<svg id="step2Icon" class="{{ currentPage in stepTwo or currentPage in stepThree or arrivedFromOutsideOfScheduling ? 'active' : '' }}" viewbox="0 0 900 400">
+					<path stroke-width="10" d="M10,10
+                                                L800,10
+                                                L890,200
+                                                L800,390
+                                                L10,390
+                                                L90,200
+                                                L10,10
+												Z"/>
+					<text x="250" y="250" class="stepNumber" style="font-size:125px;">Step 2</text>
+				</svg>
+			</li>
+			{# step 3 #}
+			<li>
+				<svg id="step2Icon" class="{{ currentPage in stepTwo or currentPage in stepThree or arrivedFromOutsideOfScheduling ? 'active' : '' }}" viewbox="0 0 900 400">
+					<path stroke-width="10" d="M10,10
+                                                L800,10
+                                                L890,200
+                                                L800,390
+                                                L10,390
+                                                L90,200
+                                                L10,10
+												Z"/>
+					<text x="250" y="250" class="stepNumber" style="font-size:125px;">Step 3</text>
+				</svg>
+			</li>
+			{# done #}
+			<li>
+				<svg id="step4Icon" class="{{ lastPage is defined and lastPage is not null ? 'active' : '' }}" viewbox="0 0 900 400">
+					<path stroke-width="10" d="M10,10
+                                                L875,10
+                                                Q890,10 890,25
+                                                L890,375
+                                                Q890,390 875,390
+                                                L10,390
+                                                L90,200
+                                                L10,10
+                                                Z"/>
+					<text x="270" y="250" class="stepNumber" style="font-size:125px;">Step 4</text>
+				</svg>
+			</li>
+		</ul>
+	</div>
+</div>

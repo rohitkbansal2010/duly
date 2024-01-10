@@ -1,0 +1,25 @@
+{% extends "_layouts/_main.twig" %}
+
+{% set alert = craft.entries.slug(craft.app.request.getSegment(2)).one() %}
+
+{% block title "Alert"|t ~ ' - ' ~ alert.title %}
+{% block bodyClass "alert-notice" %}
+
+{% block main %}
+    <section class="alert-container">
+        <div class="header">
+            <div class="message-type">
+                <i class="material-icons notification_important"></i>
+                <span>{{ "alert"|upper }}</span>
+            </div>
+            <h2>{{ alert.title }}</h2>
+            <div class="issued">
+                <span class="semi-bold">{{ "Issued: {date}"|t(params = { date: alert.postDate|date("F d, Y")}) }}</span>
+                {% if date(alert.expiryDate) < date("90 days") %}
+                    <span>{{ "Expires: {date}"|t(params = { date: alert.expiryDate|date("F d, Y")}) }}</span>
+                {% endif %}
+            </div>
+        </div>
+        {{ alert.alertContent }}
+    </section>
+{% endblock %}

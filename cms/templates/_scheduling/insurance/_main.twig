@@ -1,0 +1,109 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Schedule an Appointment'|t %}
+{% block bodyClass "schedule-an-appointment-insurance-page" %}
+
+{% set patientUser = craft.app.patient_user.identity %}
+{% set arrivedFromOutsideOfScheduling = patientUser and patientUser.physician_selected_outside_of_scheduling == '1' %}
+{% set apointmentTimeSelectedOutsideOfScheduling = patientUser and patientUser.apointment_time_selected_outside_of_scheduling %}
+{% set showSidePanel = patientUser.appointment_physician_id is not empty and patientUser.appointment_department_id is not empty %}
+{% set isLoggedIn = patientUser and not patientUser.anonymous %}
+{% set isSchedulingFlowWithoutPhysicians = patientUser and patientUser.isSchedulingFlowWithoutPhysicians() %}
+{% set service = craft.entries.id(patientUser.getAppointmentServiceIds()).one() %}
+{% set serviceTitle = service.title ?? '' %}
+
+{% set ctaLabel = isSchedulingFlowWithoutPhysicians ? 'Find a Location'|t : 'Find A Provider'|t %}
+{% set ctaLabel = arrivedFromOutsideOfScheduling ? 'Continue'|t : ctaLabel %}
+{% set backUrl = "/login-portal" %}
+
+{% if isLoggedIn %}
+	{% set backUrl = "/schedule" %}
+{% endif %}
+
+{% if showSidePanel and isLoggedIn %}
+	{% set physician = craft.entries({
+		section: 'physicians',
+		id: patientUser.appointment_physician_id
+	}).one() %}
+
+	{% if physician is not null %}
+		{% set backUrl =  physician.getUrl() %}
+	{% else %}
+		{% set backUrl =  "/physicians" %}
+	{% endif %}
+{% endif %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	<div id="backgroundPattern"></div>
+	{% include "_scheduling/alerts/_exit-alert.twig" %}
+	{% include "_scheduling/navigation/_steps.twig" with {
+		backUrl: backUrl
+	} %}
+	
+	{% if dob is defined and dob is not null or arrivedFromOutsideOfScheduling %}
+		<h2>{{ "Just a couple of questions before scheduling your appointment."|t }}</h2>
+	{% elseif isSchedulingFlowWithoutPhysicians %}
+		<h2>{{ "Just a couple of questions to find you the best {service} location."|t(params = { service: serviceTitle|capitalize }) }}</h2>
+	{% else %}
+		<h2>{{ "Just a couple of questions to find you the best {serviceDoctorName}."|t(params = { serviceDoctorName: serviceDoctorName|capitalize }) }}</h2>
+	{% endif %}
+
+	<section class="schedule-an-appointment-insurance-container cta-form-container {{ apointmentTimeSelectedOutsideOfScheduling or showSidePanel ? 'appointment-time-selected-outside-of-scheduling' : '' }}">
+		{% if apointmentTimeSelectedOutsideOfScheduling or showSidePanel %}
+			{% include "_scheduling/select-appointment/_physician-info.twig" with {
+				modalMap: false,
+				physician: craft.entries.id(patientUser.appointment_physician_id).one(),
+				suite: findSuiteEntryForGivenExternalDepartmentID(patientUser.appointment_department_id)
+			} %}
+		{% endif %}
+		{% if dob is defined and dob is not null %}
+			<form class="insurance prepopulated-form" id="insurance-form" method="POST">
+				{{ csrfInput() }}
+
+				{% set month = dob|date('m') %}
+				{% set day = dob|date('d') %}
+				{% set year = dob|date('Y') %}
+
+				{% include "_scheduling/insurance/_dob.twig" with {
+					month: month,
+					day: day,
+					year: year
+				} %}
+				
+				{% include "_scheduling/insurance/_insurance_pickers.twig" %}
+
+				<div class="form-actions cta-form">
+					<button disabled class="dmgButton primary1" type="submit" id="find-a-doctor">
+						<div class="cta">
+							<i class="fa fa-spinner fa-spin hidden"></i>
+							{{ ctaLabel}}
+						</div>
+					</button>
+				</div>
+			</form>
+		{% else %}
+			<form class="insurance" id="insurance-form" method="POST">
+				{{ csrfInput() }}
+				{% include "_scheduling/insurance/_dob.twig" %}
+				{% include "_scheduling/insurance/_insurance_pickers.twig" %}
+				<div class="form-actions cta-form">
+					<button disabled class="dmgButton primary1" type="submit" id="find-a-doctor">
+						<div class="cta">
+							<i class="fa fa-spinner fa-spin hidden"></i>
+							{{ ctaLabel }}
+						</div>
+					</button>
+				</div>
+			</form>
+		{% endif %}
+
+    	{% set showModal = craft.app.session.getFlash('show-patient-picker') %}
+		{% if showModal %}
+    		{% include "_modals/_login-modal.twig" %}
+		{% else %}
+			{% include "_scheduling/insurance/_visit_type_modals.twig" %}
+		{% endif %}
+	</section>
+{% endblock %}

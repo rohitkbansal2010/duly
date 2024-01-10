@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImmunizationsProgressPanel should render component 1`] = `
+<div
+  className="progressPanelContainer"
+>
+  <div
+    className="progressPanelStatus"
+  >
+    <div
+      className="progressPanelStatusIcon progressPanelStatusIconAlmost"
+    >
+      <img
+        alt="Almost status"
+        src="status-almost-light-blue.svg"
+      />
+    </div>
+    <div
+      className="progressPanelStatusTitles"
+    >
+      <span
+        className="progressPanelStatusTitle"
+      >
+        You’re almost there!
+      </span>
+      <span>
+        Few more and you’re all set!
+      </span>
+    </div>
+  </div>
+  <div
+    className="progressPanelProgress"
+  >
+    <div
+      className="progressPanelProgressDoughnut"
+    >
+      <PercentageDonutPieChart
+        percent={75}
+      />
+    </div>
+    <div
+      className="progressPanelProgressTitles"
+    >
+      <span
+        className="progressPanelProgressTitle"
+      >
+        progress
+      </span>
+      <span>
+        75% completed
+      </span>
+    </div>
+  </div>
+  <div
+    className="progressPanelRecommended"
+  >
+    <div
+      className="progressPanelRecommendedIcon"
+    >
+      <img
+        alt="recommended immunizations"
+        src="immunization-light-blue.svg"
+      />
+    </div>
+    <div
+      className="progressPanelRecommendedTitles"
+    >
+      <span
+        className="progressPanelRecommendedTitle"
+      >
+        recommended
+      </span>
+      <span>
+        4
+         immunization
+        s
+      </span>
+    </div>
+  </div>
+</div>
+`;

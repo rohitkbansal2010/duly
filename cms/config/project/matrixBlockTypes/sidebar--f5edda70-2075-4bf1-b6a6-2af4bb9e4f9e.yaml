@@ -1,0 +1,9 @@
+field: a01f74cb-8769-436e-97d6-d2b8edcae42c
+fieldLayouts:
+    dc600aff-1db0-45f5-a65b-a8596eedc7aa: { tabs: [{ elements: [{ fieldUid: 140f6b60-4a2c-4491-badb-85aca5b48bee, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 9e7ce867-3168-45bc-b1f0-0d3cf509a111, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    9e7ce867-3168-45bc-b1f0-0d3cf509a111: { columnSuffix: null, contentColumnType: string, fieldGroup: null, handle: sidebarSectionEntries, instructions: 'Select the entries you want to appear in this section.', name: Entries, searchable: false, settings: { allowSelfRelations: false, limit: '', localizeRelations: false, selectionLabel: 'Select an entry', showSiteMenu: true, source: null, sources: ['section:f827425f-2a74-42c5-ae84-0725c8234a9a', 'section:256bbcce-012a-4269-b031-4144a9905584', 'section:17cba234-5703-403b-a9e3-d029df2d1745', 'section:a578774f-f4e1-4f95-a2f8-f9b8bae72c8c', 'section:e3299412-d9c2-4679-9fad-64e72b3c5a42', 'section:f4302687-b145-4c49-a50b-1c31f6d838d4'], targetSiteId: null, validateRelatedElements: true, viewMode: null }, translationKeyFormat: null, translationMethod: site, type: craft\fields\Entries }
+    140f6b60-4a2c-4491-badb-85aca5b48bee: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: sidebarSectionHeader, instructions: 'A section header to display over the element in this sidebar element.', name: 'Section Header', searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: 'Recommended Articles', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: sidebar
+name: 'Sidebar Content'
+sortOrder: 1

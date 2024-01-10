@@ -1,0 +1,77 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+//Variables
+$headerTopPadding: 2.5rem;
+$headerBottomPadding: 4rem;
+$headerTextFontSize: 2.5rem;
+$browserGap: 0.5rem;
+$headerHeight: calc(
+  #{$headerTopPadding + $headerBottomPadding + $headerTextFontSize + $browserGap}
+);
+//
+
+.cvWrapper {
+  display: flex !important;
+  flex: 1 0 0%;
+  flex-direction: column !important;
+  width: 100%;
+  padding: 0 3rem 0 2.5rem;
+
+  &Header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: $headerTopPadding 0 $headerBottomPadding;
+
+    &Text {
+      margin-bottom: 0;
+      color: $dupage-violet;
+      font-size: $headerTextFontSize;
+      @include nexa-heavy-highlight;
+
+      & span {
+        color: $medium-red-violet;
+      }
+    }
+  }
+
+  &Content {
+    display: flex !important;
+    flex: 1 0 auto;
+    width: 100%;
+
+    &Statistics {
+      z-index: 20;
+      width: 24%;
+      height: calc(100vh - #{$headerHeight});
+      padding: 3.5rem 2.5rem 0;
+      background-color: $white;
+      box-shadow: 0.5rem 0.25rem 40px convertToRGBA($dark-gray, 0.08),
+        0 0 0.06rem convertToRGBA($dark-gray, 0.06),
+        0 1.25rem 1.56rem -0.3rem convertToRGBA($dark-gray, 0.1),
+        0px 0.63rem 0.63rem -0.3rem convertToRGBA($black, 0.04);
+      @include ios-scrollbar;
+    }
+
+    &Calendar {
+      z-index: 10;
+      width: 76%;
+      height: calc(100vh - #{$headerHeight});
+      padding: 3.5rem 3.5rem 3.5rem 5rem;
+      background-color: $alice-blue;
+      border: 0.06rem solid $light-gray;
+      border-left: 0;
+      border-radius: 0 0.5rem 0.5rem 0;
+      box-shadow: 0 0 0.06rem convertToRGBA($dark-gray, 0.05),
+        0 0.63rem 0.94rem -0.19rem convertToRGBA($dark-gray, 0.1),
+        0 0.25rem 0.38rem -0.13rem convertToRGBA($dark-gray, 0.05);
+      @include invisible-scroll;
+
+      &Locked {
+        overflow-y: hidden;
+      }
+    }
+  }
+}

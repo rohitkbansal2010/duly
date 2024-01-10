@@ -1,0 +1,44 @@
+&.similar-physicians {
+  @import "../../_services/_details/_physicians";
+  margin: 0;
+  background: none;
+  padding: 0;
+
+  .physicians-list-grid {
+    margin: 15px 0px 0;
+  }
+
+  @include responsive(x-large) {
+    flex-basis: 75%;
+    margin: 0 auto;
+  }
+
+  @include responsive(large) {
+    flex-basis: 72%;
+  }
+
+  @include responsive(medium) {
+    flex-basis: 90%;
+  }
+
+  @include responsive(small) {
+    flex-basis: 95%;
+  }
+
+  .physicians-list {
+    justify-content: flex-start;
+
+    @include responsive(large) {
+      margin: 0 auto;
+      justify-content: space-evenly;
+    }
+
+    .default-headshot {
+      border-radius: 2px;
+    }
+  }
+
+  article {
+    margin: 0;
+  }
+}

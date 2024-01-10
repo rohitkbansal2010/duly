@@ -1,0 +1,210 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.timelineAppointmentsGroup {
+  &:not(:last-child) {
+    margin-bottom: 1.25rem;
+  }
+
+  &Card {
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: 0.5rem !important;
+
+    &Header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem !important;
+      column-gap: 2rem;
+      background-color: $white !important;
+      border-bottom: 0 !important;
+      border-radius: 0 !important;
+      cursor: pointer;
+    }
+
+    &Body {
+      padding: 0 1.75rem 1.25rem !important;
+      background-color: $white !important;
+    }
+  }
+
+  &Icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.75rem;
+    height: 3.75rem;
+    margin-right: 0.9rem;
+    border-radius: 50%;
+
+    &Blue {
+      @include background-opacity($dupage-blue, 0.3);
+    }
+
+    &Magenta {
+      @include background-opacity($dupage-magenta, 0.3);
+    }
+
+    & img {
+      width: 2rem;
+      height: 2rem;
+      object-fit: cover;
+    }
+  }
+
+  &LeftBlock {
+    display: flex;
+    // width: 100%;
+  }
+
+  &RightBlock {
+    display: flex;
+    justify-content: space-between;
+    min-width: 11.5rem;
+  }
+
+  &Appointment {
+    &Title {
+      max-width: 22.5rem;
+      margin-top: 0.4rem !important;
+      margin-bottom: 0 !important;
+      color: $default-text;
+      font-size: var(--font-size-24px-4px) !important;
+      // line-height: 1.625rem;
+      word-break: break-word;
+      @include nexa-heavy-highlight;
+    }
+
+    &SubtitleRow {
+      display: flex;
+    }
+
+    &SubtitleCol {
+      padding-right: 0px !important;
+    }
+
+    &Date {
+      width: max-content;
+      color: $default-text;
+      font-weight: 700;
+      font-size: var(--font-size-14px-4px);
+      font-family: "Inter", sans-serif;
+      line-height: 1.5rem;
+    }
+
+    &Status {
+      display: flex;
+      align-items: center;
+      color: $default-text;
+      font-weight: 700;
+      font-size: var(--font-size-14px-4px);
+      font-family: "Inter", sans-serif;
+      line-height: 1.5rem;
+    }
+  }
+
+  &Practitioner {
+    display: flex;
+    align-items: center;
+
+    &Name {
+      margin: 0px;
+      margin-left: 0.625rem;
+      color: $default-text;
+      font-weight: 700;
+      font-size: var(--font-size-14px-4px);
+      font-family: "Inter", sans-serif;
+      line-height: 1.7rem;
+      // word-break: break-word;
+    }
+
+    &Speciality {
+      margin: 0.125rem 0 0 0.625rem;
+      color: #002855;
+      font-weight: 400;
+      font-size: var(--font-size-14px-4px);
+      font-family: "Inter", sans-serif;
+      line-height: var(--line-height-16px-4px);
+      word-break: break-word;
+    }
+  }
+
+  &CountsAppointments {
+    position: absolute;
+    top: -0.25rem;
+    right: -0.56rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: $white;
+    font-size: 0.75rem;
+    line-height: 1.7rem;
+    border: 0.063rem solid $white;
+    border-radius: 50%;
+    @include nexa-heavy-highlight;
+
+    &DarkBlue {
+      background-color: $dupage-dark-blue;
+    }
+
+    &Violet {
+      background-color: $dupage-violet;
+    }
+  }
+
+  &AccordionToggle {
+    display: flex;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    outline: 0;
+
+    &Icon {
+      width: 100%;
+      transition: 0.5s ease;
+
+      &Collapse {
+        transform: rotateX(0);
+      }
+
+      &Expand {
+        transform: rotateX(180deg);
+      }
+    }
+  }
+
+  &Status {
+    display: flex;
+    align-items: center;
+    // margin-top: 0.13rem;
+    width: max-content;
+    color: #ff6a14;
+    font-weight: 600;
+    font-size: var(--font-size-16px-4px);
+    line-height: 1.5rem;
+
+    &Divider {
+      width: 0.0625rem;
+      height: 1rem;
+      margin-right: 5px;
+      margin-left: 5px;
+      background: #8d8d8d;
+      // margin-top: 2px;
+    }
+  }
+}
+.Large {
+  flex-direction: column;
+}
+.LargeDivider {
+  display: none;
+}

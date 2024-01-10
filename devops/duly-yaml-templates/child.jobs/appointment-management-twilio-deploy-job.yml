@@ -1,0 +1,96 @@
+parameters:
+  - name: environment
+    type: string
+    default: 'prd'
+    values:
+    - 'dev'
+    - 'qat'
+    - 'uat'
+    - 'prd'
+  - name: nodeVersion
+    type: string
+    default: '12.22.10'
+  - name: vmImage
+    type: string
+    default: 'ubuntu-latest'
+  - name: artifactsPath
+    type: string
+    default: ''
+  - name: projectPath
+    type: string
+    default: '$(Build.SourcesDirectory)/src/twilio' # This is because only one repository should be cloned.
+  - name: vstsFeed
+    type: string
+    default: 'duly.digital'
+
+jobs:
+  - deployment: deploy_twilio_artifacts_${{ parameters.environment }}
+    displayName: Deploy Twilio artifacts on ${{ upper(parameters.environment) }}
+    variables:
+      - group: twilio.secrets.${{ parameters.environment }}
+      - name: DEPLOYMENT_ENVIRONMENT
+        value: ${{ parameters.environment }}
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+
+            - task: CopyFiles@2    
+              displayName: 'Copy Twilio build artifacts'
+              inputs:
+                SourceFolder: ${{ parameters.artifactsPath }}
+                TargetFolder: ${{ parameters.projectPath }}
+              continueOnError: false
+
+            - task: PowerShell@2
+              displayName: 'PowerShell: Update .env.$(DEPLOYMENT_ENVIRONMENT) file'
+              inputs:
+                targetType: inline
+                script: > 
+                  (Get-Content ./.env.$(DEPLOYMENT_ENVIRONMENT)) 
+                  -replace 'AUTH_TOKEN=', 'AUTH_TOKEN=$(AUTH_TOKEN)'
+                  -replace 'TRIGGER_AUTH_SECRET=', 'TRIGGER_AUTH_SECRET=$(TRIGGER_AUTH_SECRET)'
+                  -replace 'CALLBACK_CLIENT_SECRET=', 'CALLBACK_CLIENT_SECRET=$(CALLBACK_CLIENT_SECRET)'
+                  | Set-Content ./.env
+                workingDirectory: ${{ parameters.projectPath }}
+              continueOnError: false
+              
+            - task: NodeTool@0
+              displayName: 'Node: Install ${{ parameters.nodeVersion }}'
+              inputs:
+                versionSpec: ${{ parameters.nodeVersion }}
+            
+            # Restore packages because we need them to run deploy command
+            - task: Npm@1
+              displayName: 'Npm: CI'
+              inputs:
+                workingDir: ${{ parameters.projectPath }}
+                verbose: false
+                command: ci
+                customRegistry: useFeed
+                customFeed: ${{ parameters.vstsFeed }}
+
+            - ${{ if eq(parameters.environment, 'prd') }}:
+              - task: Npm@1
+                displayName: 'Npm: deploy Twilio artifacts on production'
+                inputs:
+                  workingDir: ${{ parameters.projectPath }}
+                  command: custom
+                  verbose: false
+                  customCommand: 'run deploy -- --production'
+                continueOnError: false
+
+            - ${{ if ne(parameters.environment, 'prd') }}:
+              - task: Npm@1
+                displayName: 'Npm: deploy Twilio artifacts on ${{ parameters.environment }}'
+                inputs:
+                  workingDir: ${{ parameters.projectPath }}
+                  command: custom
+                  verbose: false
+                  customCommand: 'run deploy -- --environment ${{ parameters.environment }}'
+                continueOnError: false
+              

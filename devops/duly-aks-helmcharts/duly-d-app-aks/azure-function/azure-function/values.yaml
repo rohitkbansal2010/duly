@@ -1,0 +1,91 @@
+replicaCount: 0
+
+image:
+  repository: ""
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext:
+  capabilities:
+    drop:
+    - NET_RAW 
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 128Mi
+  limits:
+    cpu: 300m
+    memory: 256Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+azureAADPodIdentity:
+  aadPodIdCustomName: "duly-d-component-pod-id"
+
+keda:
+  minReplicaCount: 0
+  maxReplicaCount: 3
+  # triggerType: "http-trigger" for a HTTP triggered azure function
+  # triggerType: "azure-servicebus" for an ASB trigger
+
+  triggerType: "azure-servicebus"
+  metadata:
+    namespace: ""
+    queueName: ""
+    messageCount: ""
+
+  # triggerType: "http-trigger"
+  # metadata:
+  #   serverAddress: http://prometheus-server.default.svc.cluster.local:9090
+  #   metricName: access_frequency
+  #   threshold: '1'
+  #   query: sum(rate(nginx_ingress_controller_requests{<ingress_name>}[1m]))
+
+# may be enabled for triggerType: "http-trigger"
+healthcheck:
+  enabled: false
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  className: ""
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  hosts:
+    - host: 
+      paths:
+        - path: /(.*)
+          pathType: ImplementationSpecific
+  tls: []

@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: efdd5869-bc64-4cb5-9d8b-01cafc814ff5
+handle: heroImageCta
+instructions: 'Provide details to enable CTA to be shown on hero image.'
+name: 'Hero Image CTA'
+searchable: false
+settings:
+    contentTable: '{{%matrixcontent_heroimagecta}}'
+    maxBlocks: '1'
+    minBlocks: ''
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

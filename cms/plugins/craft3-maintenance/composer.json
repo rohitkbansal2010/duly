@@ -1,0 +1,43 @@
+{
+    "name": "punchkick/craft3-maintenance",
+    "description": "A maintenance mode plugin for Craft 3 developed by Punchkick Interactive",
+    "type": "craft-plugin",
+    "version": "0.0.1",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "craft3-maintenance"
+    ],
+    "support": {
+        "docs": "https://wiki.punchkick.com",
+        "issues": "https://jira.punchkickinteractive.com"
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Punchkick Interactive",
+            "homepage": "https://www.punchkick.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+          "punchkick\\maintenance\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Maintenance Mode",
+        "handle": "craft3-maintenance",
+        "hasCpSettings": false,
+        "hasCpSection": true,
+        "changelogUrl": "???",
+        "components": {
+            "maintenanceService": "punchkick\\maintenance\\services\\MaintenanceService"
+        },
+        "class": "punchkick\\maintenance\\MaintenancePlugin"
+    }
+}

@@ -1,0 +1,270 @@
+{% extends "_layouts/_main.twig" %}
+
+{% set entry = craft.entries.slug(craft.app.request.getSegment(2)).one() %}
+
+{% block bodyClass "health-topics" %}
+
+{% set contentSummary = entry.contentSummary %}
+
+{% set contentTitle = null %}
+{% if entry.customSeoMetaTitle is not null %}
+    {% set contentTitle = entry.customSeoMetaTitle %}
+{% else %}
+    {% set contentTitle = entry.title %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% if entry.customSeoMetaDescription is not null %}
+    {% set contentSummary = entry.customSeoMetaDescription %}
+{% endif %}
+
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        entry: entry,
+		heroImage: entry.heroImage.one,
+        contentTitle: contentTitle,
+		contentSummary: contentSummary,
+        cacheKey: 'blog-meta-og-' ~ entry.id
+    } only %}
+{% endblock %}
+
+{% block main %}
+    {% set physicianAuthorSchemas = [] %}
+    <section class="blog-entry">
+        <article>
+            {% include '_health-topics/_picture.twig' with {
+                url: entry.heroImage.one(),
+                key: 1,
+                category: null,
+                articleUrl: null,
+                pageInfo: null,
+                showCategoryBanner: false
+            } %}
+
+            <div class="headline">
+                <h1>{{ entry.title }}</h1>
+                {% if entry.subHeadline %}
+                    <h2>{{ entry.subHeadline|typogrify }}</h2>
+                {% endif %}
+            </div>
+
+            <div class="article-contents">
+                <div class="sub-headline">
+                    <div class="author-and-date">
+                        <div class="author-container">
+                            <div class="author">
+                                {% set department = entry.specialityDepartmentAuthor.one() %}
+                                {% if department is not null %}
+                                    {% set url =  department.linkUrl is not null ? department.linkUrl : department.getUrl() %}
+
+                                    {{ "{author}"|t(params = {
+                                        author: tag('a', {
+                                            text: department.title,
+                                            class: 'author-tag link-effect',
+                                            href: url,
+                                            rel: "author",
+                                        })
+                                    })|raw }}
+                                {% else %}
+                                    {% for key, author in entry.physicianAuthors.all() %}
+                                        {% if key == 0 %}
+                                            {% set physician = author.physicianAuthor.one() %}
+                                            {% if physician is not null %}
+                                                {{ "{author}"|t(params = {
+                                                    author: tag('a', {
+                                                        text: physician.title,
+                                                        class: 'author-tag link-effect',
+                                                        href: physician.getUrl(),
+                                                        rel: "author",
+                                                    })
+                                                })|raw }}
+                                            {% endif %}
+                                        {% else %}
+                                            {% set physician = author.physicianAuthor.one() %}
+                                            {% if physician is not null %}
+                                                {{ "{author}"|t(params = {
+                                                    author: tag('a', {
+                                                        text: physician.title,
+                                                        class: 'author-tag link-effect',
+                                                        href: physician.getUrl(),
+                                                        rel: "author",
+                                                    })
+                                                })|raw }}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if entry.type.handle == "newsAndPress" %}
+                            <div class="published-date">{{entry.postDate|date('F d, Y')}}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="share-sheet">
+                        <a alt="{{ "Share to Facebook."|t }}" rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/dialog/feed?app_id={{ craft.app.config.general.facebook_app_id|raw }}&display=popup&caption={{ entry.title }}&link={{ entry.getUrl() }}" class="non-material-icon facebook"></a>
+                        <a alt="{{ "Share to Twitter."|t }}" rel="noopener noreferrer" target="_blank" href="https://twitter.com/intent/tweet?url={{ entry.getUrl()|url_encode }}" class="non-material-icon twitter"></a>
+                        <a alt="{{ "Email this article to a friend."|t }}" rel="noopener noreferrer" target="_blank" href="mailto:?subject={{ entry.title }}&body={{ 'I thought you might be interested in this article: {link}'|t(params = { link: entry.getUrl() }) }}" class="non-material-icon mail"></a>
+                    </div>
+                </div>
+
+                <div class="content-body">
+                    {{ entryWithOptimizedImages(entry)|typogrify|raw }}
+
+                    {% if entry.type.handle != "newsAndPress" %}
+                        <div class="health-topics">
+                            <p>{{ "Health Topics:"|t }}</p>
+                            <ul>
+                                {% for category in entry.healthTopics.all %}
+                                    <li>{{ category.category.one.link }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    {% set allAuthors = entry.physicianAuthors.all %}
+                    {% if allAuthors|length != 0 %}
+                        <div class="authors">
+                            <ul>
+                                {% for author in allAuthors %}
+                                    {% set physician = author.physicianAuthor.one %}
+                                    <li>
+                                        {% set hasHeadShot = physician.physicianHeadshot.one() is not null %}
+                                        <div class="{{ hasHeadShot == false ? 'image default-headshot bio' : 'image' }}">
+                                            {% if hasHeadShot %}
+                                                {{ getOptimizedImage(physician.physicianHeadshot.one(), 'webp', false, [
+                                                    { 'settings': ['gravity:sm', 'resize:fill:64:64:1:1'], 'css': '(min-width: 200px)' }
+                                                ])|raw }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="bio">{{ physician.physicianBio }}</div>
+                                    </li>
+
+                                    {% set physicianAuthorSchema = craft.schema
+                                        .person
+                                        .name(physician.title)
+                                        .url(physician.getUrl())
+                                    %}
+
+                                    {% if physician.physicianHeadshot.one() is not null %}
+                                        {% set physicianAuthorSchema = physicianAuthorSchema
+                                            .image(getOptimizedImage(physician.physicianHeadshot.one, 'jpeg', true)[0]|raw)
+                                        %}
+                                    {% endif %}
+
+                                    {% set physicianAuthorSchemas = physicianAuthorSchemas|merge([physicianAuthorSchema]) %}
+                            
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </article>
+    </section>
+    {% if entry.showRelatedContent and entry.relatedContent %}
+        {% set relatedContent = entry.relatedContent.all %}
+        <section class="related-articles">
+            {% if relatedContent|length == 0 %}
+                {% set relatedContent = craft.entries({
+                    id: 'not ' ~ entry.id,
+                    section: 'blog',
+                    limit: 6,
+                    unique: true,
+                    orderBy: {
+                        postDate: SORT_ASC
+                    },
+                    type: 'healthTopic',
+                    relatedTo: [
+                        'and',
+                        { targetElement: entry.healthTopics.one.category, field: 'healthTopics.category' }
+                    ]
+                }).all %}
+            {% endif %}
+
+            {% if relatedContent|length != 0 %}
+                <h3>{{ "If you are interested in this health topic, you may also like:"|t }}</h3>
+
+                {% for relEntry in relatedContent %}
+                    <section class="related-article">
+                        {% include '_health-topics/_picture.twig' with {
+                            url: relEntry.heroImage.one(),
+                            key: 0,
+                            category: null,
+                            articleUrl: relEntry.getUrl(),
+                            pageInfo: null,
+                            showCategoryBanner: false
+                        } %}
+                        <h4><a href="{{ relEntry.getUrl() }}">{{ relEntry.title }}</a></h4>
+                        <div class="blue-line"></div>
+                        {% set relDepartment = relEntry.specialityDepartmentAuthor.one() %}
+                        {% if relDepartment is not null %}
+                            {{ tag('h5', { 'html': "By {author}"|t(params = {
+                                author: tag('a', {
+                                    text: relDepartment.title,
+                                    href: relDepartment.getUrl(),
+                                    rel: "author"
+                                })
+                            })})|raw }}
+                        {% else %}
+                            {% for key, author in relEntry.physicianAuthors.all() %}
+                                {% if key == 0 %}
+                                    {% set relPhysician = author.physicianAuthor.one() %}
+                                    {% if relPhysician != null %}
+                                        {{ tag('h5', { 'html': "By {author}"|t(params = {
+                                            author: tag('a', {
+                                                text: relPhysician.title,
+                                                href: relPhysician.getUrl(),
+                                                rel: "author"
+                                            })|raw
+                                        })})|raw }}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
+                    </section>
+                {% endfor %}
+
+                {% if (relatedContent|length + 1) % 3 == 0 %}
+                    <section class="related-article"></section>
+                {% endif %}
+            {% endif %}
+        </section>
+    {% endif %}
+    {# @var schema \Spatie\SchemaOrg\Schema #}
+    {% set schema = craft.schema %}
+
+    {% set generatedSchema = schema
+        .article
+        .headline(entry.title)
+        .datepublished(entry.postDate)
+        .datemodified(entry.dateUpdated)
+        .articleBody(entryWithOptimizedImages(entry)|typogrify|raw)
+        .publisher(
+            schema.organization
+                .name("Duly Health and Care")
+                .logo(
+                    schema.imageobject
+                        .url(craft.app.request.getBaseUrl() ~ "/dist/img/dmg-logo.svg")
+                )
+        )
+    %}
+
+    {% if physicianAuthorSchemas is not null %}
+        {% set generatedSchema = generatedSchema.author(physicianAuthorSchemas) %}
+    {% endif %}
+
+    {% if entry.heroImage.one() is not null %}
+        {% set generatedSchema = generatedSchema.image(getOptimizedImage(entry.heroImage.one(), 'jpeg', true)[0]) %}
+    {% endif %}
+
+    {{ generatedSchema | raw }}
+   
+    <div class="footer-effect-blog">
+        <div class="footer-effect-left"></div>
+        <div class="footer-effect-right"></div>
+    </div>
+{% endblock %}

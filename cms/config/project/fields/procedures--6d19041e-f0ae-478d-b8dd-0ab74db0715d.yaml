@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: eca27ab5-4de8-41d9-85c4-b3c60701f59d
+handle: procedures
+instructions: 'Procedures that belong to this category.'
+name: Procedures
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:d8a05845-81f0-4f51-9240-d23c124020d6']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

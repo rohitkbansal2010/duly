@@ -1,0 +1,52 @@
+<policies>
+    <inbound>
+        <base />
+        <!-- Validate the JWT -->
+        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" failed-validation-error-message="Unauthorized. Access token is missing or invalid." output-token-variable-name="jwtValue">
+            <openid-config url="https://login.microsoftonline.com/{{aad-tenant-id}}/v2.0/.well-known/openid-configuration" />
+            <issuers>
+                <issuer>https://sts.windows.net/{{aad-tenant-id}}/</issuer>
+                <issuer>https://login.microsoftonline.com/{{aad-tenant-id}}/v2.0</issuer>
+            </issuers>
+            <required-claims>
+                <claim name="aud" match="any">
+                    <value>0b08d543-0724-4c91-854d-27ba1d7d1dc9</value>
+                    <value>api://0b08d543-0724-4c91-854d-27ba1d7d1dc9</value>
+                </claim>
+                <claim name="appid" match="any">
+                    <value>303085d9-ec3d-4c9d-8f28-2ae9784672d4</value>
+                    <value>3d81014a-0ba4-4627-b356-2c4bd48e71dd</value>
+                    <value>2f1410b3-8727-4708-b2b0-6b7949ebe8ed</value>
+                    <value>bf775e9a-8d7e-495c-8bcb-b9d6617461da</value>
+                </claim>
+            </required-claims>
+        </validate-jwt>
+
+        <!-- Build invalidation key based on the JWT -->
+        <set-variable name="jwtInvalidationKey" value="@(((Jwt)context.Variables["jwtValue"])?.Claims["appid"].FirstOrDefault() + "-" + ((Jwt)context.Variables["jwtValue"])?.Claims["oid"].FirstOrDefault() + "-" + ((Jwt)context.Variables["jwtValue"])?.ExpirationTime.Value.Ticks + "-" + ((Jwt)context.Variables["jwtValue"])?.IssuedAt.Value.Ticks)" />
+
+        <!-- Lookup JWT key at external cache storage -->
+        <cache-lookup-value key="@((string)context.Variables["jwtInvalidationKey"])" variable-name="jwtInvalidationKeyValue" caching-type="prefer-external" />
+
+        <choose>
+            <!-- Validate if the JWT is not revoked -->
+            <when condition="@(context.Variables.ContainsKey("jwtInvalidationKeyValue"))">
+                <return-response>
+                    <set-status code="401" reason="Unauthorized" />
+                    <set-header name="Expire-In-Seconds" exists-action="override">
+                        <value>@(Convert.ToInt32(((DateTime)context.Variables["jwtInvalidationKeyValue"]).Subtract(DateTime.UtcNow).TotalSeconds).ToString())</value>
+                    </set-header>
+                </return-response>
+            </when>
+        </choose>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

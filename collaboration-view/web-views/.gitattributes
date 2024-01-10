@@ -1,0 +1,5 @@
+ *
+ text=auto
+ autocrlf=false
+ autolf=true
+ eof=lf

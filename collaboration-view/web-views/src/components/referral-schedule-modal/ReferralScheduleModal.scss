@@ -1,0 +1,16 @@
+@import "~@styles/typography.scss";
+
+.modalContent {
+  border-radius: 0.625rem !important;
+}
+
+.mainheading {
+  @include nexa-heavy-highlight;
+  color: rgba(0, 40, 85, 1);
+  font-weight: 900;
+  font-size: 2rem;
+}
+
+.setWidth {
+  width: 33rem !important;
+}

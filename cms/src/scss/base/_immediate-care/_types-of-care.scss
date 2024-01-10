@@ -1,0 +1,394 @@
+.types-of-care {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	padding: 2rem;
+	flex-wrap: wrap;
+	background-color: $footer-gray;
+	border-radius: 32px 0px;
+	margin: 0 2rem 1rem 2rem;
+
+	@include responsive(small) {
+		padding: 1rem;
+		margin: 0;
+	}
+
+	.flex-upper {
+		flex: 1;
+	}
+
+	.flex-lower {
+		flex: none;
+	}
+
+	.type-of-care {
+		background: $white;
+		padding: 25px;
+		text-align: center;
+		flex: 0 0 auto;
+		margin-bottom: 20px;
+		display: flex;
+		flex-direction: column;
+		border-radius: 32px 0px;
+		border: 2px solid $oxford;
+		box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+
+		.no-text-decoration {
+			text-decoration: none;
+		}
+
+		@include responsive(bs-large) {
+			padding: 15px;
+		}
+
+		&.emergency-room {
+			flex-direction: row;
+			align-items: center;
+			width: calc(100% - 54px);
+			#emergencyIconDesktop {
+				font-size: 40px;
+				color: $oxford;
+				margin: 0 8px 0 -5px;
+			}
+			#emergencyIconMobile {
+				display: none;
+				font-size: 36px;
+				color: $oxford;
+				margin: 0 4px 0 0;
+			}
+			& > div {
+				width: calc(100% - 40px);
+				text-align: left;
+				& > div {
+					display: flex;
+					align-items: flex-end;
+					justify-content: space-between;
+					&:nth-child(1) {
+						margin: 0 0 0.5rem 0;
+					}
+					&:nth-child(2) {
+						align-items: flex-start;
+					}
+				}
+			}
+			p {
+				margin: 0;
+			}
+			.call-911 {
+				color: $alert;
+				font-size: 20px;
+				font-weight: bold;
+				white-space: nowrap;
+			}
+			.description {
+				color: $oxford;
+				margin: 0 3rem 0 0;
+				font-size: 1rem;
+			}
+			@include responsive(bs-large) {
+				width: calc(100% - 30px);
+			}
+			@include responsive(small) {
+				#emergencyIconDesktop {
+					display: none;
+				}
+				#emergencyIconMobile {
+					display: initial;
+				}
+				& > div {
+					width: 100%;
+					& > div {
+						display: block;
+						text-align: center;
+						&:nth-child(1) {
+							margin: 0 0 1rem 0;
+						}
+					}
+				}
+				.title {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					margin: 15px 0;
+				}
+				.description {
+					margin: 0 0 2rem 0;
+				}
+				.call-911 {
+					font-size: 16px;
+				}
+			}
+		}
+		.title {
+			font-size: 28px;
+			font-weight: normal;
+			line-height: 30px;
+			color: $oxford;
+			margin: 15px 0px 15px 0px;
+
+			@include responsive(bs-large) {
+				font-size: 22px;
+			}
+		}
+		.price {
+			font-size: 28px;
+			font-weight: 900;
+			line-height: 30px;
+			color: $oxford;
+			margin: 5px 0px 20px 0px;
+
+			span {
+				font-size: 28px;
+				font-weight: 900;
+				line-height: 30px;
+				color: $oxford;
+			}
+
+			@include responsive(bs-large) {
+				font-size: 24px;
+				margin: 5px;
+			}
+		}
+		.decription {
+			font-size: 16px;
+			font-weight: normal;
+			line-height: 22px;
+			min-height: 75px;
+			margin-bottom: 40px;
+
+			@include responsive(bs-large) {
+				min-height: initial;
+			}
+		}
+		.choices {
+			font-size: 16px;
+			font-weight: 600;
+			min-height: 20px;
+			@include responsive(bs-large) {
+				min-height: initial;
+			}
+		}
+
+		.cta {
+			width: 100%;
+			font-size: 22px;
+			margin-top: 30px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			@include responsive(bs-large) {
+				font-size: 16px;
+			}
+
+			&.call-911 {
+				background: $white;
+				color: #cc2330;
+				cursor: inherit;
+			}
+		}
+	}
+
+	.type-of-care:nth-of-type(1) {
+		width: calc((100% - 190px) / 3);
+		@include responsive(bs-large) {
+			width: calc(100% - 30px);
+		}
+	}
+	.type-of-care:nth-of-type(3) {
+		width: calc((100% - 190px) / 3);
+		@include responsive(bs-large) {
+			width: calc(100% - 30px);
+		}
+	}
+	.type-of-care:nth-of-type(5) {
+		width: calc((100% - 190px) / 3);
+		@include responsive(bs-large) {
+			width: calc(100% - 30px);
+		}
+	}
+	.type-of-care:last-of-type {
+		margin-bottom: 0;
+	}
+
+	.divider {
+		width: 14px;
+		@include responsive(bs-large) {
+			width: 0;
+		}
+	}
+
+	.virtual-care {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+
+		@include responsive(bs-large) {
+			flex-direction: column;
+		}
+	}
+}
+
+.virtual-care {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	padding: 50px 30px 0;
+	margin: 50px 40px 0;
+
+	@include responsive(bs-large) {
+		padding: 30px 10px 10px;
+	}
+
+	@include responsive(small) {
+		flex-direction: column;
+		padding: 1rem;
+		margin: 0;
+	}
+
+	.description-container {
+		display: flex;
+		flex-direction: column;
+		align-items: baseline;
+		padding: 0 30px 0 0;
+		flex: 0 0 50%;
+
+		@include responsive(small) {
+			align-items: center;
+			margin-bottom: 20px;
+		}
+
+		@include responsive(small) {
+			padding-right: 0;
+		}
+
+		.title {
+			font-size: 32px;
+			font-weight: normal;
+			line-height: 38px;
+			color: $oxford;
+			margin: 20px 0 0;
+			@include responsive(small) {
+				margin: 0;
+			}
+		}
+
+		.sub-title {
+			margin: 15px 0 5px;
+			font-size: 18px;
+			font-weight: 800;
+			line-height: 24px;
+		}
+
+		.description {
+			font-size: 16px;
+			font-weight: normal;
+			line-height: 24px;
+			text-align: start;
+			margin: 0;
+
+			@include responsive(bs-large) {
+				font-size: 16px;
+			}
+		}
+	}
+
+	.ctas {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		flex: 0 0 calc(50% - 30px);
+
+		@include responsive(bs-large) {
+			width: 100%;
+		}
+
+		.cta-divider {
+			height: 1px;
+			background-color: $oxford;
+		}
+
+		a.visit {
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		@include responsive(bs-large) {
+			flex: initial;
+		}
+
+		.visit {
+			display: flex;
+			padding: 20px;
+			border-radius: 4px;
+			margin: 7px 0;
+			align-items: center;
+
+			&:hover {
+				background-color: $off-blue;
+			}
+
+			@include responsive(bs-large) {
+				padding: 10px;
+			}
+
+			.arrow_forward_ios {
+				font-size: 16px;
+			}
+
+			.label {
+				flex: 1 1 auto;
+				text-align: start;
+				font-size: 28px;
+
+				color: $oxford;
+
+				@include responsive(bs-large) {
+					font-size: 22px;
+					align-items: center;
+					display: flex;
+				}
+			}
+
+			.price {
+				flex: 0 0 auto;
+				font-size: 28px;
+				color: $oxford;
+				margin-right: 15px;
+
+				@include responsive(bs-large) {
+					font-size: 24px;
+				}
+			}
+
+			.caret-right {
+				font-weight: bold;
+				display: flex;
+				align-items: center;
+			}
+		}
+	}
+}
+
+.care {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+
+	.price-disclaimer {
+		color: $dark-blue;
+		font-size: 14px;
+		font-weight: normal;
+		display: block;
+		width: 100%;
+		max-width: 1600px;
+		padding: 0 4rem;
+		box-sizing: border-box;
+		text-align: right;
+		@include responsive(small) {
+			text-align: left;
+			padding: 1rem;
+		}
+	}
+}

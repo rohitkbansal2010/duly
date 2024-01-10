@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LogoutModal should match snapshot 1`] = `
+<SideModal
+  backgroundContentColor="Magenta"
+  onHide={[MockFunction]}
+  show={true}
+>
+  <ModalHeader
+    className="logoutModalHeader"
+    closeButton={false}
+    closeLabel="Close"
+  >
+    <img
+      alt="Large duly icon"
+      src="duly-large-white-violet.svg"
+    />
+  </ModalHeader>
+  <ModalBody
+    className="logoutModalBody"
+  >
+    <div
+      className="logoutModalBodyPractitionerLogo"
+    >
+      <Avatar
+        alt="mockFirstPrefixItemMorris"
+        hasBorder={true}
+        role="RegularEmployee"
+        src="mockSrc"
+        width={12.31}
+      />
+    </div>
+    <div
+      className="logoutModalBodyPractitionerHumanName"
+      data-testid="human-name"
+    >
+      mockFirstPrefixItemMorris
+    </div>
+    <div
+      className="logoutModalBodyQuestion"
+    >
+      Are you sure you want to log out?
+    </div>
+    <div>
+      <button
+        className="logoutModalBodyButtonLogout logoutModalBodyButtonViolet"
+        data-testid="logout-button"
+        onClick={[Function]}
+      >
+        Logout
+      </button>
+      <button
+        className="logoutModalBodyButtonCancel logoutModalBodyButtonViolet"
+        data-testid="cancel-button"
+        onClick={[MockFunction]}
+      >
+        Cancel
+      </button>
+    </div>
+  </ModalBody>
+</SideModal>
+`;

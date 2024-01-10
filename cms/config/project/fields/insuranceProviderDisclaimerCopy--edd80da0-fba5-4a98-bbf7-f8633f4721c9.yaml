@@ -1,0 +1,27 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 3bea3112-5fd4-4beb-9d1f-a9a6af85c550
+handle: insuranceProviderDisclaimerCopy
+instructions: 'Copy to place in the disclaimer field on the insurance providers page.'
+name: 'Disclaimer Copy'
+searchable: true
+settings:
+    availableTransforms: '*'
+    availableVolumes: ''
+    columnType: text
+    configSelectionMode: choose
+    defaultTransform: ''
+    manualConfig: ''
+    purifierConfig: ''
+    purifyHtml: '1'
+    redactorConfig: ''
+    removeEmptyTags: '1'
+    removeInlineStyles: '1'
+    removeNbsp: '1'
+    showHtmlButtonForNonAdmins: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    uiMode: enlarged
+translationKeyFormat: null
+translationMethod: none
+type: craft\redactor\Field

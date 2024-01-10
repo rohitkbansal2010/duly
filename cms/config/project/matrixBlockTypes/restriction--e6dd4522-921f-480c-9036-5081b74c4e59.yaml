@@ -1,0 +1,9 @@
+field: fb6db5dd-b0bf-42cd-ae1b-666ec72e8ce7
+fieldLayouts:
+    c705ba2f-c865-4bf6-b440-a7a58472e149: { tabs: [{ elements: [{ fieldUid: 8b3574b3-d4f3-4a66-b365-f8356bd07acf, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 9f7b9ce3-3cd0-4c68-8301-8601f1e8fc4b, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    8b3574b3-d4f3-4a66-b365-f8356bd07acf: { columnSuffix: null, contentColumnType: smallint(3), fieldGroup: null, handle: minimumAge, instructions: '', name: 'Minimum Age', searchable: true, settings: { decimals: 0, defaultValue: 0, max: 999, min: 0, prefix: null, previewCurrency: '', previewFormat: decimal, size: null, suffix: 'years old' }, translationKeyFormat: null, translationMethod: none, type: craft\fields\Number }
+    9f7b9ce3-3cd0-4c68-8301-8601f1e8fc4b: { columnSuffix: null, contentColumnType: smallint(3), fieldGroup: null, handle: maximumAge, instructions: '', name: 'Maximum Age', searchable: true, settings: { decimals: 0, defaultValue: 999, max: 999, min: 0, prefix: null, previewCurrency: '', previewFormat: decimal, size: null, suffix: 'years old' }, translationKeyFormat: null, translationMethod: none, type: craft\fields\Number }
+handle: restriction
+name: 'Age Restriction'
+sortOrder: 1

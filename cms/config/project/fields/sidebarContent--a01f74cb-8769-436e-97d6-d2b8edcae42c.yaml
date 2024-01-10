@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: cc769682-917d-404b-9f89-de109350bed8
+handle: sidebarContent
+instructions: 'Define the content to appear in the sidebar navigation.'
+name: 'Sidebar Content'
+searchable: false
+settings:
+    contentTable: '{{%matrixcontent_sidebarcontent}}'
+    maxBlocks: ''
+    minBlocks: '0'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

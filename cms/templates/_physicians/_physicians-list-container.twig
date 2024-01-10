@@ -1,0 +1,68 @@
+<div class="tile-container">
+	{% if physicians|length == 0 %}
+		<div class="no-search-results">
+			<img src="/dist/img/magnifying-glass-new.png" alt="{{ "Search"|t }}">
+			<h2>{{ "Sorry, we found no results."|t }}</h2>
+			<p>{{ "Please try adjusting your search"|t }}</p>
+		</div>
+	{% else %}
+	{% set now = date() %}
+	{% for physician in physicians %}
+		<a href="{{ physician.getUrl() }}" class="physician-link">
+			<div class="tile">
+				<div class="single-tile">
+					{% cache globally using key 'physician-list-container-physician-tile-' ~ physician.id ~ 'rebrand' %}
+					<div class="biography-content">
+						{% set hasHeadShot = physician.physicianHeadshot[0] ?? null %}
+						<div class="{{ hasHeadShot == false ? 'image default-headshot thumbnail no-margin' : 'image' }}">
+							{% if hasHeadShot %}
+								{{ getOptimizedImage(physician.physicianHeadshot[0], 'webp', false, [
+									{ 'settings': ['gravity:sm', 'resize:fill:120:120:1:1'], 'css': '(min-width: 200px)' }
+								])|raw }}
+							{% endif %}
+						</div>
+						
+						<div class="details">
+							<div>
+								<h2>{{ physician.title }}</h2>
+								<span class="specialties">
+									{% for speciality in physician.physicianSpeciality | filter (v => v.type != "ancillaryServices") | sort((a, b) => a.title > b.title) %}
+										<span class="speciality-name">{{ speciality.title }}</span>
+									{% endfor %}
+								</span>
+								{% include "_physician-stars.twig" with {
+										physician: physician
+									} %}
+							</div>
+							<div class="locations">
+								<p>{{ "Practices In:"|t }}</p>
+								{% set shownLocations = [] %}
+								{% for location in getPhysicianLocations(physician).getModels() %}
+									<{% if location.city in shownLocations %}div{% else %}span{% endif %} class="location-name map-marker-point {% if location.city in shownLocations %}hidden{% endif %}" data-latitude="{{ location.lat }}"
+										data-longitude="{{ location.lng }}"
+										data-address="{{ location.number }} {{ location.streetAddress }}"
+										data-city="{{ location.city }}" data-state="{{ location.state }}"
+										data-postcode="{{ location.postcode }}">
+										{{ location.city }}
+									</{% if location.city in shownLocations %}div{% else %}span{% endif %}>
+									{% set shownLocations = shownLocations|merge([location.city]) %}
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+					{% endcache %}
+					{% set nextAvailable = getAvailablePhysicianAppointmentFromDate(physician, now) %}
+					{% if nextAvailable %}
+						{% set date = nextAvailable | date("D M j", "US/Central") %}
+						{% set time = nextAvailable | date("g:ia", "US/Central") %}
+						<div class="appointment-time">
+							<p>{{ "Next Available"|t }} <span>{{ date }} {{ 'at'|t }} {{ time }} </span></p>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</a>
+		{% endfor %}
+	{% endif %}
+	{% include '_paginate.twig' %}
+</div>

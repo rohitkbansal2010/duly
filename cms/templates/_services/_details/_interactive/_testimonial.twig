@@ -1,0 +1,19 @@
+<div class="testimonialContainer">
+    <div class="testimonial">
+        {% set procedure = testimonial.testimonialProcedure.one() %}
+        <div class="title">
+            <p>{{ procedure ? procedure.title : ''}}</p>
+        </div>
+        {% set provider = testimonial.testimonialProvider.one() %}
+        {% if provider %}
+            <div class="provider">
+                <p>{{ provider.title }}</p>
+            </div>
+        {% endif %}
+        {% if testimonial.testimonialBody %}
+            <div class="body">
+                {{ testimonial.testimonialBody }}
+            </div>
+        {% endif %}
+    </div>
+</div>

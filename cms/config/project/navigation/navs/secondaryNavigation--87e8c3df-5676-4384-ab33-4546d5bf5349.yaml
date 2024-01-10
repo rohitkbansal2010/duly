@@ -1,0 +1,8 @@
+handle: secondaryNavigation
+instructions: 'The secondary navigation is a link-only navigation menu that appears at the very top of the site.'
+name: 'Secondary Navigation'
+propagateNodes: true
+sortOrder: 1
+structure:
+    maxLevels: null
+    uid: f68e549b-6467-4cdd-a208-1a85ab58ab55

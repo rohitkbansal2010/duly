@@ -1,0 +1,15 @@
+{% if publications | length > 0 %}
+	<div class="details publications">
+		<div class="block full-width">
+			<div class="label">{{ "Provider’s Publications"|t }}</div>
+		</div>
+		{% for publication in publications %}
+			<div class="block full-width">
+				<div class="label">{{publication.publicationName}}</div>
+				<div class="value">
+					<span>{{publication.publicationDate}}</span>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}

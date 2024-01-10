@@ -1,0 +1,14 @@
+parameters:
+  # Message title
+  - name: messageTitle
+    type: string
+    default: ''
+
+steps:
+
+  - task: PowerShell@2
+    displayName: 'MS Teams Notification'
+    inputs:
+      targetType: filePath
+      filePath: 'duly-scripts/PowerShell/Send-TeamsMessage.ps1'
+      arguments: -messageTitle '${{ parameters.messageTitle }}'

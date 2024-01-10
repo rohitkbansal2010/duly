@@ -1,0 +1,129 @@
+<div class="prepopulate-form">
+    <div class="container">
+        <h2>{{ "Confirm your patient information"|t }}</h2>
+
+        {% if patientObject.firstName is defined and patientObject.firstName is not null %}
+            <div class="edit-field">
+                <div class="label-field">
+                    <p>{{ "First Name"|t }}</p>
+                </div>
+
+                <div class="value-field">
+                    <p>{{ patientObject.firstName }}</p>
+                </div>
+            </div>
+            <hr>
+        {% endif %}
+
+        {% if patientObject.lastName is defined and patientObject.lastName is not null %}
+            <div class="edit-field">
+                <div class="label-field">
+                    <p>{{ "Last Name"|t }}</p>
+                </div>
+
+                <div class="value-field">
+                    <p>{{ patientObject.lastName }}</p>
+                </div>
+            </div>
+            <hr>
+        {% endif %}
+
+        {% if patientObject.gender is defined and patientObject.gender is not null %}
+            <div class="edit-field">
+                <div class="label-field">
+                    <p>{{ "Legal Sex"|t }}</p>
+                </div>
+
+                <div class="value-field">
+                    <p>{{ patientObject.gender }}</p>
+                </div>
+            </div>
+            <hr>
+        {% endif %}
+
+        {% if patientObject.email is defined and patientObject.email is not null %}
+            <div class="edit-field">
+                <div class="label-field">
+                    <p>{{ "Email"|t }}</p>
+                </div>
+
+                <div class="value-field">
+                    <p>{{ patientObject.email }}</p>
+                </div>
+            </div>
+            <hr>
+        {% endif %}
+
+        {% if patientObject.phone is defined and patientObject.phone is not null %}
+            <div class="edit-field">
+                <div class="label-field">
+                    <p>{{ "Primary Number"|t }}</p>
+                </div>
+
+                <div class="value-field">
+                    <p>{{ patientObject.phone }}</p>
+                </div>
+            </div>
+            <hr>
+        {% endif %}
+
+        {% if patientObject.address is defined and patientObject.address is not null %}
+            <div class="edit-field">
+                <div class="label-field">
+                    <p>{{ "Address"|t }}</p>
+                </div>
+
+                <div class="value-field">
+                    <p>{{ patientObject.address }}</p>
+                </div>
+            </div>
+            <hr>
+        {% endif %}
+
+        {% if patientObject.city is defined and patientObject.city is not null %}
+            <div class="edit-field">
+                <div class="label-field">
+                    <p>{{ "City"|t }}</p>
+                </div>
+
+                <div class="value-field">
+                    <p>{{ patientObject.city }}</p>
+                </div>
+            </div>
+            <hr>
+        {% endif %}
+
+        {% if patientObject.state is defined and patientObject.state is not null %}
+            <div class="edit-field">
+                <div class="label-field">
+                    <p>{{ "State"|t }}</p>
+                </div>
+
+                <div class="value-field">
+                    <p>{{ patientObject.state }}</p>
+                </div>
+            </div>
+            <hr>
+        {% endif %}
+
+        {% if patientObject.zipcode is defined and patientObject.zipcode is not null %}
+            <div class="edit-field">
+                <div class="label-field">
+                    <p>{{ "Zipcode"|t }}</p>
+                </div>
+
+                <div class="value-field">
+                    <p>{{ patientObject.zipcode }}</p>
+                </div>
+            </div>
+            <hr>
+        {% endif %}
+
+        <div class="form-actions">
+            <button class="dmgButton secondary3" id="edit-patient-details" tabindex="0">
+                <i class="fa fa-spinner fa-spin hidden"></i>
+                <div class="cta">{{ "Edit Details"|t }}</div>
+            </button>
+        </div>
+    </div>
+</div>

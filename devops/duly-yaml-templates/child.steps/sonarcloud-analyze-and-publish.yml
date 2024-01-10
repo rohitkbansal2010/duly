@@ -1,0 +1,12 @@
+steps:
+- task: SonarCloudAnalyze@1
+  displayName: 'SonarCloud: Run code analysis'
+  continueOnError: true
+  condition: succeeded()
+
+- task: SonarCloudPublish@1
+  displayName: 'SonarCloud: Publish quality gate and analysis results'
+  inputs:
+    pollingTimeoutSec: '300'
+  continueOnError: true
+  condition: succeeded()

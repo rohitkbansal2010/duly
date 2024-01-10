@@ -1,0 +1,22 @@
+[Unit]
+Description=imgproxy %i
+After=network.target
+
+[Service]
+Environment="IMGPROXY_ENABLE_WEBP_DETECTION=1"
+Environment="IMGPROXY_USE_ETAG=1"
+Environment="IMGPROXY_MAX_SRC_RESOLUTION=20000000"
+Environment="IMGPROXY_JPEG_PROGRESSIVE=true"
+Environment="IMGPROXY_SO_REUSEPORT=true"
+Environment="IMGPROXY_USE_ETAG=true"
+Environment="IMGPROXY_SALT=__SALT__"
+Environment="IMGPROXY_KEY=__KEY__"
+
+ExecStart=/usr/bin/nice -n 10 /usr/local/bin/imgproxy
+Restart=always
+PrivateTmp=true
+NoNewPrivileges=true
+TimeoutStopSec=30s
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,187 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title "Insurance Carriers"|t %}
+{% block bodyClass "insurance-providers" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	{% cache using key "insurance-providers-page" %}
+	{% set thisEntry = craft.entries()
+        .section('insuranceProvidersOverview')
+        .one()
+    %}
+
+	<section class="providers-container">
+		{% set providers = craft.entries()
+            .section('insuranceProviders')
+            .enabledForSite(false)
+        %}
+
+		{% set entries = providers.all() %}
+
+		<div class="provider-list">
+			<div class="copy">
+				{{ thisEntry.insuranceProviderHeaderCopy|raw }}
+				{{ thisEntry.insuranceProviderDisclaimerCopy|raw }}
+			</div>
+			<h2>Select your provider to see the plans we accept</h2>
+			<div id="mainContent">
+				<div class="logo-container">
+					<div id="topSearch">
+						<div class="searchformfld">
+							{% include "_input/_input.twig" with {
+								type: 'text',
+								name: 'provider',
+								id: 'search-provider',
+								label: "Search for your insurance plan"|t,
+								class: 'mdc-text-field--with-trailing-icon',
+								trailingIcon: 'search'
+							} only %}
+						</div>
+
+						<div class="no-search-results hide">
+							<img src="/dist/img/magnifying-glass-new.png" alt="{{ "Search"|t }}">
+							<h2>{{ "Sorry, we found no results."|t }}</h2>
+							<p>{{ "Please try adjusting your search"|t }}</p>
+						</div>
+					</div>
+					{% for entry in entries %}
+						<div class="logo" id="{{ titleize(entry) }}" tabindex="0">
+							<div class="image-container">
+								{% set logo = entry.insuranceProviderLogo.one %}
+								{% if logo is not null %}
+									<img src="{{ logo.getUrl() }}" alt="{{ entry.title }}">
+								{% else %}
+									<img src="/dist/img/insurance_providers/{{ titleize(entry) }}.png" alt="{{ entry.title }}">
+								{% endif %}
+								<i class="material-icons keyboard_arrow_down"></i>
+							</div>
+						</div>
+					{% endfor %}
+
+					{# values don't come from CMS #}
+					<div class="logo" id="Medicaid" tabindex="0">
+						<div class="image-container">
+							<img src="/dist/img/insurance_providers/medicaidgov.png" alt="Medicaid">
+							<i class="material-icons keyboard_arrow_down"></i>
+						</div>
+					</div>
+
+					<div class="logo" id="Medicare" tabindex="0">
+						<div class="image-container">
+							<img src="/dist/img/insurance_providers/medicare.png" alt="Medicare">
+							<i class="material-icons keyboard_arrow_down"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="provider-details default-state">
+					<h2>{{ "Select your carrier to see the plans we accept."|t }}</h2>
+				</div>
+
+				<div class="provider-details hide">
+					<h2 class="headline">{{ "Plans we accept from"|t }}</h2>
+					{% for entry in entries %}
+						<div class="single-provider-container hide {{ titleize(entry) }}" id="{{ titleize(entry) }}-provider">
+							<h2>
+								<span>{{ entry.title }}</span>
+							</h2>
+							<span>{{ entry.planProvider }}</span>
+							<div class="media">
+								<button class="dmgButton secondary1">
+									<a rel="noopener noreferrer" class="link" target="_blank" href="{{ entry.insuranceProviderURL }}">
+										{{ "Visit Website"|t }}
+									</a>
+								</button>
+							</div>
+							{% set insurancePlans = craft.entries({
+                                section: 'insurancePlans',
+                                relatedTo: [
+                                    'and',
+                                    { targetElement: entry }
+                                ]
+                            }) %}
+							{% for plan in insurancePlans.all %}
+								<div class="insurance-plan" tabindex="0">
+									<p class="plan-type">{{ plan }}</p>
+									{% if plan.planNote %}
+										<p class="note">{{ plan.planNote }}</p>
+									{% endif %}
+								</div>
+							{% endfor %}
+						</div>
+					{% endfor %}
+
+					{# values don't come from CMS #}
+					<div class="single-provider-container hide Medicaid" id="Medicaid-provider" tabindex="0">
+						<h2>{{ "Medicaid"|t }}</h2>
+						<div class="media">
+							<button class="dmgButton secondary1">
+								<a rel="noopener noreferrer" target="_blank" href="https://www.medicaid.gov/index.html">
+									{{ "Visit Website"|t }}
+								</a>
+							</button>
+						</div>
+
+						{% set medicaidPlans = craft.entries({
+                            section: 'insurancePlans',
+                            isPlanMedicaid: true
+                        }) %}
+
+						{% for plan in medicaidPlans.all %}
+							<div class="insurance-plan" tabindex="0">
+								<p class="plan-type">{{ plan }}</p>
+								{% if plan.planNote %}
+									<p class="note">{{ plan.planNote }}</p>
+								{% endif %}
+							</div>
+						{% endfor %}
+					</div>
+
+					<div class="single-provider-container hide Medicare" id="Medicare-provider" tabindex="0">
+						<h2>{{ "Medicare"|t }}</h2>
+						<div class="media">
+							<button class="dmgButton secondary1">
+								<a rel="noopener noreferrer" target="_blank" href="https://www.medicare.gov/index">
+									{{ "Visit Website"|t }}
+								</a>
+							</button>
+							<button class="dmgButton tertiary3 watchVideo">
+								<a target="_blank" aria-label="Watch Video" href="{{ thisEntry.insuranceProviderMedicareLink|raw }}">
+									<div
+										id="vidIcon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+									</div>
+									{{ "Watch Video"|t }}
+								</a>
+							</button>
+						</div>
+
+						{% set medicarePlans = craft.entries({
+                            section: 'insurancePlans',
+                            isPlanMedicare: true
+                        }) %}
+
+						{% for plan in medicarePlans.all %}
+							<div class="insurance-plan" tabindex="0">
+								<p class="plan-type">{{ plan }}</p>
+								{% if plan.planNote %}
+									<p class="note">{{ plan.planNote }}</p>
+								{% endif %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+	<div id="bottomBlueBars">
+		<div></div>
+		<div></div>
+	</div>
+	{% endcache %}
+{% endblock %}

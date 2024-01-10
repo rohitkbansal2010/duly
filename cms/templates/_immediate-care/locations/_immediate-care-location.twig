@@ -1,0 +1,71 @@
+<div class="distance" id="closest-immediate-care-center">
+	<hr>
+	{% set parent = immediateCareLocation.getParent() %}
+	{% set serviceId = getServiceForClosestLocation(immediateCareLocation.suiteServices.all, 'immediateCareServices') %}
+
+	{% if serviceId %}
+		{% set serviceSuiteDetails = getServiceSuiteDetails(immediateCareLocation.id, serviceId) %}
+		{% set hasHours = serviceSuiteDetails is not null and serviceSuiteDetails.temporarilyClosed or serviceSuiteDetails.closedToday or serviceSuiteDetails.closedTomorrow or serviceSuiteDetails.todayStartTime or serviceSuiteDetails.tomorrowStartTime %}
+
+		{% if parent is not null and parent.address.parts is defined %}
+			{% set location = parent.address.parts %}
+
+			<div class="header">
+				<span class="title">{{ "Closest Immediate Care"|t }}</span>
+				{% if userLat is defined and userLat is not null and userLng is defined and userLng is not null %}
+					<span class="miles" data-latitude="{{ parent.address.lat }}" data-longitude="{{ parent.address.lng }}">
+						<span class="bolded">{{ getUserDistance(userLng, userLat, parent.address.lng, parent.address.lat)|number_format(1) }}</span>
+						{{ ' MILES'|t }}
+					</span>
+				{% endif %}
+			</div>
+
+			<form class="service" method="POST" action="/schedule/services" enctype="multipart/form-data">
+				{{ csrfInput() }}
+				<input type="hidden" name="appointmentServiceIds[]" value="{{ serviceId }}">
+				<input type="hidden" name="location_id" value="{{ parent.id }}">
+
+				<div class="details-content">
+					<div class="{{ hasHours ? 'address' : 'address no-hours' }}">
+						<div class="content-desktop">
+							<p class="address-line-one">{{ location.number }}
+								{{ location.address }}</p>
+							<p class="address-line-two">{{ location.city }},
+								{{ location.state }}
+								{{ location.postcode }}</p>
+
+							{% if serviceSuiteDetails is not null and serviceSuiteDetails.phoneNumber is not null %}
+								{% include '_widgets/phoneNumberLink.twig' with { number: serviceSuiteDetails.phoneNumber } only %}
+							{% endif %}
+
+							<a rel="noopener noreferrer" class="text-sky directions" target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ location.number }} {{ location.address }} {{ location.city }} {{ location.postcode }}">{{ "Get Directions"|t }}</a>
+						</div>
+						<div class="miles-container">
+							{% if userLat is defined and userLat is not null and userLng is defined and userLng is not null %}
+								<span class="miles" data-latitude="{{ parent.address.lat }}" data-longitude="{{ parent.address.lng }}">
+									<span class="bolded">{{ getUserDistance(userLng, userLat, parent.address.lng, parent.address.lat)|number_format(1) }}</span>
+									{{ ' MILES'|t }}
+								</span>
+							{% endif %}
+						</div>
+					</div>
+
+					<div class="content-mobile">
+						{% if serviceSuiteDetails is not null and serviceSuiteDetails.phoneNumber is not null %}
+							{% include '_widgets/phoneNumberLink.twig' with { number: serviceSuiteDetails.phoneNumber } only %}
+						{% endif %}
+						<a rel="noopener noreferrer" class="text-sky directions" target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ location.number }} {{ location.address }} {{ location.city }} {{ location.postcode }}">{{ "Get Directions"|t }}</a>
+					</div>
+
+					{% if hasHours %}
+						<div class="{{ serviceSuiteDetails.temporarilyClosed ? 'hours temp-closed' : 'hours' }}">
+							{% include '_immediate-care/locations/_suite-details.twig' with {
+                                serviceSuiteDetails: serviceSuiteDetails
+                            } %}
+						</div>
+					{% endif %}
+				</div>
+			</form>
+		{% endif %}
+	{% endif %}
+</div>

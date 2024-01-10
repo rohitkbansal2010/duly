@@ -1,0 +1,10 @@
+fieldLayouts:
+    862bdb49-5f99-4a7d-9ffe-05b7621ec3e4: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: 'Suite Name', max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 356a3129-f6e1-4e02-a2f9-66ea1bd9ee55, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 7b428fdb-638b-4b43-aa2e-2a1438d72de4, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 8875250c-4e3f-476e-a11e-6b2399f8d7c7, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: bb381126-2d5f-434d-8915-bde9eb69e2ca, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Locations, sortOrder: 1 }] }
+handle: suite
+hasTitleField: true
+name: Suite
+section: 17cba234-5703-403b-a9e3-d029df2d1745
+sortOrder: 2
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

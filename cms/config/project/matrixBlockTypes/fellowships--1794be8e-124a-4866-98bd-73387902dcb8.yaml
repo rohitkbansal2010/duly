@@ -1,0 +1,10 @@
+field: d088a4b0-2dd9-460f-bc59-fedad4ef6cca
+fieldLayouts:
+    419e9f58-5ffc-4796-8f79-718787ffe584: { tabs: [{ elements: [{ fieldUid: 45e2ce7e-c39b-4d80-a13d-6a94b535f8f1, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 54fb0ed5-d48c-4497-bd53-65bd954117d6, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: b358342c-50ab-492c-9608-877d5194bbf1, instructions: null, label: null, required: '0', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    45e2ce7e-c39b-4d80-a13d-6a94b535f8f1: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: fellowshipLocation, instructions: '', name: Location, searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: 'School Cook County Hospital', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    54fb0ed5-d48c-4497-bd53-65bd954117d6: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: fellowshipDetails, instructions: '', name: 'Specialty ', searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: text, initialRows: '4', multiline: '', placeholder: Pediatrics, uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    b358342c-50ab-492c-9608-877d5194bbf1: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: completionYear, instructions: '', name: 'Completion Year', searchable: true, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: '2015', uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+handle: fellowships
+name: Fellowships
+sortOrder: 1

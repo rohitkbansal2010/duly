@@ -1,0 +1,70 @@
+{% extends "_layouts/_main.twig" %}
+
+{% block bodyClass "landing-page" %}
+
+{% set header = entry.landingPageHeader.all()|first %}
+{% set overview = entry.landingPageOverview.all()|first %}
+{% set posts = entry.landingPagePosts.all() %}
+{% set featuredPost = entry.landingPageFeaturedPost.all()|first %}
+{% set resources = entry.landingPageResources.all() %}
+
+{% set contentSummary = entry.landingPageOverview.all()|first %}
+
+{% set contentTitle = null %}
+{% if entry.customSeoMetaTitle is not null %}
+    {% set contentTitle = entry.customSeoMetaTitle %}
+{% else %}
+    {% set contentTitle = entry.title %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% if entry.customSeoMetaDescription is not null %}
+    {% set contentSummary = entry.customSeoMetaDescription %}
+{% endif %}
+
+{% set heroImage = header.heroImage.all()|first %}
+
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        entry: entry,
+		heroImage: heroImage,
+		contentTitle: contentTitle,
+        contentSummary: contentSummary,
+        cacheKey: 'landing-page-' ~ entry
+    } only %}
+{% endblock %}  
+
+{% block main %}
+	<section class="landing-page-entry">
+		<article>
+			{% if header %}
+				{% include "_landing/_header.twig" with { 
+					'title' : entry.title,
+					'header' : header
+				} only %}
+			{% endif %}
+			{% if overview %}
+				{% include "_landing/_overview.twig" with { 
+					'overview' : overview
+				} only %}
+			{% endif %}
+			{% if posts|length %}
+				{% include "_landing/_posts.twig" with { 
+					'posts' : posts
+				} only %}
+			{% endif %}
+			{% if featuredPost %}
+				{% include "_landing/_featured-post.twig" with { 
+					'featuredPost' : featuredPost
+				} only %}
+			{% endif %}
+			{% if resources|length %}
+				{% include "_landing/_resources.twig" with { 
+					'resources' : resources
+				} only %}
+			{% endif %}
+		</article>
+	</section>
+{% endblock %}

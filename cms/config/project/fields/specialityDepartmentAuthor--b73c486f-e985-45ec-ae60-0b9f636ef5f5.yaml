@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 59d569da-1526-45bb-bd4c-883ccf638fd3
+handle: specialityDepartmentAuthor
+instructions: 'Optionally select a specialty or department to be a article author. This option will supersede any physician authors added to the article.'
+name: 'Speciality/Department Author'
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:e3299412-d9c2-4679-9fad-64e72b3c5a42']
+    targetSiteId: null
+    validateRelatedElements: true
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

@@ -1,0 +1,8 @@
+<div class="result article">
+    <a href="{{ entry.url }}">
+        <h2>{{ entry.title }}</h2>
+        {% if entry.summary is defined %}
+            <p>{{ entry.summary }}</p>
+        {% endif %}
+    </a>
+</div>

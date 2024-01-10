@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceAgeRestrictions
+instructions: 'Provide minimum and maximum ages required for patients to register for this service.'
+name: 'Age Restrictions'
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_serviceagerestrictions}}'
+    maxBlocks: '1'
+    minBlocks: '1'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

@@ -1,0 +1,420 @@
+@use "@material/select";
+@use "@material/select/mdc-select";
+@use "@material/textfield";
+@use "@material/textfield/mdc-text-field";
+@use "@material/menu/mdc-menu";
+@use "@material/menu-surface/mdc-menu-surface";
+@use "@material/list";
+@use "@material/list/mdc-list";
+@use "@material/form-field/mdc-form-field";
+@use "@material/floating-label/mdc-floating-label";
+@use "@material/line-ripple/mdc-line-ripple";
+@use "@material/notched-outline/mdc-notched-outline";
+@use "@material/radio";
+@use "@material/radio/mdc-radio";
+@use "@material/checkbox";
+@use "@material/checkbox/mdc-checkbox";
+
+@include checkbox.core-styles;
+@include textfield.core-styles;
+
+.duly-select {
+	--mdc-typography-font-family: $font-family;
+	--mdc-typography-subtitle1-font-weight: 800;
+	--mdc-theme-primary: #00a5df;
+	--mdc-checkbox-ink-color: #ffffff;
+	border-radius: 4px;
+	overflow: hidden;
+	width: 100%;
+	// color of the selected item displayed in the select
+	@include select.ink-color(
+		(
+			"default": $oxford,
+			"disabled": $oxford,
+		)
+	);
+	// color of the select
+	@include select.container-fill-color(
+		(
+			"default": $footer-gray,
+			"disabled": $footer-gray,
+		)
+	);
+	// dropdown icon color of the select
+	@include select.dropdown-icon-color(
+		(
+			"default": $dark-2,
+			"hover": $dark-2,
+			"focus": $dark-2,
+			"disabled": $dark-2,
+		)
+	);
+	// label color of the select
+	@include select.label-color(
+		(
+			"default": $dark-2,
+			"hover": $dark-2,
+			"focus": $dark-2,
+			"disabled": $dark-2,
+		)
+	);
+	// color of the select when the label is floating
+	@include select.label-floating-color(
+		(
+			"default": $dark-2,
+			"hover": $dark-2,
+		)
+	);
+	// probably not gonna use
+	@include select.bottom-line-color(
+		(
+			"default": $dark-2,
+			"hover": $dark-2,
+			"focus": $sky,
+			"disabled": $dark-2,
+		)
+	);
+	// invalid
+	&.mdc-select--invalid {
+		@include select.container-fill-color(
+			(
+				"default": $formError,
+				"disabled": $formError,
+			)
+		);
+		@include select.bottom-line-color(
+			(
+				"default": $alert,
+				"hover": $alert,
+				"focus": $alert,
+				"disabled": $alert,
+			)
+		);
+		.mdc-floating-label {
+			@include select.label-floating-color($formError);
+		}
+		.mdc-select__anchor {
+			border-top: 1px solid $formError;
+			border-right: 1px solid $formError;
+			border-left: 1px solid $formError;
+			border-bottom: 0;
+		}
+	}
+	// focused
+	&.mdc-select--focused {
+		@include select.container-fill-color(
+			(
+				"default": $footer-gray,
+				"disabled": $footer-gray,
+			)
+		);
+		@include select.bottom-line-color(
+			(
+				"default": $dark-2,
+				"hover": $dark-2,
+				"focus": $sky,
+				"disabled": $dark-2,
+			)
+		);
+	}
+	&.mdc-select--activated {
+		overflow: visible;
+		.mdc-select__anchor {
+			border-top: 1px solid $oxford;
+			border-right: 1px solid $oxford;
+			border-left: 1px solid $oxford;
+			border-bottom: 0;
+		}
+		.mdc-menu {
+			border-top: 0;
+			border-right: 1px solid $oxford;
+			border-left: 1px solid $oxford;
+			border-bottom: 1px solid $oxford;
+		}
+	}
+	&.mdc-select--disabled {
+		cursor: not-allowed;
+		pointer-events: all;
+		* {
+			pointer-events: none;
+		}
+		@include select.bottom-line-color(
+			(
+				"default": $footer-gray,
+				"hover": $footer-gray,
+				"focus": $footer-gray,
+				"disabled": $footer-gray,
+			)
+		);
+		@include select.label-color(
+			(
+				"default": $light-gray,
+				"hover": $light-gray,
+				"focus": $light-gray,
+				"disabled": $light-gray,
+			)
+		);
+		@include select.dropdown-icon-color(
+			(
+				"default": $light-gray,
+				"hover": $light-gray,
+				"focus": $light-gray,
+				"disabled": $light-gray,
+			)
+		);
+		.mdc-select__anchor {
+			.mdc-floating-label--required::after {
+				color: $light-gray;
+			}
+		}
+		.mdc-select__dropdown-icon {
+			span {
+				color: $light-gray;
+			}
+		}
+	}
+	.mdc-select__anchor {
+		border-top: 1px solid $footer-gray;
+		border-right: 1px solid $footer-gray;
+		border-left: 1px solid $footer-gray;
+		border-bottom: 0;
+		.mdc-floating-label--required::after {
+			color: $tangerine;
+			font-size: 1rem;
+			font-weight: bold;
+		}
+	}
+	&.mdc-select-success:not(.mdc-select--focused, .mdc-select--invalid) {
+		@include select.bottom-line-color(
+			(
+				"default": $oxford,
+				"hover": $oxford,
+				"focus": $oxford,
+				"disabled": $oxford,
+			)
+		);
+	}
+	/*
+		Expanded MDCSelect dropdowns are always positioned underneath the "parent" input field.
+		MDCSelect will try to expand the dropdown container so that it fits between the bottom border of the input field and the bottom of the browser's window.
+		When there isn't enough space to fit the entire dropdown, the current used version of @material/select (^4.0.0) will create a smaller container and apply overflow: scroll.
+		Below CSS fixes one nasty bug: the smaller container with overflow does not work on the initial click on the input. Instead, on the first click, when there isn't enough space
+		for the entire dropdown, the dropdown collapses to just a few pixels, making it useless.
+		Unseting the bottom property fixes this first-click issue, and does not affect future clicks.
+	*/
+	.mdc-select__menu.mdc-menu.mdc-menu-surface {
+		--mdc-shape-medium: 0 0 4px 4px;
+		top: 56px !important;
+		bottom: unset !important;
+		z-index: 100000;
+		box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
+		max-width: none;
+		.mdc-list {
+			padding: 0;
+			.mdc-list-item {
+				padding: 1rem;
+				.mdc-list-item__text {
+					color: $oxford;
+					font-weight: bold;
+				}
+				&:hover {
+					background-color: $sky-20;
+				}
+				&.mdc-list-item--selected {
+					background: $sky;
+					span {
+						color: $white;
+					}
+				}
+			}
+		}
+	}
+	.mdc-floating-label {
+		font-weight: 700;
+	}
+	span.mdc-line-ripple {
+		&::before {
+			border-bottom-width: 2px;
+		}
+		&::after {
+			margin: 0;
+		}
+	}
+}
+
+.inline-text-field-container {
+	--mdc-theme-primary: #00a5df; // $sky
+	--mdc-typography-subtitle1-font-family: $font-family;
+	--mdc-typography-subtitle1-font-weight: 800;
+	.duly-text-field {
+		@include textfield.ink-color($oxford);
+		@include textfield.label-color($dark-2);
+		@include textfield.caret-color($oxford);
+		@include textfield.fill-color($footer-gray);
+		@include textfield.bottom-line-color($dark-2);
+		@include textfield.hover-bottom-line-color($dark-2);
+		width: 100%;
+		border-radius: 4px;
+		&.mdc-text-field--focused {
+			--mdc-theme-error: #00a5df; // $sky
+		}
+		&.mdc-text-field-error:not(.mdc-text-field--focused),
+		&.mdc-text-field--invalid:not(.mdc-text-field--focused) {
+			@include textfield.fill-color($formError);
+			@include textfield.bottom-line-color($alert);
+		}
+		&.mdc-text-field-success {
+			@include textfield.bottom-line-color($oxford);
+		}
+		.mdc-text-field__input {
+			&:-webkit-autofill {
+				background-color: $footer-gray;
+				-webkit-box-shadow: 0 0 0 30px $footer-gray inset !important;
+				-webkit-text-fill-color: $oxford !important;
+				filter: none;
+				& + .mdc-floating-label {
+					transform: translateY(-106%) scale(0.75) !important;
+				}
+				&::first-line {
+					font-family: $font-family !important;
+					font-size: 16px;
+					color: $oxford;
+					font-weight: 800;
+				}
+			}
+		}
+	}
+	.mdc-floating-label {
+		font-weight: 700;
+		&.mdc-floating-label--required::after {
+			color: $tangerine;
+			font-size: 1rem;
+			font-weight: bold;
+		}
+	}
+	span.mdc-line-ripple {
+		&::before {
+			border-bottom-width: 2px;
+		}
+		&::after {
+			margin: 0;
+		}
+	}
+}
+
+.mdc-text-field-helper-line {
+	--mdc-typography-font-family: $font-family;
+	.mdc-text-field-helper-text {
+		color: $alert;
+		font-weight: 900;
+		padding: 0 0 0 4px;
+	}
+}
+
+.duly-radio {
+	// styles the checked inner circle
+	--mdc-theme-secondary: #00a5df; // $sky
+	@include radio.unchecked-stroke-color($oxford);
+	@include radio.checked-stroke-color($oxford);
+	&.secondary {
+		--mdc-theme-secondary: #c5299b; // $magenta
+		@include radio.unchecked-stroke-color($violet);
+		@include radio.checked-stroke-color($violet);
+		label {
+			color: $dark-2;
+		}
+	}
+	.mdc-radio {
+		width: 24px;
+		height: 24px;
+		padding: 8px;
+		.mdc-radio__inner-circle {
+			border-width: 12px;
+		}
+		.mdc-radio__background {
+			width: 24px;
+			height: 24px;
+		}
+	}
+	label {
+		font-size: 1rem;
+		color: $oxford;
+		font-weight: bold;
+	}
+}
+
+.duly-checkbox {
+	--mdc-ripple-color: #00a5df; // $sky
+	@include checkbox.container-colors($white, $white, $white, $sky);
+	&.secondary {
+		--mdc-ripple-color: #c5299b; // $violet
+		@include checkbox.container-colors($white, $white, $white, $magenta);
+		.mdc-checkbox__background {
+			box-shadow: 0 0 0 1.5px $violet;
+		}
+		+ label {
+			color: $dark-2;
+		}
+	}
+	.mdc-checkbox__background {
+		width: 24px;
+		height: 24px;
+		top: 8px;
+		left: 8px;
+		box-shadow: 0 0 0 1.5px $oxford;
+	}
+	.mdc-checkbox__checkmark {
+		box-sizing: border-box;
+		padding: 2px;
+		.mdc-checkbox__checkmark-path {
+			color: inherit;
+		}
+	}
+}
+
+@-moz-document url-prefix("") {
+	.mdc-select__selected-text {
+		text-indent: 0px !important;
+	}
+}
+
+.mdc-form-field label {
+	font-weight: 600;
+	font-size: 1rem;
+}
+
+.future-date-error {
+	background: $white;
+	width: 185px;
+	border-radius: 4px;
+	padding: 3px;
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto 10px auto;
+
+	.error {
+		margin: 0px;
+		font-size: 14px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.error,
+	.warning {
+		color: $error-red;
+	}
+
+	.warning {
+		font-size: 24px;
+	}
+}
+
+.fetch-error,
+.form-error {
+	color: $error-red !important;
+	text-align: center;
+	width: 100%;
+	display: block;
+	font-size: 12px !important;
+	margin: 10px auto;
+}

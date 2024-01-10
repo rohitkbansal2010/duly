@@ -1,0 +1,299 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationPickerModal should render correctly 1`] = `
+<LocationPickerModal>
+  <Modal
+    animation={false}
+    autoFocus={true}
+    backdrop={true}
+    backdropClassName="customBackDropModal"
+    centered={true}
+    className="locationPickerModal"
+    dialogAs={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      }
+    }
+    dialogClassName="customWidthModal"
+    enforceFocus={true}
+    keyboard={true}
+    onHide={[Function]}
+    restoreFocus={true}
+    show={true}
+    size="lg"
+  >
+    <Modal
+      autoFocus={true}
+      backdrop={true}
+      enforceFocus={true}
+      keyboard={true}
+      manager={
+        BootstrapModalManager {
+          "handleContainerOverflow": true,
+          "isRTL": false,
+          "modals": Array [
+            Object {
+              "add": [Function],
+              "backdrop": <div
+                class="modal-backdrop customBackDropModal show"
+              />,
+              "dialog": <div
+                aria-modal="true"
+                class="locationPickerModal modal"
+                role="dialog"
+                style="display: block;"
+                tabindex="-1"
+              >
+                <div
+                  class="modal-dialog customWidthModal modal-lg modal-dialog-centered"
+                >
+                  <div
+                    class="modal-content"
+                  >
+                    <div
+                      class="locationPickerModalHeader modal-header"
+                    >
+                      <div
+                        class="locationPickerModalHeaderIcon"
+                      >
+                        <img
+                          alt="location picker icon"
+                          src="location-picker.svg"
+                        />
+                      </div>
+                      <h1
+                        class="locationPickerModalHeaderTitle"
+                      >
+                        Please select your location
+                      </h1>
+                    </div>
+                    <div
+                      class="locationPickerModalBody modal-body"
+                    >
+                      <div
+                        class="locationPickerModalDropdownButton dropdown"
+                      >
+                        <button
+                          aria-expanded="false"
+                          class="dropdown-toggle btn btn-outline-secondary"
+                          type="button"
+                        >
+                          Selection
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>,
+              "isTopModal": [Function],
+              "remove": [Function],
+              "setBackdropRef": [Function],
+              "setDialogRef": [Function],
+            },
+          ],
+          "state": Object {
+            "scrollBarWidth": 1024,
+            "style": Object {
+              "overflow": "",
+              "paddingRight": "",
+            },
+          },
+        }
+      }
+      onEnter={[Function]}
+      onEntering={[Function]}
+      onEscapeKeyDown={[Function]}
+      onExit={[Function]}
+      onExited={[Function]}
+      onHide={[Function]}
+      renderBackdrop={[Function]}
+      renderDialog={[Function]}
+      restoreFocus={true}
+      show={true}
+    >
+      <Portal
+        containerInfo={
+          <body
+            class="modal-open"
+            data-rr-ui-modal-open=""
+            style="padding-right: 1024px;"
+          >
+            <div
+              class="modal-backdrop customBackDropModal show"
+            />
+            <div
+              aria-modal="true"
+              class="locationPickerModal modal"
+              role="dialog"
+              style="display: block;"
+              tabindex="-1"
+            >
+              <div
+                class="modal-dialog customWidthModal modal-lg modal-dialog-centered"
+              >
+                <div
+                  class="modal-content"
+                >
+                  <div
+                    class="locationPickerModalHeader modal-header"
+                  >
+                    <div
+                      class="locationPickerModalHeaderIcon"
+                    >
+                      <img
+                        alt="location picker icon"
+                        src="location-picker.svg"
+                      />
+                    </div>
+                    <h1
+                      class="locationPickerModalHeaderTitle"
+                    >
+                      Please select your location
+                    </h1>
+                  </div>
+                  <div
+                    class="locationPickerModalBody modal-body"
+                  >
+                    <div
+                      class="locationPickerModalDropdownButton dropdown"
+                    >
+                      <button
+                        aria-expanded="false"
+                        class="dropdown-toggle btn btn-outline-secondary"
+                        type="button"
+                      >
+                        Selection
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </body>
+        }
+      >
+        <div
+          className="modal-backdrop customBackDropModal show"
+          onClick={[Function]}
+        />
+        <div
+          aria-modal={true}
+          className="locationPickerModal modal"
+          onClick={[Function]}
+          onMouseUp={[Function]}
+          role="dialog"
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+          tabIndex={-1}
+        >
+          <ModalDialog
+            centered={true}
+            className="customWidthModal"
+            onMouseDown={[Function]}
+            size="lg"
+          >
+            <div
+              className="modal-dialog customWidthModal modal-lg modal-dialog-centered"
+              onMouseDown={[Function]}
+            >
+              <div
+                className="modal-content"
+              >
+                <ModalHeader
+                  className="locationPickerModalHeader"
+                  closeButton={false}
+                  closeLabel="Close"
+                >
+                  <ForwardRef
+                    className="locationPickerModalHeader modal-header"
+                    closeButton={false}
+                    closeLabel="Close"
+                  >
+                    <div
+                      className="locationPickerModalHeader modal-header"
+                    >
+                      <div
+                        className="locationPickerModalHeaderIcon"
+                      >
+                        <img
+                          alt="location picker icon"
+                          src="location-picker.svg"
+                        />
+                      </div>
+                      <h1
+                        className="locationPickerModalHeaderTitle"
+                      >
+                        Please select your location
+                      </h1>
+                    </div>
+                  </ForwardRef>
+                </ModalHeader>
+                <ModalBody
+                  className="locationPickerModalBody"
+                >
+                  <div
+                    className="locationPickerModalBody modal-body"
+                  >
+                    <DropdownButton
+                      className="locationPickerModalDropdownButton"
+                      title="Selection"
+                      variant="outline-secondary"
+                    >
+                      <Dropdown
+                        align="start"
+                        autoClose={true}
+                        className="locationPickerModalDropdownButton"
+                        navbar={false}
+                      >
+                        <Dropdown
+                          itemSelector=".dropdown-item:not(.disabled):not(:disabled)"
+                          onToggle={[Function]}
+                          placement="bottom-start"
+                        >
+                          <div
+                            className="locationPickerModalDropdownButton dropdown"
+                          >
+                            <DropdownToggle
+                              variant="outline-secondary"
+                            >
+                              <Button
+                                active={false}
+                                aria-expanded={false}
+                                className="dropdown-toggle"
+                                disabled={false}
+                                onClick={[Function]}
+                                variant="outline-secondary"
+                              >
+                                <button
+                                  aria-expanded={false}
+                                  className="dropdown-toggle btn btn-outline-secondary"
+                                  disabled={false}
+                                  onClick={[Function]}
+                                  type="button"
+                                >
+                                  Selection
+                                </button>
+                              </Button>
+                            </DropdownToggle>
+                            <DropdownMenu
+                              flip={true}
+                            />
+                          </div>
+                        </Dropdown>
+                      </Dropdown>
+                    </DropdownButton>
+                  </div>
+                </ModalBody>
+              </div>
+            </div>
+          </ModalDialog>
+        </div>
+      </Portal>
+    </Modal>
+  </Modal>
+</LocationPickerModal>
+`;

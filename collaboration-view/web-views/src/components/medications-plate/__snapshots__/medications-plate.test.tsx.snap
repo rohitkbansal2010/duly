@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MedicationsPlate component should match snapshot 1`] = `
+<div
+  className="medicationsPlateContainer"
+>
+  <MedicationsTitle
+    count={5}
+    type="REGULAR"
+  />
+  <MedicationsHeader
+    type="REGULAR"
+  />
+  <div
+    className="medicationsPlateMain"
+  >
+    <MedicationsItem
+      id="Regular_Medication_Id4"
+      instructions="Take 1 capsule by month 2 times a day"
+      key="Regular_Medication_Id4"
+      provider={
+        Object {
+          "familyName": "Reyes",
+          "givenNames": Array [
+            "Ana",
+            "Maria",
+          ],
+          "prefixes": Array [
+            "Dr.",
+          ],
+        }
+      }
+      reason="For potassium replacement (COPD)"
+      scheduleType="Regular"
+      title="APotassium chloride ER Capsule 10 mEq third"
+    />
+    <MedicationsItem
+      id="Regular_Medication_Id3"
+      instructions="Take 1 capsule by month 2 times a day"
+      key="Regular_Medication_Id3"
+      provider={
+        Object {
+          "familyName": "Reyes",
+          "givenNames": Array [
+            "Ana",
+            "Maria",
+          ],
+          "prefixes": Array [
+            "Dr.",
+          ],
+        }
+      }
+      reason="For potassium replacement (COPD)"
+      scheduleType="Regular"
+      title="BPotassium chloride ER Capsule 10 mEq fourth"
+    />
+    <MedicationsItem
+      id="Regular_Medication_Id_2"
+      key="Regular_Medication_Id_2"
+      scheduleType="Regular"
+      title="CPotassium chloride ER Capsule 10 mEq fifth"
+    />
+    <MedicationsItem
+      id="Regular_Medication_Id2"
+      instructions="Take 1 capsule by month 2 times a day"
+      key="Regular_Medication_Id2"
+      provider={
+        Object {
+          "familyName": "Reyes",
+          "givenNames": Array [
+            "Ana",
+            "Maria",
+          ],
+          "prefixes": Array [
+            "Dr.",
+          ],
+        }
+      }
+      reason="For potassium replacement (COPD)"
+      scheduleType="Regular"
+      startDate="2022-02-01T00:00:00Z"
+      title="Potassium chloride ER Capsule 10 mEq first"
+    />
+    <MedicationsItem
+      id="Regular_Medication_Id"
+      instructions="Take 1 capsule by month 2 times a day"
+      key="Regular_Medication_Id"
+      provider={
+        Object {
+          "familyName": "Reyes",
+          "givenNames": Array [
+            "Ana",
+            "Maria",
+          ],
+          "prefixes": Array [
+            "Dr.",
+          ],
+        }
+      }
+      reason="For potassium replacement (COPD)"
+      scheduleType="Regular"
+      startDate="2022-02-01T00:00:00Z"
+      title="Potassium chloride ER Capsule 10 mEq second"
+    />
+  </div>
+</div>
+`;
+
+exports[`MedicationsPlate skeleton should match snapshot 1`] = `
+<div
+  className="medicationsPlateSkeleton"
+>
+  <DulyLoader
+    width={23}
+  />
+</div>
+`;

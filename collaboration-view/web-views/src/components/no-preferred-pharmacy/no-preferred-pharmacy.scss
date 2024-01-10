@@ -1,0 +1,50 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  height: 100%;
+  padding: 1rem 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 2px 1px gray;
+}
+
+.icon {
+  margin-top: 5rem;
+}
+
+.heading{
+    @include nexa-extra-bold-highlight;
+    // max-width: 18rem;
+    // margin-top: 1rem;
+    color: $dupage-magenta;
+    font-weight: 400;
+    font-size: var(--font-size-18px-4px);
+    line-height: 1.625rem;
+    text-align: center;
+}
+
+.title{
+    @include nexa-bold-highlight;
+    color: $dark-gray;    
+    font-weight: 400;
+    font-size: var(--font-size-24px-4px);
+    max-width: 30rem;
+    text-align: center;
+}
+
+.btn{
+    border: none;
+    font-size: var(--font-size-16px-4px);
+    background-color: $dupage-dark-blue;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem !important;
+    font-weight: bold;
+}

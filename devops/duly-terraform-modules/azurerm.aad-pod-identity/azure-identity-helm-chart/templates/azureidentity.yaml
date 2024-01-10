@@ -1,0 +1,10 @@
+apiVersion: aadpodidentity.k8s.io/v1
+kind: AzureIdentity
+metadata:
+  name: {{ .Values.pod_identity.name }}
+  labels:
+    {{- include "identity.labels" . | nindent 4 }}
+spec:
+  type: 0
+  resourceID: {{ .Values.pod_identity.IDENTITY_RESOURCE_ID }}
+  clientID: {{ .Values.pod_identity.IDENTITY_CLIENT_ID }}

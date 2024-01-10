@@ -1,0 +1,300 @@
+.physician-info-container {
+	width: 400px;
+
+	&.has-modal-map {
+		display: none;
+	}
+
+	a.phone.link-effect {
+		padding-top: 15px;
+		display: block;
+		font-weight: 600;
+	}
+
+	.physician-info {
+		display: flex;
+
+		@include responsive(bs-large) {
+			flex: 0 0 95%;
+			margin: 10px auto;
+		}
+
+		.image {
+			flex: 0 0 48px;
+			border-radius: 0.5rem 0 0.5rem 0;
+			img {
+				border-radius: 2px;
+			}
+			img {
+				width: 100%;
+			}
+		}
+
+		.details {
+			display: flex;
+			flex-direction: column;
+			margin-left: 12px;
+			position: relative;
+
+			.name {
+				color: $violet;
+				font-size: 16px;
+				font-weight: 800;
+				&:hover {
+					color: $magenta;
+				}
+			}
+			.service {
+				font-size: 14px;
+				font-weight: normal;
+			}
+
+			.directions {
+				position: absolute;
+				top: 50%;
+				right: 0;
+				transform: translateY(-50%);
+			}
+		}
+	}
+
+	.appointment-time {
+		margin-top: 10px;
+		padding-top: 10px;
+		display: flex;
+		background-color: $footer-gray;
+		padding: 0.5rem;
+		box-sizing: border-box;
+		.material-icons {
+			padding-right: 10px;
+			color: $violet;
+		}
+
+		.date {
+			flex-grow: 1;
+		}
+
+		.date,
+		.time {
+			color: $magenta;
+			font-weight: bold;
+		}
+	}
+
+	.location-details {
+		position: relative;
+		width: 100%;
+
+		.data {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
+		}
+
+		.directions {
+			font-weight: 600;
+		}
+
+		p {
+			margin: 0;
+			font-size: 16px;
+		}
+
+		.contact-details {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin: 1rem 0 0 0;
+			.phone {
+				color: $dark-2 !important;
+				font-weight: bold;
+				padding: 0;
+			}
+			.directions {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: $violet;
+				a {
+					font-weight: bold;
+					line-height: 1.1;
+				}
+				a,
+				span {
+					color: inherit;
+				}
+				span {
+					margin: 0 0.25rem 0 0;
+				}
+			}
+		}
+	}
+
+	.map-container {
+		display: flex;
+		flex-wrap: wrap;
+		padding-top: 1rem;
+		.details {
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+			align-items: center;
+			flex-direction: row;
+
+			@include responsive(medium) {
+				flex-direction: column;
+				align-items: baseline;
+			}
+
+			a {
+				font-weight: 700;
+
+				@include responsive(medium) {
+					margin-top: 15px;
+				}
+			}
+
+			p {
+				margin: 0px;
+			}
+
+			.data {
+				width: 70%;
+
+				@include responsive(medium) {
+					width: 100%;
+				}
+			}
+		}
+
+		.address-line {
+			flex: 0 0 100%;
+			font-size: 16px;
+			font-weight: 600;
+		}
+
+		.city-state-zip {
+			flex: 1 0 auto;
+			font-size: 16px;
+		}
+
+		.map {
+			width: 350px;
+			background: antiquewhite;
+			height: 270px;
+			position: sticky;
+			top: 160px;
+			flex-shrink: 0;
+			margin-top: 20px;
+			.mapboxgl-canvas {
+				width: 100% !important;
+				height: auto !important;
+			}
+
+			@include responsive(x-large) {
+				max-width: 300px;
+			}
+
+			@include responsive(bs-large) {
+				max-width: 100%;
+				width: 100%;
+			}
+		}
+	}
+
+	a {
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.toggle-label,
+	.toggle-input {
+		display: none;
+	}
+
+	@include responsive(medium) {
+		.location-and-map {
+			display: flex;
+			flex-direction: column-reverse;
+
+			.toggle-label {
+				display: flex;
+			}
+
+			.toggle-input:checked {
+				& ~ .map-container {
+					display: flex !important;
+				}
+
+				& ~ label .toggle-less {
+					display: flex;
+				}
+
+				& ~ label .toggle-more {
+					display: none;
+				}
+
+				& ~ label .expand_less {
+					display: flex;
+				}
+
+				& ~ label .expand_more {
+					display: none;
+				}
+			}
+
+			.toggle-input:not(checked) {
+				& ~ .map-container {
+					display: none !important;
+				}
+
+				& ~ label .toggle-less {
+					display: none;
+				}
+
+				& ~ label .toggle-more {
+					display: flex;
+				}
+
+				& ~ label .expand_less {
+					display: none;
+				}
+
+				& ~ label .expand_more {
+					display: flex;
+				}
+			}
+
+			.toggle-input {
+				display: none;
+			}
+
+			label.toggle-label {
+				background: $background-gray;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 10px;
+				margin-top: 20px;
+
+				span {
+					font-size: 12px;
+					font-weight: 600;
+
+					&.expand_more,
+					&.expand_more {
+						padding-left: 10px;
+					}
+
+					&.toggle-less,
+					&.toggle-more {
+						padding-right: 5px;
+					}
+				}
+			}
+		}
+	}
+}

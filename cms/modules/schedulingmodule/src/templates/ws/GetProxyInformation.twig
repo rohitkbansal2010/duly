@@ -1,0 +1,19 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:epicsystems-com:PatientAccess.2009.Services">
+    <soapenv:Header>
+      {% include "headers.twig" with {
+          date: epicDate,
+          username: epicUsername,
+          password: epicPassword,
+          nonce: epicNonce,
+          epicClientId: epicClientId
+      } only %}
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn:GetProxyInformation>
+         <urn:PatientID>
+            <urn:ID>{{ patientId}}</urn:ID>
+            <urn:IDType>{{ patientIdType }}</urn:IDType>
+         </urn:PatientID>
+      </urn:GetProxyInformation>
+   </soapenv:Body>
+</soapenv:Envelope>

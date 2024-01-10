@@ -1,0 +1,47 @@
+@import "~@styles/colors.scss";
+@import "~@styles/main.scss";
+
+.practitioner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 1.6rem;
+  background: none;
+  border: none;
+
+  &Horizontal {
+    width: 4rem;
+    margin: 0 2.25rem;
+  }
+
+  &Other {
+    flex-direction: row !important;
+    width: unset;
+    margin: 0 0 1.6rem;
+
+    &HumanName {
+      margin-left: 1rem;
+    }
+  }
+
+  &Info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content;
+
+    &HumanName {
+      color: $dupage-violet;
+      font-size: var(--font-size-12px-4px);
+      font-family: "NexaExtraBold", sans-serif;
+      // line-height: 1.1rem;
+    }
+
+    &Role {
+      color: $medium-gray;
+      font-size: var(--font-size-12px-4px);
+      font-family: "NexaRegular", sans-serif;
+      // line-height: 1.1rem;
+    }
+  }
+}

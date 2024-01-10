@@ -1,0 +1,10 @@
+fieldLayouts:
+    f4647c7f-b5c9-4be6-a7b4-0b6d6ba8868d: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: Headline, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 67d9c002-8ba3-4c5b-876a-d4a2b66c796c, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 7be35322-8524-4a34-8579-9f02d3cface3, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: c1a08b2e-8419-4a59-aa27-c3d0c5cfa7d6, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 3e1e0752-afa8-42e4-83f1-d4c1c181bb86, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 27329627-d1ac-42d2-9a10-42e44adecaa3, instructions: '', label: '', required: '', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: b73c486f-e985-45ec-ae60-0b9f636ef5f5, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 43be8db0-fbd6-47c0-805c-146e11c9612a, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 3f9d5a61-bf83-4b74-a3ef-5589bc1cd0a4, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Blog, sortOrder: 1 }] }
+handle: newsAndPress
+hasTitleField: true
+name: News
+section: f827425f-2a74-42c5-ae84-0725c8234a9a
+sortOrder: 2
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

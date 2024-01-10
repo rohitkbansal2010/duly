@@ -1,0 +1,10 @@
+fieldLayouts:
+    0235b2d7-6751-4b6b-ab52-8dbd35480278: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: Title, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 9417cd86-d106-406e-b86b-67f24ca459f7, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 8a4b5004-6467-4865-b21a-6585c906ff29, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 36ea0283-16d5-4070-8d02-912e841599da, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Alerts, sortOrder: 1 }] }
+handle: siteWide
+hasTitleField: true
+name: Site-Wide
+section: ce811dae-0a11-427e-ae26-2a4e1df4822e
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

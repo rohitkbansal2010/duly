@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: alternativeSearchServiceName
+instructions: 'If a service is more well-known by a specific name, list those names here.'
+name: 'Alternative Search Service Name'
+searchable: true
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: OBGYN
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

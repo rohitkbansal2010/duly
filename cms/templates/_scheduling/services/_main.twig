@@ -1,0 +1,11 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Services'|t %}
+{% block bodyClass "schedule-services-page" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+	{% include "_scheduling/services/_listings.twig" %}
+	<div class="pattern-container"></div>
+{% endblock %}

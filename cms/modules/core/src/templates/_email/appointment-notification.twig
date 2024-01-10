@@ -1,0 +1,30 @@
+{% extends "_layouts/_layout.twig" %}
+
+{% block body %}
+    {{ "Hi!"|t }}
+
+    {% if shareDetails == 'all-details' %}
+        {% if visitType == 'video' %}
+            {{ "Your video visit appointment with {physician} on {time} is scheduled."|t(params = { 
+                    physician: physician,
+                    time: time
+                }) 
+            }}
+        {% else %}
+            {{ "Your appointment with {physician} on {time} at the {location} office is scheduled."|t(params = { 
+                    physician: physician,
+                    time: time,
+                    location: location
+                }) 
+            }}
+        {% endif %}
+    {% else %}
+        {% if visitType == 'video' %}
+            {{ "Your video visit at {time} is scheduled."|t(params = { time: time }) }}
+
+            {{ "MyChart URL: <a href=\"{location}\" target=\"_blank\">{location}</a>."|t(params = { location: location })|raw }}
+        {% else %}
+            {{ "Your appointment at {time} is scheduled."|t(params = { time: time }) }}
+        {% endif %}
+    {% endif %}
+{% endblock %}

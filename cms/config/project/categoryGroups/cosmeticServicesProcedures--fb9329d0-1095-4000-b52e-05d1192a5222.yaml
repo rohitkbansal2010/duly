@@ -1,0 +1,10 @@
+defaultPlacement: end
+fieldLayouts:
+    6709a7ac-4fa5-489b-a352-0120333dcd50: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }, { fieldUid: 77841614-6baf-4894-92cc-664b58e86092, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 6d19041e-f0ae-478d-b8dd-0ab74db0715d, instructions: '', label: '', required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: cosmeticServicesProcedures
+name: 'Cosmetic Services & Procedures'
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { hasUrls: true, template: null, uriFormat: 'procedures/{slug}' }
+structure:
+    maxLevels: null
+    uid: 22fe8844-9595-43f0-ab8f-7d5b68e1d5bb

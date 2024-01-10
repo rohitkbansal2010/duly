@@ -1,0 +1,14 @@
+{% set entry = craft.entries()
+    .section('schedulingLandingPage')
+    .one()
+%}
+
+{% include "_scheduling/navigation/_login.twig" %}
+
+<div class="content">
+    {% include "_scheduling/landing/_featured.twig" %}
+    {% include "_scheduling/search/_search-landing.twig" %}  
+    {% include "_scheduling/landing/_tiles.twig"%}
+    {% include "_scheduling/landing/_view-all.twig" %}
+    <div class="pattern-container"></div>
+</div>

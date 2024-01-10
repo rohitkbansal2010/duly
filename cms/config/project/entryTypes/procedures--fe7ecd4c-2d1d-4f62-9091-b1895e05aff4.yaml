@@ -1,0 +1,10 @@
+fieldLayouts:
+    e032d05b-c3a4-4379-985f-73e3fec806b0: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: Title, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 9657b7cb-aa93-4d65-b3f9-92a6c9387d19, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 5cd590cd-33cd-47de-9405-78e852a49bd7, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 50 }, { fieldUid: ab9c248f-c5ea-434a-bb60-dca4e38d019c, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 50 }, { fieldUid: 71684f94-91d6-42bb-943c-58b6a469a8fa, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 37f430c2-9f18-46af-9db1-e46b75a134f8, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { type: craft\fieldlayoutelements\HorizontalRule }, { fieldUid: 3bf4f21c-9bc6-46bc-9199-4bf257ed238e, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { type: craft\fieldlayoutelements\HorizontalRule }, { fieldUid: b6d3da7b-46bc-4662-ace9-bf120d60e429, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: 'Procedure Layout', sortOrder: 1 }] }
+handle: procedures
+hasTitleField: true
+name: Procedures
+section: d8a05845-81f0-4f51-9240-d23c124020d6
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

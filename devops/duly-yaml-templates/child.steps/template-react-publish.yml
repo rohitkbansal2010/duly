@@ -1,0 +1,24 @@
+parameters:
+  - name: sourceFolder
+    type: string
+    default: '$(System.DefaultWorkingDirectory)'
+  - name: pathToPublish
+    type: string
+    default: '$(Build.ArtifactStagingDirectory)'
+  - name: copyPattern
+    type: string
+    default: '**/dist/**'
+
+steps:
+
+  # Copy compiled code to staging folder
+  - task: CopyFiles@2
+    displayName: 'Copy files to $(Build.ArtifactStagingDirectory) based on ${{ parameters.copyPattern }} pattern'
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)'
+      Contents: '${{ parameters.copyPattern }}'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  # Publish Artifact
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish build artifacts'

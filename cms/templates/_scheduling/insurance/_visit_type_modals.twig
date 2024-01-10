@@ -1,0 +1,288 @@
+{% set user = craft.app.patient_user.identity %}
+{% set isSchedulingFlowWithoutPhysicians = user and user.isSchedulingFlowWithoutPhysicians() %}
+{% set appointmentServiceIds = user.getAppointmentServiceIds() %}
+{% set isVeinClinic = determineIfAdditionalPromptNeeded(appointmentServiceIds, 'vascularSurgery') %}
+{% set isDermatology = determineIfAdditionalPromptNeeded(appointmentServiceIds, 'dermatologyServices')%}
+
+<div class="modal age-restriction-modal {{ageServiceRestrictionError ? " " : " hidden"}}">
+	<div class="content">
+		<h2>{{ "You do not meet the age requirements set for this service."|t }}</h2>
+		<p>{{ "Please call "|t }}
+			<a href="tel:630-469-9200" class="link-effect">{{ "(630) 469-9200" }}</a>
+			{{ " for more details."|t }}</p>
+		<div class="form-actions">
+			<button class="action-button dmgButton primary3">{{ "Exit Scheduling Process"|t }}</button>
+		</div>
+	</div>
+</div>
+
+<div class="modal age-restriction-physician-modal {{agePhysicianRestrictionError ? " " : " hidden"}}">
+	<div class="content">
+		<h2>{{ "This provider cannot see you because of your age."|t }}</h2>
+		<p>{{ "Please continue to the next step and we will help you find the best provider."|t }}</p>
+		<div class="form-actions">
+			<button class="action-button dmgButton primary3" id="new-doctor-age">{{ "Find A New Provider"|t }}</button>
+		</div>
+	</div>
+</div>
+
+<div class="modal missing-insurance hidden">
+	<div class="content">
+		<span tabindex="0" class="material-icons close"></span>
+		<h2>{{ "Your insurance might not be accepted by {siteNameShort}."|t(params = {
+			siteNameShort: siteNameShort
+		}) }}</h2>
+		<p>{{ "Please call "|t }}
+			<a href="tel:630-469-9200" class="link-effect">{{ "(630) 469-9200" }}</a>
+			{{ " to schedule your appointment."|t }}</p>
+		<div class="form-actions confirm-warning">
+			<button tabindex="0" class="action-button insurance-redirect dmgButton primary3">{{ "Check Accepted Insurances"|t }}</button>
+		</div>
+		<hr>
+		{% include "_input/_checkbox.twig" with {
+					name: 'insurance-checkbox',
+					class: 'insurance-checkbox',
+					id: 'confirm-no-insurance', 
+					tabindex: 0,
+					label: "I understand my insurance might not be accepted, and want to schedule my appointment at my own risk."|t 
+				} only %}
+		<div class="form-actions confirm-warning">
+			<button tabindex="0" disabled class="action-button dmgButton primary3 continue">{{ "Continue Scheduling Appointment"|t }}</button>
+		</div>
+	</div>
+</div>
+
+{% set patientUser = craft.app.patient_user.identity %}
+{% set session = craft.app.session %}
+
+{% if patientUser %}
+	{% set showFollowUpVisitPrompt = patientUser.appointment_new_patient_visit is not empty and visitTypes.followUpVisit and patientUser.appointment_vein_clinic_visit != "1" and patientUser.appointment_follow_up_visit is empty %}
+	{% set services = craft.entries.id(serviceIds).all() %}
+	{% set showServicesPrompt = services | length >= 2 and not serviceDoctorName %}
+	{% set showPregnanyModal = patientUser.physician_selected_outside_of_scheduling != "1" and shouldAskIfPregnant and session.get('patient_is_pregnant') == null and patientUser.appointment_new_patient_visit != null %}
+	{% set showVeinClinicPrompt = isVeinClinic and patientUser.appointment_vein_clinic_visit is empty and patientUser.appointment_new_patient_visit is not empty %}
+	{% set showFullBodySkinExamPrompt = isDermatology and patientUser.appointment_full_body_skin_exam_visit is empty and patientUser.appointment_new_patient_visit is not empty %}
+
+	{% if showPregnanyModal %}
+		{% if (patientUser.appointment_follow_up_visit == "0" or patientUser.appointment_follow_up_visit is empty) and not showFollowUpVisitPrompt %}
+			<div class="modal are-you-pregnant-prompt">
+				<div class="content">
+					<form method="POST">
+						{{ csrfInput() }}
+						<h2>{{ "Are you pregnant?"|t }}</h2>
+
+						<div class="form-actions">
+							<button name="patient_is_pregnant" value="1" class="action-button dmgButton primary3">{{ "Yes"|t }}</button>
+							<button name="patient_is_pregnant" value="0" class="action-button dmgButton primary3">{{ "No"|t }}</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		{% endif %}
+	{% endif %}
+
+	{% if session.get('patient_is_pregnant') == '1' and shouldAskWhenLastMenstrualCycle %}
+		<div class="modal last-menstrual-cycle-prompt">
+			<div class="content">
+				<form method="POST">
+					{{ csrfInput() }}
+					<h2>{{ "What was the first date of your last menstrual cycle?"|t }}</h2>
+					<div class="form-fields">
+						{% include "_input/_input.twig" with {
+							type: 'menstrual-cycle-month',
+							name: 'last_menstrual_cycle_month',
+							label: "Month"|t,
+							extraOptions: {
+								required: "required",
+								pattern: "\\d*",
+								inputmode: "numeric",
+								maxlength: "2",
+								placeholder: "MM"
+							}
+						} only %}
+
+						{% include "_input/_input.twig" with {
+							type: 'menstrual-cycle-day',
+							name: 'last_menstrual_cycle_day',
+							label: "Day"|t,
+							extraOptions: {
+								required: "required",
+								pattern: "\\d*",
+								inputmode: "numeric",
+								maxlength: "2",
+								placeholder: "DD"
+							}
+						} only %}
+
+						{% include "_input/_input.twig" with {
+							type: 'menstrual-cycle-year',
+							name: 'last_menstrual_cycle_year',
+							label: "Year"|t,
+							extraOptions: {
+								required: "required",
+								pattern: "\\d*",
+								inputmode: "numeric",
+								maxlength: "4",
+								placeholder: "YYYY"
+							}
+						} only %}
+					</div>
+					
+					<div class="{{ futureDateSubmitted ? 'future-date-error' : 'future-date-error hidden' }}">
+						<span class="material-icons warning"></span>
+						<p class="error">{{ "Cannot be a future date."|t }}</p>
+					</div>
+					
+					<div class="form-actions">
+						<button disabled class="action-button dmgButton primary3 menstrual-cycle-submit">{{ "Submit"|t }}</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	{% endif %}
+
+	{% if showCongratsModal and not shouldAskWhenLastMenstrualCycle %}
+		<div class="modal pregnancy-congrats-modal">
+			<div class="content">
+				<h2>{{ "Congratulations on your pregnancy!"|t }}</h2>
+				<div class="subheader">
+					<p>{{ "We need additional information to schedule your appointment."|t }}</p>
+					<p>{{ "Please call "|t }} <a href="tel:630-469-9200" class="link-effect">{{ "1-630-469-9200" }}</a>
+						{{ " to speak with an associate."|t }}</p>
+				</div>
+				<div class="form-actions">
+					<button class="action-button dmgButton primary3 congrats-btn" tabindex="0">{{ "Exit Scheduling Process"|t }}</button>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+	{% if showHospitalFollowUpVisit and patientUser.appointment_follow_up_visit != "1" and patientUser.appointment_follow_up_visit is not null %}
+		<div class="modal hospital-followup-prompt">
+			<div class="content">
+				<form method="POST">
+					{{ csrfInput() }}
+					<h2>{{ "Is this for a hospital stay follow-up?"|t }}</h2>
+					<div class="form-actions">
+						<button name="appointment_hospital_follow_up_visit" value="1" class="action-button dmgButton primary3">{{ "Yes"|t }}</button>
+						<button name="appointment_hospital_follow_up_visit" value="0" class="action-button dmgButton primary3">{{ "No"|t }}</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	{% endif %}
+
+	{% if not showHospitalFollowUpVisit and patientUser.appointment_hospital_follow_up_visit == "1" %}
+		<div class="modal hospital-followup-disclaimer-text">
+			<div class="content">
+				<form method="POST">
+					{{ csrfInput() }}
+					<h2>{{ "Please schedule your Hospital Follow-Up visit within seven (7) days of your discharge date."|t }}</h2>
+					<p>{{ "If you are unable to find an appointment time that works for you within seven days, please call your provider’s office to schedule your appointment."|t }}</p>
+					<div class="form-actions">
+						<button class="action-button dmgButton primary3" name="appointment_hospital_follow_up_visit" value="0">{{ "I understand"|t }}</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	{% endif %}
+{% endif %}
+
+{% if patientUser and not patientUser.apointment_time_selected_outside_of_scheduling %}
+	{% if showServicesPrompt %}
+		<div class="modal choose-service-prompt">
+			<div class="content">
+				<form method="POST">
+					{{ csrfInput() }}
+					{% if visitTypes.followUpVisit %}
+						<input type="hidden" name="show_follow_up_prompt">
+					{% endif %}
+					<h2>{{ "Which service would you like to schedule?"|t }}</h2>
+					<div
+						class="form-actions">
+						{% for service in services %}
+							<button name="appointmentServiceIds[]" value="{{service.id}}" class="action-button dmgButton primary3">{{service.title}}</button>
+						{% endfor %}
+					</div>
+				</form>
+			</div>
+		</div>
+	{% endif %}
+
+	<div class="modal new-patient-prompt {{ shouldAskIfNewPatient and not showServicesPrompt ? " " : " hidden" }}">
+		<div class="content">
+			<form method="POST">
+				{{ csrfInput() }}
+				{% if visitTypes.followUpVisit %}
+					<input type="hidden" name="show_follow_up_prompt">
+				{% endif %}
+				{% if isSchedulingFlowWithoutPhysicians %}
+					<h2>{{ "Have you been to a {siteNameShort} {serviceDoctorName} before?" | t(params = {
+						serviceDoctorName: serviceDoctorName,
+						siteNameShort: siteNameShort
+					}) }}</h2>
+				{% else %}
+					<h2>{{ "Have you seen a {siteNameShort} {serviceDoctorName} before?" | t(params = {
+						serviceDoctorName: serviceDoctorName,
+						siteNameShort: siteNameShort
+					}) }}</h2>
+				{% endif %}
+				<p class="three-years">{{ "within the last three (3) years"|t }}</p>
+				<div class="form-actions">
+					<button name="appointment_new_patient_visit" value="0" class="action-button dmgButton primary3">{{ "Yes"|t }}</button>
+					<button name="appointment_new_patient_visit" value="1" class="action-button dmgButton primary3">{{ "No"|t }}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="modal follow-up-visit-prompt {{ showFollowUpVisitPrompt ? " " : " hidden"}}">
+		<div class="content">
+			<form method="POST">
+				{{ csrfInput() }}
+				<h2>{{ "Is this appointment for an annual physical?"|t }}</h2>
+				<div class="form-actions">
+					<button name="appointment_follow_up_visit" value="1" class="action-button dmgButton primary3">{{ "Yes"|t }}</button>
+					<button name="appointment_follow_up_visit" value="0" class="action-button dmgButton primary3">{{ "No"|t }}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="modal vein-clinic-prompt {{ showVeinClinicPrompt ? " " : " hidden"}}">
+		<div class="content">
+			<form method="POST">
+				{{ csrfInput() }}
+				<h2>{{ "Is this for a Vein Clinic appointment?"|t }}</h2>
+				<div class="form-actions">
+					<button name="appointment_vein_clinic_visit" value="1" class="action-button dmgButton primary3">{{ "Yes"|t }}</button>
+					<button name="appointment_vein_clinic_visit" value="0" class="action-button dmgButton primary3">{{ "No"|t }}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="modal full-body-skin-exam-prompt {{ showFullBodySkinExamPrompt ? " " : " hidden"}}">
+		<div class="content">
+			<form method="POST">
+				{{ csrfInput() }}
+				<h2>{{ "Is this for a full-body skin exam?"|t }}</h2>
+				<div class="form-actions">
+					<button name="appointment_full_body_skin_exam_visit" value="1" class="action-button dmgButton primary3">{{ "Yes"|t }}</button>
+					<button name="appointment_full_body_skin_exam_visit" value="0" class="action-button dmgButton primary3">{{ "No"|t }}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endif %}
+
+<div class="modal hidden" id="physicianInsuranceRestrictionErrorModal">
+	<div class="content">
+		<span tabindex="0" class="material-icons close"></span>
+		<h2>{{ "This provider does not accept your insurance."|t }}</h2>
+		<p>{{ "Please continue to the next step and we will help you find the best provider."|t }}</p>
+		<div class="form-actions">
+			<button class="action-button dmgButton primary3" >{{ "Find A New Provider"|t }}</button>
+		</div>
+	</div>
+</div>

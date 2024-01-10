@@ -1,0 +1,41 @@
+{# Retrieve a list of all categories, stored by their title #}
+{% set healthTopics = craft.categories()
+    .group('healthTopicCategories')
+    .enabledForSite(false)
+    .orderBy('title asc')
+    .all()
+%}
+
+{% cache using key "health-topics-navigation" %}
+    <nav id="health-topics-navigation-bar-mobile">
+        <div class="custom-select">
+            <select class="navigation-select">
+                {# add default state for health topics page with no category #}
+                {% if craft.app.request.getSegment(2) == '' %}
+                    <option value="default-select-placeholder" class="default-select-placeholder">{{ 'Health Topics: A - Z'|t }}</option>
+                {% endif %}
+            </select>
+        </div>
+    </nav>
+    <nav id="health-topics-navigation-bar">
+        <ul>
+            <li><h4>{{ 'Health Topics: A - Z'|t }}</h4></li>
+            {% for category in healthTopics %}
+                {% set query = craft.entries({
+                    section: 'blog',
+                    type: 'healthTopic',
+                    relatedTo: [
+                            'and',
+                            { targetElement: category, field: 'healthTopics.category' }
+                        ]
+                }) %}
+
+                {% if query.count() != 0 %}
+                    <li {% if craft.app.request.getSegment(2) == category.slug %}class="active"{% endif %}>
+                        <a href="{{ category.url }}">{{ category.title }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+{% endcache %}

@@ -1,0 +1,14 @@
+{% for serviceProcedureCategory in servicesProceduresCategories %}
+    {% set firstProcedure = serviceProcedureCategory.procedures.first() %}
+    <div>
+        <a href="/procedures/{{ firstProcedure.slug }}">
+        {% set image = serviceProcedureCategory.categoryImage.one() %}
+            <div class="image">
+                {% if image is not null %}
+                    {{ getOptimizedImage(image, 'webp')|raw }}
+                {% endif %}
+            </div>
+            <p>{{ serviceProcedureCategory.title }}</p>
+        </a>
+    </div>
+{% endfor %}

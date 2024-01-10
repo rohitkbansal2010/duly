@@ -1,0 +1,10 @@
+defaultPlacement: end
+fieldLayouts:
+    1e35ddfe-94d0-428b-8902-c98a74dfc5e1: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }, { fieldUid: 0c8e35a2-599f-4697-aec5-785fcbb2928d, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: vascularSurgery
+name: 'Vascular Surgery Services'
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { hasUrls: true, template: null, uriFormat: 'vascular-surgery/{slug}' }
+structure:
+    maxLevels: null
+    uid: 06356431-c68c-4c4a-8d56-14064d4b3985

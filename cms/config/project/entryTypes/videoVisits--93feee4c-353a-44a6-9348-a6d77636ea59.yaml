@@ -1,0 +1,10 @@
+fieldLayouts:
+    e1f90752-0930-4187-825e-2063e1df1083: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 56e311cd-b04e-4038-88c7-41396323e210, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: videoVisits
+hasTitleField: false
+name: 'Video Visits'
+section: 36e0b9d6-ecc3-4b66-80da-868ccccf7d84
+sortOrder: 1
+titleFormat: '{section.name|raw}'
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

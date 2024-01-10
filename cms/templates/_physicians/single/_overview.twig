@@ -1,0 +1,69 @@
+{% set specialties = entry.physicianSpeciality | filter (v => v.type != "ancillaryServices") | sort((a, b) => a.title > b.title) | join(', ') %}
+
+<div class="physician-overview">
+	{% set hasHeadShot = entry.physicianHeadshot.one() is not null %}
+	<div class="{{ hasHeadShot == false ? 'image default-headshot large' : 'image' }}">
+		{% if hasHeadShot %}
+			{{ getOptimizedImage(entry.physicianHeadshot.one(), 'webp', false, [
+                { 'settings': ['gravity:sm', 'resize:fill:800:800:1:1'], 'css': '(min-width: 200px)' }
+            ])|raw }}
+		{% endif %}
+	</div>
+	<div class="overview">
+		<div class="section-a">
+			<h1 class="name">{{entry.title}}</h1>
+			<h2 class="services">{{specialties}}</h2>
+
+			{% if entry.dupageMedicalGroupStartDate is not null %}
+				{% if date(entry.dupageMedicalGroupStartDate) > date('now') %}
+					<div class="accepts-patients-date">
+						<span class="label">{{ "Accepting patients beginning"|t }}</span>
+						<span class="value">{{ entry.dupageMedicalGroupStartDate }}</span>
+					</div>
+				{% endif %}
+			{% endif %}
+
+			<div class="rating">
+				{% include "_physician-stars.twig" with {
+					physician: entry,
+                	includeResponseCount: true
+				} %}
+			</div>
+		</div>
+		<div class="filler"></div>
+		<div class="section-b">
+			{% if entry.careerStartDate.one %}
+				<div class="years-in-practice">
+					<span class="label">{{ "Years in Practice:"|t }}</span>
+					<span class="value">
+						{% set month = entry.careerStartDate.one.month %}
+						{% set year = entry.careerStartDate.one.year %}
+						
+						<span>{{ getYearsInPractice(month, year) }}</span>
+						<span>{{ "years"|t }}</span>
+					</span>
+				</div>
+			{% endif %}
+			<div class="locations">
+				<span class="label">{{ "Practices In:"|t }}</span>
+				<span class="value">{{ practicingLocations }}</span>
+			</div>
+			<div class="patients-seen">
+				{% set ageSeen = entry.ageRestrictions.one %}
+
+				<span class="label">{{ "Patients Seen:"|t }}</span>
+
+				{% if seesAllAges %}
+					<span class="value">{{ "All Ages"|t }}</span>
+				{% elseif typeSeen is defined %}
+					<span class="value">{{ typeSeen }}</span>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<div class="bio">{{ entry.physicianBio|striptags('<p><strong><em><i><b><u><a>')|typogrify|raw }}</div>
+
+	{% if entry.physicianDisclaimerText %}
+		<div class="disclaimer">{{ entry.physicianDisclaimerText|typogrify|raw }}</div>
+	{% endif %}
+</div>

@@ -1,0 +1,79 @@
+{% if entry.serviceTile|length %}
+	<div class="tiles">
+		{% set tiles = serviceTiles is defined ? serviceTiles : entry.serviceTile.all() %}
+		{% for tile in tiles %}
+			{% set services = tile.service.all() %}
+			{% set hasServiceSchedulingUrl = tile.serviceSchedulingUrl is not empty %}
+			{% if services|length %}
+			{% if services[0].type == "landingPage" %}
+				<form class="tile-link" \>
+					<a href="{{ hasServiceSchedulingUrl ? tile.serviceSchedulingUrl : services[0].url }}">
+						<div class="tile">
+							{% set image = getOptimizedImage(tile.serviceTileIcon.one(), 'svg', true)|raw %}
+
+							{% if image[0] is defined and image[0] is not null %}
+								{% set imageURL = image[0] %}
+								<img src="{{ imageURL }}">
+							{% endif %}
+
+							<h3>{{ tile.serviceTitle }}</h3>
+							<p>{{ tile.serviceTileSubtitle }}</p>
+						</div>
+						{% if tile.externalDepartmentId %}
+							<input type="hidden" name="appointment_department_id" value="{{ tile.externalDepartmentId }}" />
+						{% endif %}
+						{% if tile.externalProviderResourceId %}
+							<input type="hidden" name="appointment_physician_id" value="{{ tile.externalProviderResourceId }}" />
+						{% endif %}
+					</a>
+				</form>
+			{% else %}
+				<form class="tile-link" id="specialties-{{ tile.id }}" method="POST">
+                	<input type="hidden" name="chosen_video_visit_group" value="{{ tile.id }}">
+					{{ csrfInput() }}
+					{% for service in services %}
+						{% if patientUser is defined %}
+							{% if service.id in verifyServicesByAge([service.id], patientUser.getUserAge()) %}
+								<input type="hidden" name="appointmentServiceIds[]" value="{{ service.id }}">
+							{% endif %}
+						{% else %}
+							<input type="hidden" name="appointmentServiceIds[]" value="{{ service.id }}">
+						{% endif %}
+					{% endfor %}
+					{% if hasServiceSchedulingUrl %}
+						<input type="hidden" name="scheduling_url" value="{{ tile.serviceSchedulingUrl }}">
+					{% endif %}
+					<button>
+						<div class="tile">
+							{% set image = getOptimizedImage(tile.serviceTileIcon.one(), 'svg', true)|raw %}
+
+							{% if image[0] is defined and image[0] is not null %}
+								{% set imageURL = image[0] %}
+								<img src="{{ imageURL }}">
+							{% endif %}
+
+							<h3>{{ tile.serviceTitle }}</h3>
+							<p>{{ tile.serviceTileSubtitle }}</p>
+						</div>
+					</button>
+					{% if patientUser is defined and patientUser.getUserAge() >= 18 %}
+						{% if tile.externalDepartmentId18Plus %}
+							<input type="hidden" name="appointment_department_id" value="{{ tile.externalDepartmentId18Plus }}" />
+						{% endif %}
+						{% if tile.externalProviderResourceId18Plus %}
+							<input type="hidden" name="appointment_physician_id" value="{{ tile.externalProviderResourceId18Plus }}" />
+						{% endif %}
+					{% else %}
+						{% if tile.externalDepartmentId17AndUnder %}
+							<input type="hidden" name="appointment_department_id" value="{{ tile.externalDepartmentId17AndUnder }}" />
+						{% endif %}
+						{% if tile.externalProviderResourceId17AndUnder %}
+							<input type="hidden" name="appointment_physician_id" value="{{ tile.externalProviderResourceId17AndUnder }}" />
+						{% endif %}
+					{% endif %}
+				</form>
+			{% endif %}
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endif %}

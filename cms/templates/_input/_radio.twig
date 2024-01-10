@@ -1,0 +1,16 @@
+<div class="mdc-form-field {{ class ?? '' }} {{ disabled is defined and disabled == true ? 'disabled' : ''}} duly-radio">
+  <div class="mdc-radio mdc-radio--touch">
+        {{ input('radio', name, value ?? '1', {
+            class: 'mdc-radio__native-control',
+            id: id,
+            checked: checked is defined and checked == true,
+            disabled: disabled is defined and disabled == true,
+			required: required is defined and required == true
+        })}}
+		<div class="mdc-radio__background">
+			<div class="mdc-radio__outer-circle"></div>
+			<div class="mdc-radio__inner-circle"></div>
+		</div>
+	</div>
+	<label for={{ id }}>{{ label }}</label>
+</div>

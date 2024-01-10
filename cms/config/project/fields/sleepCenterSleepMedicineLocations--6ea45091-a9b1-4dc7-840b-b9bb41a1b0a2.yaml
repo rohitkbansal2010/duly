@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: sleepCenterSleepMedicineLocations
+instructions: 'These suites will be shown under the "Locations" tab for a Sleep Center/Medicine service entry type. They will also have a copy that says "Sleep Center & Sleep Medicine."'
+name: 'Sleep Center & Sleep Medicine Location Suites'
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:17cba234-5703-403b-a9e3-d029df2d1745']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

@@ -1,0 +1,53 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.bmiBlock {
+  margin: 6.56rem 0 4.625rem 0;
+
+  &Gradient {
+    width: inherit;
+    height: 1.25rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+    background: linear-gradient(90deg, $dupage-violet 0%, $dupage-magenta 100%);
+    border-radius: 1.375rem;
+
+    &Wrapper {
+      position: relative;
+      width: inherit;
+      height: inherit;
+    }
+
+    &Dot {
+      position: absolute;
+      top: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 1rem;
+      height: 1rem;
+      background-color: black;
+      border: 0.2rem solid $white;
+      border-radius: 50%;
+      transform: translateY(-50%);
+
+      &Value {
+        position: absolute;
+        top: -3.5rem;
+        color: $dupage-violet;
+        font-size: var(--font-size-36px-4px);
+        line-height: var(--line-height-54px-6px);
+        @include nexa-heavy-highlight;
+      }
+    }
+  }
+
+  &Text {
+    display: flex;
+    justify-content: space-between;
+    color: $dupage-violet;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    @include nexa-bold-highlight;
+  }
+}

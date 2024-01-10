@@ -1,0 +1,88 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Appointment Confirmation'|t %}
+{% block bodyClass "patient-appointment-confirmation-page" %}
+
+{% set editAppointmentNumber = craft.globalSets()
+	.handle('editAppointmentPhoneNumber')
+	.one 
+%}
+
+{# set default #}
+{% set globalPhoneNumber = "630-469-9200" %}
+
+{% if editAppointmentNumber is not null and editAppointmentPhoneNumber.phoneNumber is not null %}
+	{% set globalPhoneNumber = editAppointmentPhoneNumber.phoneNumber.number %}
+{% endif %}
+
+{% set patientUser = craft.app.patient_user.identity %}
+
+{% set isSchedulingFlowWithoutPhysicians = patientUser.isSchedulingFlowWithoutPhysicians() %}
+{% set service = craft.entries.id(patientUser.getAppointmentServiceIds()).one() %}
+
+{# 2990 is the video visit ID that comes back from Epic #}
+{% set isVideoVisit = patientUser.appointment_visit_type_id == 2990 %}
+
+{% set mychart = craft.globalSets()
+	.handle('mychartUrl')
+	.one 
+%}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+
+    {# Last step does not have back navigation present #}
+	{% include "_scheduling/navigation/_steps.twig" with {
+		backUrl: ""
+	} %}
+	{% include "_scheduling/share/modals/_share_details.twig" %}
+	{% include "_scheduling/share/modals/_share_form.twig" %}
+	{% include "_scheduling/share/modals/_edit.twig" %}
+	{% include "_scheduling/share/modals/_email-success.twig" %}
+
+	{% set makeAppointmentSuccessFlash = craft.app.session.getFlash('make-appointment-success') %}
+	{% if makeAppointmentSuccessFlash %}
+		<input type="hidden" name="make-appointment-success">
+	{% endif %}
+
+	{% set makeAppointmentSuccessClearstepFlash = craft.app.session.getFlash('make-appointment-success-clearstep') %}
+	{% if makeAppointmentSuccessClearstepFlash %}
+		<input type="hidden" name="make-appointment-success-clearstep">
+	{% endif %}
+
+	{% set newPatientRecordSuccessFlash = craft.app.session.getFlash('new-patient-record') %}
+	{% if newPatientRecordSuccessFlash %}
+		<input type="hidden" name="new-patient-record">
+	{% endif %}
+	
+	{% set cancelAppointmentSuccessFlash = craft.app.session.getFlash('edit-appointment-success') %}
+	{% if cancelAppointmentSuccessFlash %}
+		{% include "_scheduling/share/modals/_cancel-success.twig" %}
+	{% endif %}
+
+	{% set nationalPhysicianIdFlash = craft.app.session.getFlash('national-physician-id') %}
+	{% if nationalPhysicianIdFlash %}
+		<input type="hidden" name="national-physician-id" value="{{nationalPhysicianIdFlash}}">
+	{% endif %}
+
+	{% set appointmentServiceChosenFlash = craft.app.session.getFlash('appointment-service-chosen') %}
+	{% if appointmentServiceChosenFlash %}
+		<input type="hidden" name="appointment-service-chosen" value="{{appointmentServiceChosenFlash}}">
+	{% endif %}
+
+	{% set epicPhysicianIdFlash = craft.app.session.getFlash('epic-physician-id') %}
+	{% if epicPhysicianIdFlash %}
+		<input type="hidden" name="epic-physician-id" value="{{epicPhysicianIdFlash}}">
+	{% endif %}
+
+	{% set physicianRatingFlash = craft.app.session.getFlash('physician-rating') %}
+	{% if physicianRatingFlash %}
+		<input type="hidden" name="physician-rating" value="{{physicianRatingFlash}}">
+	{% endif %}
+
+	<div class="{{ isVideoVisit ? 'content video-visit-confirmation' : 'content' }}">
+		<div class="map"></div>
+		{% include "_scheduling/share/_form.twig" %}
+	</div>
+{% endblock %}

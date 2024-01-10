@@ -1,0 +1,61 @@
+<div class="details general-info active active">
+	<div class="vertical">
+		{% if certifications | length > 0 %}
+			<div class="block">
+				<div class="label">{{ "Board Certifications"|t }}</div>
+				<div class="value">{{certifications|join(', ')}}</div>
+			</div>
+		{% endif %}
+
+		{% if profCertifications | length > 0 %}
+			<div class="block">
+				<div class="label">{{ "Professional Certifications"|t }}</div>
+				<div class="value">{{profCertifications|join(', ')}}</div>
+			</div>
+		{% endif %}
+
+		{% if languages | length > 0 %}
+			<div class="block">
+				<div class="label">{{ "Languages"|t }}</div>
+				<div class="value">{{languages|join(', ')}}</div>
+			</div>
+		{% endif %}
+
+		{% if physicianAwards | length > 0 %}
+			<div class="block">
+				<div class="label">{{ "Awards & Accolades"|t }}</div>
+				{% for physicianAward in physicianAwards %}
+					<div class="value">
+						<span>{{physicianAward.awardName}}</span>
+						<span>{{physicianAward.awardYear}}</span>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+
+	<div class="vertical">
+		{% if medicalInterests %}
+			<div class="block">
+				<div class="label">{{ "Clinical Interests"|t }}</div>
+				<div class="value">{{medicalInterests|striptags('<p><strong><em><i><b><u>')|typogrify|raw}}</div>
+			</div>
+		{% endif %}
+		{% if physicianInterests %}
+			<div class="block">
+				<div class="label">{{ "Personal Interests"|t }}</div>
+				<div class="value">{{physicianInterests|striptags('<p><strong><em><i><b><u>')|typogrify|raw}}</div>
+			</div>
+		{% endif %}
+		{% if physicianMemberships | length > 0 %}
+			<div class="block">
+				<div class="label">{{ "Memberships"|t }}</div>
+				<div class="value">
+					{% for physicianMembership in physicianMemberships %}
+						<span>{{physicianMembership.membershipName}}</span>
+					{% endfor %}
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</div>

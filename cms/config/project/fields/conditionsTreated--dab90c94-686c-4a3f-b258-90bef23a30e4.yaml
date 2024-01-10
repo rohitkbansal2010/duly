@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: c36a717d-daaf-4fa8-82e7-c1e4dbd8ba3b
+handle: conditionsTreated
+instructions: 'Add individual conditions that can be treated at various facilities.'
+name: 'Conditions Treated'
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_conditionstreated}}'
+    maxBlocks: ''
+    minBlocks: ''
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

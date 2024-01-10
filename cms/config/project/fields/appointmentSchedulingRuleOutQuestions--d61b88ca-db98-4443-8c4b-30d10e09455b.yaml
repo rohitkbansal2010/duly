@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: appointmentSchedulingRuleOutQuestions
+instructions: 'Select up to 3 role-out questions. These questions will be presented to the user when scheduling an appointment for a physician offering this service. The questions will be presented in this specific order.'
+name: 'Appointment Scheduling Rule-Out Questions'
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: '3'
+    localizeRelations: false
+    selectionLabel: 'Add a question'
+    showSiteMenu: true
+    source: null
+    sources: ['section:d0b645df-dd6f-40e9-ab28-159fc8d4190d']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

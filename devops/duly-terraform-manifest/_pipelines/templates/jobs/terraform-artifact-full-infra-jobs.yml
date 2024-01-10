@@ -1,0 +1,65 @@
+parameters:
+- name: infraSolutionRepo
+  type: string
+
+- name: configurationRepo
+  type: string
+
+- name: infraSolutionList
+  type: object
+  default: []
+
+
+jobs:
+- job: Copy_Files
+  displayName: Copy_Files
+  workspace:
+    clean: all
+
+  steps:
+  # Set special variable APP_NAME value for release versioning
+  - pwsh: |
+      Write-Host "##vso[task.setvariable variable=APP_NAME]full_infra"
+    name: Set_APP_NAME
+    displayName: 'Set name for release-versioning'
+  # Run release versioning
+  # - template: ./generate-release-version-trunk.yml
+  
+    # Checkout Terraform repository with Root modules
+  - checkout: ${{ parameters.infraSolutionRepo }}
+    fetchDepth: 5
+  
+  # Checkout repository with Terraform *.tfvars configuration
+  - checkout: ${{ parameters.configurationRepo }}
+    fetchDepth: 5
+
+  # Copy Configuration for Root modules of each solution to "/terraform/solution" folder
+  - ${{ each solution in parameters.infraSolutionList }}:
+    - task: CopyFiles@2
+      displayName: 'Copy Terraform files for ${{ solution }} solution'
+      inputs:
+        SourceFolder: $(System.DefaultWorkingDirectory)/${{ parameters.infraSolutionRepo }}
+        Contents: |
+          _configuration/global.tfvars
+          _configuration/*.tf
+          _configuration/${{ solution }}/*.tfvars
+          ${{ solution }}/*.tf
+          ${{ solution }}/*.xml
+          !${{ solution }}/backend.tf
+          !${{ solution }}/provider.tf
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/${{ solution }}'
+        flattenFolders: true
+
+  # Copy Child modules to "/terraform/_modules" folder
+  # - task: CopyFiles@2
+  #   displayName: 'Copy terraform modules'
+  #   inputs:
+  #     SourceFolder: $(System.DefaultWorkingDirectory)/${{ parameters.infraSolutionRepo }}/_modules
+  #     TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/_modules'
+
+  # Publish all copied files as Artifact
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish artifact'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: '$(Build.BuildNumber)'

@@ -1,0 +1,81 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% set category = craft.categories()
+    .group('healthTopicCategories')
+    .slug(craft.app.request.getSegment(2)|literal)
+    .one()
+%}
+
+{% set contentTitle = null %}
+{% if category.customSeoMetaTitle is not null %}
+    {% set contentTitle = category.customSeoMetaTitle %}
+{% else %}
+    {% set contentTitle = category.title %}
+{% endif %}
+
+{# {% title %} is used to define the HTML <title> tag. Static translations `|t` route through Craft #}
+{% block title contentTitle %}
+
+{% set contentSummary = null %}
+{% if category.customSeoMetaDescription is not null %}
+    {% set contentSummary = category.customSeoMetaDescription %}
+{% endif %}
+
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        category: category,
+		heroImage: null,
+		contentTitle: contentTitle,
+        contentSummary: contentSummary,
+        cacheKey: 'category-page-' ~ category,
+        entry: category
+    } only %}
+{% endblock %}  
+
+{% block bodyClass "health-topics topics-container" %}
+{% block itemScope "http://schema.org/CollectionPage" %}
+
+{% set limit = 10 %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    {% include "_health-topics/_nav.twig" %}
+
+    <div class="inner-container">
+        <h1 class="category-label"><a class="dp-home-icon" href="{{ siteUrl("health-topics") }}" alt="{{ "Health Topics Homepage"|t }}" aria-label="{{ "Health Topics Homepage"|t }}"></a><span class="chevron"></span>{{ category.title }}</h1>
+            {% cache using key 'health-topic-category-' ~ titleize(category.title) ~ '-' ~ craft.app.request.getSegment(4) ?? 1 %}
+                {% set query = craft.entries({
+                        section: 'blog',
+                        limit: limit,
+                        orderBy: {
+                            featuredInCategory: SORT_DESC,
+                            postDate: SORT_DESC
+                        },
+                        type: 'healthTopic',
+                        relatedTo: [
+                            'and',
+                            { targetElement: category, field: 'healthTopics.category' }
+                        ]
+                }) %}
+
+                {% paginate query as pageInfo, pageEntries %}
+
+                {% include '_health-topics/_section.twig' with {
+                    title: category|t,
+                    category: category,
+                    showCategoryBanner: false,
+                    data: pageEntries,
+                    pageInfo: pageInfo
+                } %}
+
+                {% include '_paginatePageInfo.twig' with {
+                    pageInfo: pageInfo,
+                } %}
+        {% endcache %}
+    </div>
+    <div class="footer-effect">
+        <div class="footer-effect-left"></div>
+        <div class="footer-effect-right"></div>
+    </div>
+{% endblock %}

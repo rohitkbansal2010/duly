@@ -1,0 +1,29 @@
+@import "../../scss/variables";
+@import "../../scss/mixins";
+@import "../../scss/base/_scheduling/landing";
+@import "../../scss/base/_scheduling/insurance";
+@import "../../scss/base/_scheduling/rule-out-questions";
+@import "../../scss/base/_scheduling/reasons-for-visit";
+@import "../../scss/base/_scheduling/book";
+@import "../../scss/base/_scheduling/physical-occupational-therapy-form";
+@import "../../scss/base/_scheduling/cosmetic-dermatology-form";
+@import "../../scss/base/_scheduling/steps";
+@import "../../scss/base/_scheduling/physicians";
+@import "../../scss/base/_scheduling/share";
+@import "../../scss/base/_scheduling/_select-appointment/select-appointment";
+@import "../../scss/base/_scheduling/locations";
+@import "../../scss/base/_scheduling/patient-appointments-details";
+@import "../../scss/base/_scheduling/modal";
+@import "../../scss/base/_scheduling/_select-appointment/physician-info";
+@import "../../scss/base/_scheduling/videovisit";
+
+footer.main-footer {
+	display: none;
+}
+.cta-form {
+	box-sizing: border-box;
+	button.dmgButton.primary1:disabled {
+		background-color: #d9dde2 !important;
+		border-color: #d9dde2 !important;
+	}
+}

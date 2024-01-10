@@ -1,0 +1,52 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.LocationCardWrapper {
+  &Heading {
+    @include nexa-regular-highlight;
+    color: $dupage-magenta;
+    font-weight: 900;
+    font-size: var(--font-size-14px-4px);
+    // line-height: 1.625rem;
+    text-transform: uppercase;
+  }
+  &Data {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.5rem;
+    &Details {
+      color: $dupage-dark-blue;
+      font-size: var(--font-size-16px-4px);
+      font-family: "Inter", sans-serif;
+      line-height: var(--line-height-22px-4px-6px);
+      &Name {
+        font-weight: 700;
+      }
+      &Location {
+        font-weight: 400;
+      }
+    }
+    &Info {
+      color: $dupage-dark-blue;
+      font-size: var(--font-size-16px-4px);
+      font-family: "Inter", sans-serif;
+      line-height: var(--line-height-22px-4px-6px);
+      &Phone {
+        font-weight: 400;
+        text-align: right;
+      }
+      &Text {
+        font-weight: 400;
+        text-align: right;
+      }
+      &Hours {
+        font-weight: 700;
+        text-align: right;
+      }
+    }
+  }
+}

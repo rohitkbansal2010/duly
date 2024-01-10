@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 8f91d2f6-9099-4724-b20b-19061d73de58
+handle: beforeAndAfter
+instructions: "Before / After - stacked content per Procedure (side by side, top/bottom)\r\nHorizontal alignment image dimensions = 1:1\r\nVertical alignment image dimensions = 2:1"
+name: 'Before & After'
+searchable: false
+settings:
+    contentTable: '{{%matrixcontent_beforeandafter}}'
+    maxBlocks: ''
+    minBlocks: ''
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

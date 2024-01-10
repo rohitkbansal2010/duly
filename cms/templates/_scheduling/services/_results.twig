@@ -1,0 +1,96 @@
+{% set disallowedServiceNames = [
+	"COVID-19 Vaccine",
+	"Immediate Care Centers",
+	"Express Care",
+	"COVID-19 Vaccine Booster - Moderna",
+	"COVID-19 Vaccine Second Dose - Moderna",
+	"COVID-19 Vaccine Booster - Pfizer",
+	"COVID-19 Vaccine Second Dose - Pfizer",
+	"COVID-19 Vaccine Third Dose - Moderna",
+	"COVID-19 Pediatric Vaccine",
+] %}
+
+<div class="tiles results dynamic-results">
+	{% if results|length == 0 %}
+		<div class="no-search-results">
+			<img src="/dist/img/magnifying-glass-new.png" alt="{{ "Search"|t }}">
+			<h2>{{ "Sorry, we found no results."|t }}</h2>
+			<p>{{ "Please try adjusting your search"|t }}</p>
+		</div>
+	{% endif %}
+
+	{% set servicesSection = craft.app.sections.getSectionByHandle('services') %}
+	{% set servicesSectionEntryTypes = servicesSection.getEntryTypes() %}
+	{% set cosmeticSectionEntryType = servicesSectionEntryTypes|filter(t => t.name == 'Cosmetic')|first %}
+
+	{% if results|length %}
+		{% for service in results %}
+			{% if service.type.name != "External Service" and service.title not in disallowedServiceNames %}
+				{% set hasAppointments = true %}
+				{# this checks to for both cd and pt/ot and sets the form link #}
+				{% if showPhysicalAndOccupationalAppointmentForm('physicalAndOccupationalTherapyServices', service.id) %}
+					{% set routeToForm = true %}
+					{% set formLink = '/schedule/physical-occupational-therapy' %}
+				{% elseif service.typeId == cosmeticSectionEntryType.id %}
+					{% set routeToForm = true %}
+					{% set formLink = '/schedule/cosmetic-dermatology' %}
+				{% else %}
+					{% set routeToForm = false %}
+				{% endif %}
+
+				{# don't progress to scheduling workflow if there are no assigned visit types for service #}
+				{% if not service.allowOnlineScheduling %}
+					{% set hasAppointments = false %}
+				{% endif %}
+
+				{% if routeToForm %}
+					<div class="service" id="service-{{ service.id }}">
+						<a href="{{ formLink }}">
+							<button class="dmgButton secondary3">
+								<span>{{ service.title }}</span>
+								<span class="material-icons chevron_right"></span>
+							</button>
+						</a>
+					</div>
+				{% elseif hasAppointments %}
+					<form class="service" id="specialties-{{ service.id }}" method="POST">
+						<button class="dmgButton secondary3">
+							{{ csrfInput() }}
+							<input type="hidden" name="appointmentServiceIds[]" value="{{service.id}}">
+							<span>
+								{{ service.title }}
+							</span>
+							<span class="material-icons chevron_right"></span>
+						</button>
+					</form>
+				{% else %}
+					<div class="service no-schedule-for-service" id="service-{{ service.id }}">
+						<button class="dmgButton secondary3">
+							<span>{{ service.title }}</span>
+							<span class="material-icons chevron_right"></span>
+						</button>
+					</div>
+
+					<div class="modal no-appointment-types-modal hidden" id="alert-{{ service.id }}">
+						<div class="content">
+							<span tabindex="0" class="material-icons close"></span>
+							{% set headerText = "There is no online scheduling for this service."|t %}
+							{% set subText = "Please call 630-790-1872 for more information."|t %}
+
+							{% if service.noVisitTypesAssigned.one is defined and service.noVisitTypesAssigned.one is not null %}
+								{% set headerText = service.noVisitTypesAssigned.one.modalHeaderText %}
+								{% set subText = service.noVisitTypesAssigned.one.modalSubHeaderText %}
+							{% endif %}
+
+							<h2>{{ headerText }}</h2>
+							<p>{{ subText }}</p>
+							<div class="form-actions alert-actions">
+								<button tabindex="0" class="action-button dmgButton primary3 dismiss-modal">{{ "Close"|t }}</button>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+</div>

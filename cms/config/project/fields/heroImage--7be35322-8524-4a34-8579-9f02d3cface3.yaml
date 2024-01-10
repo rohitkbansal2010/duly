@@ -1,0 +1,32 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 59d569da-1526-45bb-bd4c-883ccf638fd3
+handle: heroImage
+instructions: 'A featured hero image to  predominantly display to users when viewing the article.'
+name: 'Hero Image'
+searchable: true
+settings:
+    allowSelfRelations: false
+    allowUploads: true
+    allowedKinds: [image]
+    defaultUploadLocationSource: 'volume:e7270991-09cd-4198-b7aa-859dd33e200b'
+    defaultUploadLocationSubpath: ''
+    limit: '1'
+    localizeRelations: false
+    previewMode: full
+    restrictFiles: '1'
+    selectionLabel: 'Select a hero image'
+    showSiteMenu: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    singleUploadLocationSource: 'volume:e7270991-09cd-4198-b7aa-859dd33e200b'
+    singleUploadLocationSubpath: ''
+    source: null
+    sources: ['volume:e7270991-09cd-4198-b7aa-859dd33e200b']
+    targetSiteId: null
+    useSingleFolder: false
+    validateRelatedElements: true
+    viewMode: large
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Assets

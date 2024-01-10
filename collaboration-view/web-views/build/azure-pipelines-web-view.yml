@@ -1,0 +1,504 @@
+parameters:
+  - name: FORCE_RUN_SONAR_CHECK
+    type: boolean
+    default: false
+    displayName: 'Force a launch of SonarQube analysis.'
+  - name: PUBLISH_FROM_FEATURE_BRANCH
+    type: boolean
+    default: false
+    displayName: 'Deploy from feature branch'
+  - name: imageRepository
+    default: $(Build.Repository.Name)
+  - name: imageTag
+    default: $(Build.BuildNumber)
+  - name: aksServiceConnection
+    default: 'duly-d-app-aks'
+
+trigger:
+  branches:
+    include:
+      - dev
+  paths:
+    exclude:
+      - build/*
+
+variables:
+  - name: ACR_SUBSCRIPTION
+    value: 'prd'
+  - name: ACR_NAME
+    value: 'dulydigitalcr.azurecr.io'
+  - name: BUILD_POOL
+    value: OnAKS
+  - name: TEST_POOL
+    value: QATestVMSS
+  - name: VM_IMAGE
+    value: 'ubuntu-latest'
+  - name: NODE_VERSION
+    value: 14.16.1
+  - name: FORCE_RUN_SONAR_CHECK
+    value: ${{ parameters.FORCE_RUN_SONAR_CHECK }}
+  - name: PUBLISH_FROM_FEATURE_BRANCH
+    value: ${{ parameters.PUBLISH_FROM_FEATURE_BRANCH }}
+  - name: aksServiceConnection
+    value: ${{ parameters.aksServiceConnection }}
+  - name: imageRepository
+    value: ${{ parameters.imageRepository }}
+  - name: imageTag
+    value: ${{ parameters.imageTag }}
+  - name: UI_TESTS_PROJECT_NAME
+    value: 'Web.UI'
+
+resources:
+  repositories:
+    - repository: yamltemplates
+      type: git
+      name: 'duly.digital.devops/duly-yaml-templates'
+
+    - repository: scripts
+      type: git
+      name: duly.digital.devops/duly-scripts
+
+    - repository: charts
+      type: git
+      name: 'duly.digital.devops/duly-aks-helmcharts'
+
+    - repository: autotests
+      type: git
+      name: 'test-automation'
+      ref: Regression-Test-suite
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: CI
+  jobs:
+   - job: Analyse
+     displayName: Continuous Integration
+     pool:
+       # Explicitly run this job on Azure Pipelines pool due to npm issues on agents from OnAKS pool
+       vmImage: $(VM_IMAGE)
+     workspace:
+       clean: all
+     steps:
+       - checkout: self
+
+       # Template: Execute CI process for particular project
+       - template: child.build/ci-react-cli.yml@yamltemplates
+         parameters:
+           # Use SonarQube service connection for MSHosted agents
+           sonarCloudServiceConnection: 'sonar-qube-duly.app.v1.collaboration-view-mshosted-agents'
+           sonarCloudScanningPath: $(Build.Repository.Name)
+           runUnitTests: true
+           createCoverageReport: true
+           nodeVersion: $(NODE_VERSION)
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        eq(variables['Build.Reason'], 'PullRequest'),
+        eq(variables['FORCE_RUN_SONAR_CHECK'], 'true')
+      )
+    )
+
+- stage: Build
+  dependsOn: []
+  jobs:
+   - job: Build
+     displayName: Build Artifacts
+     pool:
+       # Explicitly run this job on Azure Pipelines pool due to npm issues on agents from OnAKS pool
+       vmImage: $(VM_IMAGE)
+     workspace:
+       clean: outputs
+     steps:
+     - checkout: self
+
+    #  Template: Build react project
+     - template: child.build/build-react.yml@yamltemplates
+       parameters:
+         projectPath: '$(Build.SourcesDirectory)/$(Build.Repository.Name)'
+         runLint: false
+         setBuildVersion: true
+         setHtmlBuildVersion: true
+         publishNpmPackage: false
+         nodeVersion: $(NODE_VERSION)
+         buildCommand: 'run build'
+         vstsFeed: 'duly.digital'
+         runUnitTests: true
+         createCoverageReport: true
+         enableSonarCloudScan: true
+         # Use SonarQube service connection for MSHosted agents
+         sonarCloudServiceConnection: 'sonar-qube-duly.app.v1.collaboration-view-mshosted-agents'
+         sonarCloudScanningPath: $(Build.Repository.Name)
+
+     - task: AzureCLI@2
+       displayName: Build and push a docker image
+       inputs:
+         azureSubscription: $(ACR_SUBSCRIPTION)
+         scriptType: pscore
+         scriptLocation: inlineScript
+         inlineScript: |
+            az acr build -t "$(ACR_NAME)/$(imageRepository):$(imageTag)" -r "$(ACR_NAME)" .
+         workingDirectory: '$(Build.SourcesDirectory)/$(Build.Repository.Name)'
+
+     - task: PowerShell@2
+       displayName: 'PowerShell: Set commit tag'
+       inputs:
+         targetType: filePath
+         filePath: '$(Build.SourcesDirectory)/duly-scripts/PowerShell/Add-TagToAdoCommit.ps1'
+         arguments: >
+           -PAT $(System.AccessToken)
+           -organizationUri $(System.CollectionUri)
+           -projectName $(System.TeamProject)
+           -repositoryID $(Build.Repository.ID)
+           -commitID $(Build.SourceVersion)
+           -tagName $(Build.BuildNumber)
+           -tagMessage $(Build.BuildNumber)
+       continueOnError: true
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['PUBLISH_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# DEPLOY ON DEV ##############
+- stage: dev
+  displayName: Deploy on DEV
+  dependsOn: Build
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webviews'
+        helmReleaseName: 'collaboration-view'
+        dnsZone: 'duly-np.digital'
+        env: 'dev'
+        chartArgs: >
+          --set env.BASE_URL="https://api-dev.duly-np.digital/collaboration-view"
+          --set env.CLIENT_ID="303085d9-ec3d-4c9d-8f28-2ae9784672d4"
+          --set env.SCOPE="api://0b08d543-0724-4c91-854d-27ba1d7d1dc9/Resources.All api://0b08d543-0724-4c91-854d-27ba1d7d1dc9/Encounter.All"
+          --set env.SUBSCRIPTION_KEY="f8bd3961c27647ca81961d41da9a4466"
+          --set env.APP_INSIGHTS_INSTRUMENTATION_KEY="2d54b52b-8d4a-42a4-a499-d2ec7470910b"
+          --set env.AUTHORITY="https://login.microsoftonline.com/d8b84fb8-d456-4b71-a75a-d15966423cdb/"
+          --set env.WORK_DAY_START="7"
+          --set env.WORK_DAY_END="19"
+          --set env.LOGOUT_AFTER_MINUTES="60"
+          --set env.INVALIDATE_URL="https://api-dev.duly-np.digital/shared/security/v1/invalidate"
+          --set env.OCP_APIM_TRACE="true"
+          --set env.RUNTIME_ENVIRONMENT="dev"
+          --set env.SSO_SILENT_LOGIN_ACTIVE="false"
+          --set env.SHOW_BUILD_NUMBER="true"
+          --set env.TEST_RESULTS_DAY_PERIOD="14"
+          --set env.TEST_RESULTS_COUNT_OF_PERIOD="78"
+          --set env.TEST_RESULTS_MAX_COUNT="200"
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['PUBLISH_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# TESTS: UI SANITY CHECK ON DEV ##############
+- stage: dev_ui_autotests
+  displayName: UI sanity check on DEV
+  dependsOn: dev
+  jobs:
+    - job: UI
+      displayName: UI sanity check on DEV
+      workspace:
+        clean: all
+      pool:
+        name: $(TEST_POOL)
+      steps:
+      - checkout: autotests
+      - template: child.test/template-test-automation.yml@yamltemplates
+        parameters:
+          env: 'dev'
+          testProjectName: ${{ variables.UI_TESTS_PROJECT_NAME }}
+          testFilter: 'TestCategory=SanityCheck'
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# DEPLOY ON QAT ##############
+- stage: qat
+  displayName: Deploy on QAT
+  dependsOn: dev
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webviews'
+        helmReleaseName: 'collaboration-view'
+        dnsZone: 'duly-np.digital'
+        env: 'qat'
+        chartArgs: >
+          --set env.BASE_URL="https://api-qat.duly-np.digital/collaboration-view/qat"
+          --set env.CLIENT_ID="a205d57f-6997-4d77-8d4a-cd4221b0b582"
+          --set env.SCOPE="api://7f66ac73-f647-4bbf-93f9-ef76d161ba11/Resources.All api://7f66ac73-f647-4bbf-93f9-ef76d161ba11/Encounter.All"
+          --set env.SUBSCRIPTION_KEY="582caa72352f441c9a4c36ee93aaa844"
+          --set env.APP_INSIGHTS_INSTRUMENTATION_KEY="2d54b52b-8d4a-42a4-a499-d2ec7470910b"
+          --set env.AUTHORITY="https://login.microsoftonline.com/d8b84fb8-d456-4b71-a75a-d15966423cdb/"
+          --set env.WORK_DAY_START="7"
+          --set env.WORK_DAY_END="19"
+          --set env.LOGOUT_AFTER_MINUTES="60"
+          --set env.INVALIDATE_URL="https://api-qat.duly-np.digital/shared/qat/security/v1/invalidate"
+          --set env.OCP_APIM_TRACE="true"
+          --set env.RUNTIME_ENVIRONMENT="qat"
+          --set env.SSO_SILENT_LOGIN_ACTIVE="false"
+          --set env.SHOW_BUILD_NUMBER="true"
+          --set env.TEST_RESULTS_DAY_PERIOD="14"
+          --set env.TEST_RESULTS_COUNT_OF_PERIOD="78"
+          --set env.TEST_RESULTS_MAX_COUNT="200"
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# TESTS: UI SMOKE TESTS ON QAT ##############
+- stage: qat_ui_autotests
+  displayName: UI smoke tests on QAT
+  dependsOn: qat
+  jobs:
+    - job: UI
+      displayName: UI smoke tests on QAT
+      workspace:
+        clean: all
+      pool:
+        name: $(TEST_POOL)
+      steps:
+      - checkout: autotests
+      - template: child.test/template-test-automation.yml@yamltemplates
+        parameters:
+          env: 'qat'
+          testProjectName: ${{ variables.UI_TESTS_PROJECT_NAME }}
+          testFilter: 'TestCategory=smoke'
+          sendReportToReportPortal: true
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# DEPLOY ON AUT ##############
+- stage: aut
+  displayName: Deploy on AUT
+  dependsOn: dev
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webviews'
+        helmReleaseName: 'collaboration-view'
+        dnsZone: 'duly-np.digital'
+        env: 'aut'
+        chartArgs: >
+          --set env.BASE_URL="https://api-qat.duly-np.digital/collaboration-view/aut"
+          --set env.CLIENT_ID="a205d57f-6997-4d77-8d4a-cd4221b0b582"
+          --set env.SCOPE="api://7f66ac73-f647-4bbf-93f9-ef76d161ba11/Resources.All api://7f66ac73-f647-4bbf-93f9-ef76d161ba11/Encounter.All"
+          --set env.SUBSCRIPTION_KEY="8ed6af288234404598e32e8913156e54"
+          --set env.APP_INSIGHTS_INSTRUMENTATION_KEY="2d54b52b-8d4a-42a4-a499-d2ec7470910b"
+          --set env.AUTHORITY="https://login.microsoftonline.com/d8b84fb8-d456-4b71-a75a-d15966423cdb/"
+          --set env.WORK_DAY_START="7"
+          --set env.WORK_DAY_END="19"
+          --set env.LOGOUT_AFTER_MINUTES="60"
+          --set env.INVALIDATE_URL="https://api-qat.duly-np.digital/shared/aut/security/v1/invalidate"
+          --set env.OCP_APIM_TRACE="true"
+          --set env.RUNTIME_ENVIRONMENT="aut"
+          --set env.SSO_SILENT_LOGIN_ACTIVE="false"
+          --set env.SHOW_BUILD_NUMBER="true"
+          --set env.TEST_RESULTS_DAY_PERIOD="14"
+          --set env.TEST_RESULTS_COUNT_OF_PERIOD="78"
+          --set env.TEST_RESULTS_MAX_COUNT="200"
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# DEPLOY ON UAT ##############
+- stage: uat
+  displayName: Deploy on UAT
+  dependsOn: qat
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webviews'
+        helmReleaseName: 'collaboration-view'
+        dnsZone: 'duly-np.digital'
+        env: 'uat'
+        chartArgs: >
+          --set env.BASE_URL="https://api-uat.duly-np.digital/collaboration-view/"
+          --set env.CLIENT_ID="acd4015b-8842-423b-bf06-27cc3464a307"
+          --set env.SCOPE="api://fc6dcc92-f75f-438a-a1a2-11f218c1a299/Resources.All api://fc6dcc92-f75f-438a-a1a2-11f218c1a299/Encounter.All"
+          --set env.SUBSCRIPTION_KEY="93c79e04261d4fae8ceaefd03c8a4d2f"
+          --set env.APP_INSIGHTS_INSTRUMENTATION_KEY="776fbc39-0069-437e-abea-b29e2d6ee6c1"
+          --set env.AUTHORITY="https://login.microsoftonline.com/d8b84fb8-d456-4b71-a75a-d15966423cdb/"
+          --set env.WORK_DAY_START="7"
+          --set env.WORK_DAY_END="19"
+          --set env.LOGOUT_AFTER_MINUTES="60"
+          --set env.INVALIDATE_URL="https://api-uat.duly-np.digital/shared/security/v1/invalidate"
+          --set env.OCP_APIM_TRACE="true"
+          --set env.RUNTIME_ENVIRONMENT="uat"
+          --set env.SSO_SILENT_LOGIN_ACTIVE="false"
+          --set env.SHOW_BUILD_NUMBER="true"
+          --set env.TEST_RESULTS_DAY_PERIOD="14"
+          --set env.TEST_RESULTS_COUNT_OF_PERIOD="78"
+          --set env.TEST_RESULTS_MAX_COUNT="200"
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# TESTS: UI SMOKE TESTS ON UAT ##############
+- stage: uat_ui_autotests
+  displayName: UI smoke tests on UAT
+  dependsOn: uat
+  jobs:
+    - job: UI
+      displayName: UI smoke tests on UAT
+      workspace:
+        clean: all
+      pool:
+        name: $(TEST_POOL)
+      steps:
+      - checkout: autotests
+      - template: child.test/template-test-automation.yml@yamltemplates
+        parameters:
+          env: 'uat'
+          testProjectName: ${{ variables.UI_TESTS_PROJECT_NAME }}
+          testFilter: 'TestCategory=smoke'
+          sendReportToReportPortal: true
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+############# DEPLOY ON PRD ##############
+- stage: prd
+  displayName: Deploy on PRD
+  dependsOn: uat
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters:
+        aksServiceConnection: 'duly-p-app-aks'
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webviews'
+        helmReleaseName: 'collaboration-view'
+        dnsZone: 'duly.digital'
+        env: 'prd'
+        chartArgs: >
+          --set env.BASE_URL="https://api.duly.digital/collaboration-view"
+          --set env.CLIENT_ID="896362f3-5a6a-43f5-bf6e-10f8000b0464"
+          --set env.SCOPE="api://f8859c0e-6c3a-4594-9d66-dcbae7bcb425/Resources.All api://f8859c0e-6c3a-4594-9d66-dcbae7bcb425/Encounter.All"
+          --set env.SUBSCRIPTION_KEY="7d667b83f68343e2a49d3f45ccdf9544"
+          --set env.APP_INSIGHTS_INSTRUMENTATION_KEY="30a28462-8664-4503-9bb8-2f6bc52aba8f"
+          --set env.AUTHORITY="https://login.microsoftonline.com/d8b84fb8-d456-4b71-a75a-d15966423cdb/"
+          --set env.WORK_DAY_START="7"
+          --set env.WORK_DAY_END="19"
+          --set env.LOGOUT_AFTER_MINUTES="60"
+          --set env.INVALIDATE_URL="https://api.duly.digital/shared/security/v1/invalidate"
+          --set env.OCP_APIM_TRACE="false"
+          --set env.RUNTIME_ENVIRONMENT="prd"
+          --set ingress.hosts[0].host=collaboration-view.duly.digital
+          --set env.SHOW_BUILD_NUMBER="false"
+          --set env.TEST_RESULTS_DAY_PERIOD="28"
+          --set env.TEST_RESULTS_COUNT_OF_PERIOD="39"
+          --set env.TEST_RESULTS_MAX_COUNT="200"
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )

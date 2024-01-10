@@ -1,0 +1,27 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: physicianMedicalInterests
+instructions: ''
+name: 'Clinical Interests'
+searchable: false
+settings:
+    availableTransforms: '*'
+    availableVolumes: '*'
+    columnType: text
+    configSelectionMode: choose
+    defaultTransform: ''
+    manualConfig: ''
+    purifierConfig: ''
+    purifyHtml: '1'
+    redactorConfig: Simple.json
+    removeEmptyTags: '1'
+    removeInlineStyles: '1'
+    removeNbsp: '1'
+    showHtmlButtonForNonAdmins: '1'
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: false
+    uiMode: enlarged
+translationKeyFormat: null
+translationMethod: none
+type: craft\redactor\Field

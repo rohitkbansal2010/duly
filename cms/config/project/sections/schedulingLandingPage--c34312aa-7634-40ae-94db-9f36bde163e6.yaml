@@ -1,0 +1,10 @@
+defaultPlacement: end
+enableVersioning: true
+handle: schedulingLandingPage
+name: 'Scheduling Landing Page'
+previewTargets:
+    - { __assoc__: [[label, 'Primary entry page'], [urlFormat, '{url}']] }
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: true, hasUrls: true, template: null, uriFormat: scheduling-landing-page }
+type: single

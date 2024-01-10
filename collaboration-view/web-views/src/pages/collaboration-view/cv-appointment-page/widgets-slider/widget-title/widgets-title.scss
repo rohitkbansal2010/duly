@@ -1,0 +1,11 @@
+@import "~@styles/typography";
+@import "~@styles/colors";
+
+.cvWidgetTitle {
+  @include nexa-h2-bold;
+  @include nexa-extra-bold-highlight;
+  color: $dupage-dark-blue;
+
+  font-size: var(--font-size-62px-4px);
+  line-height: 6rem;
+}

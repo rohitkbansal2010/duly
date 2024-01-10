@@ -1,0 +1,19 @@
+columnSuffix: jjpyncxc
+contentColumnType: text
+fieldGroup: c36a717d-daaf-4fa8-82e7-c1e4dbd8ba3b
+handle: expressCareUrl
+instructions: ''
+name: 'Express Care CTA URL'
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

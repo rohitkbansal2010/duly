@@ -1,0 +1,48 @@
+.pattern-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: url(/dist/img/pattern-blue.svg);
+	height: calc(100% + 500px);
+	width: 100vw;
+	margin-left: 85%;
+	z-index: -1;
+	margin-top: -500px;
+	opacity: 0.3;
+
+	@include responsive(large) {
+		display: none;
+	}
+}
+
+.purple-pattern-container {
+	position: fixed;
+	z-index: -1;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: url(/dist/img/pattern.svg);
+	background-repeat: repeat-y;
+	background-attachment: fixed;
+	background-position-x: calc(100% + 275px);
+	background-size: 500px;
+	@include responsive(large) {
+		background-position-x: calc(100% + 250px);
+		background-size: 450px;
+	}
+	@include responsive(medium) {
+		background-position-x: calc(100% + 225px);
+		background-size: 400px;
+	}
+	@include responsive(small) {
+		background-position-x: calc(100% + 200px);
+		background-size: 350px;
+	}
+	@include responsive(x-small) {
+		background-position-x: calc(100% + 175px);
+		background-size: 300px;
+	}
+}

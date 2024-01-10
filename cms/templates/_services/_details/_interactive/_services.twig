@@ -1,0 +1,15 @@
+{% for subspecialty in relatedServices %}  
+    <div class="type">
+        {% set image = subspecialty.serviceHeroImage[0] ?? null %}
+        {% if image is not null %}
+            <a href="{{ subspecialty.linkUrl ? subspecialty.linkUrl : subspecialty.getUrl() }}" tabindex="0">
+                {{ getOptimizedImage(image, 'webp')|raw }}
+                <span>{{ subspecialty.title }}<span>
+            </a>
+        {% else %}
+            <a href="{{ subspecialty.linkUrl ? subspecialty.linkUrl : subspecialty.getUrl() }}" tabindex="0">
+                <span>{{ subspecialty.title }}<span>
+            </a>
+        {% endif %}
+    </div>
+{% endfor %}

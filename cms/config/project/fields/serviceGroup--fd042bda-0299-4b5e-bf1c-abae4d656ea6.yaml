@@ -1,0 +1,24 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: serviceGroup
+instructions: 'Specify which service group this service should be assigned to.'
+name: 'Service Group'
+searchable: true
+settings:
+    allowLimit: false
+    allowMultipleSources: false
+    allowSelfRelations: false
+    branchLimit: '1'
+    limit: null
+    localizeRelations: false
+    selectionLabel: 'Select a Service Group'
+    showSiteMenu: true
+    source: 'group:3532fb22-b818-40ff-a6ab-5b957a738b82'
+    sources: '*'
+    targetSiteId: null
+    validateRelatedElements: true
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Categories

@@ -1,0 +1,287 @@
+.procedure-container,
+.condition-container,
+.treatment-style-container {
+	width: calc(100% - 392px - 50px - 80px);
+	margin: 25px auto;
+	padding: 40px;
+	border-radius: 4px;
+	min-height: 300px;
+
+	@include responsive(large) {
+		padding: 20px;
+		margin: 20px;
+		width: 100%;
+		min-width: 200px;
+	}
+
+	.image-container {
+		padding-bottom: 10px;
+
+		img {
+			width: 100%;
+		}
+	}
+
+	.headline {
+		word-wrap: break-word;
+		overflow: hidden;
+
+		@include responsive(medium) {
+			padding: 16px;
+		}
+
+		h1 {
+			font-weight: 900;
+			line-height: 48px;
+			color: $oxford;
+			margin: 10px 0px 4px;
+		}
+	}
+
+	hr {
+		border-bottom: 2px solid $sky;
+		border-top: none;
+	}
+
+	.content {
+		margin-top: 20px;
+	}
+
+	strong {
+		color: $oxford;
+	}
+
+	.section {
+		h4 {
+			color: $oxford !important;
+			font-size: 18px !important;
+			font-weight: 900 !important;
+			border-bottom: $sky 2px solid !important;
+			padding: 10px 20px !important;
+		}
+	}
+
+	@import "../components/testimonial";
+	@import "./_services/_details/locations";
+	@import "./_services/_details/physicians";
+}
+
+.procedure-detail-page,
+.condition-detail-page {
+	@import "./_services/_details/navigation";
+
+	.sidebar-navigation
+		.navigation-container
+		.section
+		ul
+		li:not(:first-of-type):after {
+		content: none;
+	}
+
+	flex-direction: row;
+	flex: 1;
+	max-width: 1440px;
+	flex-basis: 90%;
+
+	.physicians-list .physician-short {
+		flex: 0 0 calc(25% - 34px) !important;
+	}
+
+	@include responsive(fourteen-fourty) {
+		max-width: 1201px;
+	}
+
+	@include responsive(x-large) {
+		max-width: 1093px;
+	}
+
+	@include responsive(large) {
+		.procedure-container {
+			margin: auto;
+		}
+
+		.physicians-list .physician-short {
+			flex: 40% !important;
+		}
+
+		.locations-container .location-short {
+			width: 49% !important;
+		}
+	}
+
+	.sidebar-navigation {
+		margin: 25px;
+		width: 392px;
+		padding-top: 40px;
+
+		@include responsive(large) {
+			padding: 20px;
+			margin: auto;
+			width: 100%;
+			order: 1;
+
+			.schedule {
+				left: 0;
+			}
+		}
+
+		.back-navigation {
+			display: flex;
+			margin-bottom: 40px;
+			align-items: center;
+			cursor: pointer;
+			align-items: center;
+			text-decoration: none;
+
+			@include responsive(large) {
+				display: none;
+			}
+
+			.arrow {
+				background: url("/dist/img/icons/icon_arrow_back.png") no-repeat;
+				background-size: 100% auto;
+				height: 25px;
+				width: 25px;
+				display: block;
+				margin-right: 15px;
+			}
+
+			.text {
+				font-size: 16px;
+				font-weight: 800;
+				color: $oxford;
+			}
+		}
+
+		.navigation-container {
+			.section {
+				@include responsive(large) {
+					margin: auto !important;
+				}
+
+				ul {
+					li {
+						border-bottom: 1px solid $sky;
+						color: $oxford;
+						a {
+							color: inherit !important;
+							width: 100%;
+						}
+						&:not(:first-of-type) {
+							&:hover:not(.active) {
+								background-color: $sky-faded;
+							}
+						}
+						&:hover:not(.active) {
+							background-color: $sky-faded;
+						}
+						&.active {
+							color: $sky;
+							pointer-events: none;
+							background-color: $white;
+							border-left: 4px solid $oxford;
+							a {
+								color: inherit;
+							}
+							&:hover:not(.view-more) {
+								background-color: $white;
+								cursor: default;
+							}
+						}
+					}
+
+					li:first-child {
+						background-color: $oxford !important;
+						border-left: 4px solid $sky !important;
+
+						h4 {
+							color: $white !important;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.before-and-after-container {
+		display: flex;
+		flex-direction: column;
+		padding: 0 10px;
+
+		.before-and-after {
+			margin: 20px 0;
+			display: flex;
+
+			@include responsive(large) {
+				flex-direction: column;
+			}
+
+			.images {
+				display: flex;
+				flex: 0 0 40%;
+				margin-right: 40px;
+
+				@include responsive(large) {
+					margin-right: 0;
+				}
+
+				.before,
+				.after {
+					width: 47%;
+
+					img {
+						width: 100%;
+					}
+
+					span {
+						color: $dark-2;
+						font-size: 14px;
+						font-weight: 800;
+						line-height: 20px;
+						text-align: center;
+						display: block;
+					}
+				}
+
+				&.horizontal {
+					justify-content: space-between;
+					flex-direction: row;
+
+					.before,
+					.after {
+						width: 47%;
+					}
+				}
+
+				&.vertical {
+					flex-direction: column;
+
+					.before,
+					.after {
+						width: 100%;
+						margin-bottom: 15px;
+					}
+				}
+			}
+
+			.text {
+				flex: 0 0 60%;
+
+				@include responsive(large) {
+					margin-top: 20px;
+				}
+
+				p,
+				strong,
+				em,
+				del {
+					margin: 0;
+					font-size: 16px;
+					font-weight: normal;
+					color: $dark-2;
+					word-break: break-all;
+				}
+			}
+		}
+	}
+}

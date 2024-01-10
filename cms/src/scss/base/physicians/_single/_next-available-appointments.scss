@@ -1,0 +1,469 @@
+.next-available-appointments-container {
+	@import "../../_services/_details/_locations";
+	@import "../../_scheduling/_select-appointment/recommended-physicians";
+
+	width: 440px;
+	height: auto;
+	position: absolute;
+	top: 0;
+	right: -460px;
+	margin: auto;
+
+	@include responsive(x-large) {
+		position: relative;
+		top: initial;
+		right: initial;
+		width: 100%;
+		margin: 30px 0;
+	}
+
+	.locations-list-grid {
+		margin: 30px 0 0 15px;
+
+		@include responsive(bs-large) {
+			margin: 15px 0px;
+		}
+
+		.locations-container {
+			h4 {
+				margin: 16px 0px;
+			}
+
+			.multiple-phone-number {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				margin: 10px 0px 0px 0px;
+
+				span {
+					font-size: 14px;
+				}
+
+				&:only-of-type {
+					margin: 5px 0px 0px 0px;
+
+					span {
+						display: none;
+					}
+				}
+			}
+
+			.locations {
+				.location {
+					a:hover {
+						text-decoration: underline;
+						color: $magenta;
+					}
+
+					padding: 8px 10px;
+					background: white;
+					border-radius: 32px 0px;
+					margin-bottom: 15px;
+				}
+			}
+		}
+	}
+
+	.sticky-container {
+		top: 175px;
+
+		@include responsive(x-large) {
+			position: relative;
+			top: initial;
+		}
+
+		.appointments-module {
+			background: $violet;
+			border-radius: 4px;
+			display: flex;
+			flex-direction: column;
+			box-shadow: 0px 1px 4px 0px rgba(141, 141, 141, 0.3);
+
+			.title {
+				font-size: 28px;
+				font-weight: 700;
+				margin: 0;
+				color: $white;
+				padding: 25px 18px;
+				text-align: center;
+
+				@include responsive(medium) {
+					font-size: 20px;
+				}
+			}
+
+			.select-service-prompt,
+			.new-patient-prompt,
+			.follow-up-visit-prompt,
+			.hospital-followup-prompt,
+			.hospital-followup-disclaimer,
+			.ask-if-pregnant-prompt,
+			.vein-clinic-prompt,
+			.full-body-skin-exam-prompt,
+			.last-menstrual-cycle-prompt,
+			.pregnancy-congrats-message {
+				display: flex;
+				flex-direction: column;
+				text-align: center;
+				padding: 0 25px 25px;
+
+				.question {
+					font-size: 20px;
+					font-weight: bold;
+					margin: 0px auto;
+					padding: 0;
+					color: $white;
+
+					@include responsive(medium) {
+						font-size: 18px;
+					}
+				}
+
+				.additional-question {
+					margin: 0px auto 15px auto;
+				}
+
+				.three-years {
+					font-size: 14px;
+					color: $white;
+
+					&:before {
+						content: "*";
+					}
+				}
+
+				.subtext {
+					font-size: 18px;
+					font-weight: 600;
+					margin: 0px auto 16px;
+					padding: 0px;
+					color: $white;
+					text-align: center;
+
+					a {
+						color: $white;
+						text-decoration: underline;
+					}
+
+					@include responsive(medium) {
+						font-size: 16px;
+					}
+				}
+
+				.ctas {
+					display: flex;
+					flex-wrap: wrap;
+					flex-direction: row;
+					justify-content: space-between;
+					margin: -0.5rem;
+					.action-button {
+						width: calc(50% - 1rem);
+						margin: 0.5rem;
+						padding: 15px;
+						font-size: 18px;
+						@include responsive(small) {
+							width: 100%;
+						}
+					}
+				}
+			}
+			.pregnancy-congrats-message {
+				a {
+					color: $white !important;
+				}
+				.question {
+					margin: 0 auto 1rem auto;
+					&.subtext {
+						margin: 0 auto;
+					}
+				}
+			}
+
+			.ask-if-pregnant-prompt {
+				.ctas {
+					margin-top: 1rem;
+				}
+			}
+
+			.last-menstrual-cycle-prompt {
+				.form-fields {
+					margin: 1rem auto;
+					width: 100%;
+					.inline-text-field-container {
+						@include responsive(medium) {
+							width: 100%;
+							.mdc-text-field {
+								width: 100%;
+							}
+						}
+						&:last-child {
+							margin: 0;
+							@include responsive(medium) {
+								width: 100%;
+							}
+						}
+					}
+				}
+				.future-date-error {
+					align-items: center;
+					margin: 0 auto;
+				}
+			}
+
+			.form-fields {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 0px 0px 16px 0px;
+
+				@include responsive(medium) {
+					display: block;
+				}
+
+				.inline-text-field-container {
+					width: 100px;
+					margin-right: 16px;
+					border-radius: 4px;
+
+					@include responsive(medium) {
+						width: 95%;
+						margin: 10px 0px;
+					}
+
+					&:last-child {
+						width: 125px;
+
+						@include responsive(medium) {
+							width: 95%;
+						}
+					}
+				}
+			}
+
+			.hospital-followup-disclaimer,
+			.last-menstrual-cycle-prompt {
+				.ctas {
+					justify-content: center;
+
+					button {
+						&:disabled {
+							opacity: 0.4;
+							pointer-events: none;
+							cursor: default;
+						}
+					}
+				}
+			}
+
+			.content.select-appointment-content {
+				margin: 0;
+				border-radius: 4px;
+				overflow: hidden;
+				position: relative;
+				background-color: $white;
+				@import "../../_scheduling/_select-appointment/date-and-time-picker";
+				@import "../../_scheduling/_select-appointment/times-container";
+				#dateAndTimePickerContainer {
+					width: 100%;
+					top: 0;
+					left: 0;
+				}
+				#recommendedProvidersContainer {
+					position: absolute;
+					z-index: 1;
+					width: 100%;
+					top: 0;
+					left: 0;
+					transform: translate(100%, 0);
+					transition: transform 0.5s;
+					background-color: $white;
+					#recommendedBackArrow {
+						background-color: $white;
+						padding: 0.5rem 1rem;
+						border-top: 1px solid #e6e6e6;
+						border-bottom: 1px solid #e6e6e6;
+						box-sizing: border-box;
+						cursor: pointer;
+						width: 100%;
+						.material-icons {
+							font-size: 1rem;
+						}
+					}
+					#recommendedScheduleCta {
+						bottom: 0;
+						width: 100%;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						padding: 15px;
+						box-sizing: border-box;
+						background-color: $white;
+						button {
+							width: 100%;
+						}
+					}
+					.recommended-physicians {
+						margin: 0;
+						border-left: 0;
+						background-color: #ffffff;
+						width: 100%;
+						padding: 0;
+						.title {
+							padding: 0;
+							color: $dark-2;
+							font-size: 1rem;
+							font-weight: 800;
+							text-align: center;
+						}
+						.cities {
+							margin: 0;
+							width: 100%;
+							box-shadow: inset 0px -1px 0px 0px #e6e6e6,
+								0px 5px 10px 0px rgba(0, 0, 0, 0.05);
+							min-height: 56px;
+							background-color: $white;
+							z-index: 1;
+							.city {
+								flex-grow: 1;
+								max-width: 50%;
+							}
+						}
+						.physicians {
+							padding: 1rem;
+							margin: 0;
+							.physician {
+								.title {
+									text-align: left;
+									color: $violet;
+								}
+							}
+						}
+						.appointment-times {
+							.cta {
+								background-color: $footer-gray;
+							}
+							.times-container {
+								margin: 5px 0 0 0;
+								.times {
+									flex-direction: row;
+									.time {
+										width: calc((100% / 3) - 10px);
+										margin: 5px;
+										border-radius: 0.25rem !important;
+									}
+								}
+							}
+						}
+					}
+				}
+				&.showRecommended {
+					box-shadow: inset 0px -1px 0px 0px #e6e6e6,
+						0px 5px 10px 0px rgba(0, 0, 0, 0.05);
+					#recommendedProvidersContainer {
+						transform: translate(0%, 0);
+					}
+				}
+
+				.date-and-time-picker {
+					width: 100%;
+					flex: 0 0 100%;
+					margin: 0;
+					padding: 0;
+					background: $white;
+					.title {
+						display: none;
+					}
+
+					.error {
+						margin: 0 auto 15px auto;
+						text-align: center;
+
+						p {
+							margin: 0px;
+						}
+
+						.header {
+							font-weight: 600;
+						}
+					}
+
+					.times-container {
+						.available-times-location-container {
+							width: calc(100% - 1rem);
+
+							.title {
+								display: block !important;
+							}
+
+							p {
+								display: flex;
+								align-items: center;
+								margin: 0px 0px 10px 0px;
+
+								.location-details {
+									border-left: 1px solid $gray;
+									color: $green;
+									font-size: 13px;
+									font-weight: 600;
+									padding-left: 10px;
+									cursor: pointer;
+								}
+							}
+
+							.title {
+								text-align: left;
+								color: $black;
+								font-size: 14px;
+								font-weight: 600;
+								padding: 0;
+							}
+
+							.available-times-location-block-singular {
+								margin: 5px 0;
+								flex: 0 0 calc(25% - 7.5px) !important;
+
+								&:not(:nth-of-type(3n)) {
+									margin-right: 0px !important;
+								}
+
+								&:not(:nth-of-type(4n)) {
+									margin-right: 10px !important;
+								}
+							}
+						}
+					}
+				}
+
+				.form-actions {
+					margin: 0 15px 15px;
+
+					button {
+						width: 100%;
+					}
+				}
+			}
+		}
+
+		.locations-list-grid {
+			flex-direction: column;
+			border: none;
+
+			h4 {
+				margin-bottom: 10px;
+			}
+
+			.locations {
+				margin-top: 0px;
+
+				.location {
+					margin-top: 0px;
+				}
+			}
+		}
+	}
+	#showRecommended {
+		display: block;
+		margin: 1rem auto 0 auto;
+		font-size: 1rem;
+	}
+}

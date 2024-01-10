@@ -1,0 +1,78 @@
+@import "~@styles/typography";
+@import "~@styles/colors";
+
+.results {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 60rem;
+  min-height: 0;
+  margin-bottom: 2rem;
+  padding: 0.5rem 15.75rem 0;
+  touch-action: none;
+
+  &Title {
+    @include nexa-h2-bold;
+    @include nexa-extra-bold-highlight;
+    color: $dupage-dark-blue;
+    font-size: var(--font-size-62px-4px);
+    line-height: 6.25rem;
+    text-transform: capitalize;
+  }
+
+  &Container {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    height: 0;
+    min-height: 0;
+  }
+
+  &Menu {
+    width: 32.5%;
+    min-width: 32.5%;
+    margin-right: 2.625rem;
+  }
+
+  &Content {
+    flex-grow: 1;
+  }
+
+  .noResults {
+    &Container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 54.375rem;
+      background: $white;
+      border-radius: 0.5rem;
+    }
+
+    &IconWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 14.5rem;
+      height: 14.5rem;
+      margin-bottom: 2rem;
+      background: $light-blue;
+      border-radius: 50%;
+
+      img {
+        width: 9rem;
+        height: 9rem;
+      }
+    }
+
+    &Title {
+      @include nexa-heavy-highlight;
+
+      margin-top: 2rem;
+      color: $dupage-light-blue;
+      font-size: var(--font-size-40px-4px);
+      line-height: 3.75rem;
+      text-transform: capitalize;
+    }
+  }
+}

@@ -1,0 +1,280 @@
+footer.main-footer {
+	color: $dark-gray;
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	background: $footer-gray;
+	margin-top: 0;
+
+	a {
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	ul {
+		list-style: none;
+
+		li {
+			display: inline;
+			font-size: 16px;
+			line-height: 24px;
+		}
+
+		li,
+		a {
+			color: $oxford !important;
+		}
+	}
+
+	.section-header {
+		font-size: 16px;
+		color: $dark-gray;
+		text-transform: uppercase;
+		opacity: 0.7;
+		margin-bottom: 20px;
+
+		@include responsive(medium) {
+			margin-bottom: 10px;
+		}
+	}
+
+	section {
+		@include responsive(medium) {
+			padding-bottom: 20px;
+			margin: 15px 20px;
+			border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+
+			&:last-child {
+				border-bottom: none;
+				padding-bottom: 0px;
+			}
+		}
+	}
+
+	section.upper-footer {
+		min-height: 264px;
+		height: 264px;
+		width: 100%;
+		max-width: 1600px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-around;
+		padding: 25px 0px;
+
+		@include responsive(medium) {
+			display: block;
+			height: auto;
+			padding: 15px 0px;
+		}
+
+		ul {
+			margin: 0px;
+			padding: 0px;
+			display: flex;
+			flex-direction: column;
+
+			li,
+			a {
+				font-weight: 700;
+				letter-spacing: 0.5px;
+			}
+
+			li {
+				padding: 5px 0px;
+			}
+		}
+
+		#contact {
+			p,
+			a,
+			span {
+				color: $dark-gray;
+				line-height: 24px;
+			}
+
+			li,
+			a {
+				color: $oxford !important;
+			}
+
+			.phone-number {
+				color: $oxford !important;
+			}
+
+			.location-name {
+				opacity: 0.7;
+				margin: 0px;
+			}
+
+			.number {
+				span {
+					opacity: 0.7;
+				}
+			}
+
+			.address {
+				padding: 0px 0px 25px 0px;
+
+				p,
+				a,
+				span {
+					color: $oxford !important;
+					margin: 0px;
+					letter-spacing: 0.5px;
+				}
+
+				p {
+					opacity: 0.7;
+				}
+
+				a {
+					display: block;
+				}
+			}
+		}
+
+		#connect {
+			p {
+				color: $dark-gray;
+				opacity: 0.7;
+			}
+
+			.sign-up {
+				margin-bottom: 30px;
+
+				a {
+					font-size: 14px;
+					font-weight: 700;
+				}
+
+				p {
+					margin-bottom: 5px;
+					color: $oxford !important;
+				}
+
+				button {
+					border: solid;
+					border-radius: 4px;
+					border-width: thin;
+					height: 40px;
+					width: 140px;
+					color: $oxford;
+					background-color: $white;
+					font-weight: 700;
+
+					&:hover {
+						background-color: $off-blue;
+					}
+				}
+			}
+
+			.icons {
+				display: flex;
+				flex-direction: row;
+
+				a {
+					height: 25px;
+					width: 25px;
+					background-size: contain;
+					background-repeat: no-repeat;
+					margin-right: 25px;
+					cursor: pointer;
+				}
+
+				.footer-social-icons-youtube {
+					background-image: url("/dist/img/footer-social-icons/youtube_new.png");
+					margin-top: 5px;
+				}
+
+				.footer-social-icons-twitter {
+					background-image: url("/dist/img/footer-social-icons/twitter_new.png");
+				}
+
+				.footer-social-icons-instagram {
+					background-image: url("/dist/img/footer-social-icons/instagram_new.png");
+				}
+
+				.footer-social-icons-facebook {
+					background-image: url("/dist/img/footer-social-icons/facebook_new.png");
+				}
+
+				.footer-social-icons-linkedin {
+					background-image: url("/dist/img/footer-social-icons/linkedin_new.png");
+				}
+			}
+		}
+	}
+
+	section.lower-footer {
+		background: $oxford;
+		min-height: 56px;
+		height: 56px;
+		width: 100%;
+
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+
+		@include responsive(medium) {
+			display: block;
+			height: auto;
+			margin: 0px;
+		}
+
+		ul {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			//opacity: 0.7;
+			padding: 0px;
+
+			@include responsive(medium) {
+				display: block;
+				height: auto;
+				text-align: left;
+				padding: 0px 0px 0px 20px;
+			}
+
+			li {
+				padding: 0px 20px;
+				font-size: 14px;
+				display: inline;
+				border-left: solid 1px $white;
+
+				&:first-child {
+					border: none;
+				}
+
+				@include responsive(bs-large) {
+					padding: 0px 15px;
+				}
+
+				@include responsive(medium) {
+					display: block;
+					padding: 5px 0px;
+					border-left: none;
+
+					&:first-child {
+						border-bottom: 1px solid $white;
+						width: calc(100% - 20px);
+					}
+				}
+			}
+
+			li,
+			a {
+				color: $white !important;
+			}
+		}
+	}
+}
+
+.be-ix-link-block {
+	background: $oxford;
+	.be-related-link-container .be-list .be-list-item a {
+		color: $white !important;
+	}
+}

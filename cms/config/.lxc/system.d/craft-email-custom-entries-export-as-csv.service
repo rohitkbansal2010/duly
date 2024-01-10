@@ -1,0 +1,15 @@
+[Unit]
+Description=Updates Physician Cache information
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/var/www
+IOSchedulingClass=idle
+
+ExecStart=/usr/bin/php /var/www/craft dupage-core-module/default/email-custom-entries-export-as-csv "modules\physiciansmodule\exporters\PhysicianExporter"
+
+[Install]
+WantedBy=multi-user.target

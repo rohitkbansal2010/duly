@@ -1,0 +1,37 @@
+parameters:
+- name: envList
+  type: object
+  default:
+  - azure_cloud_np.duly.digital.devops
+  - azure_cloud_prod.duly.digital.devops
+
+pool: test-pool
+
+trigger: none
+
+
+stages:
+- ${{ each environment in parameters.envList }}:
+  - stage: Terraform_prerequisites_for_${{ environment }}
+    displayName: Create terraform prerequisites for ${{ environment }}
+    variables:
+    - group: env.${{ environment }}.terraform
+    jobs:
+    - job: Run_CLI_script
+      displayName: Run CLI script
+      steps:
+      - task: AzureCLI@2
+        displayName: Azure CLI
+        inputs:
+          # The name of each service connection (azureSubscription) must be the same as the environment's name and RG, SA, KV names suppose to be unique
+          azureSubscription: ${{ environment }} # Variables are not supported here. See MS documentation
+          scriptType: pscore
+          scriptLocation: inlineScript
+          inlineScript: |
+            az group create --name "$(ENV_TF_STATE_RESOURCE_GROUP_NAME)" --location "$(ENV_TF_STATE_LOCATION)"      
+
+            # az keyvault create --name "$(ENV_COMMON_KV_NAME)" --location "$(ENV_TF_STATE_LOCATION)" --resource-group "$(ENV_TF_STATE_RESOURCE_GROUP_NAME)"
+            
+            az storage account create --name "$(ENV_TF_STATE_STORAGE_ACCOUNT_NAME)" --location "$(ENV_TF_STATE_LOCATION)" --resource-group "$(ENV_TF_STATE_RESOURCE_GROUP_NAME)" --sku "Standard_LRS" --kind StorageV2
+            
+            az storage container create --name "$(ENV_TF_STATE_CONTAINER_NAME)" --account-name "$(ENV_TF_STATE_STORAGE_ACCOUNT_NAME)"

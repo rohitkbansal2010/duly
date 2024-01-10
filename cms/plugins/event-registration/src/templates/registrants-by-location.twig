@@ -1,0 +1,40 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * event-registration plugin for Craft CMS 3.3
+ *
+ * event-registration registrants-by-location.twig
+ *
+ * @author    Punchkick Interactive
+ * @copyright Copyright (c) 2019 Punchkick Interactive
+ * @link      https://www.punchkick.com
+ * @package   EventRegistration
+ * @since     0.0.1
+ */
+#}
+{% extends "_layouts/cp" %}
+
+{% set title = "Times for {location}"|t(params = { location: location.addressLocation.address }) %}
+{% set crumbs = [
+    {url: "/admin/calendar", label: 'Calendar'|t},
+    {url: "/admin/calendar/events", label: 'Events'|t},
+    {url: "/admin/calendar/events/" ~ event.id ~ "/default", label: event.title},
+    {url: "/admin/event-registration/" ~ event.id, label: "Locations"|t},
+    {url: "#", label: location.addressLocation.address }
+] %}
+
+	{% block details %}
+		<div class="meta"> <p>{{ "All available registrant times for which registrants have applied to are listed on this page. For each event time, you may download a CSV file listing all registrants."|t }}</p>
+	</div>
+{% endblock %}
+
+{% block content %}
+	{% include "event-registration/registrants-filters.twig" %}
+	{% include "event-registration/registrants-list.twig" %}
+{% endblock %}
+
+{% block footer %}
+	{# bundled by the root craftcms project webpack config #}
+	{{ craft.twigpack.includeCssModule("eventRegistrationsPlugin.css") }}
+	{{ craft.twigpack.includeJsModule("eventRegistrationsPlugin.js") }}
+{% endblock %}

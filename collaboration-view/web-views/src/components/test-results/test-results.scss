@@ -1,0 +1,17 @@
+@import "~@styles/colors";
+
+.results {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.25rem;
+  background: $white;
+  border-radius: 0.5rem;
+
+  &Skeleton {
+    position: relative;
+    height: 100%;
+    background: $white;
+    border-radius: 0.5rem;
+  }
+}

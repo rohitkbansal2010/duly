@@ -1,0 +1,221 @@
+.recommended-physicians, #no-recommended-providers-error {
+	margin: 0 0 0 2rem;
+	box-sizing: border-box;
+	padding: 1rem 1rem 1rem 2rem;
+	border-left: 1px solid $violet;
+	width: 420px;
+	@include responsive(bs-large) {
+		width: 100%;
+		border-left: 0;
+		margin: 1rem 0;
+		padding: 1rem;
+		box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.12);
+		background-color: $white;
+	}
+	* {
+		box-sizing: border-box;
+	}
+	&.collapsed {
+		display: none;
+	}
+
+	.title {
+		color: $dark-2;
+		font-family: nexa, sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		text-align: center;
+		display: block;
+	}
+
+	.physicians {
+		margin-top: 1rem;
+
+		.physician {
+			margin: 0 0 1rem 0;
+			&:last-of-type {
+				margin: 0;
+			}
+			.bio {
+				display: flex;
+				.image {
+					margin-right: 0.5rem;
+					&.default-headshot {
+						border-radius: 1rem 0;
+						height: 4rem;
+						width: 4rem;
+						object-fit: cover;
+					}
+					img {
+						border-radius: 1rem 0;
+						height: 4rem;
+						width: 4rem;
+						object-fit: cover;
+					}
+				}
+
+				.details {
+					.title {
+						font-weight: bold;
+						color: $violet;
+						text-align: left;
+						font-size: 1rem;
+						line-height: 1;
+					}
+
+					.services {
+						font-size: 0.875rem;
+						color: $dark-2;
+					}
+
+					.address {
+						display: flex;
+						flex-direction: column;
+						font-size: 0.875rem;
+						margin: 2px auto 8px;
+
+						.line-one, .line-two {
+							font-size: 14px;
+							line-height: 16px;
+							color: $oxford;
+						}
+					}
+
+					.ratings {
+						.stars {
+							display: flex;
+							align-items: center;
+							padding: 0;
+							.rating-number {
+								margin: 0 0.25rem 0 0;
+								height: unset;
+								font-size: 1rem;
+								line-height: 1.5rem;
+								color: $dark-blue;
+								font-weight: 600;
+							}
+							.star-rating {
+								margin: 0 0.25rem 0 0;
+								display: flex;
+								.star, .star_half, .star_border {
+									color: $marigold;
+								}
+							}
+							.count {
+								font-size: 14px;
+								color: $dark-blue;
+								font-weight: normal;
+							}
+						}
+					}
+				}
+			}
+
+			.appointment-times {
+				margin-top: 0.5rem;
+
+				.cta {
+					background: $off-blue;
+					width: 100%;
+					padding: 0.5rem 2rem 0.5rem 0.5rem;
+					position: relative;
+					box-sizing: border-box;
+					cursor: pointer;
+
+					span {
+						color: $violet;
+						font-weight: bold;
+						font-size: 1rem;
+						&.material-icons {
+							position: absolute;
+							box-sizing: border-box;
+							padding: 0.25rem;
+							top: 0;
+							right: 0;
+							height: 100%;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							font-size: 1.5rem;
+							color: $oxford;
+						}
+					}
+				}
+
+				.times-container {
+					box-sizing: border-box;
+					padding: 0;
+					margin: 0.5rem 0 0 0;
+					.times {
+						box-sizing: border-box;
+						display: flex;
+						flex-wrap: wrap;
+						padding: 0;
+						.time {
+							width: calc(33% - 10px);
+							background: $footer-gray;
+							font-size: 14px;
+							font-weight: bold;
+							color: $magenta;
+							border-radius: 3px;
+							box-sizing: border-box;
+							margin: 5px;
+							padding: 0.5rem;
+							border: 1px solid;
+							text-align: center;
+							border-color: $footer-gray;
+							cursor: pointer;
+							&:hover {
+								border-color: $violet;
+								background: $white;
+								color: $violet;
+							}
+							&.clicked {
+								background: $violet;
+								color: $white;
+								border-color: $violet;
+							}
+						}
+					}
+				}
+			}
+
+			.error {
+				background: $white;
+				margin-top: 10px;
+				padding: 5px;
+				color: $violet;
+				font-family: nexa, sans-serif;
+				font-size: 14px;
+				font-weight: 700;
+				border-radius: 3px;
+			}
+		}
+	}
+	
+	span.expand.show-more {
+		justify-content: center;
+		cursor: pointer;
+		display: flex;
+
+		span {
+			color: $violet;
+			font-weight: 700;
+
+			.link-effect {
+				&:hover {
+					color: $magenta;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+}
+#no-recommended-providers-error {
+	.title {
+		max-width: 300px;
+		@include responsive(bs-large) {
+			max-width: unset;
+		}
+	}
+}

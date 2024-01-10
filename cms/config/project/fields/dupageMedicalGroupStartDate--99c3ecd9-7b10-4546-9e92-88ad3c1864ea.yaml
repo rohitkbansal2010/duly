@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: dupageMedicalGroupStartDate
+instructions: 'When did this physician start seeing patients at DuPage Medical Group?'
+name: 'DuPage Medical Group Start Date'
+searchable: true
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: null
+    initialRows: '4'
+    multiline: ''
+    placeholder: 05/20/2004
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

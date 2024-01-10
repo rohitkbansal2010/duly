@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: interactiveViewmedicaEmbedVideo
+instructions: 'Enter in values below if this service should display a ViewMedica interactive video.'
+name: 'Interactive ViewMedica Embed Video '
+searchable: true
+settings:
+    contentTable: '{{%matrixcontent_interactiveviewmedicaembedvideo}}'
+    maxBlocks: ''
+    minBlocks: '0'
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

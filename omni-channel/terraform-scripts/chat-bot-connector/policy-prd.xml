@@ -1,0 +1,30 @@
+<policies>
+    <inbound>
+        <base />
+        <!-- Validate the JWT -->
+        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" failed-validation-error-message="Unauthorized. Access token is missing or invalid." output-token-variable-name="jwtValue">
+            <openid-config url="https://login.microsoftonline.com/{{aad-tenant-id}}/v2.0/.well-known/openid-configuration" />
+            <issuers>
+                <issuer>https://sts.windows.net/{{aad-tenant-id}}/</issuer>
+                <issuer>https://login.microsoftonline.com/{{aad-tenant-id}}/v2.0</issuer>
+            </issuers>
+            <required-claims>
+                <claim name="appid" match="any">
+                    <!-- duly-p-freshwork-chat-bot -->
+                    <value>???</value>
+                    <!-- duly-p-apim-portal -->
+                    <value>d26ab2c3-0df5-4ad9-86dc-4e927f2d3105</value>
+                </claim>
+            </required-claims>
+        </validate-jwt>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

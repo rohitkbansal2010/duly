@@ -1,0 +1,26 @@
+{% extends "base.twig" %}
+
+{% block title "Uh oh! - {code}"|t(params = {
+    'code': 400
+}) %}
+{% block bodyClass "error-container" %}
+
+{% block content %}
+    <div class="inner-container">
+        <div class="error-code">400</div>
+        <div class="separator"></div>
+        <div class="error-title-container">
+            <i class="material-icons error-icon">error_outline</i>
+                <div class="error-title">{{ "Uh Oh!"|t }}</div>
+        </div>
+        <div class="error-description">{{ "Sorry, we something went wrong. Click {here} to get back to the home page."|t(params = { 'here': tag('a', { text: "here"|t, href: '/', class: "link-effect" })})|raw }}</div>
+        {% if env != 'lxd' %}
+            <div class="separator"></div>
+            <div class="error-description">
+                <pre style="word-wrap: break-word; overflow-x: auto; white-space: pre-wrap;">
+                    {{ error.exceptionMsg }}<br />{{ error.exceptionTrace }}
+                </pre>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

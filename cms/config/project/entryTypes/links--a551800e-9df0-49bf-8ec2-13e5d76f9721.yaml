@@ -1,0 +1,10 @@
+fieldLayouts:
+    51afd17c-c661-4dc6-bbc2-81a6c9437c26: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: Title, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 0123880f-71f9-4712-b3df-a95a4f166e68, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Links, sortOrder: 1 }] }
+handle: links
+hasTitleField: true
+name: Links
+section: 256bbcce-012a-4269-b031-4144a9905584
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

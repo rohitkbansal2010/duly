@@ -1,0 +1,33 @@
+<div class="inline-text-field-container">
+	<div class="mdc-text-field mdc-text-field--with-leading-icon {% if error is defined and error != null %}mdc-text-field-error{% endif %}">
+		{% set options = {
+            autocomplete: 'off',
+            class: 'mdc-text-field__input',
+            'aria-label': "input text field",
+        } %}
+
+		{% if id is defined %}
+			{% set options = options|merge({id: id}) %}
+		{% endif %}
+
+		{% if extraOptions is defined %}
+			{% set options = options|merge(extraOptions) %}
+		{% endif %}
+
+		{% if value is defined %}
+			{{ input(type, name, value, options)|raw }}
+		{% else %}
+			{{ input(type, name, '', options)|raw }}
+		{% endif %}
+
+		{% if removeFloatingLabel is not defined or removeFloatingLabel == false %}
+			{{ tag('label', { class: 'mdc-floating-label', for: name, text: label })|raw }}
+		{% endif %}
+		<i class="material-icons mdc-text-field__icon">search</i>
+	</div>
+</div>
+{% if error is defined and error != null %}
+	<div class="mdc-text-field-helper-line">
+		<div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent" id="{{ label }}-helper">{{ error }}</div>
+	</div>
+{% endif %}

@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: videoVisitReasonsForScheduling
+instructions: 'List of reasons to be displayed in the "Reason for Visit" dropdown in step 1 of the video visit flow'
+name: 'Video Visit Reasons For Scheduling'
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: ''
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: null
+    sources: ['section:0d1f6651-c186-4f3d-8a81-54fa9729260d']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

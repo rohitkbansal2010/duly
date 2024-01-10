@@ -1,0 +1,92 @@
+//colors
+$light-teal: #5ca6b6;
+$mid-teal: #248a9e;
+$green: #055e54;
+$dark-green: #133933;
+$mid-green: #1d4b44;
+$light-green: #437d73;
+$border-green: #275d54;
+$yellow-green: #314f1f;
+$blue: #0f1f33;
+$dark-blue: #000f26;
+$light-blue: #6786b7;
+$mid-blue: #0a1523;
+$light-gold: #f1bb65;
+$dark-blue-text: #000a1a;
+$mute-blue: #2c4469;
+$dark-mute-blue: #1f334f;
+$text-blue-copy: #314f1f;
+$gray: #c2c6cc;
+$warm-gray: #d8d8d8;
+$background-gray: #f2f2f2;
+$red: #ce1a1a;
+$error-red: #cc2330;
+$white: #fff;
+$blackish: #191919;
+$black: #000000;
+$button-gold: #fbb615;
+
+//new colors
+$oxford: #002855; // rgb(0, 40, 85)
+$oxford-70: #486484;
+$sky: #00A5DF; // rgb(0, 165, 223)
+$sky-20: #CCEDFA; // rgb(204, 237, 250)
+$sky-faded: #e5f6fb; // rgb(229, 246, 251)
+$violet: #470A68; // rgb(71, 9, 104)
+$magenta: #C5299B; // rgb(197, 41, 155)
+$forest: #004C45; // rgb(0, 76, 69)
+$teal: #4c817c ;// rgb(76, 129, 124)
+$lime: #78BE21; // rgb(120, 190, 33)
+$marigold: #F2A900; // rgb(242, 169, 0)
+$marigold-70: #F5C14B;
+$tangerine: #FF6A14; // rgb(255, 106, 20)
+$warning: #F2B149; // rgb(242, 177, 73)
+$alert: #c71e00; // rgb(199, 30, 0)
+$alert-70: #D55F4A;
+$error: #CC2330; // rgb(204, 35, 48)
+$dark: #1A1919; // rgb(26, 25, 25)
+$dark-2: #525757; // rgb(82, 87, 87)
+$dark-gray: #888b8d; // rgb(136, 139, 141)
+$light-gray: #c2c6cc; // rgb(194, 198, 204)
+$footer-gray: #f8f8f8; // rgb(248, 248, 248)
+$divider-gray: #f2f2f2; // rgb(242, 242, 242)
+$nav-gray: #ccdef9; // rgb(204, 222, 249)
+$divider-gray: #f2f2f2; // rgb(242, 242, 242)
+$white: #ffffff; // rgb(255, 255, 255)
+$off-blue: #f2fafd; // rgb(242, 250, 253)
+$off-green: #bbde91; // rgb(187, 222, 145)
+$off-forest: #b3c9c7; // rgb(179, 201, 199)
+$off-violet: #ece6ef; //rgb(236, 230, 239)
+$hover-blue: #48bce4; // rgb(72, 188, 228)
+$hover-green: #f1f8e9; // rgb(241, 248, 233)
+$hover-pink: #fcf5fa; // rgb(252, 245, 250)
+$hover-option-blue: #7Fd2ef; //rgb(127, 210, 239)
+$hover-yellow: #FDF6E5; // rgb(253, 246, 229)
+$formError: #fef4f2; // rgb(254, 244, 242);
+$fa-font-path: "../webfonts";
+
+$font-family: nexa, sans-serif;
+
+$breakpoints: (
+	"x-small": (
+		max-width: 350px,
+	),
+	"small": (
+		max-width: 576px,
+	),
+	"medium": (
+		max-width: 768px,
+	),
+	"bs-large": (
+		max-width: 992px,
+	),
+	"large": (
+		max-width: 1092px,
+	),
+	"x-large": (
+		max-width: 1200px,
+	),
+	"fourteen-fourty": (
+		max-width: 1440px,
+	),
+) !default;

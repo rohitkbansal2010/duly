@@ -1,0 +1,30 @@
+{# When a user dismisses an alert, we store this action in a cookie #}
+{# If such cookie exists for this alert ID, do not render the alert #}
+{% if not getCookie("alert-" ~ alert.id) %}
+	<div class="{{ locationSpecific == true ? 'emergency-alert location' : 'emergency-alert default' }}" id="alert-{{ alert.id }}">
+		<div class="container">
+			{% set link = siteUrl ~ "alerts/" ~ alert.slug %}
+			{% set isDismissible = alert.dismissible %}
+
+			{% if alert.linkToStaticPage.one is not null %}
+				{% set entry = alert.linkToStaticPage.one %}
+				{% set link =  entry.linkUrl ? entry.linkUrl : entry.getUrl() %}
+			{% endif %}
+
+			<div class="{{ isDismissible ? 'content' : 'content no-close' }}">
+				<a href="{{ link }}" rel="noopener noreferrer">
+					<i class="material-icons notification_important"></i>
+					<i class="material-icons access_time"></i>
+					<i class="material-icons local_hospital"></i>
+					<span class="message">{{ alert.title }}&nbsp;&nbsp;-&nbsp;&nbsp;
+						<span class="view-more">{{ "View More"|t }}</span>
+					</span>
+				</a>
+			</div>
+
+			{% if isDismissible %}
+				<i class="material-icons close close-alert" tabindex="0" alt="Close Alert"></i>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

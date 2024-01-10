@@ -1,0 +1,36 @@
+{% set productPage = craft.entries.section('productsPage').one() %}
+{% if products|length %}
+	<div id="products">
+		<div class="list">
+			{% for product in products %}
+				<div class="product" data-brand="{{ product.brand }}">
+					<a href="/products/{{ product.slug }}?retUrl=/cosmetic-dermatology-products">
+						<div class="productContainer">
+							<div class="image">
+								{% set image = product.productImage.first() %}
+								{% if image %}
+									{{ getOptimizedImage(image)|raw }}
+								{% else %}
+									<picture class="placeholder">
+										<img src="/dist/img/placeholder/products.png" alt="{{ product.title }}"/>
+									</picture>
+								{% endif %}
+							</div>
+							<div class="title">
+								<p>{{ product.title }}</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% if pagination.totalCount > 20 %}
+		{% include '_paginate.twig' %}
+	{% endif %}
+{% else %}
+	<div class="no-search-results">
+		<img src="/dist/img/magnifying-glass-new.png" alt="{{ "Search"|t }}">
+		<h2>{{ "There are no products that match your search criteria."|t }}</h2>
+	</div>
+{% endif %}

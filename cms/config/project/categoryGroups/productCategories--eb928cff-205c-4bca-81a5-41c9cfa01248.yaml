@@ -1,0 +1,10 @@
+defaultPlacement: end
+fieldLayouts:
+    89a105be-c7ff-44d4-91a2-5f6e28f2d2e4: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }, { fieldUid: e6dc6222-4031-4893-a40c-9ebe41abe12b, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: productCategories
+name: 'Product Categories'
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { hasUrls: false, template: null, uriFormat: null }
+structure:
+    maxLevels: null
+    uid: a354f8f0-31a4-4b62-9e64-5b5ca7d1a442

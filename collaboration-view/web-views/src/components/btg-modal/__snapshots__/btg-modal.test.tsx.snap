@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BTGModal should match snapshot 1`] = `
+<Modal
+  animation={false}
+  autoFocus={true}
+  backdrop={true}
+  backdropClassName="customBackDropModal"
+  centered={true}
+  className="btgModal"
+  dialogAs={
+    Object {
+      "$$typeof": Symbol(react.forward_ref),
+      "render": [Function],
+    }
+  }
+  dialogClassName="customWidthModal"
+  enforceFocus={true}
+  keyboard={true}
+  onHide={[Function]}
+  restoreFocus={true}
+  show={true}
+  size="lg"
+>
+  <ModalHeader
+    className="btgModalHeader"
+    closeButton={false}
+    closeLabel="Close"
+  >
+    <div
+      className="btgModalHeaderIconContainer"
+    >
+      <div
+        className="btgModalHeaderIconWrapper"
+      >
+        <img
+          alt="restricted patient record icon"
+          src="warning-circle-magenta.svg"
+        />
+      </div>
+    </div>
+  </ModalHeader>
+  <ModalBody>
+    <ModalTitle
+      className="btgModalTitle"
+    >
+      This is a restricted patient record!
+    </ModalTitle>
+  </ModalBody>
+  <ModalFooter
+    className="btgModalFooter"
+  >
+    <div
+      className="btgModalFooterButtonContainer"
+    >
+      <Button
+        active={false}
+        className="btgModalFooterButton"
+        disabled={false}
+        onClick={[Function]}
+        variant="primary"
+      >
+        Close
+      </Button>
+    </div>
+  </ModalFooter>
+</Modal>
+`;

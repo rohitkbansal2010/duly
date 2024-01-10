@@ -1,0 +1,117 @@
+trigger: none
+
+parameters:
+  - name: imageTag
+    default: $(Build.BuildNumber)
+  - name: aksServiceConnection
+    default: 'duly-devops-aks'
+  - name: aksNamespace
+    default: 'azdevops'
+  - name: replicaCount
+    type: string
+    default: 7
+
+variables:
+  - name: ACR_SUBSCRIPTION
+    value: 'azure_cloud_prod'
+  - name: ACR_NAME
+    value: 'dulydigitalcr.azurecr.io'
+  - name: IMAGE_REPOSITORY
+    value: 'dockeragent'
+  - name: IMAGE_TAG
+    value: ${{ parameters.imageTag }}
+  - name: BUILD_POOL
+    value: DevOpsVM
+  - name: KEYVAULT_SERVICE_CONNECTION
+    value: 'azure_cloud_np'
+  - name: KEYVAULT_NAME
+    value: 'duly-d-shsvc-kv'
+  - name: AZDO_TARGET_POOL_NAME
+    value: 'OnAKS'
+  - name: HELM_RELEASE_NAME
+    value: 'buildagent'
+    
+
+resources:
+  repositories:
+    - repository: charts
+      type: git
+      name: 'duly-aks-helmcharts'
+    
+    - repository: scripts
+      type: git
+      name: 'duly-scripts'
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+- stage: Build
+  dependsOn: []
+  jobs:
+   - job: Build
+     displayName: Build Artifacts
+     workspace:
+       clean: all
+     steps:
+     - checkout: self
+     - checkout: charts
+     - checkout: scripts
+
+     - task: PowerShell@2
+       displayName: 'PowerShell: Set ADO build version'
+       inputs:
+         targetType: filePath
+         filePath: 'duly-scripts/PowerShell/Set-AdoPsBuildVersion.ps1'
+       continueOnError: false
+
+     - task: AzureCLI@2
+       displayName: Build and push a docker image
+       inputs:
+         azureSubscription: $(ACR_SUBSCRIPTION)
+         scriptType: pscore
+         scriptLocation: inlineScript
+         inlineScript: |
+            az acr build -t "$(ACR_NAME)/$(IMAGE_REPOSITORY):$(IMAGE_TAG)" -r "$(ACR_NAME)" .
+         workingDirectory: '$(Build.SourcesDirectory)/duly-aks-helmcharts/duly-devops-aks/buildagent/image'
+
+- stage: Deploy
+  displayName: Deploy build agents
+  dependsOn: Build
+  jobs:
+    - job: Deploy
+      displayName: Deploy build agents
+      workspace:
+       clean: all
+      steps:
+      - checkout: self
+      - checkout: charts
+      
+      - task: AzureKeyVault@2
+        displayName: 'Get personal access token for AzDO agents management'
+        inputs:
+          connectedServiceName: $(KEYVAULT_SERVICE_CONNECTION)
+          keyVaultName: $(KEYVAULT_NAME)
+          secretsFilter: 'duly-d-ado-service--azdoagentsmanagementpat'
+        continueOnError: false
+      
+      - task: HelmDeploy@0
+        displayName: Helm deploy
+        inputs:
+          connectionType: 'Kubernetes Service Connection'
+          kubernetesServiceConnection: ${{parameters.aksServiceConnection}}
+          namespace: ${{parameters.aksNamespace}}
+          command: 'upgrade'
+          chartType: 'FilePath'
+          chartPath: '$(Build.SourcesDirectory)/duly-aks-helmcharts/duly-devops-aks/buildagent/buildagent'
+          releaseName: $(HELM_RELEASE_NAME)
+          arguments: >
+            --install
+            --create-namespace
+            --set image.repository=$(ACR_NAME)/$(IMAGE_REPOSITORY)
+            --set image.tag=$(IMAGE_TAG)
+            --set image.pullPolicy=Always
+            --set replicaCount=${{ parameters.replicaCount }}
+            --set azp_pool="$(AZDO_TARGET_POOL_NAME)"
+            --set azp_token="$(duly-d-ado-service--azdoagentsmanagementpat)"
+            --set azp_url="$(System.CollectionUri)"

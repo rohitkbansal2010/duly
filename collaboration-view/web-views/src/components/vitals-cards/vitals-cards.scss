@@ -1,0 +1,27 @@
+@import "~@styles/main.scss";
+
+.todaysVitalsCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-content: flex-start;
+  align-items: flex-start;
+  height: 100%;
+  padding: 0 1.5rem;
+
+  &Container {
+    position: relative;
+    width: 34%;
+    height: 100%;
+    margin-left: -1.5rem;
+  }
+
+  &Skeleton {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-content: flex-start;
+    align-items: flex-start;
+    padding: 0 1.5rem;
+  }
+}

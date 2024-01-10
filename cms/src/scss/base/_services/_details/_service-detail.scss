@@ -1,0 +1,293 @@
+@import "../_details/hospital_affliations";
+
+.services-detail-page {
+	@import "../../_scheduling/modal";
+}
+
+.services-detail-container {
+	@import "./hero";
+	@import "./description";
+	@import "./navigation";
+	@import "./interactive";
+	@import "./locations";
+	@import "./physicians";
+	@import "./specialties";
+
+	max-width: 1280px;
+	width: 100%;
+	margin: 30px auto;
+	padding: 0px 30px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+
+	&.justify-center {
+		justify-content: center;
+	}
+
+	@include responsive(bs-large) {
+		flex-direction: column;
+		margin: 20px auto 0px auto;
+		padding: 0px;
+	}
+
+	p {
+		color: $dark-2;
+	}
+
+	hr {
+		border: 0.5px solid $lime;
+	}
+
+	.content {
+		max-width: 870px;
+		width: 100%;
+		margin-right: 20px;
+		background: $white;
+		border-radius: 4px;
+
+		@include responsive(x-large) {
+			max-width: 780px;
+		}
+
+		@include responsive(large) {
+			max-width: 680px;
+		}
+
+		@include responsive(bs-large) {
+			max-width: 100%;
+			width: calc(100% - 20px);
+			margin: 0px 10px;
+		}
+	}
+
+	.physicians-list {
+		@include responsive(medium) {
+			justify-content: center;
+		}
+	}
+
+	#viewMoreToggleHolder {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		#viewMoreToggle {
+			padding: 1rem;
+			cursor: pointer;
+			text-align: right;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			font-weight: bold;
+			&.active {
+				.material-icons {
+					transform: scaleY(-1);
+				}
+			}
+			span {
+				color: $violet;
+				font-weight: bold;
+			}
+			&:hover {
+				color: $magenta;
+				.toggleText {
+					color: $magenta;
+					text-decoration: underline;
+				}
+				.material-icons {
+					color: $magenta;
+				}
+			}
+		}
+	}
+	.locations-container {
+		margin-bottom: 25px;
+
+		@include responsive(medium) {
+			hr {
+				display: none;
+			}
+		}
+
+		h3 {
+			padding: 0px 24px;
+			font-size: 18px;
+			font-weight: 900;
+			margin: 8px 0px;
+			color: $forest;
+		}
+
+		.locations {
+			display: flex;
+			flex-wrap: wrap;
+			box-sizing: border-box;
+			* {
+				box-sizing: border-box;
+			}
+			.location {
+				display: flex;
+				align-items: flex-start;
+				width: 50%;
+				padding: 1rem;
+				max-width: unset;
+				@include responsive(medium) {
+					width: 100%;
+				}
+				.location-icon {
+					width: 1.25rem;
+					img {
+						width: 100%;
+					}
+				}
+				.address {
+					width: calc(100% - 1.25rem);
+					padding: 0 0 0 1rem;
+					margin: 0;
+					p {
+						margin: 0;
+						&.area {
+							color: $oxford;
+							font-size: 18px;
+							font-weight: 800;
+							line-height: 22px;
+						}
+					}
+					.phone-number {
+						display: block;
+						padding: 0.5rem 0;
+						color: $violet;
+						font-size: 16px;
+						font-weight: 800;
+						line-height: 22px;
+					}
+					a {
+						&:hover {
+							text-decoration: none;
+						}
+					}
+				}
+				.location-suite-details {
+					border-top: 1px solid $light-gray;
+				}
+				.temporarilyClosed {
+					color: $alert;
+					font-size: 16px;
+					font-weight: 800;
+					line-height: 22px;
+					margin: 0.5rem 0;
+				}
+				.nearestLocations {
+					.nearestLocationsContainer {
+						max-height: 0px;
+						overflow: hidden;
+						.nearestLocation {
+							margin: 0 0 1rem 0;
+							&:last-of-type {
+								margin: 0;
+							}
+							.title {
+								display: flex;
+								align-items: center;
+								a {
+									color: $oxford;
+									font-weight: 800;
+									&.loading {
+										display: flex;
+										align-items: center;
+									}
+									&:hover {
+										color: $magenta;
+										text-decoration: none;
+									}
+									.distanceIndicator {
+										padding: 0 0 0 0.25rem;
+										color: $oxford;
+										font-size: 14px;
+										font-weight: 600;
+									}
+								}
+							}
+							.location-icon {
+								width: 0.75rem;
+								margin: 0 0.25rem 0 0;
+								background: none;
+							}
+							p {
+								color: $dark-2;
+								font-weight: 600;
+							}
+						}
+					}
+					&.active {
+						.nearestLocationsContainer {
+							max-height: unset;
+						}
+						.toggle {
+							.material-icons {
+								transform: scaleY(-1);
+							}
+						}
+					}
+				}
+				.viewAllHours {
+					.hoursContainer {
+						max-height: 0px;
+						overflow: hidden;
+						.single-hours-element {
+							display: flex;
+							align-items: flex-start;
+							justify-content: space-between;
+							.days {
+								text-align: left;
+							}
+							.times {
+								text-align: right;
+								@include responsive (large) {
+									max-width: 115px;
+								}
+								@include responsive (medium) {
+									max-width: unset;
+								}
+							}
+						}
+					}
+					&.active {
+						.hoursContainer {
+							max-height: unset;
+						}
+						.toggle {
+							.material-icons {
+								transform: scaleY(-1);
+							}
+						}
+					}
+					p {
+						margin: 0.5rem 0;
+						font-weight: 600;
+					}
+				}
+				.toggle {
+					cursor: pointer;
+					display: flex;
+					align-items: center;
+					color: $violet;
+					font-size: 16px;
+					font-weight: 800;
+					line-height: 22px;
+					margin: 0.5rem 0;
+					.material-icons {
+						color: $violet;
+						font-size: 1.5rem;
+						margin: 0 0.25rem;
+					}
+					&:hover {
+						color: $magenta;
+						.material-icons {
+							color: $magenta;
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,9 @@
+@import "~@styles/colors.scss";
+
+.cvAppointmentPageWrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between;
+  height: 100%;
+  background: $ghost-gray;
+}

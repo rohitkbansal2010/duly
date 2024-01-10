@@ -1,0 +1,52 @@
+{% if brands|length %}
+	{% set brandFilters = craft.app.request.getParam('brand') %}
+	<div class="filterSectionTitle">
+		<p>{{ "Brand"|t }}</p>
+		<span class="brandCount"></span>
+		<span class="material-icons">add</span>
+	</div>
+	<div class="brands {{ brandFilters|length ?: 'hidden' }}">
+		{% for brand in brands %}
+			{% set checked = false %}
+			{% if brand in brandFilters %}
+				{% set checked = true %}
+			{% endif %}
+			<div class="brand">
+				{% include '_input/_checkbox.twig' with {
+					name: 'brand',
+					value: brand,
+					id: 'filter_' ~ brand,
+					label: brand|t,
+					checked: checked,
+					class: 'brand-filter'
+				} %}
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}
+{% if conditions|length %}
+	{% set conditionFilters = craft.app.request.getParam('conditionId') %}
+	<div class="filterSectionTitle">
+		<p>{{ "Category"|t }}</p>
+		<span id="categoryCount"></span>
+		<span class="material-icons">add</span>
+	</div>
+	<div class="conditions {{ conditionFilters|length ?: 'hidden' }}">
+		{% for condition in conditions %}
+			{% set checked = false %}
+			{% if condition.id in conditionFilters %}
+				{% set checked = true %}
+			{% endif %}
+			<div class="condition">
+				{% include '_input/_checkbox.twig' with {
+					name: 'condition',
+					value: condition.id,
+					id: 'condition_filter_' ~ condition.id,
+					label: condition|t,
+					checked: checked,
+					class: 'condition-filter'
+				} %}
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}

@@ -1,0 +1,120 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.cvWelcomePageContainerWrap {
+  height: 100vh;
+  background: $white;
+}
+
+.cvWelcomePageContainer {
+  display: flex;
+  width: 100%;
+  height: max-content;
+  background: $white;
+}
+
+.cvWelcomePageRightCol {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  max-width: 11rem;
+  min-height: 100vh;
+  padding: 2.5rem 0;
+}
+
+.cvWelcomePageIconRound {
+  display: flex;
+  width: 4.15rem;
+  height: 4.15rem;
+  padding: 0.95rem;
+  border: 2px solid $dupage-dark-blue;
+  border-radius: 100%;
+
+  & img {
+    width: 100%;
+    color: $dupage-dark-blue;
+  }
+}
+
+.cvWelcomePageLeftCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.cvWelcomePageLogoRow {
+  & img {
+    width: 9rem;
+  }
+
+  padding-bottom: 4.75rem;
+}
+
+.cvWelcomePageContentRow {
+  display: flex;
+  margin-right: 12.5rem;
+}
+
+.cvWelcomePageContentTextBlock {
+  max-width: 50rem !important;
+}
+
+.cvWelcomePageWelcomeMsg {
+  @include nexa-heavy-highlight;
+
+  font-size: 6.2rem;
+  line-height: 6.2rem;
+
+  &Text {
+    color: $dupage-dark-blue;
+    white-space: nowrap;
+  }
+
+  &Name {
+    color: $dupage-light-blue;
+  }
+}
+
+.cvWelcomePageWelcomeCongrats {
+  @include nexa-heavy-highlight;
+  padding: 4.75rem 0 2.75rem;
+  color: $dupage-dark-blue;
+
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+}
+
+.cvWelcomePageWelcomeDoctorStatus {
+  padding-bottom: 5rem;
+  color: $dupage-dark-blue;
+  font-size: 2.5rem;
+  line-height: 2.7rem;
+
+  &Highlight {
+    @include nexa-heavy-highlight;
+    color: $dupage-light-blue;
+  }
+}
+
+.cvWelcomePageStartButton {
+  @include nexa-heavy-highlight;
+  width: 17.65rem !important;
+  height: 4.67rem !important;
+  font-size: 1.15rem !important;
+
+  background-color: $dupage-dark-blue !important;
+  border-color: $dupage-dark-blue !important;
+}
+
+.cvWelcomePageContentLogoBlock {
+  & img {
+    width: 32rem;
+    margin-left: 14rem;
+  }
+}

@@ -1,0 +1,63 @@
+@import "~@styles/colors.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/spacing-constants.scss";
+@import "~@styles/typography.scss";
+@import "~@styles/main.scss";
+
+.weekDayTimeslotsItems {
+  @include nexa-heavy-highlight;
+  // width: 67.84375rem;
+  width: 100%;
+  max-height: 22rem;
+  margin: 2.125rem -1.875rem 0 -1.875rem;
+  padding: 0 1.875rem;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  &::-webkit-scrollbar {
+    position: absolute;
+    right: 0;
+    width: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+  }
+
+  &Head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    column-gap: 0.5rem;
+
+    &Icon {
+      width: 1.666875rem;
+      height: 1.666875rem;
+    }
+
+    &Title {
+      color: $dupage-dark-blue;
+      font-weight: 900;
+      font-size: var(--font-size-18px-4px);
+      line-height: 1.625rem;
+    }
+
+    &Number {
+      color: $dupage-dark-blue;
+      font-weight: 400;
+      font-size: var(--font-size-18px-4px);
+      font-family: "Inter", sans-serif;
+      line-height: 1.5rem;
+    }
+  }
+
+  &Slots {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.625rem;
+    column-gap: 1rem;
+    row-gap: 1rem;
+  }
+}

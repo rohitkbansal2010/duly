@@ -1,0 +1,27 @@
+<div class="locations-search-container">
+    <div class="search-content">
+        <form>
+            {{ csrfInput() }}
+            {% include "_input/_input.twig" with {
+                type: 'text',
+                name: 'searchLocations',
+                id: 'search-locations',
+                label: "Search Keywords"|t,
+            } only %}
+        </form>
+
+        <button class="locations-search-btn button blue">{{ "Search"|t }}</button>
+        <button class="filter-btn-mobile button white mobile">{{ "Filters"|t }} <span class="filter-count-mobile-locations"></span></button>
+    </div>
+    <div class="filters">
+        {% include "_locations/filters/_desktop.twig" with {
+            specialties: specialties
+        }%}
+    </div>
+</div>
+
+<div class="filters-mobile-container-locations hide">
+    {% include "_locations/_locations_filter_modal.twig" with {
+        specialties: specialties
+    }%}
+</div>

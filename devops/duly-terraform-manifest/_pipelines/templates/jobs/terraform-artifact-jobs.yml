@@ -1,0 +1,100 @@
+parameters:
+- name: infraSolutionRepo
+  type: string
+
+- name: infraSolutionFolder
+  type: string
+
+- name: configurationRepo
+  type: string
+
+- name: configurationPath
+  type: string
+
+jobs:
+- job: Copy_Files
+  displayName: Copy_Files
+  workspace:
+    clean: all
+
+  steps:
+  # Set special variable APP_NAME value for release versioning
+  - pwsh: |
+      Write-Host "##vso[task.setvariable variable=APP_NAME]${{ parameters.infraSolutionFolder }}"
+    name: Set_APP_NAME
+    displayName: 'Set name for release-versioning'
+  
+
+  # Run release versioning
+  #- template: ./generate-release-version-trunk.yml
+  - task: PowerShell@2
+    displayName: 'PowerShell: Set ADO build version'
+    inputs:
+      targetType: filePath
+      filePath: 'duly-scripts/PowerShell/Set-AdoPsBuildVersion.ps1'
+      arguments: -WorkingDirectory $(Build.SourcesDirectory)
+    continueOnError: false
+    enabled: false #${{ parameters.setBuildVersion }}
+    condition: |
+      and
+      (
+        succeeded(), or
+        (
+          startsWith(variables['Build.SourceBranchName'], 'release'),
+          startsWith(variables['Build.SourceBranchName'], 'main'),
+          in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+        ),
+        ne(variables['Build.Reason'], 'PullRequest')
+      )
+
+  # Checkout Terraform repository with Root modules
+  - checkout: ${{ parameters.infraSolutionRepo }}
+    fetchDepth: 5
+  
+
+  # Checkout repository with Terraform *.tfvars configuration
+  - checkout: ${{ parameters.configurationRepo }}
+    fetchDepth: 5
+  
+
+  # Copy Root module to "/terraform" folder
+  - task: CopyFiles@2
+    displayName: 'Copy Terraform files'
+    inputs:
+      SourceFolder: $(System.DefaultWorkingDirectory)/${{ parameters.infraSolutionRepo }}/${{ parameters.infraSolutionFolder }}
+      Contents: |
+        *.tf
+        !backend.tf
+        !provider.tf
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/${{ parameters.infraSolutionFolder }}'
+
+
+  # Copy Configuration for root module to "/terraform" folder
+  - task: CopyFiles@2
+    displayName: 'Copy solution configuration files'
+    inputs:
+      SourceFolder: $(System.DefaultWorkingDirectory)/${{ parameters.configurationRepo }}/${{ parameters.configurationPath }}
+      Contents: |
+        *.tfvars
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/${{ parameters.infraSolutionFolder }}'
+
+
+  # Copy Additions backend.tf, provider.tf, remote_state.tfvars templates to "/terraform" folder
+  - task: CopyFiles@2
+    displayName: 'Copy global configuration files'
+    inputs:
+      SourceFolder: $(System.DefaultWorkingDirectory)/${{ parameters.infraSolutionRepo }}/_configuration
+      Contents: |
+        backend.tf  
+        provider.tf
+        global.tfvars
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/${{ parameters.infraSolutionFolder }}'
+      overWrite: true
+  
+      
+  # Publish all copied files as Artifact
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish artifact'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: '$(Build.BuildNumber)'

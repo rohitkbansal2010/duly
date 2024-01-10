@@ -1,0 +1,10 @@
+fieldLayouts:
+    4001dbe9-1fca-4f88-a668-734435a5c505: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: b06f3ffe-573e-4664-bc71-9927457961b9, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: contactUsPage
+hasTitleField: false
+name: 'Contact Us Page'
+section: ae86ef35-e13c-49d9-b2b6-7285fe7822d7
+sortOrder: 1
+titleFormat: '{section.name|raw}'
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

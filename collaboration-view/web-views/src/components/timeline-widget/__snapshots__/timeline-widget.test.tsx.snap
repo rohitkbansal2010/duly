@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineWidget should render the TimelineWidget component 1`] = `
+<div
+  className="timelineWidgetContainer"
+>
+  <TimelineAppointments
+    alias="recentAppointments"
+    key="recentAppointments"
+  />
+  <TimelineAppointments
+    alias="upcomingAppointments"
+    key="upcomingAppointments"
+  />
+</div>
+`;

@@ -1,0 +1,28 @@
+<policies>
+  <inbound>
+    <base />
+    <!-- Validate the JWT -->
+    <validate-jwt header-name="Authorization" failed-validation-httpcode="401" failed-validation-error-message="Unauthorized. Access token is missing or invalid." output-token-variable-name="jwtValue">
+      <!-- Skipped -->
+    </validate-jwt>
+
+    <!-- Build invalidation key based on the JWT -->
+    <set-variable name="jwtInvalidationKey" value="@(((Jwt)context.Variables["jwtValue"])?.Claims["appid"].FirstOrDefault() + "-" + ((Jwt)context.Variables["jwtValue"])?.Claims["oid"].FirstOrDefault() + "-" + ((Jwt)context.Variables["jwtValue"])?.ExpirationTime.Value.Ticks + "-" + ((Jwt)context.Variables["jwtValue"])?.IssuedAt.Value.Ticks)" />
+
+    <!-- Lookup JWT key at external cache storage -->
+    <cache-lookup-value key="@((string)context.Variables["jwtInvalidationKey"])" variable-name="jwtInvalidationKeyValue" caching-type="prefer-external" />
+
+    <choose>
+      <!-- Validate if the JWT is not revoked -->
+      <when condition="@(context.Variables.ContainsKey("jwtInvalidationKeyValue"))">
+        <return-response>
+          <set-status code="401" reason="Unauthorized" />
+          <set-header name="Expire-In-Seconds" exists-action="override">
+            <value>@(Convert.ToInt32(((DateTime)context.Variables["jwtInvalidationKeyValue"]).Subtract(DateTime.UtcNow).TotalSeconds).ToString())</value>
+          </set-header>
+        </return-response>
+      </when>
+    </choose>
+  </inbound>
+  <!-- Skipped -->
+</policies>

@@ -1,0 +1,10 @@
+defaultPlacement: end
+enableVersioning: true
+handle: alerts
+name: Alerts
+previewTargets:
+    - { __assoc__: [[label, 'Primary entry page'], [urlFormat, '{url}']] }
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: true, hasUrls: true, template: _alerts/alert, uriFormat: 'alerts/{slug}' }
+type: channel

@@ -1,0 +1,303 @@
+.conditions-and-testing {
+	@import "./expandable-cell";
+	width: 100%;
+	max-width: 1040px;
+	background: $white;
+	padding: 0;
+	text-align: center;
+	margin: 100px auto 100px;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	@include responsive(bs-large) {
+		margin: 20px auto 100px auto;
+	}
+	@include responsive(small) {
+		width: 100%;
+		margin: 0 0 100px 0;
+		padding: 1rem;
+	}
+	.title {
+		font-size: 32px;
+		line-height: 36px;
+		margin: 60px;
+
+		@include responsive(bs-large) {
+			font-size: 22px;
+			margin: 40px 20px;
+			line-height: 1;
+		}
+	}
+
+	#conditions-and-tests {
+		top: -325px;
+		position: absolute;
+	}
+
+	.conditions-treated {
+		margin-bottom: 80px;
+	}
+
+	.conditions-treated,
+	.on-site-testing {
+		display: flex;
+		flex-direction: column;
+		.headers {
+			display: flex;
+			flex-direction: row;
+			padding: 0 0 0 65px;
+			@include responsive(bs-large) {
+				padding: 0 20px;
+			}
+
+			.col-1 {
+				font-weight: 600;
+			}
+
+			.header {
+				text-align: start;
+				font-size: 18px;
+				font-weight: bold;
+				@include responsive(bs-large) {
+					font-size: 14px;
+				}
+
+				flex: 1 1;
+
+				&:not(:first-of-type) {
+					text-align: center;
+				}
+				&.col-2 {
+					@include responsive(small) {
+						display: none;
+					}
+				}
+				&.col-1 {
+					@include responsive(small) {
+						text-align: center;
+						font-size: 1rem;
+					}
+				}
+			}
+		}
+	}
+
+	.condition,
+	.test {
+		display: flex;
+		flex-direction: row;
+		width: calc(100% - 60px);
+		padding: 20px 30px 20px 0;
+		border-bottom: 1px solid #f2f2f2;
+		margin-left: 30px;
+		position: relative;
+
+		@include responsive(bs-large) {
+			margin-left: 10px;
+			padding: 20px 10px 20px 0;
+			margin-left: 10px;
+			width: calc(100% - 20px);
+		}
+
+		@include responsive(small) {
+			* {
+				box-sizing: border-box;
+			}
+			display: block;
+			margin: 0;
+			padding: 1rem 0.75rem;
+			box-sizing: border-box;
+			width: 100%;
+		}
+
+		&:last-of-type() {
+			border: none;
+		}
+
+		.wrap-collabsible {
+			flex: 0 0 100%;
+			display: flex;
+			flex-direction: column;
+			position: relative;
+
+			.icon {
+				margin-right: 30px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				pointer-events: none;
+				transition: opacity 0.25s, color 0.25s ease-out;
+
+				&:hover {
+					color: $sky !important;
+
+					.label-toggle {
+						color: $sky;
+					}
+				}
+
+				&.minus {
+					opacity: 0;
+				}
+			}
+
+			&.no-icons {
+				.icon {
+					display: none;
+				}
+
+				label {
+					cursor: initial;
+				}
+				.label-toggle {
+					@include responsive(small) {
+						padding: 0;
+					}
+				}
+			}
+
+			&.checked {
+				.icon.minus {
+					opacity: 1;
+				}
+				.icon.plus {
+					opacity: 0;
+				}
+			}
+			@include responsive(bs-large) {
+				flex: 0 0 100%;
+			}
+			.label-toggle {
+				text-align: start;
+				width: 50%;
+				font-size: 16px;
+				padding-left: 40px;
+				line-height: 24px;
+				color: $oxford;
+
+				@include responsive(bs-large) {
+					font-size: 14px;
+					max-width: 25vw;
+				}
+				@include responsive(small) {
+					font-size: 16px;
+					color: $dark;
+					max-width: unset;
+					width: 100%;
+					padding-left: 30px;
+				}
+			}
+			.collapsible-content {
+				width: 100%;
+			}
+			&:hover:not(.no-icons) {
+				.icon,
+				.label-toggle {
+					color: $sky;
+				}
+			}
+		}
+
+		.zero-opacity {
+			opacity: 0;
+		}
+
+		.checkmarks {
+			position: absolute;
+			width: 100%;
+			height: 50px;
+			display: flex;
+			padding: 0 0 0 35px;
+			box-sizing: border-box;
+			pointer-events: none;
+
+			@include responsive(bs-large) {
+				padding: 0;
+			}
+			@include responsive(small) {
+				position: relative;
+				display: block;
+				height: unset;
+				margin: 0.5rem 0 0 0;
+			}
+		}
+
+		.location-checkmark {
+			display: flex;
+			justify-content: center;
+			flex: 1 1;
+			position: relative;
+			@include responsive(small) {
+				display: block;
+				.zero-opacity {
+					display: none;
+				}
+			}
+		}
+
+		.content-inner {
+			padding: 0;
+			margin-top: 10px;
+			font-size: 16px;
+			max-width: 375px;
+			p {
+				margin: 0;
+				text-align: start;
+				padding-left: 40px;
+			}
+			@include responsive(bs-large) {
+				max-width: 650px;
+			}
+			@include responsive(small) {
+				width: 100%;
+				margin-top: 0.5rem;
+				max-width: unset;
+				p {
+					padding-left: 0;
+					color: $dark-2;
+					font-size: 16px;
+					font-weight: normal;
+				}
+			}
+		}
+
+		.check-circle {
+			background-image: url("/dist/img/icons/check-circle-new.png");
+			background-repeat: no-repeat;
+			background-size: contain;
+			width: 25px;
+			height: 25px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translate(-50%, 0);
+			@include responsive(small) {
+				display: none;
+			}
+		}
+		.mobileIndicator {
+			display: none;
+			width: 100%;
+			text-align: left;
+			color: $oxford;
+			font-size: 16px;
+			font-weight: bold;
+			padding: 0 0 0 1rem;
+			margin: 0 0 0.5rem 0;
+			&:last-of-type {
+				margin: 0;
+			}
+			@include responsive(small) {
+				display: block;
+			}
+		}
+	}
+
+	hr {
+		margin: 9px 0 0;
+		background-color: $sky;
+		color: $sky;
+		border: none;
+		height: 1px;
+	}
+}

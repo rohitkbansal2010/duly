@@ -1,0 +1,13 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: gender
+instructions: ''
+name: Gender
+searchable: true
+settings:
+    optgroups: true
+    options: [{ __assoc__: [[label, Unspecified], [value, unspecified], [default, '1']] }, { __assoc__: [[label, Male], [value, male], [default, '']] }, { __assoc__: [[label, Female], [value, female], [default, '']] }, { __assoc__: [[label, Non-Binary], [value, non-binary], [default, '']] }]
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown

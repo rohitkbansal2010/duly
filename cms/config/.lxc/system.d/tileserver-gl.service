@@ -1,0 +1,13 @@
+[Unit]
+Description=TileServer GL Light Service
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+ExecStart=/opt/tileserver-gl/node_modules/.bin/tileserver-gl -p 10001
+WorkingDirectory=/var/www/config/osm/tileservergl
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

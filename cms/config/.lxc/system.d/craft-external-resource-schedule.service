@@ -1,0 +1,15 @@
+[Unit]
+Description=Updates External Resource Appointments Cache information
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/var/www
+IOSchedulingClass=idle
+
+ExecStart=/usr/bin/php /var/www/craft scheduling-module/default/cache-external-resource-appointment-times
+
+[Install]
+WantedBy=multi-user.target

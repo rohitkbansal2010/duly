@@ -1,0 +1,20 @@
+{% if service is not null %}
+    {% include "_modals/_login-modal.twig" with {
+        includeServiceIds: true,
+        serviceId: service.id
+    }%}
+{% endif %}
+
+<section class="physicians">
+    {% include "./_locations/single/dynamic/_physicians.twig" with {
+        physicians: physicians,
+        service: service
+    } %}
+</section>
+
+<section class="other-locations">
+    {% include "./_locations/single/dynamic/_locations.twig" with {
+        locations: locations,
+        service: service
+    } %}
+</section>

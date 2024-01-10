@@ -1,0 +1,13 @@
+defaultPlacement: end
+enableVersioning: true
+handle: insuranceProviders
+name: 'Insurance Carriers'
+previewTargets:
+    - { __assoc__: [[label, 'Primary entry page'], [urlFormat, '{url}']] }
+propagationMethod: all
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { enabledByDefault: true, hasUrls: true, template: insurance-carrier, uriFormat: 'insurance-carriers/{slug}' }
+structure:
+    maxLevels: null
+    uid: 0539ec0a-62c0-4bc4-b839-a03f708aadd2
+type: structure

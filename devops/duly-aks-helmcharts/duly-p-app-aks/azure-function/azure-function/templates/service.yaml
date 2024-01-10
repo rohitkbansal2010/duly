@@ -1,0 +1,17 @@
+{{- if eq .Values.keda.triggerType "http-trigger" -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "azure-function.fullname" . }}
+  labels:
+    {{- include "azure-function.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "azure-function.selectorLabels" . | nindent 4 }}
+{{- end }}

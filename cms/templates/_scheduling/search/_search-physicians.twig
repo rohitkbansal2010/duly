@@ -1,0 +1,79 @@
+{% set availabilities = [
+	"Today"|t,
+	"Next 3 Days"|t
+] %}
+
+{% set distances = [
+	"Within 5 miles"|t,
+	"Within 10 miles"|t,
+	"Within 20 miles"|t
+] %}
+
+{% set languages = craft.categories().group('languagesSpoken').orderBy('title') %}
+
+{% set genderField = [
+	'Female'|t,
+	'Male'|t,
+	'Non-Binary'|t
+] %}
+
+{% set ages = [
+	"Infants (0-4)"|t,
+	"Children (5-12)"|t,
+	"Adolescents (13-17)"|t,
+	"Adults (18-64)"|t,
+	"Seniors (65+)"|t,
+] %}
+
+{% set physicianHospitalAffiliations = craft.entries({
+	section: 'hospitals',
+	orderBy: {
+		title: SORT_ASC
+	}
+}) %}
+
+<div class="schedule-search-physicians-container">
+    <div class="search-content">
+        <div class="form search-appointment-physicians">
+            {% include "_input/_input.twig" with {
+                type: 'text',
+                name: 'searchPhysicianAppointments',
+                id: 'search-physician-appointments',
+                label: "Search provider name..."|t,
+				class: 'mdc-text-field--with-trailing-icon',
+				trailingIcon: 'search'
+            } only %}
+        </div>
+		<button class="search-results-btn dmgButton primary1">
+			{{ "Search"|t }}
+		</button>
+		<button class="filter_list dmgButton secondary1">
+			{{ "Filters"|t }}
+		</button>
+
+    </div>
+
+	{% cache globally using key "search-physicians-during-desktop-scheduling" ~ "rebrand" %}
+		{% include "_scheduling/physicians/filters/_desktop.twig" %}
+	{% endcache %}
+</div>
+
+<div class="event-filter-modal hidden">
+	<div class="header">
+		<h2>{{ "Filter"|t }}</h2>
+		<i class="material-icons close close-modal" tabindex="0"></i>
+	</div>
+	<div class="filter-container">
+	{% cache globally using key "search-physicians-during-mobile-scheduling" ~ "rebrand" %}	
+		{% include "_scheduling/physicians/filters/_mobile.twig" %}
+	{% endcache %}
+	</div>
+	<div class="footer">
+		<button class="dmgButton tertiary1">
+			<div class="cta clear-all">{{ "Clear All"|t }}</div>
+		</button>
+		<button class="dmgButton secondary1">
+			<div class="cta view-results">{{ "View Results"|t }}</div>
+		</button>
+	</div>
+</div>

@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: acceptsNewPatients
+instructions: ''
+name: 'Accepts New Patients'
+searchable: true
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

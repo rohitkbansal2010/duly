@@ -1,0 +1,104 @@
+parameters:
+  - name: deployPool
+    type: string
+    default: 'Azure Pipelines'
+    displayName: 'Agent pool to use for deploy'
+
+  - name: environment
+    type: string
+    displayName: 'Environment'
+
+  - name: authenticationType
+    type: string
+    default: 'server'
+    values:
+    - 'server'
+    - 'connectionString'
+
+  - name: dependsOn
+    type: object
+    default: ''
+
+  - name: deployCondition
+    type: string
+    default: succeeded()
+  
+  - name: azureSubscription
+    type: string
+    default: 'dev'
+
+  - name: publishProfile
+    type: string
+    default: '$(Pipeline.Workspace)/$(Build.Repository.Name)/$(System.StageName).publish.xml'
+  
+  - name: dacpacName
+    type: string
+    default: ''
+
+  - name: additionalDacpacArguments
+    type: string
+  
+  - name: runTests
+    default: false
+
+  - name: forceRunSqlIntegrationTests
+    type: boolean
+    default: false
+
+stages:
+- stage: ${{ parameters.environment }}
+  displayName: Deploy on ${{ parameters.environment }}
+  variables:
+    - group: env.${{ parameters.environment }}.sql
+  condition: ${{ parameters.deployCondition }}
+  ${{ if ne(parameters.dependsOn, '') }}:
+    dependsOn: ${{ parameters.dependsOn}}
+  jobs:
+    - deployment: Deploy
+      displayName: Deploy on ${{ parameters.environment }}
+      pool:
+        name: ${{ parameters.deployPool }}
+        vmImage: 'windows-latest'
+        demands:
+        - DotNetFramework
+        - sqlpackage
+      environment: ${{ parameters.environment }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: CmdLine@2
+                inputs:
+                  script: 'C:\Windows\System32\reg.exe add HKCU\Software\Microsoft\VisualStudio\10.0\SQLDB\Database /v LongRunningQueryTimeoutSeconds /t REG_DWORD /d 0 /f'     
+                displayName: 'Enable long running queries'
+              - ${{ if eq(parameters.authenticationType, 'server') }}:
+                - task: SqlAzureDacpacDeployment@1
+                  displayName: 'Execute Azure SQL : DACPACTask'
+                  inputs:
+                    azureSubscription: '${{ parameters.azureSubscription }}'
+                    AuthenticationType: 'server'
+                    ServerName: '$(SqlServerName)'
+                    DatabaseName: '$(DbName)'
+                    SqlUsername: '$(SqlAdminLogin)'
+                    SqlPassword: '$(SqlAdminPwd)'
+                    deployType: 'DacpacTask'
+                    DeploymentAction: 'Publish'
+                    DacpacFile: '$(Pipeline.Workspace)/$(Build.Repository.Name)/${{ parameters.dacpacName }}'
+                    # PublishProfile: ${{ parameters.publishProfile }}
+                    IpDetectionMethod: 'AutoDetect'
+                    ${{ if ne(parameters.additionalDacpacArguments, ' ') }}:
+                      AdditionalArguments: ${{ parameters.additionalDacpacArguments }}
+              - ${{ if eq(parameters.authenticationType, 'connectionString') }}:
+                - task: SqlAzureDacpacDeployment@1
+                  displayName: 'Execute Azure SQL : DACPACTask'
+                  inputs:
+                    azureSubscription: '${{ parameters.azureSubscription }}'
+                    AuthenticationType: 'connectionString'
+                    connectionString: '$(DBConnectionString)'
+                    deployType: 'DacpacTask'
+                    DeploymentAction: 'Publish'
+                    DacpacFile: '$(Pipeline.Workspace)/$(Build.Repository.Name)/${{ parameters.dacpacName }}'
+                    # PublishProfile: ${{ parameters.publishProfile }}
+                    IpDetectionMethod: 'AutoDetect'
+                    ${{ if ne(parameters.additionalDacpacArguments, ' ') }}:
+                      AdditionalArguments: ${{ parameters.additionalDacpacArguments }}

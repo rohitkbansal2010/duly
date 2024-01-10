@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 5aee8925-b56d-4fb5-b087-351dd8200f10
+handle: isMedicareAdvantage
+instructions: ''
+name: 'Is Medicare Advantage?'
+searchable: false
+settings:
+    default: false
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

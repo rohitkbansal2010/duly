@@ -1,0 +1,50 @@
+trigger: none
+
+parameters:
+  - name: majorVersion
+    type: number
+    displayName: 'Major version of the new release branch'
+  - name: minorVersion
+    type: number
+    displayName: 'Minor version of the new release branch'
+
+  - name: apptMgmt
+    type: boolean
+    default: false
+    displayName: 'appointment-management'
+  - name: apptMgmtCommitId
+    type: string
+    default: 'latest'
+    displayName: 'appointment-management commit id (full SHA or first 8 characters)'
+
+
+variables: 
+  - name: BUILD_POOL
+    value: OnAKS
+
+resources:
+  repositories:
+    - repository: scripts
+      type: git
+      name: 'duly.digital.devops/duly-scripts'
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+- stage: apptMgmt
+  dependsOn: []
+  displayName: 'appointment-management: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: apptMgmt
+    displayName: 'appointment-management: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.digital.omni-channel'
+          repositoryName: 'appointment-management'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.apptMgmtCommitId }}
+  condition: eq('${{ parameters.apptMgmt }}', 'true')

@@ -1,0 +1,23 @@
+{% extends "_layouts/_layout.twig" %}
+
+{% set event = craft.calendar.events({
+        id: event,
+        limit: 1,
+        rangeStart: occurrence
+    })
+    .one()
+%}
+
+{% set location = craft.matrixBlocks()
+    .owner(event)
+    .id(location)
+    .one()
+%}
+
+{% block body %}
+    Hi!
+    
+    You've requested to be notified when your event has hit a capacity milestone!
+    
+    Your event for {{ event.title }} at {{ location.addressDetails }} for {{ occurrence }} is now {{ pct }}% ({{ currentCapacity }}/{{ maxCapacity }}) full.
+{% endblock %}

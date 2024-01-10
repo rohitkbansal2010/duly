@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 970af1ca-372b-4267-b767-7366ce069711
+handle: displayInProviderSpecialtiesFilter
+instructions: 'Toggle to allow to be seen in the services filter on the physician listings page.'
+name: 'Display in Provider Specialties Filter'
+searchable: false
+settings:
+    default: true
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

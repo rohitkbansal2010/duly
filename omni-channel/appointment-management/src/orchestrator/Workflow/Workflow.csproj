@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Authors>Duly Health and Care</Authors>
+    <Company>Duly Health and Care</Company>
+    <Product>Duly Health and Care Appointment Managemet Worflow Orchestrator</Product>
+    <Copyright>Copyright (c) Duly Health and Care</Copyright>
+
+    <AssemblyName>Duly.OmniChannel.Orchestrator.Appointment.Workflow</AssemblyName>
+    <RootNamespace>Duly.OmniChannel.Orchestrator.Appointment.Workflow</RootNamespace>
+
+    <Version>1.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+
+    <LangVersion>9</LangVersion>
+
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+
+    <StartupObject>Duly.OmniChannel.Orchestrator.Appointment.Workflow.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="34.0.1" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.28" />
+    <PackageReference Include="Hangfire.Console" Version="1.4.2" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.Hangfire" Version="6.0.2" />
+    <PackageReference Include="Hangfire.Console.Extensions" Version="1.0.5" />
+    <PackageReference Include="Hangfire.Console.Extensions.Serilog" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.6" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.43.0" />
+    <PackageReference Include="Duly.Common.CodeAnalysis" Version="21.11.110.1-dev">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Duly.Common.DataAccess" Version="22.3.105.1-dev" />
+    <PackageReference Include="Duly.Common.Infrastructure" Version="22.3.101.2-dev" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
+</Project>

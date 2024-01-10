@@ -1,0 +1,32 @@
+# Resource repository where pipeline templates located.
+# This is mandatory for linking to templates in other repository.
+resources:
+  repositories:
+  - repository: duly-terraform-manifest
+    type: git
+    name: duly-terraform-manifest
+    ref: 'refs/heads/main'
+
+
+parameters:
+- name: infraSolutionFolder
+  displayName: Choose infra solution to destroy
+  type: string
+  values:
+  - 001_rg
+  - 002_logAnalytics
+  - 003_vnet
+
+pool: aks-pool
+
+trigger: none
+
+stages:
+- template: ./_pipelines/templates/stages/terraform-destroy-stage.yml@duly-terraform-manifest
+  parameters:
+    infraSolutionRepo: duly-terraform-manifest
+    infraSolutionFolder: ${{ parameters.infraSolutionFolder }}
+    configurationRepo: duly-terraform-manifest
+    configurationPath: _configuration/${{ parameters.infraSolutionFolder }}
+    envList:
+      - dev_test

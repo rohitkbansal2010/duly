@@ -1,0 +1,36 @@
+# Resource repository where pipeline templates located.
+# This is mandatory for linking to templates in other repository.
+resources:
+  repositories:
+  - repository: duly-yaml-templates
+    type: git
+    name: 'duly.digital.devops/duly-yaml-templates'
+
+  - repository: terraform-scripts
+    type: git
+    name: 'duly.digital.omni-channel/terraform-scripts'
+
+
+variables:
+- name: allow_destroy
+  value: false
+
+pool: OnAKS
+
+
+trigger: none
+
+
+stages:
+- template: ./child.terraform/stages/terraform-apply-stage.yml@duly-yaml-templates
+  parameters:
+    infraSolutionRepo: terraform-scripts
+    infraSolutionFolder: appInsight
+    configurationRepo: terraform-scripts
+    configurationPath: _configuration/appInsight
+    envList:
+      - dev
+      - qat
+      # - aut
+      - uat
+      - prd

@@ -1,0 +1,109 @@
+@import "~@styles/main.scss";
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.vitalPanelMeasurementContainer {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem 0 1.25rem 1rem;
+
+  &:not(:first-child) {
+    border-left: 0.06rem solid $iron;
+  }
+
+  &Icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.75rem;
+    height: 3.75rem;
+    margin-right: 1rem;
+    border-radius: 50%;
+    @include background-opacity($dupage-magenta, 0.3);
+
+    & img {
+      object-fit: cover;
+    }
+
+    &BloodPressure {
+      width: 2.4rem;
+      height: 2.02rem;
+    }
+
+    &HeartRate {
+      width: 2.29rem;
+      height: 2.1rem;
+    }
+
+    &Temperature {
+      width: 1.38rem;
+      height: 2.5rem;
+    }
+
+    &RespiratoryRate {
+      width: 2.29rem;
+      height: 2.29rem;
+    }
+
+    &PainLevel {
+      width: 1.16rem;
+      height: 2.06rem;
+    }
+  }
+
+  &AdditionalInfo {
+    &TopBlock,
+    &BottomBlock {
+      display: flex;
+    }
+
+    &TopBlock {
+      align-items: center;
+    }
+
+    &BottomBlock {
+      align-items: baseline;
+    }
+
+    &Text {
+      color: $medium-gray;
+      font-size: var(--font-size-16px-4px);
+      line-height: 1.5rem;
+      @include nexa-heavy-highlight;
+    }
+
+    &Date {
+      margin-left: 0.75rem;
+      color: $dupage-violet;
+      font-size: var(--font-size-14px-4px);
+      line-height: 1rem;
+      @include nexa-extra-bold-highlight;
+    }
+
+    &Value {
+      min-height: 2.625rem;
+      color: $dupage-magenta;
+      font-size: var(--font-size-32px-4px);
+      line-height: 2.625rem;
+      @include nexa-heavy-highlight;
+    }
+
+    &Unit,
+    &MaxScaleValue,
+    &AdditionalValue {
+      margin-left: 0.25rem;
+      font-size: var(--font-size-22px-4px);
+      line-height: 1.625rem;
+      @include nexa-heavy-highlight;
+    }
+
+    &Unit,
+    &MaxScaleValue {
+      color: $dupage-magenta;
+    }
+
+    &AdditionalValue {
+      color: $dupage-violet;
+    }
+  }
+}

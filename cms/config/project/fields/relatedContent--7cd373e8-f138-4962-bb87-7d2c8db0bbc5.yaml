@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 59d569da-1526-45bb-bd4c-883ccf638fd3
+handle: relatedContent
+instructions: 'Manually define what content should appear in the "Related Content" section of the article.'
+name: 'Related Content'
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: '6'
+    localizeRelations: false
+    selectionLabel: 'Select an blog entry to relate to this article'
+    showSiteMenu: true
+    source: null
+    sources: ['section:f827425f-2a74-42c5-ae84-0725c8234a9a']
+    targetSiteId: null
+    validateRelatedElements: true
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

@@ -1,0 +1,335 @@
+trigger: none
+
+parameters:
+  - name: majorVersion
+    type: number
+    displayName: 'Major version of the new release branch'
+  - name: minorVersion
+    type: number
+    displayName: 'Minor version of the new release branch'
+
+  - name: adpMS
+    type: boolean
+    default: false
+    displayName: 'adapter-microsite-services'
+  - name: adpMSCommitId
+    type: string
+    default: 'latest'
+    displayName: 'adapter-microsite-services commit id (full SHA or first 8 characters)'
+
+  - name: adpTwFlw
+    type: boolean
+    default: false
+    displayName: 'adapter-twilio-flow'
+  - name: adpTwFlwCommitId
+    type: string
+    default: 'latest'
+    displayName: 'adapter-twilio-flow commit id (full SHA or first 8 characters)'
+
+  - name: adpTwFunction
+    type: boolean
+    default: false
+    displayName: 'adapter-twilio-function'
+  - name: adpTwFunctionCommitId
+    type: string
+    default: 'latest'
+    displayName: 'adapter-twilio-function commit id (full SHA or first 8 characters)'
+
+  - name: apiChannel
+    type: boolean
+    default: false
+    displayName: 'api-channel'
+  - name: apiChannelCommitId
+    type: string
+    default: 'latest'
+    displayName: 'api-channel commit id (full SHA or first 8 characters)'
+
+  - name: apiIngestion
+    type: boolean
+    default: false
+    displayName: 'api-ingestion'
+  - name: apiIngestionCommitId
+    type: string
+    default: 'latest'
+    displayName: 'api-ingestion commit id (full SHA or first 8 characters)'
+
+  - name: configView
+    type: boolean
+    default: false
+    displayName: 'configuration-view'
+  - name: configViewCommitId
+    type: string
+    default: 'latest'
+    displayName: 'configuration-view commit id (full SHA or first 8 characters)'
+
+  - name: coordinator
+    type: boolean
+    default: false
+    displayName: 'coordinator'
+  - name: coordinatorCommitId
+    type: string
+    default: 'latest'
+    displayName: 'ccoordinator commit id (full SHA or first 8 characters)'
+
+  # - name: coordinatorDlp
+  #   type: boolean
+  #   default: false
+  #   displayName: 'coordinator-delivery-processor'
+  # - name: coordinatorDlpCommitId
+  #   type: string
+  #   default: 'latest'
+  #   displayName: 'coordinator-delivery-processor commit id (full SHA or first 8 characters)'
+
+  # - name: coordinatorCbp
+  #   type: boolean
+  #   default: false
+  #   displayName: 'coordinator-callback-processor'
+  # - name: coordinatorCbpCommitId
+  #   type: string
+  #   default: 'latest'
+  #   displayName: 'coordinator-callback-processor commit id (full SHA or first 8 characters)'
+
+  - name: deliveryTracker
+    type: boolean
+    default: false
+    displayName: 'delivery-tracker'
+  - name: deliveryTrackerCommitId
+    type: string
+    default: 'latest'
+    displayName: 'delivery-tracker commit id (full SHA or first 8 characters)'
+
+  - name: listenerTwilio
+    type: boolean
+    default: false
+    displayName: 'listener-twilio'
+  - name: listenerTwilioCommitId
+    type: string
+    default: 'latest'
+    displayName: 'listener-twilio commit id (full SHA or first 8 characters)'
+
+  - name: notificationProcessor
+    type: boolean
+    default: false
+    displayName: 'notification-processor'
+  - name: notificationProcessorCommitId
+    type: string
+    default: 'latest'
+    displayName: 'notification-processor commit id (full SHA or first 8 characters)'
+
+variables: 
+  - name: BUILD_POOL
+    value: OnAKS
+
+resources:
+  repositories:
+    - repository: scripts
+      type: git
+      name: 'duly.digital.devops/duly-scripts'
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+- stage: adpms
+  dependsOn: []
+  displayName: 'adapter-microsite-services: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: adpms
+    displayName: 'adapter-microsite-services: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.communication-hub'
+          repositoryName: 'adapter-microsite-services'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.adpMSCommitId }}
+  condition: eq('${{ parameters.adpMS }}', 'true')
+
+- stage: adpTwFlw
+  dependsOn: []
+  displayName: 'adapter-twilio-flow: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: adpTwFlw
+    displayName: 'adapter-twilio-flow: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.communication-hub'
+          repositoryName: 'adapter-twilio-flow'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.adpTwFlwCommitId }}
+  condition: eq('${{ parameters.adpTwFlw }}', 'true')
+
+- stage: adpTwFunction
+  dependsOn: []
+  displayName: 'adapter-twilio-function: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: adpTwFunction
+    displayName: 'adapter-twilio-function: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.communication-hub'
+          repositoryName: 'adapter-twilio-function'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.adpTwFunctionCommitId }}
+  condition: eq('${{ parameters.adpTwFunction }}', 'true')
+
+- stage: apiChannel
+  dependsOn: []
+  displayName: 'api-channel: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: apiChannel
+    displayName: 'api-channel: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.communication-hub'
+          repositoryName: 'api-channel'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.apiChannelCommitId }}
+  condition: eq('${{ parameters.apiChannel }}', 'true')
+
+- stage: apiIngestion
+  dependsOn: []
+  displayName: 'api-ingestion: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: apiIngestion
+    displayName: 'api-ingestion: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.communication-hub'
+          repositoryName: 'api-ingestion'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.apiIngestionCommitId }}
+  condition: eq('${{ parameters.apiIngestion }}', 'true')
+
+- stage: configView
+  dependsOn: []
+  displayName: 'configuration-view: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: configView
+    displayName: 'configuration-view: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.communication-hub'
+          repositoryName: 'configuration-view'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.configViewCommitId }}
+  condition: eq('${{ parameters.configView }}', 'true')
+
+- stage: coordinator
+  dependsOn: []
+  displayName: 'coordinator-timeout-processor: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: coordinator
+    displayName: 'coordinator-timeout-processor: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.communication-hub'
+          repositoryName: 'coordinator'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.coordinatorCommitId }}
+  condition: eq('${{ parameters.coordinator }}', 'true')
+
+# - stage: coordinatorDlp
+#   dependsOn: []
+#   displayName: 'coordinator-delivery-processor: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+#   jobs:
+#   - job: coordinatorDlp
+#     displayName: 'coordinator-delivery-processor: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+#     steps:
+#       - checkout: self
+#       - template: ../child.steps/template-create-release-branch.yml
+#         parameters:
+#           projectName: 'duly.app.v1.communication-hub'
+#           repositoryName: 'coordinator-delivery-processor'
+#           majorVersion: ${{ parameters.majorVersion }}
+#           minorVersion: ${{ parameters.minorVersion }}
+#           commitId: ${{ parameters.coordinatorDlpCommitId }}
+#   condition: eq('${{ parameters.coordinatorDlp }}', 'true')
+
+# - stage: coordinatorCbp
+#   dependsOn: []
+#   displayName: 'coordinator-callback-processor: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+#   jobs:
+#   - job: coordinatorCbp
+#     displayName: 'coordinator-callback-processor: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+#     steps:
+#       - checkout: self
+#       - template: ../child.steps/template-create-release-branch.yml
+#         parameters:
+#           projectName: 'duly.app.v1.communication-hub'
+#           repositoryName: 'coordinator-callback-processor'
+#           majorVersion: ${{ parameters.majorVersion }}
+#           minorVersion: ${{ parameters.minorVersion }}
+#           commitId: ${{ parameters.coordinatorCbpCommitId }}
+#   condition: eq('${{ parameters.coordinatorCbp }}', 'true')
+
+- stage: deliveryTracker
+  dependsOn: []
+  displayName: 'delivery-tracker: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: deliveryTracker
+    displayName: 'delivery-tracker: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.communication-hub'
+          repositoryName: 'delivery-tracker'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.deliveryTrackerCommitId }}
+  condition: eq('${{ parameters.deliveryTracker }}', 'true')
+
+- stage: listenerTwilio
+  dependsOn: []
+  displayName: 'listener-twilio: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: listenerTwilio
+    displayName: 'listener-twilio: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.communication-hub'
+          repositoryName: 'listener-twilio'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.listenerTwilioCommitId }}
+  condition: eq('${{ parameters.listenerTwilio }}', 'true')
+
+- stage: notificationProcessor
+  dependsOn: []
+  displayName: 'notification-processor: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+  jobs:
+  - job: notificationProcessor
+    displayName: 'notification-processor: create branch release/${{ parameters.majorVersion }}.${{ parameters.minorVersion }}'
+    steps:
+      - checkout: self
+      - template: ../child.steps/template-create-release-branch.yml
+        parameters:
+          projectName: 'duly.app.v1.communication-hub'
+          repositoryName: 'notification-processor'
+          majorVersion: ${{ parameters.majorVersion }}
+          minorVersion: ${{ parameters.minorVersion }}
+          commitId: ${{ parameters.notificationProcessorCommitId }}
+  condition: eq('${{ parameters.notificationProcessor }}', 'true')

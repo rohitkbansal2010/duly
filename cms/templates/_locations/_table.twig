@@ -1,0 +1,25 @@
+<div class="container hidden">
+    <div class="display-error hidden">
+        <h3>{{ "There was an error with your search request. Please try again."|t }}</h3>
+    </div>
+
+    {% if locations|length == 0 %}
+        <div class="no-search-results">
+            <img src="/dist/img/magnifying-glass-new.png" alt="{{ "Search"|t }}">
+            <h2>{{ "Sorry, we found no results."|t }}</h2>
+            <p>{{ "Please try adjusting your search"|t }}</p>
+        </div>
+    {% endif %}
+
+    {% if locations|length %}
+        <div class="listings-container">
+            {% for office in locations %}
+                {% include '_locations/types/_physical-location.twig' with {
+                    office: office
+                }%} 
+            {% endfor %}
+        </div>
+        
+        {% include '_paginate.twig' %} 
+    {% endif %}
+</div>

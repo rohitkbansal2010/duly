@@ -1,0 +1,40 @@
+{% if comments is not defined %}
+	{% set comments = getProviderRatingAndComments(entry) %}
+{% endif %}
+{% if comments %}
+	{% set comments = getProviderRatingAndComments(entry).comments %}
+	{% if comments | length > 0 %}
+		<div class="comments-container">
+			<h2>{{ "Comments"|t }}</h2>
+			<hr>
+			<div class="comments-disclaimers">
+				<span>
+					{{ "Comments are collected in our Press Ganey Patient Satisfaction Surveys. Patients are de-identified to protect confidentiality and patient privacy."|t }}
+					<a href="/patient-experience" class="bold link-effect">{{ "Learn more about our patient satisfaction survey."|t }}</a>
+				</span>
+			</div>
+			<div class="comments show-less">
+				{% for comment in comments %}
+					<div class="comment">
+						<span class="patient-comment">"{{comment.comment}}"</span>
+						{% include "_physician-stars.twig" with {
+							physician: entry,
+							value: comment.overallRating.value
+						} %}
+						<span class="date">{{comment.mentionTime|date("M. j, Y")}}</span>
+					</div>
+				{% endfor %}
+				{% if comments | length > 5 %}
+					<span class="expand show-more">
+						<span class="link-effect">{{ "Show More"|t }}</span>
+						<span class="material-icons expand_more"></span>
+					</span>
+					<span class="expand show-less">
+						<span class="link-effect">{{ "Show Less"|t }}</span>
+						<span class="material-icons expand_less"></span>
+					</span>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+{% endif %}

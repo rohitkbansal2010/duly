@@ -1,0 +1,75 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html lang="{{ craft.app.language }}">
+    <head>
+    {% block head %}
+        <meta charset="{{ craft.app.charset }}"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ craft.app.config.general.ga_id|raw }}" nonce="__CSP_NONCE__"></script>
+        <script nonce="__CSP_NONCE__">
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+        </script>
+        <meta property="ga:id" content="{{ craft.app.config.general.ga_id|raw }}"/>
+
+        <script nonce="__CSP_NONCE__">
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','{{ craft.app.config.general.gtm_id|raw }}');
+        </script>
+
+        <title>{% block title %}{% endblock %} | {{ "DuPage Medical Group"|t }}</title>
+
+        {{ craft.twigpack.includeCssModule("main.css", false, {
+            "nonce":  "__CSP_NONCE__"
+        })|raw }}
+        {% block extra_css %}
+        {% endblock %}
+    {% endblock %}
+    </head>
+
+    <body>
+        {% block body %}
+            {{ view.renderTemplate('_header.twig', { siteNameShort: craft.app.config.general.siteNameShort })|raw }}
+            <div class="body-alert-container">
+                {% set lastMonth = date('30 days ago')|atom %}
+                {% set siteWideAlerts = craft.entries({
+                    section: 'alerts',
+                    type: 'siteWide',
+                    limit: 3,
+                    postDate: (">= #{lastMonth}"),
+                    enabledForSite: true,
+                    orderBy: {
+                        postDate: SORT_DESC
+                    }
+                }).all() %}
+
+                {% for alert in siteWideAlerts %}
+                    {{ view.renderTemplate('_alerts/_single.twig', { alert: alert, locationSpecific: false})|raw }}
+                {% endfor %}
+            </div>
+            <main class="body-container {% block bodyClass %}{% endblock %}">
+                {% block contentwrapper %}
+                    {% block content %}{% endblock %}
+                {% endblock contentwrapper %}
+            </main>
+            {{ view.renderTemplate('_footer.twig', { siteNameShort: craft.app.config.general.siteNameShort })|raw }}
+        {% endblock %}
+
+        {{ craft.twigpack.includeJsModule("main.js", false, {
+            "nonce":  "__CSP_NONCE__"
+        }) }}
+
+        {% block extra_js %}
+        {% endblock %}
+    </body>
+</html>
+{% endspaceless %}

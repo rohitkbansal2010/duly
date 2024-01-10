@@ -1,0 +1,78 @@
+{% extends "_layouts/_body.twig" %}
+
+{% set be = getBrightEdge() %}
+
+{% block brightedgeheader %}
+    {{ be.getHeadOpen()|raw }}
+{% endblock %}
+
+{% block brightedgebody %}
+    {{ be.getBodyOpen()|raw }}
+{% endblock %}
+
+{% block body %}
+    {% include "_header.twig" %}
+
+    {% set url = craft.entries.slug(craft.app.request.getSegment(2)).one() %}
+
+    {% set siteName = craft.app.config.general.siteName %}
+    {% set siteNameShort = craft.app.config.general.siteNameShort %}
+    {% set myChartName = craft.app.config.general.myChartName %}
+
+    {% set siteWideAlerts = craft.entries({
+        section: 'alerts',
+        type: 'siteWide',
+        limit: 3,
+        enabledForSite: true,
+        orderBy: {
+            postDate: SORT_DESC
+        }
+    }).all() %}
+
+    {% if craft.app.request.getSegment(1) == "location" %}
+        {% set location = craft.entries.slug(craft.app.request.getSegment(2)).one() %}
+        {% set suite = craft.entries.slug(craft.app.request.getSegment(3)).one() %}
+
+        {% set locationSpecificAlerts = craft.entries({
+            section: 'alerts',
+            type: 'locationSpecific',
+            enabledForSite: true,
+            relatedTo: [ location, suite ],
+            orderBy: {
+                postDate: SORT_DESC
+            }
+        }).all() %}
+    {% endif %}
+
+    <div class="body-alert-container">
+        {% if entry is defined and entry.section.handle in ['immediateCare', 'contactUsPage'] %}
+	        {% include "_immediate-care/_emergency-alert.twig" %}
+        {% endif %}
+
+        {% for alert in siteWideAlerts %}
+            {% include '_alerts/_single.twig' with {
+                alert: alert,
+                locationSpecific: false
+            } %}
+        {% endfor %}
+
+        {% if craft.app.request.getSegment(1) == "location" %}
+            {% for uniqueAlert in locationSpecificAlerts %}
+                {% include '_alerts/_single.twig' with {
+                    alert: uniqueAlert,
+                    locationSpecific: true
+                } %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <main class="body-container {% block bodyClass %}{% endblock %}">
+        {% block main %}
+            {{ content | raw }}
+        {% endblock %}
+    </main>
+    {% include "_widgets/_html-content-templates.twig" %}
+    {% include "_footer.twig" with {
+        be: be
+    } %}
+{% endblock %}

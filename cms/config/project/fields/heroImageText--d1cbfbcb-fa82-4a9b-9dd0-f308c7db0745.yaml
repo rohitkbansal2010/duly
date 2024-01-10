@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: efdd5869-bc64-4cb5-9d8b-01cafc814ff5
+handle: heroImageText
+instructions: 'Text will appear bold and will be on the second line of the hero image text section'
+name: 'Primary Text for Hero Image'
+searchable: true
+settings:
+    byteLimit: null
+    charLimit: null
+    code: ''
+    columnType: text
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

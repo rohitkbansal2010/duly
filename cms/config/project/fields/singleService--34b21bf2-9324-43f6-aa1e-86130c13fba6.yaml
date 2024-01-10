@@ -1,0 +1,21 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: bb45064c-bdd5-4ee4-9e20-4f4265207b6c
+handle: singleService
+instructions: ''
+name: 'Single Service'
+searchable: false
+settings:
+    allowSelfRelations: false
+    limit: '1'
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: false
+    source: null
+    sources: ['section:e3299412-d9c2-4679-9fad-64e72b3c5a42']
+    targetSiteId: null
+    validateRelatedElements: false
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

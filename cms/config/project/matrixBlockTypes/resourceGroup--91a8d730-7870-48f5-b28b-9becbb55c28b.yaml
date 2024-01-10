@@ -1,0 +1,9 @@
+field: 71a7dca7-8a37-4f21-b74d-74ac7e089322
+fieldLayouts:
+    93564a5d-904d-4d7b-b31f-7da2a6803969: { tabs: [{ elements: [{ fieldUid: 09dcda2b-1d80-48a6-84f2-7944e36c48fa, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 50 }, { fieldUid: ee7a14f0-95c5-45d1-83ff-1c2a1c1077af, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 50 }], name: Content, sortOrder: 1 }] }
+fields:
+    09dcda2b-1d80-48a6-84f2-7944e36c48fa: { columnSuffix: null, contentColumnType: text, fieldGroup: null, handle: groupTitle, instructions: '', name: 'Group Title', searchable: false, settings: { byteLimit: null, charLimit: null, code: '', columnType: null, initialRows: '4', multiline: '', placeholder: null, uiMode: normal }, translationKeyFormat: null, translationMethod: none, type: craft\fields\PlainText }
+    ee7a14f0-95c5-45d1-83ff-1c2a1c1077af: { columnSuffix: null, contentColumnType: string, fieldGroup: null, handle: resources, instructions: 'Maximum of 5 target entries.', name: Resources, searchable: false, settings: { allowSelfRelations: false, limit: '5', localizeRelations: false, selectionLabel: '', showSiteMenu: true, source: null, sources: '*', targetSiteId: null, validateRelatedElements: false, viewMode: null }, translationKeyFormat: null, translationMethod: site, type: craft\fields\Entries }
+handle: resourceGroup
+name: 'Resource Group'
+sortOrder: 1

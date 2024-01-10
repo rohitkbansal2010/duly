@@ -1,0 +1,27 @@
+columnSuffix: null
+contentColumnType: text
+fieldGroup: 405d1fa6-192c-445b-9f15-faa1fb1884f6
+handle: introductionText
+instructions: 'Provide disclaimer text that would appear above the form on the contact us page.'
+name: 'Introduction Text'
+searchable: false
+settings:
+    availableTransforms: '*'
+    availableVolumes: ''
+    columnType: text
+    configSelectionMode: choose
+    defaultTransform: ''
+    manualConfig: ''
+    purifierConfig: ''
+    purifyHtml: '1'
+    redactorConfig: BoldItalicsUnderlineOnly.json
+    removeEmptyTags: '1'
+    removeInlineStyles: '1'
+    removeNbsp: '1'
+    showHtmlButtonForNonAdmins: ''
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: false
+    uiMode: enlarged
+translationKeyFormat: null
+translationMethod: none
+type: craft\redactor\Field

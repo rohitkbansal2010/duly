@@ -1,0 +1,65 @@
+### It's just a simplified script to set trunk based development flow release versioning for POC. Should be modified later!
+parameters:
+- name: rootDir
+  type: string
+  default: "$(System.DefaultWorkingDirectory)"
+
+steps:
+- pwsh: |
+    function Get-NewTagVersion {
+        param (
+          $Commit
+        )
+        $releaseTags = (git tag --list "v*.*.*" | Where-Object { $_ -match "v[\d]+[.][\d]+[.][\d]+"} )
+
+        if ($releaseTags.count -ne 0) {
+          $lastReleaseTag = $releaseTags[0]
+          $releaseTags | Foreach-Object {
+              if ( $($_ -replace "v[\d]+[.][\d]+[.]") -gt $($lastReleaseTag -replace "v[\d]+[.][\d]+[.]") ) { $lastReleaseTag = $_ }
+          }
+
+          if ( $Commit -eq $(git rev-list -n 1 $lastReleaseTag) ) { [string]$patchVersion = $lastReleaseTag -replace "v[\d]+[.][\d]+[.]" }
+          else { [string]$patchVersion = [int]($lastReleaseTag -replace "v[\d]+[.][\d]+[.]") + 1 }
+        }
+        else {
+          $patchVersion = "0"
+        }
+
+        return ($patchVersion)
+    }
+
+    $branch = "$(Build.SourceBranch)"
+    $solutionName = "$(APP_NAME)"
+    $buildId = "$(Build.BuildId)"
+    $releaseVersion = "0.1.0"
+    $commit = "$(Build.SourceVersion)"
+
+    if ( $branch -eq "refs/heads/main" ) {
+        $shortBranchName = "main"
+        $releaseArtifactName = "{0}.{1}-{2}-{3}" -f $solutionName, $releaseVersion, $shortBranchName, $buildId
+    }
+    elseif ( ($branch -match "^refs/heads/feature/") -or ($branch -match "^refs/heads/bugfix/") -or ($branch -match "^refs/heads/dev/") -or ($branch -match "^refs/heads/hotfix/") ) {
+        $shortBranchName = ($branch -replace "refs/heads/" -replace "-" -replace "/")
+        if ($shortBranchName.length -gt 19) { $shortBranchName = $shortBranchName.Substring(0,19) }
+        $releaseArtifactName = "{0}.{1}-{2}-{3}" -f $solutionName, $releaseVersion, $shortBranchName, $buildId
+    }
+    elseif ( $branch -match "refs/heads/release/" ) {
+        $releaseVersion = "{0}.{1}" -f $($branch -replace "refs/heads/release/"), $(Get-NewTagVersion -Commit $commit)
+        $shortBranchName = "rc"
+        $releaseArtifactName = "{0}.{1}-{2}-{3}" -f $solutionName, $releaseVersion, $shortBranchName, $buildId
+    }
+
+    Write-Host "Set environment variable to ($releaseVersion)"
+    Write-Host "##vso[task.setvariable variable=RELEASE_VERSION;]$releaseVersion"
+    Write-Host "##vso[task.setvariable variable=RELEASE_VERSION;isOutput=true]$releaseVersion"
+    Write-Host "env releaseVersion is $releaseVersion"
+
+    Write-Host "Set environment variable to ($releaseArtifactName)"
+    Write-Host "##vso[task.setvariable variable=RELEASE_ARTIFACTNAME;]$releaseArtifactName"
+    Write-Host "##vso[task.setvariable variable=RELEASE_ARTIFACTNAME;isOutput=true]$releaseArtifactName"
+    Write-Host "##vso[build.updatebuildnumber]$releaseArtifactName"
+    Write-Host "env releaseArtifactName is $releaseArtifactName"
+  name: GenerateReleaseVersion
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  displayName: 'Generate release version and artifact name for Solution'
+  workingDirectory: ${{ parameters.rootDir }}

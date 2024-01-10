@@ -1,0 +1,29 @@
+<div class="service-group">
+	{% if k < 2 %}
+		{{ getOptimizedImage(group.serviceHeroImage.one())|raw }}
+	{% else %}
+		{{ getOptimizedImage(group.serviceHeroImage.one(), 'webp', false, [
+			{'settings': ['gravity:sm', 'resize:fill:1300:322:1:1'], 'css': '(min-width: 1200px)'},
+			{'settings': ['gravity:sm', 'resize:fill:922:230:1:1'], 'css': '(min-width: 922px)'},
+			{'settings': ['gravity:sm', 'resize:fill:768:432:1:1'], 'css': '(min-width: 768px)'},
+			{'settings': ['gravity:sm', 'resize:fill:576:324:1:1'], 'css': '(min-width: 576px)'},
+		])|raw }}
+	{% endif %}
+	<span class="title">{{ group.title }}</span>
+	<hr>
+	<div class="individual-services-list">
+		{% set services = craft.entries({
+			section: "services",
+			relatedTo: group,
+			orderBy: 'title'
+		}) %}
+
+		{% for service in services.all() %}
+			{{ tag('a', {
+				class: 'service',
+				href: service.linkUrl ?? service.getUrl(),
+				text: service.title
+			})|raw }}
+		{% endfor %}
+	</div>
+</div>

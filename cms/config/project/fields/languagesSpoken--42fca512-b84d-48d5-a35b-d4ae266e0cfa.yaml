@@ -1,0 +1,24 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: languagesSpoken
+instructions: ''
+name: 'Languages Spoken'
+searchable: false
+settings:
+    allowLimit: false
+    allowMultipleSources: false
+    allowSelfRelations: false
+    branchLimit: ''
+    limit: null
+    localizeRelations: false
+    selectionLabel: ''
+    showSiteMenu: true
+    source: 'group:a3df2028-ca46-46dd-9026-9a7fd9ffbb6e'
+    sources: '*'
+    targetSiteId: null
+    validateRelatedElements: true
+    viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Categories

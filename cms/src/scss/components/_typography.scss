@@ -1,0 +1,242 @@
+h1 {
+	color: $dark-2;
+	font-size: 44px;
+	font-weight: 800;
+	line-height: 48px;
+
+	&.bold {
+		font-weight: 800;
+	}
+
+	&:after {
+		margin-bottom: 24px;
+	}
+
+	@include responsive(small) {
+		line-height: 32px;
+		font-size: 30px;
+	}
+}
+
+h2 {
+	color: $dark-2;
+	font-size: 40px;
+	font-weight: 800;
+	line-height: 48px;
+
+	&.bold {
+		font-weight: bold;
+	}
+
+	&:after {
+		margin-bottom: 24px;
+	}
+
+	@include responsive(small) {
+		font-size: 26px;
+	}
+}
+
+h3 {
+	color: $dark-blue-text;
+	font-family: nexa, sans-serif;
+	font-size: 28px;
+	font-weight: normal;
+	line-height: 32px;
+
+	&.bold {
+		font-weight: bold;
+		font-size: 28px;
+		line-height: 35px;
+	}
+
+	&:after {
+		margin-bottom: 16px;
+	}
+
+	@include responsive(small) {
+		font-size: 22px;
+	}
+}
+
+h4 {
+	color: $dark-blue-text;
+	font-family: nexa, sans-serif;
+	font-size: 28px;
+	font-weight: normal;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 24px;
+
+	&.bold {
+		font-size: 20px;
+		font-weight: 800;
+		line-height: 28px;
+	}
+
+	@include responsive(small) {
+		font-size: 20px;
+	}
+}
+
+strong {
+	color: $dark-blue-text;
+	font-family: nexa, sans-serif;
+	font-weight: 600;
+	font-style: normal;
+	line-height: 24px;
+
+	&.meta {
+		font-size: 14px;
+	}
+}
+
+p,
+li,
+span {
+	color: $dark-2;
+	font-family: nexa, sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 24px;
+
+	&.meta {
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	&:after {
+		margin-bottom: 16px;
+	}
+
+	@include responsive(small) {
+		font-size: 14px;
+	}
+}
+
+a {
+	text-decoration: none;
+	color: $violet !important;
+	font-family: nexa, sans-serif;
+
+	&:hover,
+	&:focus {
+		color: $magenta !important;
+		text-decoration: underline;
+	}
+}
+
+* {
+	color: $oxford;
+	font-family: nexa, sans-serif;
+}
+
+.responsive-small {
+    display: none;
+    @include responsive(small) {
+        display: inherit;
+    }
+}
+
+.button, button {
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:disabled {
+        background: #767676;
+        cursor: default;
+    }
+    
+    &.blue, &.dark {
+        background: $oxford !important;
+        &:hover, &:active {
+            background: $sky !important;
+        }
+    }
+
+	&.outline, &.light {
+        background: $white !important;
+        &:hover, &:active {
+            background: $off-blue !important;
+			box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    &.white {
+        background: $white;
+        border: 1px solid $sky;
+        color: $sky !important;
+    }
+
+    &.green {
+        background: $green;
+        &:hover, &:active {
+            background: $dark-green !important;
+        }
+    }
+
+    &.transparent {
+        border: 1px solid transparent;
+
+        &:hover, &:active {
+            color: $white !important;
+            border: 1px solid $white;
+            background: transparent !important;
+        }
+    }
+}
+
+.fixed-for-modal {
+	position: inherit;
+
+	@include responsive(bs-large) {
+		position: fixed;
+	}
+}
+
+.default-headshot {
+	background-image: url('/dist/img/placeholder/physician_filler.svg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	border-radius: 4px;
+	margin: 0 auto;
+	flex-shrink: 0;
+
+	&.small {
+		height: 50px;
+		width: 50px;
+	}
+
+	&.bio {
+		height: 64px;
+		width: 64px;
+		flex-basis: 64px !important;
+	}
+
+	&.thumbnail {
+		height: 120px;
+		width: 120px;
+	}
+
+	&.large {
+		@include responsive(large) {
+			width: 100%;
+			flex-basis: initial !important;
+			height: 500px;
+		}
+
+		@include responsive(small) {
+			height: 400px;
+		}
+	}
+
+	&.no-margin {
+		margin: 0;
+	}
+}
+
+.bold {
+	font-weight: 900;
+}

@@ -1,0 +1,22 @@
+<div>
+    {% include '_locations/filters/main.twig' %}
+    <div class="locations-header content">
+        <h1>{{ "Locations"|t }}</h1>
+        <button id="map-button" class="show-map">{{ "Map"|t }}</button>
+    </div>
+
+    <div class="content">
+        <div class="left-container">
+            <div class="loading-spinner">
+                <div class="lottie"></div>
+            </div>
+
+            {% include '_locations/_table.twig' with {
+                locations: locations
+            } %}
+
+        </div>
+        
+        <div class="map"></div>
+    </div>
+</div>

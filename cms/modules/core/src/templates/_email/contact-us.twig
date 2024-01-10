@@ -1,0 +1,51 @@
+{% extends "_layouts/_layout.twig" %}
+
+{% block body %}
+	<ul>
+		{% if emailAddress %}
+			<li>Email:
+				{{emailAddress}}</li>
+			<br>
+		{% endif %}
+		{% if name %}
+			<li>Name:
+				{{name}}</li>
+			<br>
+		{% endif %}
+		{% if address %}
+			<li>Address:
+				{{address}}</li>
+			<br>
+		{% endif %}
+		{% if city %}
+			<li>City:
+				{{city}}</li>
+			<br>
+		{% endif %}
+		{% if state %}
+			<li>State:
+				{{state}}</li>
+			<br>
+		{% endif %}
+		{% if zipcode %}
+			<li>Zip:
+				{{zipcode}}</li>
+			<br>
+		{% endif %}
+		{% if phoneNumber %}
+			<li>Phone:
+				{{phoneNumber}}</li>
+			<br>
+		{% endif %}
+		{% if subject %}
+			<li>Subject:
+				{{subject}}</li>
+			<br>
+		{% endif %}
+		{% if comments %}
+			<li>Comments:
+				{{comments}}</li>
+			<br>
+		{% endif %}
+	</ul>
+{% endblock %}

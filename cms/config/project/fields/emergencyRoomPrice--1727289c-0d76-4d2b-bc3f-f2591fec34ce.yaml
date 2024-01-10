@@ -1,0 +1,20 @@
+columnSuffix: null
+contentColumnType: integer(10)
+fieldGroup: c36a717d-daaf-4fa8-82e7-c1e4dbd8ba3b
+handle: emergencyRoomPrice
+instructions: ''
+name: 'Emergency Room Price'
+searchable: true
+settings:
+    decimals: 0
+    defaultValue: null
+    max: null
+    min: 0
+    prefix: $
+    previewCurrency: ''
+    previewFormat: none
+    size: null
+    suffix: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Number

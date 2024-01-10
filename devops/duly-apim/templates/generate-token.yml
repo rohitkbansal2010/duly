@@ -1,0 +1,21 @@
+parameters:
+  - name: subscriptionName
+    type: string
+    default: ''
+  - name: apimName
+    type: string
+    default: ''
+  - name: apimRgName
+    type: string
+    default: ''
+
+steps:
+  - task: AzurePowerShell@5
+    displayName: 'Generate SAS Token for ${{ parameters.apimName }}'
+    inputs:
+      azureSubscription: ${{ parameters.subscriptionName }}
+      ScriptType: 'FilePath'
+      ScriptPath: 'scripts/generate-sas-token.ps1'
+      ScriptArguments: '-apimRgName ${{ parameters.apimRgName }} -apimName ${{ parameters.apimName }}'
+      azurePowerShellVersion: 'LatestVersion'
+      workingDirectory: '$(Build.SourcesDirectory)'

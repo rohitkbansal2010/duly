@@ -1,0 +1,92 @@
+{% extends "_layouts/_main.twig" %}
+
+{% block title "Schedule a Video Visit"|t %}
+
+{% set contentTitle = "Schedule a Video Visit"|t %}
+{% set contentSummary = "Schedule a Video Visit"|t %}
+{% block bodyClass 'video-visit' %}
+
+{% block main %}
+
+	{% set entry = craft.entries.section('videoVisits').one() %}
+
+	{% include '_scheduling/videovisit/_steps.twig' with {
+        backUrl: '/'
+    } %}
+	<div class="purple-pattern-container"></div>
+	<section class="videoVisitContainer step-1">
+		<form id="ageLocationPrivacy" method="post">
+			<input id="csrf-token" type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">
+			<div>
+				<div id="intro">
+					<h1>{{ "Schedule a Video&nbsp;Visit"|t|raw }}</h1>
+					<p>{{ "Just a couple of quick questions before you select a provider and appointment time."|t }}</p>
+				</div>
+				<div>
+					<h2>{{ "Select Age"|t }}</h2>
+					<h3>{{ "Are you scheduling this visit for:" }}</h3>
+					<div>
+					{% include "_input/_radio.twig" with {
+						type: 'radio',
+						name: 'is_adult',
+						id: 'adult',
+						class: 'secondary',
+						value: true,
+						required: true,
+						label: "Adult (18 or older)"|t
+					} only %}
+					</div>
+					<div>
+					{% include "_input/_radio.twig" with {
+						type: 'radio',
+						name: 'is_adult',
+						id: 'child',
+						class: 'secondary',
+						value: false,
+						required: true,
+						label:  "Child (17 and under)"|t
+					} only %}
+					</div>
+				</div>
+			</div>
+			<div id="confirmLocationContainer">
+				<div>
+					<h2>{{ "Confirm Location"|t }}</h2>
+					{% include '_input/_checkbox.twig' with {
+						name: 'is_in_illinois',
+						id: 'is_in_illinois',
+						containerClass: 'secondary',
+						required: true,
+						label: "I confirm that I will physically be in the state of Illinois at the time of my video visit."|t
+					} %}
+					<div class="helperText">
+						{{ "If you will not physically be in the state of Illinois at the time of your video visit, please call "}}
+						<a href="tel:1-888-693-6437">{{ "1-888-693-6437" }}</a>
+						{{ "to speak with a team member. " }}
+					</div>
+				</div>
+			</div>
+			<div id="privacyPracticesNoticeContainer">
+				<div>
+					<h2>{{ "Notice of Privacy Practices"|t }}</h2>
+					{% include '_input/_checkbox.twig' with {
+						name: 'privacy_agree',
+						id: 'privacy_agree',
+						containerClass: 'secondary',
+						required: true,
+						label: 'Under the Health Insurance Portability & Accountability Act of 1996 (HIPAA), I understand my 
+							rights to privacy regarding my protected health information (PHI) and how it will be used to 
+							plan and deliver treatment, obtain payment and conduct normal healthcare operations. I acknowledge 
+							that I have been given the opportunity to read the
+							<a href="https://dmgwebprodstorage.blob.core.windows.net/dmgprodweb/files/@assetBasePath/files/HIPAA_PrivacyNotices_Duly2021.pdf" target="_blank" rel="noopener noreferrer">
+							Notice of Privacy Practices here.
+							</a>'|t
+					} %}
+				</div>
+			</div>
+		</form>
+	</section>
+	<div class="loading-spinner video-visit hidden">
+		<div class="lottie"></div>
+	</div>
+{% endblock %}

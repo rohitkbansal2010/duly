@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31229.75
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{9FD539F1-F611-44A6-8A29-33F9B44A85F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{93FD30DA-2C4A-4656-B04E-EA3A8EAAC729}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{D99A93E2-035C-4BB4-A386-468212B8C187}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{1BA95837-F63F-41DE-B896-5586FC9DC6FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ngdp", "Ngdp", "{AD49C062-8783-439D-B092-147C95786960}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ngdp.Adapter", "Ngdp\Adapter\Ngdp.Adapter.csproj", "{69180F01-2D91-402C-A832-6760ACEB526F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ngdp.Adapter.Tests", "Ngdp\Tests\Ngdp.Adapter.Tests.csproj", "{9ACB6FAF-783B-476F-A65A-D258CCB53470}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9FD539F1-F611-44A6-8A29-33F9B44A85F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FD539F1-F611-44A6-8A29-33F9B44A85F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FD539F1-F611-44A6-8A29-33F9B44A85F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FD539F1-F611-44A6-8A29-33F9B44A85F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93FD30DA-2C4A-4656-B04E-EA3A8EAAC729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93FD30DA-2C4A-4656-B04E-EA3A8EAAC729}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93FD30DA-2C4A-4656-B04E-EA3A8EAAC729}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93FD30DA-2C4A-4656-B04E-EA3A8EAAC729}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D99A93E2-035C-4BB4-A386-468212B8C187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D99A93E2-035C-4BB4-A386-468212B8C187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D99A93E2-035C-4BB4-A386-468212B8C187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D99A93E2-035C-4BB4-A386-468212B8C187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BA95837-F63F-41DE-B896-5586FC9DC6FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BA95837-F63F-41DE-B896-5586FC9DC6FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BA95837-F63F-41DE-B896-5586FC9DC6FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BA95837-F63F-41DE-B896-5586FC9DC6FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69180F01-2D91-402C-A832-6760ACEB526F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69180F01-2D91-402C-A832-6760ACEB526F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69180F01-2D91-402C-A832-6760ACEB526F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69180F01-2D91-402C-A832-6760ACEB526F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ACB6FAF-783B-476F-A65A-D258CCB53470}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ACB6FAF-783B-476F-A65A-D258CCB53470}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ACB6FAF-783B-476F-A65A-D258CCB53470}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ACB6FAF-783B-476F-A65A-D258CCB53470}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{69180F01-2D91-402C-A832-6760ACEB526F} = {AD49C062-8783-439D-B092-147C95786960}
+		{9ACB6FAF-783B-476F-A65A-D258CCB53470} = {AD49C062-8783-439D-B092-147C95786960}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CCB757B-742B-46E1-96F9-89A1D27DF690}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,101 @@
+trigger: none
+
+parameters:
+  - name: aksServiceConnection
+    default: 'duly-devops-aks'
+  - name: aksNamespace
+    default: 'sonarqube'
+
+variables:
+  - name: BUILD_POOL
+    value: DevOpsVM
+  - name: KEYVAULT_SERVICE_CONNECTION
+    value: 'azure_cloud_np'
+  - name: KEYVAULT_NAME
+    value: 'duly-d-shsvc-kv'
+  - name: DB_HOST_NAME
+    value: 'duly-d-devops-psql.postgres.database.azure.com'
+  - name: DB_NAME
+    value: 'sonarqube'
+  - name: DB_ADMIN_USERNAME
+    value: 'dba'
+  - name: HELM_RELEASE_NAME
+    value: 'sonarqube'
+
+resources:
+  repositories:
+    - repository: charts
+      type: git
+      name: 'duly-aks-helmcharts'
+    
+    - repository: scripts
+      type: git
+      name: 'duly-scripts'
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: Preparation
+  displayName: Preparation tasks
+  jobs: 
+    - job: BackupDB
+      displayName: Backup database ${{ variables.DB_NAME }}
+      workspace:
+        clean: all
+      steps:
+      - checkout: scripts
+
+      - task: AzureKeyVault@2
+        displayName: 'Get PostgreSQL admin password from KeyVault'
+        inputs:
+          connectedServiceName: $(KEYVAULT_SERVICE_CONNECTION)
+          keyVaultName: $(KEYVAULT_NAME)
+          secretsFilter: 'duly-d-devops-psql--dba'
+        continueOnError: false
+
+      - task: Bash@3
+        displayName: 'Bash: create database backup'
+        inputs:
+          targetType: 'filePath'
+          filePath: '$(Build.SourcesDirectory)/Bash/backup-psql-database.sh'
+          arguments: -h $(DB_HOST_NAME) -u $(DB_ADMIN_USERNAME) -d $(DB_NAME) -p '$(duly-d-devops-psql--dba)'
+          failOnStderr: true
+        continueOnError: false
+
+- stage: Deploy
+  displayName: Deploy SonarQube
+  dependsOn: Preparation
+  jobs:
+    - job: Deploy
+      displayName: Deploy SonarQube
+      workspace:
+       clean: all
+      steps:
+      - checkout: self
+      - checkout: charts
+      
+      - task: AzureKeyVault@2
+        displayName: 'Get PostgreSQL sonarqube password from KeyVault'
+        inputs:
+          connectedServiceName: $(KEYVAULT_SERVICE_CONNECTION)
+          keyVaultName: $(KEYVAULT_NAME)
+          secretsFilter: 'duly-d-devops-psql--sonarqube'
+        continueOnError: false
+      
+      - task: HelmDeploy@0
+        displayName: Helm deploy
+        inputs:
+          connectionType: 'Kubernetes Service Connection'
+          kubernetesServiceConnection: ${{parameters.aksServiceConnection}}
+          namespace: ${{parameters.aksNamespace}}
+          command: 'upgrade'
+          chartType: 'FilePath'
+          chartPath: '$(Build.SourcesDirectory)/duly-aks-helmcharts/duly-devops-aks/sonarqube'
+          releaseName: $(HELM_RELEASE_NAME)
+          arguments: >
+            --install
+            --create-namespace
+            --set image.pullPolicy=Always
+            --set jdbcOverwrite.jdbcPassword="$(duly-d-devops-psql--sonarqube)"

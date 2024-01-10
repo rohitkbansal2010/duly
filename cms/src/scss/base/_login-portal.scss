@@ -1,0 +1,137 @@
+.loginPortalContainer {
+	margin: 0 auto;
+	padding: 7rem 0 10rem 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	max-width: 1000px;
+	.login-portal-pattern {
+		background: url(/dist/img/pattern.svg) !important;
+		background-attachment: fixed;
+		position: fixed;
+		height: 100%;
+		width: 200px;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		z-index: -1;
+	}
+	.portal {
+		padding: 0 2rem;
+		width: calc(50% - 0.5px);
+		height: 100%;
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
+		font-size: 1rem;
+		text-align: center;
+		.inline-text-field-container {
+			margin: 1rem 0 0 0;
+			+ a {
+				color: $violet;
+				text-decoration: none;
+				font-weight: bold;
+				font-size: 14px;
+				cursor: pointer;
+				display: block;
+				text-align: left;
+				margin: 0.5rem 0 0 0;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+		.mdc-text-field-helper-text {
+			margin: 0 !important;
+			font-weight: 900 !important;
+			padding: 0 0 0 0.5rem !important;
+		}
+		.mdc-text-field {
+			margin: 0;
+		}
+		h2 {
+			margin: 0 0 1rem 0;
+			font-size: 1.25rem;
+			font-weight: bold;
+			line-height: 1;
+			color: #525757;
+		}
+		p {
+			margin: 0 0 1rem 0;
+			font-size: 1rem;
+			line-height: 1.5;
+			color: #525757;
+		}
+		button {
+			width: 100%;
+			margin: 1rem 0;
+			a {
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+		#submitLogin {
+			margin: 2rem 0 1rem 0;
+		}
+		#createAccount {
+			p {
+				color: $oxford;
+			}
+			a {
+				color: $violet;
+				text-decoration: none;
+				font-weight: bold;
+				font-size: 14px;
+				cursor: pointer;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+		.forgot {
+			display: block;
+			text-align: left;
+			margin: 0.5rem 0 0 0;
+			color: $violet;
+			text-decoration: none;
+			font-weight: bold;
+			font-size: 14px;
+			cursor: pointer;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
+		#login-form {
+			margin: 0 0 0 0;
+		}
+	}
+	#createAccount {
+		margin: 0;
+		p {
+			margin: 0 0 0.5rem 0;
+		}
+	}
+	.divider {
+		width: 1px;
+		height: 40%;
+		background-color: #c5299b;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.loginPortalContainer {
+		flex-wrap: wrap;
+		padding: 0 1rem;
+		.portal {
+			padding: 2rem 0;
+			width: 100%;
+			height: unset;
+		}
+		.divider {
+			width: 100%;
+			height: 1px;
+		}
+	}
+}

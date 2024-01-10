@@ -1,0 +1,356 @@
+{% extends "_layouts/_main.twig" %}
+
+{% block bodyClass "event-details" %}
+{% block itemScope "http://schema.org/Event" %}
+
+{% set primaryEvent = craft.calendar.events({
+        slug: craft.app.request.getSegment(2),
+        limit: 1
+    })
+    .one()
+%}
+
+{# If the event isn't found, or if it is disabled, throw a 404 #}
+{% if primaryEvent == null or primaryEvent.enabled == false %}
+    {% exit 404 %}
+{% endif %}
+
+{% if not craft.app.request.isLivePreview %}
+    {# Determine the location of the event #}
+    {% set locationId = craft.app.request.getSegment(3) %}
+    {% set date = craft.app.request.getSegment(4) %}
+
+    {% if locationId is null or locationId is empty or locationId == "" or date is null or date is empty or date == ""  %}
+        {% redirect "/event/" ~ primaryEvent.slug ~ "/" ~ primaryEvent.eventLocation.one().id ~ "/" ~ primaryEvent.startDate.format("Y-m-d") %}
+    {% endif %}
+
+    {% set location = craft.matrixBlocks()
+        .owner(primaryEvent)
+        .id(locationId)
+        .one()
+    %}
+
+    {% if primaryEvent.freq == "SELECT_DATES" %}
+        {# SELECT_DATES == classes #}
+        {% set event = primaryEvent %}
+
+        {% if date != event.startDate.format("Y-m-d") %}
+            {% redirect "/event/" ~ primaryEvent.slug ~ "/" ~ primaryEvent.eventLocation.one().id ~ "/" ~ primaryEvent.startDate.format("Y-m-d") %}
+        {% endif %}
+    {% else %}
+        {# Determine the actual data for this event and use it for everything else. This object represents the _actual_ event data at the specific time #}
+        {% set event = craft.calendar.events({
+                slug: craft.app.request.getSegment(2),
+                limit: 1,
+                rangeStart: craft.app.request.getSegment(4),
+                rangeEnd: '+3 years'
+            })
+            .one()
+        %}
+    {% endif %}
+
+    {# And confirm that it's actually a event that is returned #}
+    {% if event == null %}
+        {% exit 404 %}
+    {% endif %}
+
+    {% if not event.happensOn(date(date)) %}
+        {% exit 404 %}
+    {% endif %}
+
+{% else %}
+    {# For Live previews, use the first location in the list and the initial start date #}
+    {% set event = primaryEvent %}
+    {% set location = craft.matrixBlocks()
+        .owner(event)
+        .one()
+    %}
+{% endif %}
+
+{% set contentTitle = null %}
+{% set contentSummary = event.eventDescription %}
+
+{% if event.customSeoMetaTitle is not null %}
+    {% set contentTitle = event.customSeoMetaTitle %}
+{% endif %}
+
+{% if event.customSeoMetaDescription is not null %}
+    {% set contentSummary = event.customSeoMetaDescription %}
+{% endif %}
+
+{% block og %}
+    {% include "_layouts/_og.twig" with {
+        entry: event,
+		heroImage: event.eventImage.one,
+        contentTitle: contentTitle,
+		contentSummary: contentSummary,
+        cacheKey: 'event-location-' ~ location
+    } only %}
+{% endblock %}
+
+{% block title "Events - {title} - {date}"|t(params={
+    title: event.title,
+    date: event.startDate.format('l, F d, Y')
+}) %}
+
+{# @var schema \Spatie\SchemaOrg\Schema #}
+{% set schema = craft.schema %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}
+    <section class="event-entry" data-event-type="{{ primaryEvent.freq == "SELECT_DATES" ? "Class" : "Event" }}" data-event-id={{ event.id }}>
+        <article itemtype="http://schema.org/Event">
+            {% set eventImage = event.eventImage.one %}
+            {% if eventImage is not null %}
+                {% include '_health-topics/_picture.twig' with {
+                    url: eventImage,
+                    key: 1,
+                    category: null,
+                    articleUrl: null,
+                    pageInfo: null,
+                    showCategoryBanner: false
+                } %}
+            {% endif %}
+
+            <div class="event-details">
+                <div class="side-bar">
+                    <div class="calendar">
+                        {% include '_events/_calendar.twig' with { event: event } only %}
+
+                        <div class="event-time-details">
+                            {% include '_events/_short_details.twig' with { event: event, location: location, mobile: false } only %}
+                            {% include '_events/_register_btn.twig' with { event: event, location: location, date: date } only %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    {% if craft.app.request.isLivePreview %}
+                        <div class="alert alert-warning">{{ "You are viewing a live preview of this event - only the first location is shown."|t }}</div>
+                    {% endif %}
+                    <div class="headline">
+                        <h1 itemprop="headline">{{ event.title }}</h1>
+                        {% if event.eventSpecialty.one is not null and event.eventSpecialty.one.specialty.one is not null %}
+                            <h2>{{ event.eventSpecialty.one.specialty.one.title }}</h2>
+                        {% endif %}
+
+                        <div class="responsive-small">{% include '_events/_short_details.twig' with { event: event, location: location, mobile: true } only %}</div>
+                    </div>
+
+                    {% if event.freq is not null %}
+                        <div class="event-dates">
+                            {% include '_events/_recurring.twig' with event %}
+                        </div>
+                    {% endif %}
+
+                    <div class="article-contents">
+                        <div class="content-body" itemprop="articleBody">
+                            {{ entryWithOptimizedImages(event, 'eventDescription')|typogrify|raw }}
+                        </div>
+                    </div>
+
+                    <div class="responsive-small">{% include '_events/_register_btn.twig' with { event: event, location: location, date: date } only %}</div>
+                </div>
+            </div>
+
+            <div class="event-details registration-section hidden">
+                <div class="side-bar">
+                    <div class="registration-header register-for">{{ "Register For:"|t }}</div>
+                </div>
+                <div class="main-content">
+                    <div class="registration-header">{{ event.title }}</div>
+                    <div class="registration-header">{{ event.startDate.format('l, F d, Y') }}</div>
+                    <div class="registration-header end">{{ event.startDate.format('g:ia') ~ ' - ' ~ event.endDate.format('g:ia') }}</div>
+
+                    <div class="address">
+                        <div class="address-line">{{ location.addressDetails }}</div>
+                        {% if location.addressLocation.address != "" %}
+                            <div class="address-line">{{ location.addressLocation.number }} {{ location.addressLocation.streetAddress }}</div>
+                            <div class="address-line">{{ location.addressLocation.city }}, {{ location.addressLocation.state }} {{ location.addressLocation.postcode }}</div>
+                        {% endif %}
+                    </div>
+                    <form class="registration" id="registration-form">
+                        <div class="inputs">
+                            {{ csrfInput() }}
+                            {{ hiddenInput('occurrenceDate', event.startDate.format('Y-m-d')) }}
+                            {{ hiddenInput('locationId', location.id) }}
+                            {{ hiddenInput('eventId', event.id) }}
+
+                            {% include "_input/_input.twig" with {
+                                    type: 'text',
+                                    name: 'firstName',
+                                    label: "First Name"|t,
+                                    extraOptions: {
+                                        required: "required"
+                                    }
+                            } only %}
+
+                            {% include "_input/_input.twig" with {
+                                    type: 'text',
+                                    name: 'lastName',
+                                    label: "Last Name"|t,
+                                    extraOptions: {
+                                        required: "required"
+                                    }
+                            } only %}
+
+                            {% include "_input/_input.twig" with {
+                                    type: 'tel',
+                                    name: 'phoneNumber',
+                                    label: "Phone Number"|t,
+                                    extraOptions: {
+                                        required: "required",
+                                        pattern: '(1 )?[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}'
+                                    }
+                            } only %}
+
+                            {% include "_input/_input.twig" with {
+                                    type: 'email',
+                                    name: 'emailAddress',
+                                    label: "Email Address"|t,
+                                    extraOptions: {
+                                        required: "required"
+                                    }
+                            } only %}
+
+                            {% include "_input/_checkbox.twig" with {
+                                name: 'marketingOptin',
+                                id: 'marketing-optin-checkbox',
+                                id: 'registerOptinBtn',
+                                label: "Yes, I would like to receive marketing emails."|t
+                            } only %}
+                        </div>
+
+                        <div class="form-warnings">
+                            <p id="form-error-msg"><i class="material-icons">warning</i> <span class="form-error-msg--text" data-default-error="{{ "Something has gone wrong. Please try again later."|t }}">{{ "Something has gone wrong. Please try again later."|t }}</span></p>
+                        </div>
+                        <div class="form-actions">
+                            <button disabled class="action-button dmgButton primary3" type="submit" id="complete-registration"><i class="fa fa-spinner fa-spin hidden"></i> {{ "Complete Registration"|t }}</button>
+                            <button class="action-button dmgButton secondary3" id="cancel-registration">{{ "Cancel"|t }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="registration-complete hidden">
+                <i class="material-icons">check_circle_outline</i>
+                <h3>{{ "You're Registered!"|t }}</h3>
+                <div class="registration-complete-details">
+                    <p>{{ "We look forward to seeing you on {date} for the {title} class."|t(params = {
+                        date: tag('span', { class: 'registered-event-date', text: event.startDate.format('l, F d, Y') })|raw,
+                        title: tag('span', { class: 'registered-event-title', text: event.title })|raw,
+                    })|raw }}</p>
+                    <p>{{ "A confirmation email has been sent to {email}."|t(params = {
+                        email: tag('span', { class: 'registered-user-email'|t })|raw,
+                    })|raw }}</p>
+                </div>
+            </div>
+        </article>
+    </section>
+
+{% if event.repeating and event.freq != "SELECT_DATES" %}
+    {% set occurrences = event.occurrences({
+        rangeStart: date,
+        rangeEnd: '+6 months',
+        limit: 9,
+    }) %}
+
+    {% if occurrences %}
+        <section class="event-entry event-entry-occurences">
+            <article>
+                <h4>{{ "Other Available {type} Times"|t(params = {
+                    type: inflector.singularize(event.eventCategories.one.title)
+                }) }}</h4>
+                <div class="event-times-occurences">
+                    {% for occurrence in occurrences %}
+                        {% set totalRegistrantsForEvent = getRegistrantsCountForEventByLocationAndTime(occurrence, location, date(occurrence.startDate)) %}
+                        {% set capacity = location.capacity ?? constant('PHP_INT_MAX')  %}
+
+                        {% if occurrence.startDate.format('Y-m-d') != date %}
+                            <div class="address-container">
+                                <div class="address">
+                                    <div class="address-line">{{ occurrence.startDate.format('D, M. d, Y') }}</div>
+                                    {% if not occurrence.allDay  %}
+                                        <div class="address-line">{{ occurrence.startDate.format('g:ia') ~ ' - ' ~ occurrence.endDate.format('g:ia') }}</div>
+                                    {% endif %}
+
+                                    {% if location.addressLocation.address != "" %}
+                                        <div class="address-line">{{ location.addressLocation.number }} {{ location.addressLocation.streetAddress }}</div>
+                                        <div class="address-line">{{ location.addressLocation.city }}, {{ location.addressLocation.state }} {{ location.addressLocation.postcode }}</div>
+                                    {% endif %}
+                                    <div class="address-line">
+                                        {% if location.onlineRegistrations == true and totalRegistrantsForEvent < capacity %}
+                                            <a class="register-link" href="/event/{{ occurrence.slug }}/{{ location.id }}/{{ occurrence.startDate.format('Y-m-d') }}">{{ "Register"|t }}</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if (occurrences|length + 1) % 4 == 0 %}
+                        <div class="address-container"></div>
+                    {% endif %}
+                </div>
+            </article>
+        </section>
+    {% endif %}
+{% endif %}
+
+<div class="pattern-container"></div>
+
+{% set gsc = schema %}
+{% set gsc = gsc
+    .event
+    .organizer(
+        schema.medicalOrganization
+            .name("Duly Health and Care")
+            .url("https://www.dulyhealthandcare.com")
+    )
+    .name(event.title)
+    .eventStatus(schema.eventStatusType.EventScheduled)
+    .image(getOptimizedImage(event.eventImage.one, 'jpeg', true)[0]) %}
+
+{% if event.freq is not null and event.freq == "SELECT_DATES" %}
+    {% set gsc = gsc
+        .startDate(event.startDate.format('c'))
+        .endDate(event.occurrences[event.occurrenceCount - 1].endDate.format('c')) %}
+{% else %}
+    {% set gsc = gsc
+        .startDate(event.startDate.format('c'))
+        .endDate(event.endDate.format('c')) %}
+{% endif %}
+
+{% if location.addressLocation.address != "" %}
+    {% set gsc = gsc.location(
+        schema.place
+            .name(location.addressDetails)
+            .address(
+                schema.postalAddress
+                    .streetAddress(location.addressLocation.number ~ " " ~ location.addressLocation.streetAddress)
+                    .addressLocality(location.addressLocation.city)
+                    .addressRegion(location.addressLocation.state)
+                    .addressCountry(location.addressLocation.country)
+                    .postalCode(location.addressLocation.postcode)
+            )
+    )
+    .setProperty('eventAttendanceMode', 'https://schema.org/OfflineEventAttendanceMode')
+    %}
+{% else %}
+    {% set gsc = gsc
+        .addProperties({
+            'location': {
+                '@type': 'VirtualLocation',
+                'url': location.addressDetails
+            }
+        })
+        .setProperty('eventAttendanceMode', 'https://schema.org/OnlineEventAttendanceMode')
+    %}
+{% endif %}
+{{ gsc|raw }}
+{% endblock %}
+
+{% block extra_js %}
+    {# reCAPTCHA #}
+    <script nonce="__CSP_NONCE__" src="https://www.google.com/recaptcha/api.js?onload=onReCAPTCHALoadCallback&render=explicit"></script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{# All templates extend _layouts/_main.twig or a child layout of _layouts/_main.twig #}
+{% extends "_layouts/_main.twig" %}
+
+{% block title 'Select a Location'|t %}
+{% block bodyClass "select-scheduling-locations-page" %}
+
+{# Main is where the body content of the page is defined at #}
+{% block main %}	
+    {% set patientUser = craft.app.patient_user.identity %}
+	{# route back to visit reason if one is there #}
+	{% set backUrl = "/schedule/insurance" %}
+
+	{% if reasonForVisitId %}
+		{% set backUrl = "/schedule/visit-reason" %}
+	{% elseif serviceQuestionsCount %}
+		{% set backIndex = serviceQuestionsCount - 1 %}
+		{% set backUrl = "/schedule/preliminary?currentQuestionIndex=" ~ backIndex %}
+	{% endif %}
+
+	{% include "_scheduling/alerts/_exit-alert.twig" %}
+	{% include "_scheduling/navigation/_steps.twig" with {
+		backUrl: backUrl
+	} %}
+
+    <section class="location-listings-page">
+        {% include '_locations/_listings.twig' %}
+    </section>
+{% endblock %}

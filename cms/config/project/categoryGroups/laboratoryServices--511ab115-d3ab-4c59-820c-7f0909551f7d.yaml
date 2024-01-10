@@ -1,0 +1,10 @@
+defaultPlacement: end
+fieldLayouts:
+    a51fc2fd-1f3d-4de0-822c-db2b0917df1b: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }, { fieldUid: 0c8e35a2-599f-4697-aec5-785fcbb2928d, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: laboratoryServices
+name: 'Laboratory Services'
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { hasUrls: true, template: null, uriFormat: 'laboratory-services/{slug}' }
+structure:
+    maxLevels: null
+    uid: 7228dec3-79d4-4d9a-93b3-07e58301c4c5

@@ -1,0 +1,74 @@
+@import "~@styles/typography.scss";
+@import "~@styles/themes.scss";
+
+.immunizationsPlate {
+  &Container {
+    height: max-content;
+    margin-bottom: 1.25rem;
+    background: $white;
+    border-radius: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &Groups {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+
+    &Container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.3rem;
+    }
+  }
+
+  &Skeleton {
+    position: relative;
+    flex-grow: 2;
+    margin-bottom: 1.5rem;
+    background: $white;
+    border-radius: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.noImmunizationsPlate {
+  &Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 25rem;
+    margin-bottom: 1.25rem;
+    background: $white;
+    border-radius: 0.5rem;
+  }
+
+  &IconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14.5rem;
+    height: 14.5rem;
+    background: rgba($dupage-light-blue, 0.3);
+    border-radius: 50%;
+
+    img {
+      height: 9rem;
+    }
+  }
+
+  &Title {
+    @include nexa-heavy-highlight;
+    margin-top: 2rem;
+    color: $dupage-light-blue;
+    font-size: var(--font-size-40px-4px);
+    text-transform: capitalize;
+  }
+}

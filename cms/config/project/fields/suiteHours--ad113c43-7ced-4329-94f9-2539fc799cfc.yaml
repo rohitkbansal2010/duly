@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: f1257321-1f7a-4dc1-8228-331ef587eba6
+handle: suiteHours
+instructions: ''
+name: 'Hours of Business'
+searchable: false
+settings:
+    contentTable: '{{%matrixcontent_suitehours}}'
+    maxBlocks: ''
+    minBlocks: ''
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

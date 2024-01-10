@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VitalPanelGeneralAdvice should render correctly 1`] = `
+<div
+  className="vitalPanelGeneralAdviceContainer"
+  style={
+    Object {
+      "width": "56%",
+    }
+  }
+>
+  <h2
+    className="vitalPanelGeneralAdviceContainerTitle"
+    data-test="general-advice-title"
+  >
+    General Advice
+  </h2>
+  <p
+    className="vitalPanelGeneralAdviceContainerText"
+    data-test="general-advice-text"
+  >
+    Blood pressure numbers of less than 120/80 mm Hg are considered within the normal range. If your results fall into this category, stick with heart-healthy habits.
+  </p>
+</div>
+`;

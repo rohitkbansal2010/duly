@@ -1,0 +1,8 @@
+field: 27329627-d1ac-42d2-9a10-42e44adecaa3
+fieldLayouts:
+    15d12283-c6ca-4a9f-a6a6-007c03ccf875: { tabs: [{ elements: [{ fieldUid: 264be03f-e7b8-4063-90cb-73db216efd85, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+fields:
+    264be03f-e7b8-4063-90cb-73db216efd85: { columnSuffix: null, contentColumnType: string, fieldGroup: null, handle: physicianAuthor, instructions: 'Select a physician author to associate to an entry.', name: 'Physician Author', searchable: false, settings: { allowSelfRelations: false, limit: '', localizeRelations: false, selectionLabel: '', showSiteMenu: true, source: null, sources: ['section:a578774f-f4e1-4f95-a2f8-f9b8bae72c8c'], targetSiteId: null, validateRelatedElements: true, viewMode: null }, translationKeyFormat: null, translationMethod: site, type: craft\fields\Entries }
+handle: physicianAuthor
+name: 'Physician Author'
+sortOrder: 1

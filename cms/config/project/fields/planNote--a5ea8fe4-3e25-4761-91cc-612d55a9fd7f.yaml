@@ -1,0 +1,19 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 5aee8925-b56d-4fb5-b087-351dd8200f10
+handle: planNote
+instructions: 'Provide additional notes for this plan.'
+name: Notes
+searchable: false
+settings:
+    byteLimit: null
+    charLimit: '255'
+    code: ''
+    columnType: string
+    initialRows: '4'
+    multiline: ''
+    placeholder: null
+    uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

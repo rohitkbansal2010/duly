@@ -1,0 +1,10 @@
+fieldLayouts:
+    d7f17679-0078-4286-b233-8b9d1c754e82: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 5f447da0-8253-4030-99f5-4ed3ecc36647, instructions: '', label: '', required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 34b21bf2-9324-43f6-aa1e-86130c13fba6, instructions: '', label: '', required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { type: craft\fieldlayoutelements\HorizontalRule }, { fieldUid: 0988aeab-85e4-43ae-9243-781caf429584, instructions: null, label: null, required: false, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Content, sortOrder: 1 }] }
+handle: locationServiceSchedulingDeeplink
+hasTitleField: true
+name: 'Location+Service Scheduling Deeplink'
+section: 83bc83f7-be47-481c-be91-fbf5d6db84d5
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

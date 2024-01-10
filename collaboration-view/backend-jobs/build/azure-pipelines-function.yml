@@ -1,0 +1,333 @@
+#parameters:
+#  - name: PUBLISH_FROM_FEATURE_BRANCH
+#    type: boolean
+#    default: false
+#    displayName: 'Deploy from feature branch'
+#  - name: imageRepository
+#    default: $(Build.Repository.Name)
+#  - name: imageTag
+#    default: 'latest'
+#  - name: aksServiceConnection
+#    default: 'duly-d-app-aks'
+#
+#trigger:
+#  branches:
+#    include:
+#      - dev
+#      - feature/*
+#  #paths:
+#  #  include:
+#  #    - src/*
+#  #  exclude:
+#  #    - build/*
+#  #    - src/Client/*
+#
+#variables:
+#  - name: PUBLISH_FROM_FEATURE_BRANCH
+#    value: ${{ parameters.PUBLISH_FROM_FEATURE_BRANCH }}
+#  - name: PROJECT_NAME
+#    value: '**/FlourishPlan-GeneratePDF.csproj'
+#  - name: ACR_SUBSCRIPTION
+#    value: 'prd'
+#  - name: ACR_NAME
+#    value: 'dulydigitalcr.azurecr.io'
+#  - name: BUILD_POOL
+#    value: OnAKS
+#  - name: aksServiceConnection
+#    value: ${{ parameters.aksServiceConnection }}
+#  - name: imageRepository
+#    value: ${{ parameters.imageRepository }}
+#  - name: imageTag
+#    value: ${{ parameters.imageTag }}
+#
+#resources:
+#  repositories:
+#    - repository: yamltemplates
+#      type: git
+#      name: 'duly.digital.devops/duly-yaml-templates'
+#
+#    - repository: scripts
+#      type: git
+#      name: 'duly.digital.devops/duly-scripts'
+#
+#    - repository: terraform-scripts
+#      type: git
+#      name: 'terraform-scripts'
+#
+#    - repository: charts
+#      type: git
+#      name: 'duly.digital.devops/duly-aks-helmcharts'
+#
+#pool:
+#  name: $(BUILD_POOL)
+#
+#stages:
+#
+#- stage: Build
+#  dependsOn: []
+#  jobs:
+#   - job: Build
+#     displayName: Build Artifacts
+#     pool:
+#       name: $(BUILD_POOL)
+#     workspace:
+#       clean: outputs
+#     steps:
+#     - checkout: self
+#
+#     - template: child.build/build-netcore.yml@yamltemplates
+#       parameters:
+#         solution: $(PROJECT_NAME)
+#         #unitTestsProject: $(UNIT_TESTS_PROJECT_NAME)
+#         enableSonarCloudScan: false
+#         sonarCloudScanningPath: 'build-jobs'
+#         runUnitTests: false
+#         createCoverageReport: false
+#         dotnetBuild: true
+#         includeDotNetSdkVersionForAzureFunctions: true
+#         vstsFeed: ''
+#
+#     - task: azurecli@2
+#       displayname: build a docker image
+#       inputs:
+#         azuresubscription: $(acr_subscription)
+#         scripttype: pscore
+#         scriptlocation: inlinescript
+#         inlinescript: |
+#           az acr build -t "$(acr_name)/$(imagerepository):$(imagetag)" -r "$(acr_name)" -f "$(build.sourcesdirectory)/$(build.repository.name)/src/flourishplan-generatepdf/dockerfile" . 
+#         workingdirectory: '$(build.sourcesdirectory)/$(build.repository.name)/src/flourishplan-generatepdf'
+#
+#     - task: PowerShell@2
+#       displayName: 'PowerShell: Set commit tag'
+#       inputs:
+#         targetType: filePath
+#         filePath: '$(Build.SourcesDirectory)/duly-scripts/PowerShell/Add-TagToAdoCommit.ps1'
+#         arguments: > 
+#           -PAT $(System.AccessToken)
+#           -organizationUri $(System.CollectionUri)
+#           -projectName $(System.TeamProject)
+#           -repositoryID $(Build.Repository.ID)
+#           -commitID $(Build.SourceVersion)
+#           -tagName $(Build.BuildNumber)
+#           -tagMessage $(Build.BuildNumber)
+#       continueOnError: true
+#
+#  condition: |
+#    and
+#    (
+#      succeeded(),
+#      or
+#      (
+#        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+#        startsWith(variables['Build.SourceBranchName'], 'main'),
+#        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+#        eq(variables['PUBLISH_FROM_FEATURE_BRANCH'], 'true')
+#      ),
+#      ne(variables['Build.Reason'], 'PullRequest')
+#    )
+#
+#- stage: dev
+#  displayName: Deploy on DEV
+#  dependsOn: []
+#  jobs:
+#   - job: Build
+#     displayName: Build Artifacts
+#     pool:
+#       name: $(BUILD_POOL)
+#     workspace:
+#       clean: outputs
+#     steps:
+#     - checkout: self
+#
+#     - task: Kubernetes@1
+#       displayName: 'kubectl apply'
+#       inputs:
+#         kubernetesServiceEndpoint: $(aksServiceConnection)
+#         azureSubscriptionEndpoint: $(ACR_SUBSCRIPTION)
+#         azureResourceGroup: 'duly-d-app-aks-rg'
+#         kubernetesCluster: 'duly-d-app-aks'
+#         arguments: '-f $(aksKubeDeploymentYaml)'
+#         command: 'apply'
+#         namespace: 'dev'
+#
+#  condition: |
+#    and
+#    (
+#      succeeded(),
+#      or
+#      (
+#        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+#        startsWith(variables['Build.SourceBranchName'], 'main'),
+#        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+#        eq(variables['PUBLISH_FROM_FEATURE_BRANCH'], 'true')
+#      ),
+#      ne(variables['Build.Reason'], 'PullRequest')
+#    )
+
+parameters:
+  - name: DEPLOY_FROM_FEATURE_BRANCH
+    type: boolean
+    default: false
+    displayName: 'Deploy from feature branch'
+  - name: imageRepository
+    default: $(Build.Repository.Name)
+  - name: imageTag
+    default: $(Build.BuildNumber)
+  - name: aksServiceConnection
+    default: 'duly-d-app-aks'
+
+trigger:
+  branches:
+    include:
+      - dev
+      - feature/*
+  #paths:
+  #  include:
+  #    - src/orchestrator/*
+  #  exclude:
+  #    - build/*
+  #    - src/orchestrator/Postback/*
+  #    - src/orchestrator/Database/*
+
+variables:
+  - name: DEPLOY_FROM_FEATURE_BRANCH
+    value: ${{ parameters.DEPLOY_FROM_FEATURE_BRANCH }}
+  - name: PROJECT_NAME
+    value: '**/FlourishPlan-GeneratePDF.csproj'
+  - name: ACR_SUBSCRIPTION
+    value: 'prd'
+  - name: ACR_NAME
+    value: 'dulydigitalcr.azurecr.io'  
+  - name: BUILD_POOL
+    value: OnAKS
+  - name: aksServiceConnection
+    value: ${{ parameters.aksServiceConnection }}
+  - name: imageRepository
+    value: ${{ parameters.imageRepository }}
+  - name: imageTag
+    value: ${{ parameters.imageTag }}
+
+resources:
+  repositories:
+    - repository: yamltemplates
+      type: git
+      name: 'duly.digital.devops/duly-yaml-templates'
+
+    - repository: scripts
+      type: git
+      name: 'duly.digital.devops/duly-scripts'
+
+    - repository: terraform-scripts
+      type: git
+      name: 'terraform-scripts'
+
+    - repository: charts
+      type: git
+      name: 'duly.digital.devops/duly-aks-helmcharts'
+
+pool:
+  name: $(BUILD_POOL)
+
+stages:
+
+- stage: Build
+  dependsOn: []
+  jobs:
+   - job: Build
+     displayName: Build Artifacts
+     pool:
+       name: $(BUILD_POOL)
+     workspace:
+       clean: outputs
+     steps:
+     - checkout: self
+
+     - template: child.build/build-netcore.yml@yamltemplates
+       parameters:
+         solution: $(PROJECT_NAME)
+         # Explicitly use two test projects for unit test run
+         unitTestsProject: $(UNIT_TESTS_PROJECT_NAME)
+         dotnetBuild: true
+         vstsFeed: 'duly.digital'
+         enableSonarCloudScan: false
+         sonarCloudScanningPath: 'build-jobs'
+         sonarCloudProjectSuffix: 'build-jobs'
+         runUnitTests: false
+         createCoverageReport: false
+
+     - task: AzureCLI@2
+       displayName: Build a docker image
+       inputs:
+         azureSubscription: $(ACR_SUBSCRIPTION)
+         scriptType: pscore
+         scriptLocation: inlineScript
+         inlineScript: |
+            az acr build -t "$(ACR_NAME)/$(imageRepository):$(imageTag)" -r "$(ACR_NAME)" -f "$(Build.SourcesDirectory)/$(Build.Repository.Name)/src/FlourishPlan-GeneratePDF/Dockerfile" .
+         #workingDirectory: '$(Build.SourcesDirectory)/$(Build.Repository.Name)/src/FlourishPlan-GeneratePDF'
+         workingDirectory: '$(Build.ArtifactStagingDirectory)'
+
+     - task: PowerShell@2
+       displayName: 'PowerShell: Set commit tag'
+       inputs:
+         targetType: filePath
+         filePath: '$(Build.SourcesDirectory)/duly-scripts/PowerShell/Add-TagToAdoCommit.ps1'
+         arguments: > 
+           -PAT $(System.AccessToken)
+           -organizationUri $(System.CollectionUri)
+           -projectName $(System.TeamProject)
+           -repositoryID $(Build.Repository.ID)
+           -commitID $(Build.SourceVersion)
+           -tagName $(Build.BuildNumber)
+           -tagMessage $(Build.BuildNumber)
+       continueOnError: true
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['DEPLOY_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+
+- stage: dev
+  displayName: Deploy on DEV
+  dependsOn: Build
+  jobs:
+    - template: child.jobs/template-helm-upgrade-job.yml@yamltemplates
+      parameters: 
+        aksServiceConnection: $(aksServiceConnection)
+        imageACRName: $(ACR_NAME)
+        imageRepository: $(imageRepository)
+        imageTag: $(imageTag)
+        helmChartsRepo: 'charts'
+        helmChartName: 'webapi'
+        helmReleaseName: 'backend-jobs'
+        aadPodIdCustomName: 'duly-d-component-pod-id'
+        env: dev
+        chartArgs: >
+          --set env.ApplicationSettings__KeyVaultHostUrl="https://duly-d-cv-job-fl-kv.vault.azure.net/"
+          --set env.ApplicationSettings__ScheduleExpression="*/15 * * * * *"
+          --set autoscaling.enabled=false
+          --set image.pullPolicy=Always
+          --debug
+
+  condition: |
+    and
+    (
+      succeeded(),
+      or
+      (
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+        startsWith(variables['Build.SourceBranchName'], 'main'),
+        in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development'),
+        eq(variables['DEPLOY_FROM_FEATURE_BRANCH'], 'true')
+      ),
+      ne(variables['Build.Reason'], 'PullRequest')
+    )
+

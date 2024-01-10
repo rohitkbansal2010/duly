@@ -1,0 +1,29 @@
+# Resource repository where pipeline templates located.
+# This is mandatory for linking to templates in other repository.
+
+resources:
+  repositories:
+  - repository: duly-terraform-manifest
+    type: git
+    name: duly-terraform-manifest
+    ref: 'refs/heads/dev'
+
+variables:
+- name: allow_destroy
+  value: false
+
+pool: OnAKS
+
+
+trigger: none
+
+
+stages:
+- template: ./_pipelines/templates/stages/terraform-apply-stage.yml@duly-terraform-manifest
+  parameters:
+    infraSolutionRepo: duly-terraform-manifest
+    infraSolutionFolder: 005_private_dns
+    configurationRepo: duly-terraform-manifest
+    configurationPath: _configuration/005_private_dns
+    envList:
+      - azure_cloud_prod

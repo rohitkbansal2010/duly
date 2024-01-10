@@ -1,0 +1,52 @@
+{# find physicians with a last name sorted by lastName #}
+{% set wLastName = craft.entries({
+		section: 'physicians',
+		lastName: ':notempty:',
+		orderBy: {
+			lastName: SORT_ASC
+		},
+		relatedTo: relatedLocationsAndServices
+	}).all() %}
+{# find physicians without a last name #}
+{% set woLastName = craft.entries({
+		section: 'physicians',
+		lastName: ':empty:',
+		relatedTo: relatedLocationsAndServices
+	}).all() %}
+{# radomize the physicans without a last name with shuffle #}
+{% set woLastName = shuffle(woLastName) %}
+{# put both of the arrays together with the randomized empty last name physicians last #}
+{% set physicians = wLastName|merge(woLastName) %}
+
+
+<div class="physicians-list-grid">
+	<h4>{{ headerText|default("Our Care Team")|t }}</h4>
+	<div class="physicians-list">
+		{% for physician in physicians %}
+			{% cache globally using key 'physicians-short-' ~ physician.id ~ 'rebrand' %}
+			<div class="physician-short">
+				<a href="{{ physician.url }}" class="physician-block-services">
+					{% set hasHeadShot = physician.physicianHeadshot|length %}
+					<div class="{{ hasHeadShot == false ? 'image default-headshot thumbnail' : 'image' }}">
+						{% if hasHeadShot %}
+							{{ getOptimizedImage(physician.physicianHeadshot[0], 'webp', false, [
+								{ 'settings': ['gravity:sm', 'resize:fill:120:120:1:1'], 'css': '(min-width: 200px)' }
+							])|raw }}
+						{% endif %}
+					</div>
+					<h5>{{ physician.title }}</h5>
+						{% include "_physician-stars.twig" with {
+							physician: physician
+						} %}
+					<span class="specialties">
+						{% for speciality in physician.physicianSpeciality | filter (v => v.type != "ancillaryServices") | sort((a, b) => a.title > b.title) %}
+							<span class="speciality-name">{{ speciality.title }}</span>
+						{% endfor %}
+					</span>
+					<div class="locations">{{ getPhysicianLocations(physician).getModels() | map(m => "#{m.city}" ) | unique | join(', ') }}</div>
+				</a>
+			</div>
+		{% endcache %}
+		{% endfor %}
+	</div>
+</div>

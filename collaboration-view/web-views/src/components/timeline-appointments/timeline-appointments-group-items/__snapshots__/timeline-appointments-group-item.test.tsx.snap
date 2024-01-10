@@ -1,0 +1,340 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineAppointmentsGroupItem should not render in the body after reason for visit indicator telehealth if the appointment is not telehealth 1`] = `
+<Accordion
+  className="timelineAppointmentsGroupItem"
+>
+  <Card
+    body={false}
+    className="timelineAppointmentsGroupItemCard"
+  >
+    <CustomAccordionToggle
+      callback={[MockFunction]}
+      eventKey="0"
+    >
+      <Component />
+    </CustomAccordionToggle>
+    <AccordionCollapse
+      eventKey="0"
+    >
+      <CardBody
+        className="timelineAppointmentsGroupItemCardBody"
+      >
+        <div
+          className="timelineAppointmentsGroupItemCardBodyTable"
+        >
+          <div
+            className="timelineAppointmentsGroupItemCardBodyTableHead"
+          >
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadReason"
+            >
+              Reason For Visit
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadDuration"
+            >
+              Duration
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadStatus"
+            >
+              Status
+            </div>
+          </div>
+          <div
+            className="timelineAppointmentsGroupItemCardBodyTableBody"
+          >
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyReason"
+              data-test="appointment-reason-visit"
+            >
+              Patient fell - Hip problems
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyDuration"
+              data-test="appointment-duration"
+            >
+              30 Minutes
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyStatus"
+              data-test="appointment-status"
+            >
+              Completed
+              <div
+                className="timelineAppointmentsGroupItemCardBodyTableBodyStatusIndicatorCompleted"
+                data-test="appointment-status-indicator"
+              />
+            </div>
+          </div>
+        </div>
+      </CardBody>
+    </AccordionCollapse>
+  </Card>
+</Accordion>
+`;
+
+exports[`TimelineAppointmentsGroupItem should not render in the body after status indicator if the status is schedule 1`] = `
+<Accordion
+  className="timelineAppointmentsGroupItem"
+>
+  <Card
+    body={false}
+    className="timelineAppointmentsGroupItemCard"
+  >
+    <CustomAccordionToggle
+      callback={[MockFunction]}
+      eventKey="0"
+    >
+      <Component />
+    </CustomAccordionToggle>
+    <AccordionCollapse
+      eventKey="0"
+    >
+      <CardBody
+        className="timelineAppointmentsGroupItemCardBody"
+      >
+        <div
+          className="timelineAppointmentsGroupItemCardBodyTable"
+        >
+          <div
+            className="timelineAppointmentsGroupItemCardBodyTableHead"
+          >
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadReason"
+            >
+              Reason For Visit
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadDuration"
+            >
+              Duration
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadStatus"
+            >
+              Status
+            </div>
+          </div>
+          <div
+            className="timelineAppointmentsGroupItemCardBodyTableBody"
+          >
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyReason"
+              data-test="appointment-reason-visit"
+            >
+              Patient fell - Hip problems
+              <span
+                className="timelineAppointmentsGroupItemCardBodyTableBodyReasonTelehealth"
+                data-test="appointment-indicator-telehealth"
+              >
+                <span
+                  data-test="appointment-indicator-telehealth-text"
+                >
+                   (telehealth)
+                </span>
+                <img
+                  alt="telehealth icon"
+                  data-test="appointment-indicator-telehealth-icon"
+                  src="telehealth-timeline.svg"
+                />
+              </span>
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyDuration"
+              data-test="appointment-duration"
+            >
+              30 Minutes
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyStatus"
+              data-test="appointment-status"
+            >
+              Scheduled
+            </div>
+          </div>
+        </div>
+      </CardBody>
+    </AccordionCollapse>
+  </Card>
+</Accordion>
+`;
+
+exports[`TimelineAppointmentsGroupItem should not render in the body the duration if it not 1`] = `
+<Accordion
+  className="timelineAppointmentsGroupItem"
+>
+  <Card
+    body={false}
+    className="timelineAppointmentsGroupItemCard"
+  >
+    <CustomAccordionToggle
+      callback={[MockFunction]}
+      eventKey="0"
+    >
+      <Component />
+    </CustomAccordionToggle>
+    <AccordionCollapse
+      eventKey="0"
+    >
+      <CardBody
+        className="timelineAppointmentsGroupItemCardBody"
+      >
+        <div
+          className="timelineAppointmentsGroupItemCardBodyTable"
+        >
+          <div
+            className="timelineAppointmentsGroupItemCardBodyTableHead"
+          >
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadReason"
+            >
+              Reason For Visit
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadDuration"
+            >
+              Duration
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadStatus"
+            >
+              Status
+            </div>
+          </div>
+          <div
+            className="timelineAppointmentsGroupItemCardBodyTableBody"
+          >
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyReason"
+              data-test="appointment-reason-visit"
+            >
+              Patient fell - Hip problems
+              <span
+                className="timelineAppointmentsGroupItemCardBodyTableBodyReasonTelehealth"
+                data-test="appointment-indicator-telehealth"
+              >
+                <span
+                  data-test="appointment-indicator-telehealth-text"
+                >
+                   (telehealth)
+                </span>
+                <img
+                  alt="telehealth icon"
+                  data-test="appointment-indicator-telehealth-icon"
+                  src="telehealth-timeline.svg"
+                />
+              </span>
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyDuration"
+              data-test="appointment-duration"
+            />
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyStatus"
+              data-test="appointment-status"
+            >
+              Completed
+              <div
+                className="timelineAppointmentsGroupItemCardBodyTableBodyStatusIndicatorCompleted"
+                data-test="appointment-status-indicator"
+              />
+            </div>
+          </div>
+        </div>
+      </CardBody>
+    </AccordionCollapse>
+  </Card>
+</Accordion>
+`;
+
+exports[`TimelineAppointmentsGroupItem should render the TimelineAppointmentsGroupItem component 1`] = `
+<Accordion
+  className="timelineAppointmentsGroupItem"
+>
+  <Card
+    body={false}
+    className="timelineAppointmentsGroupItemCard"
+  >
+    <CustomAccordionToggle
+      callback={[MockFunction]}
+      eventKey="0"
+    >
+      <Component />
+    </CustomAccordionToggle>
+    <AccordionCollapse
+      eventKey="0"
+    >
+      <CardBody
+        className="timelineAppointmentsGroupItemCardBody"
+      >
+        <div
+          className="timelineAppointmentsGroupItemCardBodyTable"
+        >
+          <div
+            className="timelineAppointmentsGroupItemCardBodyTableHead"
+          >
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadReason"
+            >
+              Reason For Visit
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadDuration"
+            >
+              Duration
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableHeadStatus"
+            >
+              Status
+            </div>
+          </div>
+          <div
+            className="timelineAppointmentsGroupItemCardBodyTableBody"
+          >
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyReason"
+              data-test="appointment-reason-visit"
+            >
+              Patient fell - Hip problems
+              <span
+                className="timelineAppointmentsGroupItemCardBodyTableBodyReasonTelehealth"
+                data-test="appointment-indicator-telehealth"
+              >
+                <span
+                  data-test="appointment-indicator-telehealth-text"
+                >
+                   (telehealth)
+                </span>
+                <img
+                  alt="telehealth icon"
+                  data-test="appointment-indicator-telehealth-icon"
+                  src="telehealth-timeline.svg"
+                />
+              </span>
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyDuration"
+              data-test="appointment-duration"
+            >
+              30 Minutes
+            </div>
+            <div
+              className="timelineAppointmentsGroupItemCardBodyTableBodyStatus"
+              data-test="appointment-status"
+            >
+              Completed
+              <div
+                className="timelineAppointmentsGroupItemCardBodyTableBodyStatusIndicatorCompleted"
+                data-test="appointment-status-indicator"
+              />
+            </div>
+          </div>
+        </div>
+      </CardBody>
+    </AccordionCollapse>
+  </Card>
+</Accordion>
+`;

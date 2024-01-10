@@ -1,0 +1,20 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "APPINSIGHTS_INSTRUMENTATIONKEY": "af4123b2-29a8-4c99-ba30-ea1586024b5a",
+    "ServiceBusConnection": "Endpoint=sb://duly-d-app-ns.servicebus.windows.net/;SharedAccessKeyName=d-appt-mngm-sendlisten-rule;SharedAccessKey=ltNahR3aiqEllpdzjywb6l2fQncd9maZQRkaJ/QVhug=",
+    "SourceQueue": "d-appt-mngm-notification-sbq",
+    "ConnectionStrings__DatabaseConnection": "Server=tcp:duly-d-db.database.windows.net,1433;Initial Catalog=duly-d-communication-hub-db;Persist Security Info=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False; Authentication=Active Directory Default;",
+    "Authentication__Instance": "https://login.microsoftonline.com/",
+    "Authentication__TenantId": "d8b84fb8-d456-4b71-a75a-d15966423cdb",
+    "Authentication__ClientId": "9c3e818d-80d8-4182-b72c-7d4e07123023",
+    "Authentication__ClientSecret": "LK67Q~8.iW_bhraduCGvTWKr_kv-dn3YonZBv",
+    "IngestionSettings__SubscriptionKey": "acb28e78b29e4cc082cd9a128c90e3ed",
+    "IngestionSettings__IngestionApiUrl": "https://api-dev.duly-np.digital/communication/ingestion/v1/request",
+    "IngestionSettings__IngestionScope": "api://fc3e9127-24eb-4429-a842-588a94b6b855/.default",
+    "ApplicationName": "Duly.OmniChannel.Orchestrator.Appointment.Postback"
+    //"KeyVaultHostUrl": "https://duly-d-oc-apmg-orc-kv.vault.azure.net/"
+  }
+  }

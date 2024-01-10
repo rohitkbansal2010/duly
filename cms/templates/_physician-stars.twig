@@ -1,0 +1,40 @@
+{% set ratings = getProviderRatingAndComments(physician) %}
+{% if ratings.overallRating.value is defined %}
+	<div class="stars">
+		{% set rating = value is defined ? value : ratings.overallRating.value %}
+		<div class="rating-number">{{ rating|round(2) }}</div>
+		<div class="star-rating">
+			{% spaceless %}
+				{% set wholeStars = rating|round(0, 'floor') %}
+				{% set halfStars = 0 %}
+				{% if rating - wholeStars >= 0.5 %}
+					{% set halfStars = 1 %}
+				{% endif %}
+
+				{% if wholeStars != 0 %}
+					{% for i in 1..wholeStars %}
+						<i class="material-icons star"></i>
+					{% endfor %}
+				{% endif %}
+
+				{% if halfStars == 1 %}
+					<i class="material-icons star_half"></i>
+				{% endif %}
+
+				{% set remainingStars = 5 - (wholeStars + halfStars) %}
+				{% if remainingStars != 0 %}
+					{% for i in 1..remainingStars %}
+						<i class="material-icons star_border"></i>
+					{% endfor %}
+				{% endif %}
+			{% endspaceless %}
+		</div>
+		{% set responseCountFormat = responseCountFormat|default("{responseCountTotal} Ratings") %}
+		{% if includeResponseCount | default(false) %}
+			{% set responseCountTotal =  ratings.overallRating.categoryResponseCount %}
+			<div class="count">{{ responseCountFormat|t(params={ responseCountTotal: responseCountTotal}) }}</div>
+		{% elseif responseCount | default(false) %}
+			<div class="count">{{ responseCountFormat|t(params={ responseCountTotal: responseCount}) }}</div>
+		{% endif %}
+	</div>
+{% endif %}

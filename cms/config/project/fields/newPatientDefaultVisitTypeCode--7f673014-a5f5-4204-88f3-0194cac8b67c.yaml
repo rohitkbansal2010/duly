@@ -1,0 +1,20 @@
+columnSuffix: null
+contentColumnType: integer(10)
+fieldGroup: 188a7201-acbb-4843-a517-affbd2d8231f
+handle: newPatientDefaultVisitTypeCode
+instructions: 'This is the default visit type code used for "New Patient" scheduled appointments for any services not explicitly modified below.'
+name: '"New Patient" Default Visit Type Code'
+searchable: false
+settings:
+    decimals: 0
+    defaultValue: null
+    max: null
+    min: 0
+    prefix: null
+    previewCurrency: ''
+    previewFormat: none
+    size: null
+    suffix: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Number

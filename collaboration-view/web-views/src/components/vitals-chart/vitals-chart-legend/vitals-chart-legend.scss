@@ -1,0 +1,63 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.vitalsChartLegend {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  // margin-top: 2.125rem;
+
+  &Item {
+    color: $black;
+    font-size: var(--font-size-16px-4px);
+    line-height: var(--line-height-24px-4px);
+    @include nexa-extra-bold-highlight;
+
+    &:not(:last-child) {
+      margin-right: 0.75rem;
+    }
+
+    &Rect {
+      display: inline-block;
+      width: 1.5rem;
+      height: 0.5rem;
+      margin-right: 0.5rem;
+      border-radius: 0.25rem;
+
+      &Magenta {
+        @extend .vitalsChartLegendItemRect;
+        background-color: $dupage-magenta;
+      }
+
+      &Violet {
+        @extend .vitalsChartLegendItemRect;
+        background-color: $dupage-violet;
+      }
+
+      &LightPink {
+        @extend .vitalsChartLegendItemRect;
+        background-color: $light-pink;
+      }
+
+      &Normal {
+        @extend .vitalsChartLegendItemRect;
+        background-color: $normal-range;
+      }
+
+      &Concerning {
+        @extend .vitalsChartLegendItemRect;
+        background-color: $concerning-range;
+      }
+
+      &Low {
+        @extend .vitalsChartLegendItemRect;
+        background-color: $low-range;
+      }
+
+      &BrainAffecting {
+        @extend .vitalsChartLegendItemRect;
+        background-color: $brain-affecting-range;
+      }
+    }
+  }
+}

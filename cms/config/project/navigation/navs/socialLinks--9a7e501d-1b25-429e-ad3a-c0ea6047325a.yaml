@@ -1,0 +1,8 @@
+handle: socialLinks
+instructions: 'Links that should appear in the social networking section.'
+name: 'Social Links'
+propagateNodes: true
+sortOrder: 4
+structure:
+    maxLevels: '1'
+    uid: e60fcf6e-4d49-4d27-93a8-1f20f8130704

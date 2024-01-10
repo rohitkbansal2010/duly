@@ -1,0 +1,41 @@
+@import "~@styles/typography.scss";
+@import "~@styles/themes.scss";
+@import "~../medications-plate.scss";
+
+@mixin header-item {
+  @include inter-text-xs-bold;
+
+  padding: 0.625rem 1.25rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.medications {
+  &Header {
+    display: flex;
+    border: 0.0625rem solid $gray;
+    border-bottom: none;
+    border-radius: 0.625rem 0.625rem 0 0;
+
+    &REGULAR {
+      background: rgba($dupage-light-blue, 0.1);
+    }
+
+    &OTHER {
+      background: rgba($dupage-violet, 0.08);
+    }
+
+    &Medicine {
+      font-size: var(--font-size-14px-4px) !important;
+      @include header-item;
+      @include medicine;
+    }
+
+    &Instructions {
+      font-size: var(--font-size-14px-4px) !important;
+      @include header-item;
+      @include instructions;
+    }
+  }
+}

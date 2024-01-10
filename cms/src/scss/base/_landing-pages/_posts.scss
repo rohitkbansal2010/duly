@@ -1,0 +1,99 @@
+.posts {
+	display: flex;
+	flex-direction: column;
+	background: $white;
+	padding: 0 2rem;
+	@include responsive(medium) {
+		padding: 0 1rem;
+	}
+	.post {
+		display: flex;
+		background: $white;
+		padding: 2rem 0;
+		justify-content: center;
+		align-items: center;
+		@include responsive(medium) {
+			flex-wrap: wrap;
+			padding: 2rem 0;
+		}
+		.text-and-ctas-container {
+			width: 65%;
+			padding: 0 2rem 0 0;
+			@include responsive(medium) {
+				width: 100%;
+				padding: 0 !important;
+				margin: 0 0 1rem 0;
+			}
+			.text-and-ctas {
+				display: flex;
+				flex-direction: column;
+				align-items: baseline;
+				@include responsive(medium) {
+					padding: 0;
+					button {
+						margin: 1rem auto;
+						font-size: 1rem;
+					}
+				}
+				.title {
+					font-size: 32px;
+					font-weight: normal;
+					line-height: 1;
+					margin: 0;
+				}
+				.description {
+					font-size: 16px;
+					font-weight: normal;
+					line-height: 1.5;
+					margin: 0;
+				}
+				.cta {
+					display: block;
+					padding: 16px;
+					border-radius: 4px;
+					text-decoration: none;
+					color: $white;
+					text-align: center;
+					font-size: 16px;
+					font-weight: bold;
+				}
+			}
+		}
+		.image {
+			width: 35%;
+			position: relative;
+			overflow: hidden;
+			border-radius: 2rem 0 2rem 0;
+			picture {
+				display: flex;
+				width: 100%;
+				img {
+					width: 100%;
+				}
+			}
+			@include responsive(medium) {
+				width: 100%;
+				height: unset;
+			}
+		}
+		&:not(:last-child) {
+			border-bottom: 1px solid $sky;
+		}
+		&:nth-of-type(even) {
+			flex-direction: row-reverse;
+			.text-and-ctas-container {
+				padding: 0 0 0 2rem;
+			}
+		}
+		h2 {
+			font-size: 2rem;
+			font-weight: 800;
+			color: $oxford;
+			margin: 0;
+			line-height: 1.25;
+			@include responsive(medium) {
+				font-size: 1.5rem;
+			}
+		}
+	}
+}

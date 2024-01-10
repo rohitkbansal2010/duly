@@ -1,0 +1,12 @@
+@import "~@styles/main.scss";
+
+.resultsMenu {
+  display: flex;
+  flex-direction: column;
+
+  &Skeleton {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+}

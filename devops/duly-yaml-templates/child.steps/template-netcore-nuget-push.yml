@@ -1,0 +1,53 @@
+parameters:
+  - name: publishNuget
+    type: boolean
+    default: true
+  - name: packProjects
+    type: object
+    default: []
+  - name: vstsFeed
+    type: string
+    default: ''
+
+steps:
+
+- ${{ if eq(parameters.publishNuget, true) }}:
+  - ${{ each project in parameters.packProjects }}:
+    # DotNet Pack
+    - task: DotNetCoreCLI@2
+      displayName: 'DotNetCore: Pack ''${{ project }}'' into nuget package'
+      inputs:
+        command: 'pack'
+        packagesToPack: ${{ project }}
+        versioningScheme: 'byEnvVar'
+        versionEnvVar: 'packversion'
+      condition: |
+        and
+        (
+          succeeded(), or
+          (
+            startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+            startsWith(variables['Build.SourceBranchName'], 'main'),
+            in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+          ),
+          ne(variables['Build.Reason'], 'PullRequest')
+        )
+  # DotNet Push NuGet Package
+  - task: DotNetCoreCLI@2
+    enabled: ${{ parameters.publishNuget }}
+    displayName: 'DotNetCore: Push NuGet packages'
+    inputs:
+      command: push
+      searchPatternPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      feedPublish: '${{ parameters.vstsFeed }}'
+    condition: |
+      and
+      (
+        succeeded(), or
+        (
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/release'),
+          startsWith(variables['Build.SourceBranchName'], 'main'),
+          in(variables['Build.SourceBranchName'], 'dev', 'develop', 'development')
+        ),
+        ne(variables['Build.Reason'], 'PullRequest')
+      )

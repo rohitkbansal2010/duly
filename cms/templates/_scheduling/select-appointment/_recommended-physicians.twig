@@ -1,0 +1,51 @@
+{% set collapsed = collapsed ?? true %}
+<div class="recommended-physicians {{ collapsed ? 'collapsed' : '' }}">
+	<span class="title">{{ title ?? "Need to see a provider in this specialty sooner?"|t }}</span>
+
+	<template id="recommended-physicians-physician-block">
+		<div class="physician">
+			<div class="bio">
+				<div class="image"></div>
+				<div class="details">
+					<span class="title"></span>
+					<span class="services"></span>
+					<span class="address">
+						<span class="line-one"></span>
+						<span class="line-two"></span>
+					</span>
+					<div class="ratings">
+						<div class="rating-number"></div>
+						<div class="star-rating">
+							<i class="material-icons star"></i>
+							<i class="material-icons star"></i>
+							<i class="material-icons star"></i>
+							<i class="material-icons star"></i>
+							<i class="material-icons star"></i>
+						</div>
+						<div class="count"></div>
+					</div>
+				</div>
+			</div>
+			<div class="appointment-times">
+				<div class="cta" tab-index="0">
+					<span>{{ "Availability on"|t }}</span>
+					<span class="availability-date"></span>
+					<span class="material-icons keyboard_arrow_down"></span>
+					<span class="material-icons keyboard_arrow_up hidden"></span>
+				</div>
+				<div class="times-container hidden">
+					<div class="loading-spinner">
+						<div class="lottie"></div>
+					</div>
+					<div class="times"></div>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<div class="physicians"></div>
+	<span class="expand show-more hidden">
+		<span class="link-effect">{{ "Show More"|t }}</span>
+		<span class="material-icons expand_more"></span>
+	</span>
+</div>

@@ -1,0 +1,65 @@
+﻿// <copyright file="DaysOfWeek.cs" company="Duly Health and Care">
+// Copyright (c) Duly Health and Care. All rights reserved.
+// </copyright>
+
+using System.ComponentModel;
+
+namespace Duly.Clinic.Contracts
+{
+    /// <summary>
+    /// The days of the week.
+    /// (url: http://hl7.org/fhir/ValueSet/days-of-week)
+    /// (system: http://hl7.org/fhir/days-of-week).
+    /// </summary>
+    public enum DaysOfWeek
+    {
+        /// <summary>
+        /// Monday.
+        /// (system: http://hl7.org/fhir/days-of-week)
+        /// </summary>
+        [Description("Monday")]
+        Mon,
+
+        /// <summary>
+        /// Tuesday.
+        /// (system: http://hl7.org/fhir/days-of-week)
+        /// </summary>
+        [Description("Tuesday")]
+        Tue,
+
+        /// <summary>
+        /// Wednesday.
+        /// (system: http://hl7.org/fhir/days-of-week)
+        /// </summary>
+        [Description("Wednesday")]
+        Wed,
+
+        /// <summary>
+        /// Thursday.
+        /// (system: http://hl7.org/fhir/days-of-week)
+        /// </summary>
+        [Description("Thursday")]
+        Thu,
+
+        /// <summary>
+        /// Friday.
+        /// (system: http://hl7.org/fhir/days-of-week)
+        /// </summary>
+        [Description("Friday")]
+        Fri,
+
+        /// <summary>
+        /// Saturday.
+        /// (system: http://hl7.org/fhir/days-of-week)
+        /// </summary>
+        [Description("Saturday")]
+        Sat,
+
+        /// <summary>
+        /// Sunday.
+        /// (system: http://hl7.org/fhir/days-of-week)
+        /// </summary>
+        [Description("Sunday")]
+        Sun
+    }
+}

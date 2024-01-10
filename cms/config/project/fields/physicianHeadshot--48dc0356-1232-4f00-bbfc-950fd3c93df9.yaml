@@ -1,0 +1,32 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 0ed291b1-bfe4-464d-bb86-2bb3b880be78
+handle: physicianHeadshot
+instructions: ''
+name: 'Physician Headshot'
+searchable: false
+settings:
+    allowSelfRelations: false
+    allowUploads: true
+    allowedKinds: [image]
+    defaultUploadLocationSource: 'volume:c013e336-fae0-4cd8-8eaf-0752e3ebdba0'
+    defaultUploadLocationSubpath: ''
+    limit: '1'
+    localizeRelations: false
+    previewMode: full
+    restrictFiles: '1'
+    selectionLabel: ''
+    showSiteMenu: true
+    showUnpermittedFiles: false
+    showUnpermittedVolumes: true
+    singleUploadLocationSource: 'volume:49c6b00d-570e-4147-bdcb-cc8ee135c256'
+    singleUploadLocationSubpath: ''
+    source: null
+    sources: ['volume:c013e336-fae0-4cd8-8eaf-0752e3ebdba0']
+    targetSiteId: null
+    useSingleFolder: false
+    validateRelatedElements: true
+    viewMode: large
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Assets

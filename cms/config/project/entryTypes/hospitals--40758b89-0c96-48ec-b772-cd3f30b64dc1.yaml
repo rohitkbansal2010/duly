@@ -1,0 +1,10 @@
+fieldLayouts:
+    e458f48b-0471-4c70-87cc-1c19c96de6b6: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: 'Hospital Name', max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\EntryTitleField, warning: null, width: 100 }, { fieldUid: 900bca7f-5353-4876-8762-b732fbc9947b, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }, { fieldUid: 92989771-dc8b-44e4-ad43-b8499d0566b0, instructions: null, label: null, required: true, tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: Common, sortOrder: 1 }] }
+handle: hospitals
+hasTitleField: true
+name: Hospitals
+section: 2f2fa994-f57a-47d5-ac1b-2211de4e3294
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: ''

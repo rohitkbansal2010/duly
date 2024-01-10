@@ -1,0 +1,9 @@
+{% include "_static/_common" with {
+    entry: entry,
+    railed: true
+} only %}
+
+{% include "_static/_sidebar" with {
+    sidebar: entry.sidebarContent,
+    class: 'right-rail'
+} %}

@@ -1,0 +1,29 @@
+{% set numProducts = entry.products.total() %}
+<div id="products">
+{% for product in products %}
+    <div class="product">
+        <a href="/products/{{ product.slug }}">
+            <div class="productContainer">
+                <div class="image">
+                    {% set image = product.productImage.first() %}
+                    {% if image %}
+                        {{ getOptimizedImage(image)|raw }}
+                    {% else %}
+                        <picture class="placeholder">
+                            <img src="/dist/img/placeholder/products.png" alt="{{ product.title }}"/>
+                        </picture>
+                    {% endif %}
+                </div>
+                <div class="title">
+                    <p>{{ product.title }}</p>
+                </div>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+</div>
+{% if numProducts > 20 %}
+<div id="viewAllProducts">
+    <a href="/cosmetic-dermatology-products">View All Products</a>
+</div>
+{% endif %}

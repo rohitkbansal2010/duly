@@ -1,0 +1,15 @@
+{% for product in relatedProducts %}  
+    <div class="type">
+        {% set image = product.serviceHeroImage[0] ?? null %}
+        {% if image is not null %}
+            <a href="{{ product.linkUrl ? product.linkUrl : product.getUrl() }}" tabindex="0">
+                {{ getOptimizedImage(image, 'webp')|raw }}
+                <span>{{ product.title }}<span>
+            </a>
+        {% else %}
+            <a href="{{ product.linkUrl ? product.linkUrl : product.getUrl() }}" tabindex="0">
+                <span>{{ product.title }}<span>
+            </a>
+        {% endif %}
+    </div>
+{% endfor %}

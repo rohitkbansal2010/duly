@@ -1,0 +1,93 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.modalItems {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  justify-content: center;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4375rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3.25rem;
+  &Icon {
+    width: 9.25rem;
+    height: 9.25rem;
+  }
+
+  &Data {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3125rem;
+    align-items: center;
+    justify-content: center;
+
+    &Heading {
+      @include nexa-heavy-highlight;
+      margin-bottom: 0 !important;
+      color: $dupage-magenta;
+      font-weight: 400 !important;
+      font-size: var(--font-size-38px-4px);
+      line-height: 3.125rem;
+      text-align: center;
+      font-feature-settings: "tnum" on, "lnum" on;
+    }
+
+    &Message {
+      @include nexa-regular-highlight;
+      margin-bottom: 0 !important;
+      color: $dark-gray;
+      font-weight: 400 !important;
+      font-size: var(--font-size-24px-4px);
+      line-height: 2.25rem;
+      text-align: center;
+      font-feature-settings: "tnum" on, "lnum" on;
+    }
+  }
+}
+
+.data {
+  color: $dupage-dark-blue;
+}
+
+.heading {
+  @include nexa-heavy-highlight;
+  color: $dupage-dark-blue;
+  font-weight: 900 !important;
+  font-size: var(--font-size-32px-4px) !important;
+  line-height: 2.125rem !important;
+}
+.modalHeader {
+  padding: 1.6875rem 2.125rem 0 2rem !important;
+  border-bottom: none !important;
+}
+
+.modalButton {
+  @include nexa-bold-highlight;
+  min-width: 8.125rem;
+  margin: 1.125rem auto 0 auto;
+  padding: 0.65625rem 1.5rem;
+  color: white;
+  font-weight: 800;
+  font-size: var(--font-size-18px-4px);
+  line-height: 1.6875rem;
+  text-align: center;
+  background: none;
+  background-color: $dupage-dark-blue;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.modalBody {
+  padding: 0 2rem 2.375rem 2rem !important;
+}
+
+.modalParentDiv {
+  width: 29rem !important;
+  max-width: 29rem !important;
+}

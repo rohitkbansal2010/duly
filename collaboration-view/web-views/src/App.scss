@@ -1,0 +1,9 @@
+@import "~@styles/content-placement.scss";
+@import "~@styles/devices.scss";
+@import "~@styles/media-mixins.scss";
+@import "~@styles/main.scss";
+
+.container-lg {
+  @include content-padding-landscape;
+  @include content-padding-mobile-plus;
+}

@@ -1,0 +1,124 @@
+{
+    "name": "dupage/cms",
+    "description": "DuPage Medical Group CMS",
+    "license": "unlicensed",
+    "authors": [
+        {
+            "name": "Charles R. Portwood II",
+            "email": "charles.portwood@punchkick.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./plugins/craft3-maintenance",
+            "symlink": true
+        },
+        {
+            "type": "path",
+            "url": "./plugins/event-registration",
+            "symlink": true
+        },
+        {
+            "type": "path",
+            "url": "./plugins/request-appointment",
+            "symlink": true
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "ext-sodium": "*",
+        "born05/craft-twofactorauthentication": "^2.2",
+        "carlcs/craft-redactorcustomstyles": "^3.0",
+        "cavellblood/craft-string-base64": "^1.0",
+        "craftcms/cms": "3.7.44",
+        "craftcms/redactor": "^2.4",
+        "ether/seo": "^3.5",
+        "ether/simplemap": "^3.7",
+        "firebase/php-jwt": "^6.2",
+        "guzzlehttp/guzzle": "^6.5",
+        "hguenot/yii2-gsftp": "~3.0.0",
+        "league/csv": "^9.3",
+        "league/geotools": "@stable",
+        "mmikkel/incognito-field": "^1.1",
+        "monachilada/craft-matrixtoolbar": "^1.0",
+        "nystudio107/craft-cookies": "^1.1",
+        "nystudio107/craft-twigpack": "^1.1",
+        "nystudio107/craft-twigprofiler": "^1.0",
+        "nystudio107/craft-typogrify": "^1.1",
+        "onelogin/php-saml": "^3.5",
+        "ostark/craft-plugin-commands": "^1.1",
+        "percipioglobal/craft-password-policy": "^1.0.6",
+        "php-curl-class/php-curl-class": "^8.9",
+        "phpseclib/phpseclib": "^2.0",
+        "psr/cache": "^1.0",
+        "punchkick/craft3-maintenance": "^0.0.1",
+        "punchkick/event-registration": "^0.0.1",
+        "punchkick/request-appointment": "^0.0.1",
+        "putyourlightson/craft-dashboard-begone": "^1.0",
+        "rias/craft-schema": "^1.0",
+        "rynpsc/craft-phone-number": "^1.2",
+        "samdark/yii2-psr-log-target": "^1.1",
+        "shennyg/azure-blob-remote-volume": "^1.0",
+        "solspace/craft3-calendar": "3.3.12",
+        "teamtnt/tntsearch": "^2.3",
+        "verbb/cp-nav": "^3.0",
+        "verbb/expanded-singles": "^1.0",
+        "verbb/navigation": "^1.1.14.1",
+        "vlucas/phpdotenv": "^2.4",
+        "yiisoft/yii2-httpclient": "^2.0",
+        "yiisoft/yii2-redis": "~2.0",
+        "zachflower/indefinite-article": "^0.1.0"
+    },
+    "require-dev": {
+        "codeception/codeception": "^4.1",
+        "codeception/module-asserts": "^1.2",
+        "codeception/module-phpbrowser": "^1.0",
+        "codeception/module-yii2": "^1.1",
+        "codeception/specify": "^1.3",
+        "codeception/verify": "^1.3",
+        "squizlabs/php_codesniffer": "^3.4",
+        "yiisoft/yii2-coding-standards": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "modules\\DupageCoreModule\\": "modules/core/src/",
+            "modules\\physiciansmodule\\": "modules/physiciansmodule/src/",
+            "modules\\schedulingmodule\\": "modules/schedulingmodule/src/",
+            "modules\\locationsmodule\\": "modules/locationsmodule/src/",
+            "modules\\samlmodule\\": "modules/samlmodule/src/",
+            "modules\\apimodule\\": "modules/apimodule/src/"
+        },
+        "classmap": [
+            "src/classes/BrightEdge.php"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "discard-changes": true,
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "7.4"
+        },
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('./config/.env', '.env');\""
+        ],
+        "post-install-cmd": [
+            "if [ ! -d ./saml ]; then git clone https://github.com/simplesamlphp/simplesamlphp saml -b v1.19.0 && cd saml && export PATH=$PATH:/root/.bin/ && composer install -ovn; rm -rf saml/.git; fi",
+            "if [ ! -d ./web/saml ]; then ln -s ../saml/www ./web/saml; fi",
+            "if [ ! -d ./saml/cert ]; then ln -s ../config/saml/certs ./saml/cert; fi",
+            "rm -rf ./saml/config && ln -s ../config/saml/config ./saml/config",
+            "rm -rf ./saml/metadata && ln -s ../config/saml/metadata ./saml/metadata",
+            "if [ ! -d ./saml/modules/epic ]; then ln -s ../../src/saml/modules/epic ./saml/modules/epic; fi"
+        ]
+    }
+}

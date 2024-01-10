@@ -1,0 +1,36 @@
+.searchBar input.rbt-input-main.form-control.rbt-input {
+  box-sizing: border-box;
+  padding-left: 4rem;
+  color: #002855;
+  font-weight: 400;
+  font-size: 1.125rem;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  line-height: 1.625rem;
+  background: #f3f6fa;
+  border: 1px solid #d6dbe0;
+  border-radius: 0.5rem;
+  /* identical to box height, or 144% */
+
+  font-feature-settings: "tnum" on, "lnum" on;
+}
+
+.pac-container {
+  z-index: 1056 !important;
+}
+
+.pac-item {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-12px-4px) !important;
+  line-height: var(--line-height-30px-4px);
+}
+
+.pac-item-query {
+  font-size: var(--font-size-13px-4px) !important;
+  line-height: var(--line-height-30px-4px);
+}
+
+body.modal-open > :not(.modal) {
+  filter: none !important;
+}

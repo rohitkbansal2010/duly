@@ -1,0 +1,61 @@
+.details-navigation {
+  display: flex;
+  width: 100%;
+
+  .nav-item {
+    flex-grow: 1;
+    font-size: 20px;
+    font-weight: 500;
+    color: $light-gray;
+    border-bottom: 2px solid $light-gray;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+
+    h2 {
+      margin-bottom: 0px;
+    }
+
+    @include responsive(large) {
+      font-size: 16px;
+    }
+
+    &.active {
+      font-weight: 800;
+      border-bottom: 2px solid $magenta;
+      color: $violet;
+    }
+
+    &:not(.active) {
+      &:hover {
+        color: $violet;
+        background: $off-violet;
+        border-bottom: 2px solid $off-violet;
+      }
+    }
+  }
+
+  &.clinical-expertise {
+    .nav-item {
+      cursor: initial;
+      text-align: left;
+      color: $dark-blue;
+      padding: 0px;
+      border-color: $magenta;
+
+      &:hover {
+        color: inherit;
+        background: inherit;
+      }
+
+      h2 {
+        font-size: 20px;
+        padding: 15px 25px;
+        margin: 0;
+        line-height: 20px;
+        color: $violet;
+        font-weight: 800;
+      }
+    }
+  }
+}

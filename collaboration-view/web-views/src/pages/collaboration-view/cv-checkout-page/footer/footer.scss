@@ -1,0 +1,29 @@
+.cvAppointmentPageFooterWrapper {
+  display: flex !important;
+  justify-content: center !important;
+  height: 100%;
+  max-height: 7.8rem;
+
+  .refreshButton {
+    position: absolute;
+    bottom: 3rem;
+    left: 5.6rem;
+    background: none;
+    border: none;
+    opacity: 0.5;
+
+    img {
+      height: 3.7rem;
+    }
+
+    &Active {
+      opacity: 1;
+    }
+  }
+}
+
+.navPrimaryWrapper {
+  position: relative;
+  top: 3.125rem;
+  z-index: 2;
+}

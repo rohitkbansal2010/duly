@@ -1,0 +1,10 @@
+defaultPlacement: end
+fieldLayouts:
+    f9743ca7-5705-49f6-bd3a-5f47faa550ba: { tabs: [{ elements: [{ autocapitalize: true, autocomplete: false, autocorrect: true, class: null, disabled: false, id: null, instructions: null, label: null, max: null, min: null, name: null, orientation: null, placeholder: null, readonly: false, requirable: false, size: null, step: null, tip: null, title: null, type: craft\fieldlayoutelements\TitleField, warning: null, width: 100 }, { fieldUid: c1009e63-70f7-438c-b918-74510ec76d01, instructions: null, label: null, required: '1', tip: null, type: craft\fieldlayoutelements\CustomField, warning: null, width: 100 }], name: 'Accreditation Layout', sortOrder: 1 }] }
+handle: accreditations
+name: Accreditations
+siteSettings:
+    c36fa7d2-e59a-4c88-9f95-780439e98505: { hasUrls: false, template: null, uriFormat: null }
+structure:
+    maxLevels: null
+    uid: abc8ea33-fa40-4b00-9e91-f2f1e4b4e10f

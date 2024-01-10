@@ -1,0 +1,33 @@
+@import "~@styles/typography.scss";
+@import "~@styles/themes.scss";
+
+.toggleButton {
+  @include inter-text-default-bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+  font-size: var(--font-size-16px-4px);
+  background: none;
+  border: none;
+  border-radius: 0.5rem 0.5rem 0 0;
+
+  &Image {
+    width: 1.5rem;
+    margin-right: 1rem;
+  }
+
+  .collapsedToggle,
+  .expandedToggle {
+    transition: 0.5s ease;
+  }
+
+  .collapsedToggle {
+    transform: rotateX(180deg);
+  }
+
+  .expandedToggle {
+    transform: rotateX(0);
+  }
+}

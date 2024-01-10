@@ -1,0 +1,11 @@
+{% for procedure in procedures|batch(9) %}
+    <div {% if loop.index > 2 %} class="column hidden"{% else %} class="column" {% endif %}>
+        {% for type in procedure %}
+            {% if type.procedureDescription is not null %} 
+                <a href="{{ type.url }}">{{ type.title }}</a>
+            {% else %}
+                <p>{{ type.title }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endfor %}

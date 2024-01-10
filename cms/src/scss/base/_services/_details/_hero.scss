@@ -1,0 +1,60 @@
+.hero {
+    .hero-image {
+        padding: 0px 24px 0px 24px;
+
+        @include responsive(bs-large) {
+            padding: 0 0 10px;
+        }
+
+        picture {
+            position: relative;
+            height: 400px;
+            display: flex;
+            overflow: hidden;
+            border-radius: 32px 0px;
+        }
+
+        @include responsive(bs-large) {
+            picture {
+                height: 58vw;
+            }
+        }
+
+        @include responsive(small) {
+            picture {
+                height: 50vw;
+            }
+        }
+    }
+
+    img {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 32px 0px;
+
+        @include responsive(medium) {
+          height: 100%;
+          width: 100%;
+        }
+    }
+
+    .header {
+        padding: 0px 24px;
+
+        h1 {
+            color: $forest;
+            font-size: 28px;
+            margin: 8px 0px;
+            font-weight: bold;
+
+            @include responsive(medium) {
+                font-size: 20px;
+                margin: 0px;
+                line-height: 29px;
+            }
+        }
+    }
+}

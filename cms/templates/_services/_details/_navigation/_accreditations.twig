@@ -1,0 +1,13 @@
+{% if entry.serviceAccreditations|length %}
+    <div class="accreditations">
+        <h2>{{ "Accreditations"|t }}</h2>
+
+        <div class="company-container">
+            {% for company in entry.serviceAccreditations.all() %}
+                <div class="company">
+                    {{ getOptimizedImage(company.accreditationLogo.one(), 'webp', false, [{'settings': ['resize:fill']}])|raw }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

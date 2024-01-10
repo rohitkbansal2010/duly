@@ -1,0 +1,14 @@
+columnSuffix: null
+contentColumnType: boolean
+fieldGroup: 0aca97b8-c6f8-413e-964e-84d096f5dc4f
+handle: dismissible
+instructions: 'Allows alert to be dismissed.'
+name: Dismissible
+searchable: false
+settings:
+    default: true
+    offLabel: null
+    onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

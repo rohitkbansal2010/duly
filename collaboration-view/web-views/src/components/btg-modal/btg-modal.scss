@@ -1,0 +1,80 @@
+@import "~@styles/colors.scss";
+@import "~@styles/typography.scss";
+
+.customWidthModal {
+  width: 44rem !important;
+  max-width: 44rem !important;
+}
+
+.customBackDropModal {
+  background-color: $default-text !important;
+  opacity: 0.15 !important;
+}
+
+.btgModal {
+  z-index: 1056 !important;
+
+  &Header {
+    border-bottom: none !important;
+
+    &IconContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding-top: 3.4rem;
+    }
+
+    &IconWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 10rem;
+      height: 10rem;
+      padding: 0.75rem;
+      background-color: rgba($dupage-magenta, 0.3);
+      border: none;
+      border-radius: 100%;
+
+      & img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  &Title {
+    @include nexa-heavy-highlight;
+
+    color: $default-text;
+    font-weight: 900 !important;
+    font-size: 1.75rem !important;
+    line-height: 2.25rem !important;
+    text-align: center;
+  }
+
+  &Footer {
+    border-top: none !important;
+
+    &ButtonContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding-top: 0.25rem;
+      padding-bottom: 2rem;
+    }
+
+    &Button {
+      @include nexa-extra-bold-highlight;
+
+      width: 12.625rem !important;
+      height: 2.625rem !important;
+      margin: 0 !important;
+      color: $white !important;
+      background-color: $dupage-dark-blue !important;
+      border-color: $dupage-dark-blue !important;
+      border-radius: 0.5rem !important;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 49194be8-0adc-41cb-894d-e3e98a5441c0
+handle: eventSpecialty
+instructions: 'Optionally link this event to one or more specialties so that this event displays on specialty pages.'
+name: Specialty
+searchable: false
+settings:
+    contentTable: '{{%matrixcontent_eventspecialty}}'
+    maxBlocks: '1'
+    minBlocks: ''
+    propagationKeyFormat: null
+    propagationMethod: all
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

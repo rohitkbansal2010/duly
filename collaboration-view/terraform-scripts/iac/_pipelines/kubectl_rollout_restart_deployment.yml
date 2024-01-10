@@ -1,0 +1,50 @@
+parameters:
+  - name: namespace
+    default: dev
+    values:
+      - dev
+      - qat
+      - aut
+      - uat
+
+  - name: deployment
+    default: cv-webviews
+    values:
+      - cv-encounter-process-api
+      - cv-resource-process-api
+      - cv-webviews
+      - integration-clinic-system-api
+      - integration-ngdp-system-api
+
+
+pool: OnAKS
+
+
+trigger: none
+
+jobs:
+  - job: rrd
+    displayName: Restarting deployment ${{ parameters.deployment }}-${{ parameters.namespace }}
+    steps:
+      - task: Kubernetes@0
+        displayName: ${{ parameters.deployment }}-${{ parameters.namespace }}
+        inputs:
+          kubernetesServiceEndpoint: 'duly-d-app-aks'
+          namespace: '${{ parameters.namespace }}'
+          command: rollout
+          ${{ if endsWith(parameters.deployment, 'api') }}:
+            arguments: 'restart deployments ${{ parameters.deployment }}-${{ parameters.namespace }}-webapi'
+          ${{ else }}:
+            arguments: 'restart deployments ${{ parameters.deployment }}-${{ parameters.namespace }}'
+
+  - job: kgp
+    dependsOn: rrd
+    displayName: Check ${{ parameters.deployment }}-${{ parameters.namespace }}
+    steps:
+      - task: Kubernetes@0
+        displayName: Kubectl get pods
+        inputs:
+          kubernetesServiceEndpoint: 'duly-d-app-aks'
+          namespace: '${{ parameters.namespace }}'
+          command: get
+          arguments: 'pods'

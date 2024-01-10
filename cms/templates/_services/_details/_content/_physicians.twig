@@ -1,0 +1,45 @@
+{% cache %}
+{% if physicians|length %}
+	<div class="physicians-list-grid">
+		{% if showHeader is defined and showHeader == true %}
+			{% if isAffilation is defined and isAffilation == true %}
+				<h4>{{ "Practicing Providers"|t }}</h4>
+			{% else %}
+				<h4>{{ entry.title }} {{ " Team"|t }}</h4>
+			{% endif %}
+			<hr>
+		{% endif %}
+		<div class="content-container">
+			<div class="physicians-list">
+				{% for physician in physicians %}
+				{% cache globally using key 'physicians-short-' ~ physician.id ~ 'rebrand' %}
+					<div class="physician-short">
+						<a href="{{ physician.url }}" class="physician-block-services">
+							{% set hasHeadShot = physician.physicianHeadshot|length %}
+							<div class="{{ hasHeadShot == false ? 'image default-headshot thumbnail' : 'image' }}">
+								{% if hasHeadShot %}
+									{{ getOptimizedImage(physician.physicianHeadshot[0], 'webp', false, [
+										{ 'settings': ['gravity:sm', 'resize:fill:120:120:1:1'], 'css': '(min-width: 200px)' }
+									])|raw }}
+								{% endif %}
+							</div>
+
+							<h5>{{ physician.title }}</h5>
+								{% include "_physician-stars.twig" with {
+									physician: physician
+								} %}
+							<span class="specialties">
+								{% for speciality in physician.physicianSpeciality | filter (v => v.type != "ancillaryServices") | sort((a, b) => a.title > b.title) %}
+									<span class="speciality-name">{{ speciality.title }}</span>
+								{% endfor %}
+							</span>
+							<div class="locations">{{ getPhysicianLocations(physician).getModels() | map(m => "#{m.city}" ) | unique | join(', ') }}</div>
+						</a>
+					</div>
+				{% endcache %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endif %}
+{% endcache %}
